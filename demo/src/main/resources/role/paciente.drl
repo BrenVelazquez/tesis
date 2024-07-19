@@ -1,0 +1,20 @@
+import com.sistexperto.dto.PacienteRequest;
+import com.sistexperto.dto.PacienteResponse;
+import com.sistexperto.model.Paciente;
+
+global com.sistexperto.dto.PacienteResponse pacienteResponse;
+global Boolean posibleEsquizofrenia;
+global Boolean noPosibleEsquizofrenia;
+global Boolean posibleTemporal;
+
+dialect "mvel"
+
+rule "Edad - Bajo"
+when
+    $pacienteRequest: PacienteRequest(edad >= 0 && edad <= 30)
+then
+    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+        pacienteResponse.actualizarJustificacion("Edad Joven",1)
+    
+end
