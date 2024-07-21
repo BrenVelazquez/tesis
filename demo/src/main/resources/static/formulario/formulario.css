@@ -17,8 +17,9 @@ body {
     text-align: center;
     border: 2px solid #009587;
     border-radius: 8px;
-    overflow: hidden;
     position: relative;
+    /*display: none; */  /* Initially hide the image container */
+    overflow: hidden; /* Prevent image from overflowing the container */
 }
 
 .image-upload {
@@ -195,55 +196,74 @@ body {
 /* Nuevos estilos añadidos para alinear Sustancias y Estudios en una fila */
 .button-row {
     display: flex;
-    justify-content: space-around; /* Distribuir el espacio alrededor de los contenedores */
-    gap: 20px; /* Espacio entre los contenedores de botones */
-    margin: 20px 0; /* Añadir margen superior e inferior */
+    justify-content: space-around;
+    /* Distribuir el espacio alrededor de los contenedores */
+    gap: 20px;
+    /* Espacio entre los contenedores de botones */
+    margin: 20px 0;
+    /* Añadir margen superior e inferior */
 }
 
 .button-container {
     display: flex;
-    justify-content: space-between; /* Alinea los botones con espacio entre ellos */
-    margin: 10px 0; /* Añade un margen superior e inferior para separación */
-    flex-direction: column; /* Alinea los botones en columna */
+    justify-content: space-between;
+    /* Alinea los botones con espacio entre ellos */
+    margin: 10px 0;
+    /* Añade un margen superior e inferior para separación */
+    flex-direction: column;
+    /* Alinea los botones en columna */
 }
 
 .button-container-complementarios {
     flex: 1;
-    margin: 0 10px; /* Espacio lateral entre contenedores de botones */
+    margin: 0 10px;
+    /* Espacio lateral entre contenedores de botones */
     text-align: center;
 }
 
 .button-container .btn {
-    width: 48%; /* Ajusta el ancho de los botones para que no se desborden */
-    margin-bottom: 0; /* Asegúrate de que no haya margen inferior en los botones */
+    width: 48%;
+    /* Ajusta el ancho de los botones para que no se desborden */
+    margin-bottom: 0;
+    /* Asegúrate de que no haya margen inferior en los botones */
 }
 
 /* Asegúrate de que los botones estén alineados horizontalmente en dispositivos móviles */
 @media (max-width: 767px) {
     .button-container {
-        flex-direction: column; /* Cambia a columna en pantallas más pequeñas */
-        align-items: stretch; /* Alinea los botones a lo ancho del contenedor */
+        flex-direction: column;
+        /* Cambia a columna en pantallas más pequeñas */
+        align-items: stretch;
+        /* Alinea los botones a lo ancho del contenedor */
     }
+
     .button-container .btn {
-        width: 100%; /* Asegura que los botones ocupen todo el ancho del contenedor */
-        margin-bottom: 10px; /* Espacio entre botones en dispositivos móviles */
+        width: 100%;
+        /* Asegura que los botones ocupen todo el ancho del contenedor */
+        margin-bottom: 10px;
+        /* Espacio entre botones en dispositivos móviles */
     }
 }
+
 .gray-box {
-    border: 2px solid #d3d3d3; /* Borde gris */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 15px; /* Espacio interno */
-    background-color: #f8f8f8; /* Fondo ligeramente gris */
+    border: 2px solid #d3d3d3;
+    /* Borde gris */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    padding: 15px;
+    /* Espacio interno */
+    background-color: #f8f8f8;
+    /* Fondo ligeramente gris */
 }
 
 
 /* Estilos para pantallas más pequeñas (móviles) */
 @media (max-width: 767px) {
     #posibles-causas {
-        word-wrap: break-word; 
-        overflow-x: hidden; 
-        white-space: pre-wrap; 
-        width: 100%; 
+        word-wrap: break-word;
+        overflow-x: hidden;
+        white-space: pre-wrap;
+        width: 100%;
     }
 }
 
@@ -253,21 +273,25 @@ body {
         display: flex;
         flex-direction: column;
     }
+
     .button-container .btn {
         width: 100%;
-        margin-bottom: 10px; /* Espacio entre botones en dispositivos móviles */
+        margin-bottom: 10px;
+        /* Espacio entre botones en dispositivos móviles */
     }
 }
 
 /* Estilos para dispositivos de escritorio */
 @media (min-width: 768px) {
-.button-container {
-    display: flex;
-    justify-content: space-between;
-}
-.button-container .btn {
-    width: 48%; /* Ajustar el ancho según tus preferencias */
-}
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .button-container .btn {
+        width: 48%;
+        /* Ajustar el ancho según tus preferencias */
+    }
 }
 
 /* Estilos para dispositivos móviles */
@@ -275,10 +299,13 @@ body {
     .btn-bool-inf {
         flex-direction: column;
     }
+
     .btn-group {
         display: flex;
         flex-direction: row;
+        position: absolute;
     }
+
     .btn-group button {
         margin: 5px 5px;
     }
