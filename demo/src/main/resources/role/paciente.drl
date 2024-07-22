@@ -15,6 +15,191 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-        pacienteResponse.actualizarJustificacion("Edad Joven",1)
-    
+        pacienteResponse.actualizarJustificacion("Edad Joven",1)   
+end
+
+
+rule "Sintomas obligatorios - Delirio"
+when
+    $pacienteRequest: PacienteRequest( delirio && (alucinaciones=='No se descarta' || alucinaciones=='Si' || disgregacion || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
+end
+
+rule "Sintomas obligatorios - Alucinaciones"
+when
+    $pacienteRequest: PacienteRequest( alucinaciones=='Si' && (delirio || disgregacion || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
+end
+
+rule "Sintomas obligatorios - Disgregacion"
+when
+    $pacienteRequest: PacienteRequest( disgregacion && (delirio || alucinaciones=='No se descarta' || alucinaciones=='Si' || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
+end
+
+rule "Sintomas obligatorios - Incoherencia"
+when
+    $pacienteRequest: PacienteRequest( incoherencia && (delirio || alucinaciones=='No se descarta' || alucinaciones=='Si' || disgregacion || abulia) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
+end
+
+
+rule "Sintomas obligatorios - Ninguno"
+when
+    $pacienteRequest: PacienteRequest( !delirio && alucinaciones=='No' && !disgregacion && !incoherencia ) 
+then
+    pacienteResponse.NoHayPosibilidad()
+    pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, digregación o incoherencia.",1)   
+end
+
+rule "Sintomas obligatorios - Menor 1 mes"
+when
+    $pacienteRequest: PacienteRequest(positivos < 1 || negativos < 1) 
+then
+    pacienteResponse.EsquizofreniaTemporal();
+    pacienteResponse.actualizarJustificacion("La duración de síntomas positivos o negativos menor a un mes.",1)   
+end
+
+rule "Nivel de funcionamiento"
+when
+    $pacienteRequest: PacienteRequest((bizarro || extravagante || inadecuado || adelgazado || hipomimico || hiprosexia || paraprosexia || abulia || hipobulia || impulsiones || compulsiones || aprazia || ataxia || exopraxia || manierismo || esterotipia || negativismo || flexibilidadCerea || aplanamientoAfectivo || labilidad || irritabilidad || expansivo || inapropiado || anhedonia ) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.actualizarJustificacion("Durante una parte significativa del tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio .",1)   
+end
+
+rule "Nivel de funcionamiento - Poca duración"
+when
+    $pacienteRequest: PacienteRequest((bizarro || extravagante || inadecuado || adelgazado || hipomimico || hiprosexia || paraprosexia || abulia || hipobulia || impulsiones || compulsiones || aprazia || ataxia || exopraxia || manierismo || esterotipia || negativismo || flexibilidadCerea || aplanamientoAfectivo || labilidad || irritabilidad || expansivo || inapropiado || anhedonia ) && positivos >= 1 && negativos >= 1) 
+then
+    pacienteResponse.EsquizofreniaTemporal();
+    pacienteResponse.actualizarJustificacion("No presenta una duaración significativa.",1)   
+end
+
+rule "Nivel de funcionamiento - Normal"
+when
+    $pacienteRequest: PacienteRequest(!(bizarro || extravagante || inadecuado || adelgazado || hipomimico || hiprosexia || paraprosexia || abulia || hipobulia || impulsiones || compulsiones || aprazia || ataxia || exopraxia || manierismo || esterotipia || negativismo || flexibilidadCerea || aplanamientoAfectivo || labilidad || irritabilidad || expansivo || inapropiado || anhedonia ) )
+then
+    pacienteResponse.NoHayPosibilidad()
+    pacienteResponse.actualizarJustificacion("No presenta nivel de funcionamiento bajo en ambitos principales.",1)   
+end
+
+
+rule "Antecedentes - presencia de delirio o alucionaciones"
+when
+    $pacienteRequest: PacienteRequest((autista || transtornoComunicacion) && (alucinaciones=='Si' || delirio) )
+then
+    pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y delirios o alucinaciones.",1)   
+end
+
+rule "Antecedentes - sin presencia de delirio o alucionaciones"
+when
+    $pacienteRequest: PacienteRequest((autista || transtornoComunicacion) && !delirio && alucinaciones=='no' )
+then
+    pacienteResponse.NoHayPosibilidad() 
+    pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones.",1)   
+end
+
+rule "Diagnosticos descartados"
+when
+    $pacienteRequest: PacienteRequest(!(esquizoafectivo && bipolarCaracPsicoticas)  )
+then
+    pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas.",1)   
+end
+
+rule "Diagnosticos no descartados"
+when
+    $pacienteRequest: PacienteRequest(esquizoafectivo || bipolarCaracPsicoticas )
+then
+    pacienteResponse.NoHayPosibilidad()
+    pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas.",1)   
+end
+
+
+rule "Efectos fisiologicos - No"
+when
+    $pacienteRequest: PacienteRequest(!sustancias )
+then
+    pacienteResponse.actualizarJustificacion("El trastorno no se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica.",1)   
+end
+
+rule "Efectos fisiologicos - Si"
+when
+    $pacienteRequest: PacienteRequest(sustancias )
+then
+    pacienteResponse.NoHayPosibilidad()
+    pacienteResponse.actualizarJustificacion("El trastorno se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica.",1)   
+end
+
+rule "Causa organica - No"
+when
+    $pacienteRequest: PacienteRequest(!causaOrganica )
+then
+    pacienteResponse.actualizarJustificacion("Se descarta causa orgánica.",1)   
+end
+
+rule "Causa organica - Si"
+when
+    $pacienteRequest: PacienteRequest(causaOrganica )
+then
+    pacienteResponse.actualizarJustificacion("No se descarta causa orgánica.",1)   
+end
+
+rule "Alucinaciones - Si"
+when
+    $pacienteRequest: PacienteRequest( alucinaciones=='Si' )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta alucinaciones.",1)   
+end
+
+rule "Alucinaciones - No se descarta"
+when
+    $pacienteRequest: PacienteRequest(alucinaciones=='No se descarta' )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
+    pacienteResponse.actualizarJustificacion("No se descartan alucinaciones.",1)   
+end
+
+rule "Delirio"
+when
+    $pacienteRequest: PacienteRequest(delirio)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta delirios.",1)   
+end
+
+rule "Delirio"
+when
+    $pacienteRequest: PacienteRequest(delirio)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta delirios.",1)   
+end
+
+rule "Disgregacion o incoherencia"
+when
+    $pacienteRequest: PacienteRequest(disgracion || incoherencia)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta disgregación o incoherencia.",1)   
+end
+
+rule "Disgregacion o incoherencia"
+when
+    $pacienteRequest: PacienteRequest(disgregacion || incoherencia)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta disgregación o incoherencia.",1)   
+end
+
+rule "Pensamiento sin Disgregacion o incoherencia"
+when
+    $pacienteRequest: PacienteRequest(!pensamiento && !disgregacion && !incoherenci)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
+    pacienteResponse.actualizarJustificacion("Presenta particularidades de pensamiento que no son disgregación o incoherencia",1)   
 end
