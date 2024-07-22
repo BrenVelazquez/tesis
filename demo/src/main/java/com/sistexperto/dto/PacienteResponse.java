@@ -41,14 +41,6 @@ public class PacienteResponse {
         }
     }
 
-    public void NoHayPosibilidad() {  //para usar de base, lo hice muy pobre
-        System.out.println("No existe posibilidad de esquizofrenia");
-    }
-
-    public void EsquizofreniaTemporal() {  //para usar de base, lo hice muy pobre
-        System.out.println("No hay una duración de síntomas suficiente para dar diagnóstico, evaluar esquizofrenia temporal ");
-    }
-
     // Logica de Mati
     public void actualizarJustificacion(String texto, int opcion) 
     {

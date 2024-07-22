@@ -23,6 +23,7 @@ rule "Sintomas obligatorios - Delirio"
 when
     $pacienteRequest: PacienteRequest( delirio && (alucinaciones=='No se descarta' || alucinaciones=='Si' || disgregacion || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
 then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
 end
 
@@ -30,6 +31,7 @@ rule "Sintomas obligatorios - Alucinaciones"
 when
     $pacienteRequest: PacienteRequest( alucinaciones=='Si' && (delirio || disgregacion || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
 then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
 end
 
@@ -37,6 +39,7 @@ rule "Sintomas obligatorios - Disgregacion"
 when
     $pacienteRequest: PacienteRequest( disgregacion && (delirio || alucinaciones=='No se descarta' || alucinaciones=='Si' || incoherencia || abulia) && positivos >= 1 && negativos >= 1) 
 then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
 end
 
@@ -44,6 +47,7 @@ rule "Sintomas obligatorios - Incoherencia"
 when
     $pacienteRequest: PacienteRequest( incoherencia && (delirio || alucinaciones=='No se descarta' || alucinaciones=='Si' || disgregacion || abulia) && positivos >= 1 && negativos >= 1) 
 then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia.",1)   
 end
 
@@ -52,7 +56,7 @@ rule "Sintomas obligatorios - Ninguno"
 when
     $pacienteRequest: PacienteRequest( !delirio && alucinaciones=='No' && !disgregacion && !incoherencia ) 
 then
-    pacienteResponse.NoHayPosibilidad()
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
     pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, digregación o incoherencia.",1)   
 end
 
@@ -60,7 +64,7 @@ rule "Sintomas obligatorios - Menor 1 mes"
 when
     $pacienteRequest: PacienteRequest(positivos < 1 || negativos < 1) 
 then
-    pacienteResponse.EsquizofreniaTemporal();
+     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("La duración de síntomas positivos o negativos menor a un mes.",1)   
 end
 
