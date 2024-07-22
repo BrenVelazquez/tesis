@@ -9,14 +9,7 @@ global Boolean posibleTemporal;
 
 dialect "mvel"
 
-rule "Edad - Bajo"
-when
-    $pacienteRequest: PacienteRequest(edad >= 0 && edad <= 30)
-then
-    
-        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-        pacienteResponse.actualizarJustificacion("Edad Joven",1)   
-end
+
 
 
 rule "Sintomas obligatorios - Delirio"
@@ -230,4 +223,37 @@ then
     pacienteResponse.actualizarJustificacion("Presenta taquipsiquia",1)   
 end
 
+rule "Contenido de pensamiento con particularidades"
+when
+    $pacienteRequest: PacienteRequest(!contenidoPensSP)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+    pacienteResponse.actualizarJustificacion("Presenta idea obsesiva",1)   
+end
 
+rule "Edad - No adolescente"
+when
+    $pacienteRequest: PacienteRequest(edad >= 11 || (edad >= 19 && edad <= 59))
+then
+    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+        pacienteResponse.actualizarJustificacion("No es adolescente",1)   
+end
+
+rule "Edad - Adolescente"
+when
+    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 18 )
+then
+    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+        pacienteResponse.actualizarJustificacion("No es adolescente",1)   
+end
+
+rule "Edad - Mayor"
+when
+    $pacienteRequest: PacienteRequest(edad > 59 )
+then
+    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+        pacienteResponse.actualizarJustificacion("Adulto mayor",1)   
+end
