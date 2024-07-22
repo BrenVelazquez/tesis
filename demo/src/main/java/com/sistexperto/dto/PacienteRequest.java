@@ -124,4 +124,10 @@ public class PacienteRequest {
 
     @JsonProperty("pensamientoSP") //pensamiento sin particularidades, lo pongo como boolean porque si es true es normal
     private boolean pensamientoSP;
+
+    @JsonProperty("Bradipsiquia") //pensamiento sin particularidades, lo pongo como boolean porque si es true es normal
+    private boolean Bradipsiquia;
+
+    @JsonProperty("Taquipsiquia") //pensamiento sin particularidades, lo pongo como boolean porque si es true es normal
+    private boolean Taquipsiquia;
 }

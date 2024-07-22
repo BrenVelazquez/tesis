@@ -208,8 +208,26 @@ end
 
 rule "Pensamiento sin Disgregacion o incoherencia"
 when
-    $pacienteRequest: PacienteRequest(!pensamiento && !disgregacion && !incoherenci)
+    $pacienteRequest: PacienteRequest(!pensamiento && !disgregacion && !incoherencia)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("Presenta particularidades de pensamiento que no son disgregación o incoherencia",1)   
 end
+
+rule "Bradipsiquia"
+when
+    $pacienteRequest: PacienteRequest(Bradipsiquia)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+    pacienteResponse.actualizarJustificacion("Presenta bradipsiquia",1)   
+end
+
+rule "Taquipsiquia"
+when
+    $pacienteRequest: PacienteRequest(Taquipsiquia)
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+    pacienteResponse.actualizarJustificacion("Presenta taquipsiquia",1)   
+end
+
+
