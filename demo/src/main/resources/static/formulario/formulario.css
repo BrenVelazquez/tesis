@@ -18,8 +18,8 @@ body {
     border: 2px solid #009587;
     border-radius: 8px;
     position: relative;
-    /*display: none; */  /* Initially hide the image container */
     overflow: hidden; /* Prevent image from overflowing the container */
+    display: none;
 }
 
 .image-upload {
@@ -170,7 +170,6 @@ body {
     left: 0;
     width: 100%;
     background-color: #28a745;
-    /* Color de fondo verde (cambia según tus preferencias) */
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -193,7 +192,7 @@ body {
     margin: 0;
 }
 
-/* Nuevos estilos añadidos para alinear Sustancias y Estudios en una fila */
+/* Estilos para alinear Sustancias y Estudios en una fila */
 .button-row {
     display: flex;
     justify-content: space-around;
@@ -225,10 +224,10 @@ body {
     width: 48%;
     /* Ajusta el ancho de los botones para que no se desborden */
     margin-bottom: 0;
-    /* Asegúrate de que no haya margen inferior en los botones */
+    /* Asegura de que no haya margen inferior en los botones */
 }
 
-/* Asegúrate de que los botones estén alineados horizontalmente en dispositivos móviles */
+/* Botones alineados horizontalmente en dispositivos móviles */
 @media (max-width: 767px) {
     .button-container {
         flex-direction: column;

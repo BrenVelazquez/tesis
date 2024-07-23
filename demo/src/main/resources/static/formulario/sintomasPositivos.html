@@ -1,0 +1,128 @@
+<h3>Síntomas Positivos</h3>
+<div class="col-md-12">
+    <div class="gray-box">
+        <!-- <div class="button-container opciones">
+            <h6 for="sintomas-positivos">¿Presenta Síntomas Positivos?</h6>
+            <div class="btn-group">
+                <button id="sintomas-positivos-si" class="btn btn-choice">Sí</button>
+                <button id="sintomas-positivos-no" class="btn btn-choice">No</button>
+            </div>
+        </div> -->
+
+        <div id="sintomas-positivos-duracion" class="form-group margin-filas">
+            <h6 for="sintomas-positivos-duracion">Duración de los Síntomas Positivos</h6>
+            <!-- campo numerico -->
+            <!-- <input type="number" class="form-control" id="positivos-duracion" name="positivos-duracion"
+                placeholder="Ingrese la duración"> -->
+
+                <!-- botones -->
+                <!-- <div class="btn-group">
+                    <button id="sintomas-positivos-duracion-menor" class="btn btn-choice">Menor a un mes</button>
+                    <button id="sintomas-positivos-duracion-mayor" class="btn btn-choice">Mayor o igual a un mes</button>
+                </div> -->
+                <select class="form-control" id="sintomas-positivos-duracion" name="sintomas-positivos-duracion">
+                    <option value="sintomas-positivos-duracion-menor">Menos de un mes</option>
+                    <option value="sintomas-positivos-duracion-mayor">Mayor o igual a un mes</option>
+                    <option value="-1" selected>Seleccioná una opción</option>
+                </select>
+        </div>
+
+        <div class="button-container opciones">
+            <h6 for="sintomas-positivos-alucinaciones">Alucinaciones</h6>
+            <div class="btn-group" >
+                <button id="sintomas-positivos-alucinaciones-si" class="btn btn-choice">Sí</button>
+                <button id="sintomas-positivos-alucinaciones-no" class="btn btn-choice">No</button>
+                <button id="sintomas-positivos-alucinaciones-no-descarta" class="btn btn-choice">No se descarta</button>
+            </div>
+        </div>
+
+        <div id="tipo-alucinaciones" class="form-group margin-filas" style="display: none;">
+            <h6 for="tipo-alucinaciones">Alucinaciones</h6>
+            <select class="form-control" id="alucinaciones" name="alucinaciones">
+                <option value="alucinaciones-auditivas-simples">Auditivas Simples</option>
+                <option value="alucinaciones-auditivas-complejas">Auditivas Complejas</option>
+                <option value="alucinaciones-visuales">Visuales</option>
+                <option value="alucinaciones-olfativas">Olfativas</option>
+                <option value="alucinaciones-gustativas">Gustativas</option>
+                <option value="alucinaciones-cenestesicas">Cenestésicas</option>
+                <option value="alucinaciones-quinestesicas">Quinestésicas</option>
+                <option value="alucinaciones-extracampinas">Extracampinas</option>
+                <option value="alucinaciones-intrapsiquicas">Intrapsiquicas</option>
+                <option value="-1" selected>Seleccioná una opción</option>
+            </select>
+        </div>
+
+        <div id="tipo-lenguaje" class="form-group margin-filas">
+            <h6 for="tipo-lenguaje">Lenguaje</h6>
+            <select class="form-control" id="lenguaje" name="lenguaje">
+                <option value="lenguaje-sin-particularidades">Sin particularidades</option>
+                <option value="lenguaje-taquilalia">Taquilalia</option>
+                <option value="lenguaje-verborragia">Verborragia</option>
+                <option value="lenguaje-bradilalia">Bradilalia</option>
+                <option value="lenguaje-latencia">Latencia de respuesta</option>
+                <option value="lenguaje-mutismo">Mutismo</option>
+                <option value="lenguaje-musitaciones">Musitaciones</option>
+                <option value="lenguaje-soliloqui">Soliloqui</option>
+                <option value="lenguaje-noelogismo">Noelogísmo</option>
+                <option value="lenguaje-jergafasia">Jergafasia</option>
+                <option value="lenguaje-ecolalia">Ecolalia</option>
+                <option value="lenguaje-pararrespuesta">Pararrespuesta</option>
+                <option value="lenguaje-estereotipia-verbal">Estereotipia verbal</option>
+                <option value="lenguaje-verbigeracion">Verbigeración</option>
+                <option value="lenguaje-homofonia">Asociación por homofonía</option>
+                <option value="-1" selected>Seleccioná una opción</option>
+            </select>
+        </div>
+
+        <div id="tipo-pensamiento" class="form-group margin-filas">
+            <h6 for="tipo-pensamiento">Pensamiento</h6>
+            <select class="form-control" id="pensamiento" name="pensamiento">
+                <option value="pensamiento-sin-particularidades">Sin particularidades</option>
+                <option value="pensamiento-conserva_idea_directriz">Conserva idea directriz</option>
+                <option value="pensamiento-tangencial">Tangencial</option>
+                <option value="pensamiento-circunstancial">Circunstancial</option>
+                <option value="pensamiento-meticulosidad">Meticulosidad</option>
+                <option value="pensamiento-viscosidad">Viscosidad</option>
+                <option value="pensamiento-pensamiento-concreto">Pensamiento concreto</option>
+                <option value="pensamiento-idea-fija">Idea fija</option>
+                <option value="pensamiento-interceptacion-pensamiento">Interceptación del pensamiento</option>
+                <option value="pensamiento-disgregacion">Disgregación</option>
+                <option value="pensamiento-incoherencia">Incoherencia</option>
+                <option value="-1" selected>Seleccioná una opción</option>
+            </select>
+        </div>
+
+        <div id="tipo-ritmo-pensamiento" class="form-group margin-filas">
+            <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento</h6>
+            <select class="form-control" id="ritmo-pensamiento" name="ritmo-pensamiento">
+                <option value="ritmo-pensamiento-sin-particularidades">Sin particularidades</option>
+                <option value="ritmo-pensamiento-bradipsiquia">Bradipsiquia</option>
+                <option value="ritmo-pensamiento-taquipsiquia">Taquipsiquia</option>
+                <option value="-1" selected>Seleccioná una opción</option>
+            </select>
+        </div>
+
+        <div id="tipo-contenido-pensamiento" class="form-group margin-filas">
+            <h6 for="tipo-contenido-pensamiento">Contenido del pensamiento</h6>
+            <select class="form-control" id="contenido-pensamiento" name="contenido-pensamiento">
+                <option value="contenido-pensamiento-sin-particularidades">Sin particularidades</option>
+                <option value="contenido-pensamiento-idea-obsesiva">Idea obsesiva</option>
+                <option value="contenido-pensamiento-idea-fija">Idea fija</option>
+                <option value="contenido-pensamiento-ideacion-delirante-sistematizada">Ideación delirante sistematizada</option>
+                <option value="contenido-pensamiento-ideacion-delirante-no-sistematizada">Ideación delirante no sistematizada</option>
+                <option value="contenido-pensamiento-ideas-muerte">Ideas de muerte</option>
+                <option value="contenido-pensamiento-ideas-suicidas">Ideas suicidas</option>
+                <option value="-1" selected>Seleccioná una opción</option>
+            </select>
+        </div>
+        
+        <div class="button-container opciones">
+            <h6 for="sintomas-positivos-delirios">Delirios</h6>
+            <div class="btn-group">
+                <button id="sintomas-positivos-delirios-presencia" class="btn btn-choice">Presencia</button>
+                <button id="sintomas-positivos-delirios-ausencia" class="btn btn-choice">Ausencia</button>
+            </div>
+        </div>
+
+    </div>
+</div>
