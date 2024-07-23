@@ -86,11 +86,9 @@
                     </div>
                 </div>
             </div>
-            <div id="sintomas-positivos-container" style="width: 33%;"></div>
-            <!-- <div id="sintomas-positivos-container"></div> -->
-            <div id="sintomas-positivos-container" style="width: 33%;"></div>
-            <div id="complementarios-container" style="width: 33%;"></div>
-            <!-- <div id="complementarios-container"></div> -->
+            <div id="sintomas-positivos-container"></div>
+            <div id="sintomas-negativos-container"></div>
+            <div id="complementarios-container"></div>
         </div>
         <div class="row margin-filas">
             <div class="btn-consultar-formulario">
@@ -108,19 +106,20 @@
     <script src="formulario.js"></script>
     <script>
         $(document).ready(function () {
+            initializeButtons();
             $("#complementarios-container").load("complementarios.html", function () {
                 console.log("Complementarios cargado");
-                initializeButtons();
+                initializeComplementaryButtons();
             });
             
             $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
                 console.log("sintomasPositivos cargado");
-                initializeButtons();
+                initializePositiveButtons();
             });
 
             $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
                 console.log("sintomasNegativos cargado");
-                initializeButtons();
+                // initializeNegativeButtons();
             });
         });
 

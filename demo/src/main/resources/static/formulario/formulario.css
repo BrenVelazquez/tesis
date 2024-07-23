@@ -18,7 +18,8 @@ body {
     border: 2px solid #009587;
     border-radius: 8px;
     position: relative;
-    overflow: hidden; /* Prevent image from overflowing the container */
+    overflow: hidden;
+    /* Prevent image from overflowing the container */
     display: none;
 }
 
@@ -66,6 +67,24 @@ body {
 
 .btn-consultar:hover {
     background-color: #038073;
+}
+
+.btn-choice {
+    transition: background-color 0.3s, border-color 0.3s;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.btn-choice:not(.selected) {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+
+.btn-choice.selected {
+    background-color: #009587;
+    border-color: #009587;
+    color: #fff;
 }
 
 .popup {
@@ -227,7 +246,19 @@ body {
     /* Asegura de que no haya margen inferior en los botones */
 }
 
-/* Botones alineados horizontalmente en dispositivos móviles */
+.gray-box {
+    border: 2px solid #d3d3d3;
+    /* Borde gris */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    padding: 15px;
+    /* Espacio interno */
+    background-color: #f8f8f8;
+    /* Fondo ligeramente gris */
+}
+
+
+/* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
     .button-container {
         flex-direction: column;
@@ -242,41 +273,64 @@ body {
         margin-bottom: 10px;
         /* Espacio entre botones en dispositivos móviles */
     }
-}
 
-.gray-box {
-    border: 2px solid #d3d3d3;
-    /* Borde gris */
-    border-radius: 8px;
-    /* Bordes redondeados */
-    padding: 15px;
-    /* Espacio interno */
-    background-color: #f8f8f8;
-    /* Fondo ligeramente gris */
-}
-
-
-/* Estilos para pantallas más pequeñas (móviles) */
-@media (max-width: 767px) {
     #posibles-causas {
         word-wrap: break-word;
         overflow-x: hidden;
         white-space: pre-wrap;
         width: 100%;
     }
-}
 
-/* Estilos para dispositivos móviles */
-@media (max-width: 767px) {
-    .button-container {
+    /* .btn-bool {
+        text-align: center;
+        margin-bottom: 20px;
+    } */
+
+    .btn-bool,
+    .form-group.opciones {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
     }
 
-    .button-container .btn {
-        width: 100%;
+    /* .btn-bool-inf {
+        flex-direction: column;
+    } */
+    .btn-bool .opciones {
         margin-bottom: 10px;
-        /* Espacio entre botones en dispositivos móviles */
+    }
+
+    .gray-box {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .btn-group {
+        display: flex;
+        flex-direction: row;
+        /* position: absolute; */
+        justify-content: center;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .btn-group button {
+        /* margin: 5px 5px; */
+        flex: 1;
+        margin: 0 5px;
+    }
+
+    #sintomas-positivos-container,
+    #sintomas-negativos-container,
+    #complementarios-container {
+        width: 100%;
+        float: none;
+        /* Asegura que los contenedores se apilen verticalmente */
+        margin-bottom: 15px;
+        /* Añade margen entre los contenedores */
     }
 }
 
@@ -291,21 +345,12 @@ body {
         width: 48%;
         /* Ajustar el ancho según tus preferencias */
     }
-}
 
-/* Estilos para dispositivos móviles */
-@media (max-width: 767px) {
-    .btn-bool-inf {
-        flex-direction: column;
-    }
-
-    .btn-group {
-        display: flex;
-        flex-direction: row;
-        position: absolute;
-    }
-
-    .btn-group button {
-        margin: 5px 5px;
+    #sintomas-positivos-container,
+    #sintomas-negativos-container,
+    #complementarios-container {
+        width: 33%;
+        float: left;
+        /* Permite que los contenedores se alineen horizontalmente */
     }
 }

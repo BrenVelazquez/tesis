@@ -1,27 +1,59 @@
 let datosFormulario = {};
 
-const imagenInput = document.getElementById('imagen');
-const imagenPreview = document.getElementById('imagen-preview');
-const insertPhotoMessage = document.querySelector('.insert-photo-message');
+// const imagenInput = document.getElementById('imagen');
+// const imagenPreview = document.getElementById('imagen-preview');
+// const insertPhotoMessage = document.querySelector('.insert-photo-message');
 
-imagenInput.addEventListener('change', function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            imagenPreview.style.display = 'block';
-            imagenPreview.src = e.target.result;
-            insertPhotoMessage.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-    } else {
+// imagenInput.addEventListener('change', function () {
+//     const file = this.files[0];
+//     if (file) {
+//         const reader = new FileReader();
+//         reader.onload = function (e) {
+//             imagenPreview.style.display = 'block';
+//             imagenPreview.src = e.target.result;
+//             insertPhotoMessage.style.display = 'none';
+//         };
+//         reader.readAsDataURL(file);
+//     } else {
+//         imagenPreview.style.display = 'none';
+//         insertPhotoMessage.style.display = 'block';
+//     }
+// });
+
+// insertPhotoMessage.addEventListener('DOMContentLoaded', function () {
+//     imagenInput.click();
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const imagenInput = document.getElementById('imagen');
+    const imagenPreview = document.getElementById('imagen-preview');
+    const insertPhotoMessage = document.querySelector('.insert-photo-message');
+
+    if (imagenInput && imagenPreview) {
+        imagenInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagenPreview.src = e.target.result;
+                    imagenPreview.style.display = 'block';
+                    insertPhotoMessage.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+    else {
         imagenPreview.style.display = 'none';
         insertPhotoMessage.style.display = 'block';
     }
-});
 
-insertPhotoMessage.addEventListener('click', function () {
-    imagenInput.click();
+    if (insertPhotoMessage && imagenInput) {
+        insertPhotoMessage.addEventListener('click', function () {
+            imagenInput.click();
+        });
+    }
+
 });
 
 function mostrarPopup() {
@@ -49,11 +81,36 @@ function initializeButtons() {
         { yes: 'transtorno-esquizoafectivo-si', no: 'transtorno-esquizoafectivo-no' },
         { yes: 'transtorno-depresivo-si', no: 'transtorno-depresivo-no' },
         { yes: 'transtorno-bipolar-si', no: 'transtorno-bipolar-no' },
+        { yes: 'antecedentes-familiares-si', no: 'antecedentes-familiares-no' },
+    ];
+
+    buttonPairs.forEach(pair => {
+        const btnYes = document.getElementById(pair.yes);
+        const btnNo = document.getElementById(pair.no);
+
+        if (btnYes && btnNo) {
+            btnYes.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+            });
+
+            btnNo.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+            });
+        } else {
+            console.error(`Botones no encontrados: ${pair.yes} o ${pair.no}`);
+        }
+    });
+}
+
+
+function initializeComplementaryButtons() {
+    const buttonPairs = [
         { yes: 'estudios-si', no: 'estudios-no' },
         { yes: 'sustancias-si', no: 'sustancias-no' },
-        { yes: 'antecedentes-familiares-si', no: 'antecedentes-familiares-no' },
-        { yes: 'sintomas-positivos-duracion-mayor', no: 'sintomas-positivos-duracion-menor' },
-        { yes: 'sintomas-positivos-delirios-presencia', no: 'sintomas-positivos-delirios-ausencia' },
     ];
 
     buttonPairs.forEach(pair => {
@@ -87,7 +144,36 @@ function initializeButtons() {
                 }
             });
         } else {
-            console.error(`Botones no encontrados: ${pair.yes} o ${pair.no}`);
+            console.error(`Complementarios - Botones no encontrados: ${pair.yes} o ${pair.no}`);
+        }
+    });
+
+}
+
+
+function initializePositiveButtons() {
+    const buttonPairs = [
+        { yes: 'sintomas-positivos-delirios-presencia', no: 'sintomas-positivos-delirios-ausencia' },
+    ];
+
+    buttonPairs.forEach(pair => {
+        const btnYes = document.getElementById(pair.yes);
+        const btnNo = document.getElementById(pair.no);
+
+        if (btnYes && btnNo) {
+            btnYes.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+            });
+
+            btnNo.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+            });
+        } else {
+            console.error(`Positivos - Botones no encontrados: ${pair.yes} o ${pair.no}`);
         }
     });
 
@@ -123,6 +209,7 @@ function initializeButtons() {
     /*Fin Botones Alucinaciones*/
 
 }
+
 
 function determinar_diagnostico() {
 
