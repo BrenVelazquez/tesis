@@ -13,6 +13,10 @@ public class PacienteRequest {
 
     @JsonProperty("sexo")
     private String sexo;
+
+    @JsonProperty("sintomas_positivos_tipo_lenguaje")
+    private String sintomas_positivos_tipo_lenguaje;
+    
     
     @JsonProperty("delirio")
     private boolean delirio;
