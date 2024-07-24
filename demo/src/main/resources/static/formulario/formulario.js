@@ -219,6 +219,7 @@ function determinar_diagnostico() {
     const edad = document.getElementById("edad").value;
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
+    
 
     const transtornoAutista =
         document.querySelector("#transtorno-autista-si.selected") ? "Si" :
@@ -289,7 +290,7 @@ function determinar_diagnostico() {
         sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
         sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
         sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
-        sintomas_positivos_tipo_ritmo_pensamineto: sintomasPositivosTipoRitmoPensamiento,
+        sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
         sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
         sintomas_positivos_delirios: sintomasPositivosDelirios,
         // sintomas negativos,

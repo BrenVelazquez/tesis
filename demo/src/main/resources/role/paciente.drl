@@ -46,7 +46,7 @@ end
 
 rule "Sintomas obligatorios - Ninguno"
 when
-    $pacienteRequest: PacienteRequest( !sintomas_positivos_delirios=='No' && sintomas_positivos_alucinaciones=='No' && sintomas_positivos_tipo_pensamiento!='Disgregacion' && sintomas_positivos_tipo_pensamiento!='Incoherencia' ) 
+    $pacienteRequest: PacienteRequest( sintomas_positivos_delirios=='No' && sintomas_positivos_alucinaciones=='No' && sintomas_positivos_tipo_pensamiento!='Disgregacion' && sintomas_positivos_tipo_pensamiento!='Incoherencia' ) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
     pacienteResponse.actualizarJustificacion("No presenta sintomas_positivos_alucinaciones, sintomas_positivos_delirios, digregación o incoherencia.",1)   
@@ -85,11 +85,9 @@ end
 
 
 
-
-
 rule "Antecedentes - presencia de delirios o alucionaciones"
 when
-    $pacienteRequest: PacienteRequest((transtorno_autista=='Si'|| transtorno_comunicacion='Si') && (sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_delirios=='Si') )
+    $pacienteRequest: PacienteRequest((transtorno_autista=='Si'|| transtorno_comunicacion=='Si') && (sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_delirios=='Si') )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones.",1)   
@@ -97,7 +95,7 @@ end
 
 rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucionaciones"
 when
-    $pacienteRequest: PacienteRequest((autista || transtornoComunicacion) && !sintomas_positivos_delirios && sintomas_positivos_alucinaciones=='no' )
+    $pacienteRequest: PacienteRequest((transtorno_autista=='Si'|| transtorno_comunicacion=='Si') && sintomas_positivos_delirios=='No' && sintomas_positivos_alucinaciones=='no' )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones.",1)   
@@ -243,7 +241,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'mustismo')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo')
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
@@ -252,7 +250,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Principales"
 when
-    $pacienteRequest: PacienteRequest(!(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'mustismo') && sintomas_positivos_tipo_lenguaje!='Sin particularidades')
+    $pacienteRequest: PacienteRequest(!(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo') && sintomas_positivos_tipo_lenguaje!='Sin particularidades')
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
@@ -303,16 +301,16 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento!='Sin particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento != "Sin particularidades")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
         pacienteResponse.actualizarJustificacion("Ritmo de pensamiento con particularidades",1)   
 end
 
-rule "PUNTAJE: Ritmo pensamiento - particularidades"
+rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento=='Sin particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento =="Sin particularidades")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -331,7 +329,7 @@ then
         pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades",1)   
 end
 
-rule "PUNTAJE: Contenido pensamiento - particularidades"
+rule "PUNTAJE: Contenido pensamiento - sin particularidades"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento=='Sin particularidades')
 then
@@ -354,7 +352,7 @@ end
 
 rule "PUNTAJE: Antecedentes familiares - No"
 when
-    $pacienteRequest: PacienteRequest(antecedentes_familiares=='Si')
+    $pacienteRequest: PacienteRequest(antecedentes_familiares=='No')
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )

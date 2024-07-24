@@ -14,127 +14,69 @@ public class PacienteRequest {
     @JsonProperty("sexo")
     private String sexo;
 
+    @JsonProperty("transtorno_autista")
+    private String transtorno_autista;
+
+    @JsonProperty("transtorno_comunicacion")
+    private String transtorno_comunicacion;
+
+    @JsonProperty("transtorno_esquizoafectivo")
+    private String transtorno_esquizoafectivo;
+
+    @JsonProperty("transtorno_depresivo")
+    private String transtorno_depresivo;
+
+    @JsonProperty("transtorno_bipolar")
+    private String transtorno_bipolar;
+
+    @JsonProperty("antecedentes_familiares")
+    private String antecedentes_familiares;
+
+    @JsonProperty("sintomas_positivos_duracion")
+    private int sintomas_positivos_duracion;
+
+    @JsonProperty("sintomas_positivos_alucinaciones")
+    private String sintomas_positivos_alucinaciones;
+
     @JsonProperty("sintomas_positivos_tipo_lenguaje")
     private String sintomas_positivos_tipo_lenguaje;
-    
-    
-    @JsonProperty("delirio")
-    private boolean delirio;
 
-    @JsonProperty("alucinaciones")
-    private String alucinaciones;
+    @JsonProperty("sintomas_positivos_tipo_alucinaciones")
+    private String sintomas_positivos_tipo_alucinaciones;
 
-    @JsonProperty("disgregacion")
-    private boolean disgregacion;
+    @JsonProperty("sintomas_positivos_tipo_pensamiento")
+    private String sintomas_positivos_tipo_pensamiento;
 
-    @JsonProperty("incoherencia")
-    private boolean incoherencia;
+    @JsonProperty("sintomas_positivos_tipo_ritmo_pensamiento")
+    private String sintomas_positivos_tipo_ritmo_pensamiento;
 
-    @JsonProperty("positivos")
-    private int positivos;
+    @JsonProperty("sintomas_positivos_tipo_contenido_pensamiento")
+    private String sintomas_positivos_tipo_contenido_pensamiento;
 
-    @JsonProperty("negativos")
-    private int negativos;
+    @JsonProperty("sintomas_positivos_delirios")
+    private String sintomas_positivos_delirios;
 
-    @JsonProperty("bizarro")
-    private boolean bizarro;
+    @JsonProperty("sintomas_negativos_duracion")
+    private int sintomas_negativos_duracion;
 
-    @JsonProperty("extravagante")
-    private boolean extravagante;
+    @JsonProperty("sintomas_negativos_aspecto")
+    private String sintomas_negativos_aspecto;
 
-    @JsonProperty("inadecuado")
-    private boolean inadecuado;
+    @JsonProperty("sintomas_negativos_atencion")
+    private String sintomas_negativos_atencion;
 
-    @JsonProperty("adelgazado")
-    private boolean adelgazado;
+    @JsonProperty("sintomas_negativos_actividad")
+    private String sintomas_negativos_actividad;
 
-    @JsonProperty("hipomimico")
-    private boolean hipomimico;
-
-    @JsonProperty("hiprosexia")
-    private boolean hiprosexia;
-
-    @JsonProperty("paraprosexia")
-    private boolean paraprosexia;
-
-    @JsonProperty("abulia")
-    private boolean abulia;
-
-    @JsonProperty("hipobulia")
-    private boolean hipobulia;
-
-    @JsonProperty("impulsiones")
-    private boolean impulsiones;
-
-    @JsonProperty("compulsiones")
-    private boolean compulsiones;
-
-    @JsonProperty("apraxia")
-    private boolean apraxia;
-
-    @JsonProperty("ataxia")
-    private boolean ataxia;
-
-    @JsonProperty("exopraxia")
-    private boolean exopraxia;
-
-    @JsonProperty("manierismo")
-    private boolean manierismo;
-
-    @JsonProperty("esterotipia")
-    private boolean esterotipia;
-
-    @JsonProperty("negativismo")
-    private boolean negativismo;
-
-    @JsonProperty("flexibilidadCerea")
-    private boolean flexibilidadCerea;
-
-    @JsonProperty("aplanamientoAfectivo")
-    private boolean aplanamientoAfectivo;
-
-    @JsonProperty("labilidad")
-    private boolean labilidad;
-
-    @JsonProperty("irritabilidad")
-    private boolean irritabilidad;
-
-    @JsonProperty("expansivo")
-    private boolean expansivo;
-
-    @JsonProperty("inapropiado")
-    private boolean inapropiado;
-
-    @JsonProperty("anhedonia")
-    private boolean anhedonia;
-
-    @JsonProperty("autismo")
-    private boolean autismo;
-
-    @JsonProperty("trastornoComunicacion")
-    private boolean trastornoComunicacion;
-
-    @JsonProperty("esquizoafectivo")
-    private boolean esquizoafectivo;
-
-    @JsonProperty("bipolarCaracPsicoticas")
-    private boolean bipolarCaracPsicoticas;
+    @JsonProperty(" sintomas_negativos_afectividad")
+    private String  sintomas_negativos_afectividad;
 
     @JsonProperty("sustancias")
-    private boolean sustancias;
+    private String sustancias;
 
-    @JsonProperty("causaOrganica")
-    private boolean causaOrganica;
+    @JsonProperty("estudios")
+    private String estudios;
 
-    @JsonProperty("pensamientoSP") //pensamiento sin particularidades, lo pongo como boolean porque si es true es normal
-    private boolean pensamientoSP;
-
-    @JsonProperty("Bradipsiquia") 
-    private boolean Bradipsiquia;
-
-    @JsonProperty("Taquipsiquia") 
-    private boolean Taquipsiquia;
-
-    @JsonProperty("contenidoPensSP") //contenido de pensamiento sin particularidades, lo pongo como boolean porque si es true es normal
-    private boolean contenidoPensSP;
+    @JsonProperty("estudio_causa_natural")
+    private String estudio_causa_natural;
 }
