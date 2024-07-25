@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+    console.log("NO ESTA ENTRANDO ACA");
     // Manejo del multiselect tipo-alucinaciones
     const tipoAlucinacionesSelect = document.getElementById('alucinaciones');
     if (tipoAlucinacionesSelect) {
