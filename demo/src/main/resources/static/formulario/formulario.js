@@ -24,7 +24,26 @@ let datosFormulario = {};
 //     imagenInput.click();
 // });
 
+
+$(document).ready(function () {
+    initializeButtons();
+
+    $("#complementarios-container").load("complementarios.html", function () {
+        initializeComplementaryButtons();
+    });
+
+    $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
+        initializePositiveButtons(); // Asegúrate de definir esta función en formulario.js
+    });
+
+    $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
+        // initializeNegativeButtons(); // Descomenta si necesitas esta inicialización
+    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
+    // Configuración de la previsualización de la imagen
     const imagenInput = document.getElementById('imagen');
     const imagenPreview = document.getElementById('imagen-preview');
     const insertPhotoMessage = document.querySelector('.insert-photo-message');
@@ -37,23 +56,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 reader.onload = function (e) {
                     imagenPreview.src = e.target.result;
                     imagenPreview.style.display = 'block';
-                    insertPhotoMessage.style.display = 'none';
+                    if (insertPhotoMessage) {
+                        insertPhotoMessage.style.display = 'none';
+                    }
                 };
                 reader.readAsDataURL(file);
+            } else {
+                imagenPreview.style.display = 'none';
+                if (insertPhotoMessage) {
+                    insertPhotoMessage.style.display = 'block';
+                }
             }
         });
-    }
-    else {
-        imagenPreview.style.display = 'none';
-        insertPhotoMessage.style.display = 'block';
     }
 
     if (insertPhotoMessage && imagenInput) {
         insertPhotoMessage.addEventListener('click', function () {
             imagenInput.click();
         });
+    } else {
+        console.error('Elementos de imagen no encontrados.');
     }
-
 });
 
 function mostrarPopup() {
@@ -150,7 +173,6 @@ function initializeComplementaryButtons() {
 
 }
 
-
 function initializePositiveButtons() {
     const buttonPairs = [
         { yes: 'sintomas-positivos-delirios-presencia', no: 'sintomas-positivos-delirios-ausencia' },
@@ -219,7 +241,7 @@ function determinar_diagnostico() {
     const edad = document.getElementById("edad").value;
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
-    
+
 
     const transtornoAutista =
         document.querySelector("#transtorno-autista-si.selected") ? "Si" :
