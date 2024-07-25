@@ -221,7 +221,7 @@ end
 
 rule "PUNTAJE: Edad - Adolescente hombre "
 when
-    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 25 && sexo=='Masculino')
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=='Masculino')
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
@@ -229,7 +229,7 @@ end
 
 rule "PUNTAJE: Edad - No adolescente hombre "
 when
-    $pacienteRequest: PacienteRequest(sexo=='Masculino'(edad >= 11 || (edad >= 25 && edad <= 59)'))
+    $pacienteRequest: PacienteRequest(sexo=='Masculino' && (edad >= 11 || (edad >= 25 && edad <= 59)))
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
@@ -237,7 +237,7 @@ end
 
 rule "PUNTAJE: Edad - Adolescente mujer "
 when
-    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 30 && sexo=='Femenino')
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=='Femenino')
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
@@ -266,7 +266,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= 'Sin particularidades' && (sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo'))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
@@ -275,7 +275,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Principales"
 when
-    $pacienteRequest: PacienteRequest(!(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo') && sintomas_positivos_tipo_lenguaje!='Sin particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= 'Sin particularidades' && !(sintomas_positivos_tipo_lenguaje == 'taquilalia' || sintomas_positivos_tipo_lenguaje == 'Verborragia' || sintomas_positivos_tipo_lenguaje == 'Bradilalia' || sintomas_positivos_tipo_lenguaje == 'Latencia' || sintomas_positivos_tipo_lenguaje == 'Mutismo'))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
