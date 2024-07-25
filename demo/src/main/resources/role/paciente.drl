@@ -67,7 +67,7 @@ end
 
 
 
-rule "Nivel de funcionamiento"
+rule "Ambitos principales"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto!='Bizarro' || sintomas_negativos_aspecto!='Extravagante' || sintomas_negativos_aspecto!='Inadecuado' || sintomas_negativos_aspecto!='Adelgazado '|| sintomas_negativos_atencion=='Hipoprosexia' || sintomas_negativos_atencion=='Hipomimico' || sintomas_negativos_atencion=='Paraprosexia' || sintomas_negativos_actividad=='Abulia' || sintomas_negativos_actividad=='Hipobulia' || sintomas_negativos_actividad=='Impulsiones' || sintomas_negativos_actividad=='Compulsiones' || sintomas_negativos_actividad=='apraxia' || sintomas_negativos_actividad=='Ataxia' || sintomas_negativos_actividad=='Ecopraxia' || sintomas_negativos_actividad=='Manierismo' || sintomas_negativos_actividad=='Esterotipia' || sintomas_negativos_actividad=='Negativismo' || sintomas_negativos_actividad=='Flexibilidad Cerea' || sintomas_negativos_afectividad=='Aplanamiento afectivo' || sintomas_negativos_afectividad=='Labilidad' || sintomas_negativos_afectividad=='Irritabilidad' || sintomas_negativos_afectividad=='Expansivo' || sintomas_negativos_afectividad=='Inapropiado' || sintomas_negativos_afectividad=='Anhedonia')
 then
@@ -75,13 +75,15 @@ then
     pacienteResponse.actualizarJustificacion("Durante una parte significativa del tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio .",1)   
 end
 
-rule "Nivel de funcionamiento - Normal"
+rule "Ambitos principales - Normal"
 when
     $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto!='Bizarro' || sintomas_negativos_aspecto!='Extravagante' || sintomas_negativos_aspecto!='Inadecuado' || sintomas_negativos_aspecto!='Adelgazado '|| sintomas_negativos_atencion=='Hipoprosexia' || sintomas_negativos_atencion=='Hipomimico' || sintomas_negativos_atencion=='Paraprosexia' || sintomas_negativos_actividad=='Abulia' || sintomas_negativos_actividad=='Hipobulia' || sintomas_negativos_actividad=='Impulsiones' || sintomas_negativos_actividad=='Compulsiones' || sintomas_negativos_actividad=='apraxia' || sintomas_negativos_actividad=='Ataxia' || sintomas_negativos_actividad=='Ecopraxia' || sintomas_negativos_actividad=='Manierismo' || sintomas_negativos_actividad=='Esterotipia' || sintomas_negativos_actividad=='Negativismo' || sintomas_negativos_actividad=='Flexibilidad Cerea' || sintomas_negativos_afectividad=='Aplanamiento afectivo' || sintomas_negativos_afectividad=='Labilidad' || sintomas_negativos_afectividad=='Irritabilidad' || sintomas_negativos_afectividad=='Expansivo' || sintomas_negativos_afectividad=='Inapropiado' || sintomas_negativos_afectividad=='Anhedonia'))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta nivel de funcionamiento bajo en ambitos principales.",1)   
 end
+
+
 
 
 
@@ -106,7 +108,7 @@ end
 
 rule "Diagnosticos descartados"
 when
-    $pacienteRequest: PacienteRequest(!(transtorno_esquizoafectivo=='Si' && transtorno_bipolar=='Si')  )
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='No' && transtorno_bipolar=='No')  
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas.",1)   
@@ -156,9 +158,16 @@ when
     $pacienteRequest: PacienteRequest(estudio_causa_natural=='Si' )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("No se descarta causa orgánica.",1)   
+    pacienteResponse.actualizarJustificacion("Se detecta causa orgánica.",1)   
 end
 
+rule "Causa organica - No evalua"
+when
+    $pacienteRequest: PacienteRequest(estudio_causa_natural=='Sin estudios' )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarJustificacion("Se detecta causa orgánica.",1)   
+end
 
 
 
@@ -209,21 +218,37 @@ end
 
 
 
-rule "PUNTAJE: Edad - No adolescente"
+
+rule "PUNTAJE: Edad - Adolescente hombre "
 when
-    $pacienteRequest: PacienteRequest(edad >= 11 || (edad >= 19 && edad <= 59))
+    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 25 && sexo=='Masculino')
 then
-    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+        pacienteResponse.actualizarJustificacion("No es adolescente",1)   
+end
+
+rule "PUNTAJE: Edad - No adolescente hombre "
+when
+    $pacienteRequest: PacienteRequest(sexo=='Masculino'(edad >= 11 || (edad >= 25 && edad <= 59)'))
+then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
 end
 
-rule "PUNTAJE: Edad - Adolescente "
+rule "PUNTAJE: Edad - Adolescente mujer "
 when
-    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 18 )
+    $pacienteRequest: PacienteRequest(edad >= 12 && edad <= 30 && sexo=='Femenino')
+then
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+        pacienteResponse.actualizarJustificacion("No es adolescente",1)   
+end
+
+rule "PUNTAJE: Edad - No adolescente"
+when
+    $pacienteRequest: PacienteRequest(sexo=='Femenino' && (edad >= 11 || (edad >= 19 && edad <= 59)))
 then
     
-        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
 end
 
