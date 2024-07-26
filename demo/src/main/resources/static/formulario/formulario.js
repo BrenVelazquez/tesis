@@ -241,36 +241,38 @@ function determinar_diagnostico() {
             document.querySelector("#estudios-no.selected") ? "No" : "";
     const estudioCausaNatural = document.getElementById("estudio-causa-natural").value;
 
+    const estudioComentario = document.getElementById("estudio-comentario").value;
+
+    // Se crea un objeto con los valores recolectados
     datosFormulario = {
-        nombre,
-        edad,
-        sexo,
-        transtornoAutista,
-        transtornoComunicacion,
-        transtornoEsquizoafectivo,
-        transtornoDepresivo,
-        transtornoBipolar,
-        antecedentesFamiliares,
+        edad: edad,
+        sexo: sexo,
+        nombre: nombre,
+        transtorno_autista: transtornoAutista,
+        transtorno_comunicacion: transtornoComunicacion,
+        transtorno_esquizoafectivo: transtornoEsquizoafectivo,
+        transtorno_depresivo: transtornoDepresivo,
+        transtorno_bipolar: transtornoBipolar,
+        antecedentes_familiares: antecedentesFamiliares,
         // sintomas positivos,
-        sintomasPositivosDuracion,
-        sintomasPositivosAlucinaciones,
-        sintomasPositivosTipoAlucinaciones,
-        sintomasPositivosTipoLenguaje,
-        sintomasPositivosTipoPensamiento,
-        sintomasPositivosTipoRitmoPensamiento,
-        sintomasPositivosTipoContenidoPensamiento,
-        sintomasPositivosDelirios,
-        // sintomas negativos
-        sintomasNegativosDuracion,
-        sintomasNegativosAspecto,
-        sintomasNegativosAtencion,
-        sintomasNegativosActividad,
-        sintomasNegativosAfectividad,
-        // complementarios
-        estudios,
-        // comentariosEstudios,
-        estudioCausaNatural,
-        sustancias
+        sintomas_positivos_duracion: sintomasPositivosDuracion,
+        sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
+        sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
+        sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
+        sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
+        sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
+        sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
+        sintomas_positivos_delirios: sintomasPositivosDelirios,
+        // sintomas negativos,
+        sintomas_negativos_duracion: sintomasNegativosDuracion,
+        sintomas_negativos_aspecto: sintomasNegativosAspecto,
+        sintomas_negativos_atencion: sintomasNegativosAtencion,
+        sintomas_negativos_actividad: sintomasNegativosActividad,
+        sintomas_negativos_afectividad: sintomasNegativosAfectividad,
+        //complementarios
+        sustancias: sustancias,
+        estudios: estudios,
+        estudio_causa_natural: estudioCausaNatural
     };
 
     const jsonString = JSON.stringify(datosFormulario);
