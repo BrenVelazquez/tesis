@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 public class PacienteResponse {
-    //Esto es lo que nos va a devolver de las reglas y lo que vamos a mostrar como resultado por pantalla
-
+    // Esto es lo que nos va a devolver de las reglas y lo que vamos a mostrar como
+    // resultado por pantalla
 
     @JsonProperty("posibilidad")
     private String posibilidad;
@@ -17,7 +17,7 @@ public class PacienteResponse {
     @JsonProperty("reglas")
     private int reglas;
 
-    //Para los casos en que se recomienda evaluar esquizofrenia temporal
+    // Para los casos en que se recomienda evaluar esquizofrenia temporal
     @JsonProperty("recomendacion")
     private String recomendacion;
 
@@ -28,29 +28,36 @@ public class PacienteResponse {
     @JsonProperty("justificacion")
     private String justificacion;
 
-    public void calcularRiesgo() {
-        // REVISAR PUNTAJES (PUSE NUMERO AL AZAR PARA ARMAR ESTO NOMAS) 
+    public void calcularDiagnostico() {
+        // REVISAR PUNTAJES (PUSE NUMERO AL AZAR PARA ARMAR ESTO NOMAS)
+        // TODO: Actualizar puntajes de los if
         if (puntaje < 10) {
             this.setPosibilidad("No es posible que tenga esquizofrenia");
-        } 
-        else if(puntaje <= 20){
+            if (recomendacion == null) {
+                this.setRecomendacion("Se recomienda evaluar otras enfermedades como Depresión y Transtorno Bipolar.");
+            }
+        } else if (puntaje <= 20) {
             this.setPosibilidad("Posible Esquizofrenia Temporal");
-            this.setRecomendacion("Se recomienda evaluar exquisofrenia temporal.");
+            if (recomendacion == null) {
+                this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
+            }
         } else {
             this.setPosibilidad("Posible esquizofrenia");
+            if (recomendacion == null) {
+                this.setRecomendacion("Se recomienda iniciar tratamiento.");
+            }
         }
     }
 
     // Logica de Mati
-    public void actualizarJustificacion(String texto, int opcion) 
-    {
+    public void actualizarJustificacion(String texto, int opcion) {
         String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
         System.out.println(utf8Texto);
         if (opcion == 1) {
             // Opción 1: Concatenar el texto con una coma
             if (justificacion == null || justificacion.isEmpty()) {
                 justificacion = utf8Texto;
-                
+
             } else {
                 justificacion += ",\n " + utf8Texto;
             }
@@ -60,5 +67,24 @@ public class PacienteResponse {
         }
         System.out.println(justificacion);
         setJustificacion(justificacion);
+    }
+
+    public void actualizarRecomendacion(String texto, int opcion) {
+        String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
+        System.out.println(utf8Texto);
+        if (opcion == 1) {
+            // Opción 1: Concatenar el texto con una coma
+            if (recomendacion == null || recomendacion.isEmpty()) {
+                recomendacion = utf8Texto;
+
+            } else {
+                recomendacion += ",\n " + utf8Texto;
+            }
+        } else if (opcion == 2) {
+            // Opción 2: Reemplazar el contenido existente
+            recomendacion = texto;
+        }
+        System.out.println(recomendacion);
+        setRecomendacion(recomendacion);
     }
 }

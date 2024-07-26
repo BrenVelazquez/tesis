@@ -31,7 +31,7 @@ function mostrarPopup() {
 }
 
 function mostrarJustificacion() {
-    $(".justificacion").fadeIn(1000);
+    $("#justificacion-explicacion").fadeIn(1000);
 }
 
 function cerrarPopup() {
@@ -272,7 +272,11 @@ function determinar_diagnostico() {
         //complementarios
         sustancias: sustancias,
         estudios: estudios,
-        estudio_causa_natural: estudioCausaNatural
+        estudio_causa_natural: estudioCausaNatural,
+        //respuestas del diagnostico
+        posibilidad,
+        recomendacion,
+        justificacion,
     };
 
     const jsonString = JSON.stringify(datosFormulario);
@@ -286,40 +290,41 @@ function determinar_diagnostico() {
         success: function (response) {
             console.log("Respuesta: ", response);
             // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
-            let riesgo = response.posibilidad;
+            let posibilidad = response.posibilidad;
 
-            // Mostrar el elemento correspondiente según el valor de "riesgo"
-            if (riesgo === "Riesgo Alto") {
+            //Dato para harcodear en el front
+            // posibilidad = "Posible esquizofrenia";
+
+            // Mostrar el elemento correspondiente según el valor de "posibilidad"
+            if (posibilidad === "Posible esquizofrenia") {
                 $("#posible-esquizofrenia").css("display", "block");
-                datosFormulario.riesgo = 'Posible Esquizofrenia';
-            } else if (riesgo === "Riesgo Medio") {
-                $("#evaluar-temporal").css("display", "block");
-                datosFormulario.riesgo = 'Riesgo Medio';
-            } else if (riesgo === "Riesgo Bajo") {
-                $("#no-posible-esquizofrenia").css("display", "block");
-                datosFormulario.riesgo = 'Riesgo Bajo';
             }
-            // else {
-            //     $("#no-posible-esquizofrenia").css("display", "block");
-            //     datosFormulario.riesgo = '-';
-            // }
+            else if (posibilidad === "Posible Esquizofrenia Temporal") {
+                $("#evaluar-temporal").css("display", "block");
+            }
+            else if (posibilidad === "No es posible que tenga esquizofrenia") {
+                $("#no-posible-esquizofrenia").css("display", "block");
+            }
+            datosFormulario.posibilidad = response.posibilidad;
 
-            // Actualizar el texto de "posibles-causas" y "recomendacion" según la respuesta
-            $("#posibles-causas").text(response.posibles_causas ? response.posibles_causas : "No disponible");
-            datosFormulario.posibles_causas = response.posibles_causas;
-
-            // Recomendaciones
+            // Actualizar el texto de "Recomendaciones" según la respuesta
             let recomendacion = response.recomendacion;
-            recomendacion = "Se recomienda realizar estudios complementarios."
-
+            recomendacion = "Se recomienda iniciar tratamiento.";
             console.log("recomendacion: " + recomendacion);
             if (recomendacion != null) {
                 $("#recomendacion-title").css("display", "block");
                 $("#recomendacion").css("display", "block");
-                $("#recomendacion").text(response.recomendacion ? response.recomendacion : "-");
+                $("#recomendacion").text(recomendacion ? recomendacion : "-");
             }
             datosFormulario.recomendacion = recomendacion;
 
+            // Actualizar el texto de "Justificacion" según la respuesta
+            let justificacion = response.justificacion;
+            if (justificacion != null) {
+                $("#posibles-causas").css("display", "block");
+                $("#posibles-causas").text(response.justificacion ? response.justificacion : "No disponible");
+            }
+            datosFormulario.justificacion = response.justificacion;
 
             // datosFormulario.codigo_paciente = response.codigo_paciente;
             console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);

@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <p class="diagnostico-text">
                 <h3 class="posible-esquizofrenia" style="display: none;" id="posible-esquizofrenia">
-                    Posible Ezquisofrenia
+                    Posible Esquizofrenia
                 </h3>
                 <h3 class="evaluar-temporal" style="display: none;" id="evaluar-temporal">
                     Evaluar Esquizofrenia Temporal
@@ -65,13 +65,13 @@
                 <i class="fas fa-solid fa-check"></i>
                 Confirmar Diagnostico
             </button>
-            <button id="rechazar-diagnostico" class="btn btn-consultar btn-rounded" style="background-color: #dc3545 !important;"
-                onclick="mostrarJustificacion()">
+            <button id="rechazar-diagnostico" class="btn btn-consultar btn-rounded"
+                style="background-color: #dc3545 !important;" onclick="mostrarJustificacion()">
                 <i class="fa fa-window-close"></i>
                 Rechazar Diagnostico
             </button>
         </div>
-        <div class="justificacion" id="justificacion" style="display: none;">
+        <div class="justificacion" id="justificacion-explicacion" style="display: none;">
             <div class="row">
                 <div class="col-md-12">
                     <h3>Explicación de rechazo</h3>
@@ -86,7 +86,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <button id="rechazar-diagnostico" class="btn btn-danger btn-rounded data-columns"
-                        onclick="guardarRegistro('Rechazado')">Confirmar Rechazo</button>
+                        onclick="guardarRegistro('Rechazado')">
+                        <i class="fas fa-solid fa-check-double"></i>
+                        Confirmar Rechazo
+                    </button>
                 </div>
 
             </div>

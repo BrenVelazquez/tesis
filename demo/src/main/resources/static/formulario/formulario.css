@@ -275,10 +275,6 @@ body {
     /* Espacio entre botones en dispositivos móviles */
 }
 
-/* .btn-confirm {
-    background-color: #009587;
-} */
-
 .button-container-popup {
     display: flex;
     justify-content: space-between;
@@ -297,7 +293,6 @@ body {
     background-color: #f8f8f8;
     /* Fondo ligeramente gris */
 }
-
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
@@ -331,9 +326,6 @@ body {
         margin-bottom: 20px;
     }
 
-    /* .btn-bool-inf {
-        flex-direction: column;
-    } */
     .btn-bool .opciones {
         margin-bottom: 10px;
     }
