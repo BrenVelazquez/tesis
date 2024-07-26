@@ -103,23 +103,46 @@ body {
 }
 
 .popup-inner {
+    position: relative;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
-    width: 90%;
+    width: 70%; /* Ancho del popup para pantallas grandes */
+    margin: auto; /* Centra horizontalmente */
 }
 
-.riesgo-alto {
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s;
+    color: #b4b2b2;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    
+}
+
+.close-popup:hover {
+    color: #000000;
+}
+
+.posible-esquizofrenia {
     color: red;
 }
 
-.riesgo-medio {
+.evaluar-temporal {
     color: orange;
 }
 
-.riesgo-bajo {
+.no-posible-esquizofrenia {
     color: green;
 }
 
@@ -252,6 +275,10 @@ body {
     /* Espacio entre botones en dispositivos móviles */
 }
 
+/* .btn-confirm {
+    background-color: #009587;
+} */
+
 .button-container-popup {
     display: flex;
     justify-content: space-between;
@@ -340,6 +367,10 @@ body {
         /* Asegura que los contenedores se apilen verticalmente */
         margin-bottom: 15px;
         /* Añade margen entre los contenedores */
+    }
+
+    .popup-inner {
+        width: 100%; /* Ancho del popup para pantallas pequeñas */
     }
 }
 

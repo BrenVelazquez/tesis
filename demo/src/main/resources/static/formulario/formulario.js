@@ -15,7 +15,12 @@ $(document).ready(function () {
         // initializeNegativeButtons(); 
     });
 
-    $("#diagnostico-popup").load("diagnostico.html", function () {});
+    $("#diagnostico-popup").load("diagnostico.html", function () {
+        // Inicializa el botón de close una vez cargado el contenido del popup
+        $('#close-popup').on('click', function () {
+            cerrarPopup();
+        });
+    });
 });
 
 
@@ -35,8 +40,9 @@ function cerrarPopup() {
         $("#message-container").fadeOut();
         $("#popup").fadeOut();
         // Redirige al inicio (index.html) en localhost:8080
-        window.location.href = "http://192.168.0.13:8080/";
-    }, 3000); // Muestra el mensaje durante 3 segundos
+        // window.location.href = "http://192.168.0.13:8080/";
+        // window.location.href = "http://127.0.0.1:8080/formulario/formulario.html";
+    }, 1000); // Muestra el mensaje durante 1 segundo
 }
 
 function initializeButtons() {
@@ -235,39 +241,6 @@ function determinar_diagnostico() {
             document.querySelector("#estudios-no.selected") ? "No" : "";
     const estudioCausaNatural = document.getElementById("estudio-causa-natural").value;
 
-
-    // Se crea un objeto con los valores recolectados
-    // datosFormulario = {
-    //     edad: edad,
-    //     sexo: sexo,
-    //     nombre: nombre,
-    //     transtorno_autista: transtornoAutista,
-    //     transtorno_comunicacion: transtornoComunicacion,
-    //     transtorno_esquizoafectivo: transtornoEsquizoafectivo,
-    //     transtorno_depresivo: transtornoDepresivo,
-    //     transtorno_bipolar: transtornoBipolar,
-    //     antecedentes_familiares: antecedentesFamiliares,
-    //     // sintomas positivos,
-    //     sintomas_positivos_duracion: sintomasPositivosDuracion,
-    //     sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
-    //     sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
-    //     sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
-    //     sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
-    //     sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
-    //     sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
-    //     sintomas_positivos_delirios: sintomasPositivosDelirios,
-    //     // sintomas negativos,
-    //     sintomas_negativos_duracion: sintomasNegativosDuracion,
-    //     sintomas_negativos_aspecto: sintomasNegativosAspecto,
-    //     sintomas_negativos_atencion: sintomasNegativosAtencion,
-    //     sintomas_negativos_actividad: sintomasNegativosActividad,
-    //     sintomas_negativos_afectividad: sintomasNegativosAfectividad,
-    //     //complementarios
-    //     sustancias: sustancias,
-    //     estudios: estudios,
-    //     estudio_causa_natural: estudioCausaNatural
-    // };
-
     datosFormulario = {
         nombre,
         edad,
@@ -311,25 +284,41 @@ function determinar_diagnostico() {
         success: function (response) {
             console.log("Respuesta: ", response);
             // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
-            let riesgo = response.riesgo;
+            let riesgo = response.posibilidad;
 
             // Mostrar el elemento correspondiente según el valor de "riesgo"
             if (riesgo === "Riesgo Alto") {
-                $("#riesgo-alto").css("display", "block");
-                datosFormulario.riesgo = 'Riesgo Alto';
+                $("#posible-esquizofrenia").css("display", "block");
+                datosFormulario.riesgo = 'Posible Esquizofrenia';
             } else if (riesgo === "Riesgo Medio") {
-                $("#riesgo-medio").css("display", "block");
+                $("#evaluar-temporal").css("display", "block");
                 datosFormulario.riesgo = 'Riesgo Medio';
             } else if (riesgo === "Riesgo Bajo") {
-                $("#riesgo-bajo").css("display", "block");
+                $("#no-posible-esquizofrenia").css("display", "block");
                 datosFormulario.riesgo = 'Riesgo Bajo';
             }
+            // else {
+            //     $("#no-posible-esquizofrenia").css("display", "block");
+            //     datosFormulario.riesgo = '-';
+            // }
 
             // Actualizar el texto de "posibles-causas" y "recomendacion" según la respuesta
             $("#posibles-causas").text(response.posibles_causas ? response.posibles_causas : "No disponible");
             datosFormulario.posibles_causas = response.posibles_causas;
-            $("#recomendacion").text(response.recomendacion ? response.recomendacion : "-");
-            datosFormulario.recomendacion = response.recomendacion;
+
+            // Recomendaciones
+            let recomendacion = response.recomendacion;
+            recomendacion = "Se recomienda realizar estudios complementarios."
+
+            console.log("recomendacion: " + recomendacion);
+            if (recomendacion != null) {
+                $("#recomendacion-title").css("display", "block");
+                $("#recomendacion").css("display", "block");
+                $("#recomendacion").text(response.recomendacion ? response.recomendacion : "-");
+            }
+            datosFormulario.recomendacion = recomendacion;
+
+
             // datosFormulario.codigo_paciente = response.codigo_paciente;
             console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
             mostrarPopup();
