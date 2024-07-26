@@ -108,6 +108,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    width: 90%;
 }
 
 .riesgo-alto {
@@ -246,6 +247,19 @@ body {
     /* Asegura de que no haya margen inferior en los botones */
 }
 
+.btn-rounded {
+    margin-bottom: 10px;
+    /* Espacio entre botones en dispositivos móviles */
+}
+
+.button-container-popup {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    flex-direction: column;
+    align-items: center;
+}
+
 .gray-box {
     border: 2px solid #d3d3d3;
     /* Borde gris */
@@ -280,11 +294,6 @@ body {
         white-space: pre-wrap;
         width: 100%;
     }
-
-    /* .btn-bool {
-        text-align: center;
-        margin-bottom: 20px;
-    } */
 
     .btn-bool,
     .form-group.opciones {

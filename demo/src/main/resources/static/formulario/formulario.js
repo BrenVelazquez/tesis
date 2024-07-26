@@ -8,12 +8,14 @@ $(document).ready(function () {
     });
 
     $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
-        initializePositiveButtons(); // Asegúrate de definir esta función en formulario.js
+        initializePositiveButtons();
     });
 
     $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
-        // initializeNegativeButtons(); // Descomenta si necesitas esta inicialización
+        // initializeNegativeButtons(); 
     });
+
+    $("#diagnostico-popup").load("diagnostico.html", function () {});
 });
 
 
@@ -182,7 +184,6 @@ function determinar_diagnostico() {
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
 
-
     const transtornoAutista =
         document.querySelector("#transtorno-autista-si.selected") ? "Si" :
             document.querySelector("#transtorno-autista-no.selected") ? "No" : "";
@@ -235,40 +236,113 @@ function determinar_diagnostico() {
     const estudioCausaNatural = document.getElementById("estudio-causa-natural").value;
 
 
-    // Crear un objeto con los valores recolectados
+    // Se crea un objeto con los valores recolectados
+    // datosFormulario = {
+    //     edad: edad,
+    //     sexo: sexo,
+    //     nombre: nombre,
+    //     transtorno_autista: transtornoAutista,
+    //     transtorno_comunicacion: transtornoComunicacion,
+    //     transtorno_esquizoafectivo: transtornoEsquizoafectivo,
+    //     transtorno_depresivo: transtornoDepresivo,
+    //     transtorno_bipolar: transtornoBipolar,
+    //     antecedentes_familiares: antecedentesFamiliares,
+    //     // sintomas positivos,
+    //     sintomas_positivos_duracion: sintomasPositivosDuracion,
+    //     sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
+    //     sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
+    //     sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
+    //     sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
+    //     sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
+    //     sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
+    //     sintomas_positivos_delirios: sintomasPositivosDelirios,
+    //     // sintomas negativos,
+    //     sintomas_negativos_duracion: sintomasNegativosDuracion,
+    //     sintomas_negativos_aspecto: sintomasNegativosAspecto,
+    //     sintomas_negativos_atencion: sintomasNegativosAtencion,
+    //     sintomas_negativos_actividad: sintomasNegativosActividad,
+    //     sintomas_negativos_afectividad: sintomasNegativosAfectividad,
+    //     //complementarios
+    //     sustancias: sustancias,
+    //     estudios: estudios,
+    //     estudio_causa_natural: estudioCausaNatural
+    // };
+
     datosFormulario = {
-        edad: edad,
-        sexo: sexo,
-        nombre: nombre,
-        transtorno_autista: transtornoAutista,
-        transtorno_comunicacion: transtornoComunicacion,
-        transtorno_esquizoafectivo: transtornoEsquizoafectivo,
-        transtorno_depresivo: transtornoDepresivo,
-        transtorno_bipolar: transtornoBipolar,
-        antecedentes_familiares: antecedentesFamiliares,
+        nombre,
+        edad,
+        sexo,
+        transtornoAutista,
+        transtornoComunicacion,
+        transtornoEsquizoafectivo,
+        transtornoDepresivo,
+        transtornoBipolar,
+        antecedentesFamiliares,
         // sintomas positivos,
-        sintomas_positivos_duracion: sintomasPositivosDuracion,
-        sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
-        sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
-        sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
-        sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
-        sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
-        sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
-        sintomas_positivos_delirios: sintomasPositivosDelirios,
-        // sintomas negativos,
-        sintomas_negativos_duracion: sintomasNegativosDuracion,
-        sintomas_negativos_aspecto: sintomasNegativosAspecto,
-        sintomas_negativos_atencion: sintomasNegativosAtencion,
-        sintomas_negativos_actividad: sintomasNegativosActividad,
-        sintomas_negativos_afectividad: sintomasNegativosAfectividad,
-        //complementarios
-        sustancias: sustancias,
-        estudios: estudios,
-        estudio_causa_natural: estudioCausaNatural
+        sintomasPositivosDuracion,
+        sintomasPositivosAlucinaciones,
+        sintomasPositivosTipoAlucinaciones,
+        sintomasPositivosTipoLenguaje,
+        sintomasPositivosTipoPensamiento,
+        sintomasPositivosTipoRitmoPensamiento,
+        sintomasPositivosTipoContenidoPensamiento,
+        sintomasPositivosDelirios,
+        // sintomas negativos
+        sintomasNegativosDuracion,
+        sintomasNegativosAspecto,
+        sintomasNegativosAtencion,
+        sintomasNegativosActividad,
+        sintomasNegativosAfectividad,
+        // complementarios
+        estudios,
+        // comentariosEstudios,
+        estudioCausaNatural,
+        sustancias
     };
 
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
+
+    $.ajax({
+        type: "POST",
+        url: "/diagnosticar", // La URL del Controller
+        contentType: "application/json",
+        data: jsonString,
+        success: function (response) {
+            console.log("Respuesta: ", response);
+            // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
+            let riesgo = response.riesgo;
+
+            // Mostrar el elemento correspondiente según el valor de "riesgo"
+            if (riesgo === "Riesgo Alto") {
+                $("#riesgo-alto").css("display", "block");
+                datosFormulario.riesgo = 'Riesgo Alto';
+            } else if (riesgo === "Riesgo Medio") {
+                $("#riesgo-medio").css("display", "block");
+                datosFormulario.riesgo = 'Riesgo Medio';
+            } else if (riesgo === "Riesgo Bajo") {
+                $("#riesgo-bajo").css("display", "block");
+                datosFormulario.riesgo = 'Riesgo Bajo';
+            }
+
+            // Actualizar el texto de "posibles-causas" y "recomendacion" según la respuesta
+            $("#posibles-causas").text(response.posibles_causas ? response.posibles_causas : "No disponible");
+            datosFormulario.posibles_causas = response.posibles_causas;
+            $("#recomendacion").text(response.recomendacion ? response.recomendacion : "-");
+            datosFormulario.recomendacion = response.recomendacion;
+            // datosFormulario.codigo_paciente = response.codigo_paciente;
+            console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
+            mostrarPopup();
+        },
+        error: function (error) {
+            console.error("Error en la solicitud de diagnósitco: " + JSON.stringify(error));
+        }
+    });
+    console.log("FIN FUNCION DIAGNOSTICO()");
+
+}
+
+function guardarRegistro(estado) {
 
     // Obtener el archivo seleccionado
     let fileInput = document.getElementById('imagen');
@@ -279,34 +353,38 @@ function determinar_diagnostico() {
     formData.append('file', file);
 
     //Metodo de Subir Imagen
-    $.ajax({
-        url: '/subirImagen', // La URL del controlador
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
+    // console.error('file:', file);
+    // console.error('formData:', formData);
+    // if(file){
+    //     console.log("Se carga el archivo.");
+    //     $.ajax({
+    //         url: '/subirImagen', // La URL del Controller
+    //         type: 'POST',
+    //         data: formData,
+    //         processData: false,
+    //         contentType: false,
+    //         success: function (data) {
+    //             console.log('Imagen subida y guardada con éxito:', data);
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error('Error al subir la imagen:', error);
+    //         }
+    //     });
+    // }
 
-            console.log('Imagen subida y guardada con éxito:', data);
 
-            //Metodo de Cargar Paciente
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/ingresarPaciente", // La URL del controlador
-            //     contentType: "application/json",
-            //     data: jsonString,
-            //     success: function (response) {
-            //         console.log('Paciente ingresado con éxito:', data);
-            //         cerrarPopup();
-            //     },
-            //     error: function (xhr, status, error) {
-            //         console.error('Error al registrar al paciente:', error);
-            //     }
-            // });
-
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al subir la imagen:', error);
-        }
-    });
+    // // Metodo de Cargar Paciente
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/ingresarPaciente", // La URL del controlador
+    //     contentType: "application/json",
+    //     data: jsonString,
+    //     success: function (response) {
+    //         console.log('Paciente ingresado con éxito:', data);
+    //         cerrarPopup();
+    //     },
+    //     error: function (xhr, status, error) {
+    //         console.error('Error al registrar al paciente:', error);
+    //     }
+    // });
 }

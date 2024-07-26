@@ -68,8 +68,8 @@ public class PacienteRequest {
     @JsonProperty("sintomas_negativos_actividad")
     private String sintomas_negativos_actividad;
 
-    @JsonProperty(" sintomas_negativos_afectividad")
-    private String  sintomas_negativos_afectividad;
+    @JsonProperty("sintomas_negativos_afectividad")
+    private String sintomas_negativos_afectividad;
 
     @JsonProperty("sustancias")
     private String sustancias;

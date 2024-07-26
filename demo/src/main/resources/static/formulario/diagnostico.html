@@ -1,0 +1,83 @@
+<!-- Popup -->
+        <div class="popup" id="popup">
+            <div class="popup-inner">
+                <!-- <div class="row">
+                    <div class="col-md-12 text-right">
+                        <p>Código de Paciente: <span id="codigo-paciente"></span></p>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Riesgo Medido</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="diagnostico-text">
+                        <h3 class="riesgo-alto" style="display: none;" id="riesgo-alto">Alto</h3>
+                        <h3 class="riesgo-medio" style="display: none;" id="riesgo-medio">Medio</h3>
+                        <h3 class="riesgo-bajo" style="display: none" id="riesgo-bajo">Bajo</h3>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Justificación</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <pre id="posibles-causas" class="causas-text"></pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Recomendación</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="recomendacion" class="recomendacion-text"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Comentarios Adicionales Sobre el Paciente</h3>
+                    </div>
+                </div>
+                <div class="row cuadro-comentarios-medico">
+                    <div class="col-md-6">
+                        <textarea id="comentarios-medicos" class="form-control comentario-text" rows="4"
+                            placeholder="Ingresá tus comentarios"></textarea>
+                    </div>
+                </div>
+                <div class="button-container-popup">
+                    <button id="confirmar-diagnostico" class="btn btn-success btn-rounded"
+                        onclick="guardarRegistro('Confirmado')">Confirmar Diagnostico</button>
+                    <button id="rechazar-diagnostico" class="btn btn-danger btn-rounded"
+                        onclick="mostrarJustificacion()">Rechazar Diagnostico</button>
+                </div>
+                <div class="justificacion" id="justificacion" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Explicación</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea id="justificacion-rechazo" class="form-control" rows="4"
+                                placeholder="Explique la razón de rechazo"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button id="rechazar-diagnostico" class="btn btn-danger btn-rounded data-columns"
+                                onclick="guardarRegistro('Rechazado')">Confirmar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Popup -->
