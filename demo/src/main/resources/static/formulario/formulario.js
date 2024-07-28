@@ -277,6 +277,7 @@ function determinar_diagnostico() {
         posibilidad,
         recomendacion,
         justificacion,
+        
     };
 
     const jsonString = JSON.stringify(datosFormulario);

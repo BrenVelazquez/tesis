@@ -33,7 +33,7 @@ public class PacienteRequest {
     private String antecedentes_familiares;
 
     @JsonProperty("sintomas_positivos_duracion")
-    private int sintomas_positivos_duracion;
+    private String sintomas_positivos_duracion;
 
     @JsonProperty("sintomas_positivos_alucinaciones")
     private String sintomas_positivos_alucinaciones;
@@ -57,7 +57,7 @@ public class PacienteRequest {
     private String sintomas_positivos_delirios;
 
     @JsonProperty("sintomas_negativos_duracion")
-    private int sintomas_negativos_duracion;
+    private String sintomas_negativos_duracion;
 
     @JsonProperty("sintomas_negativos_aspecto")
     private String sintomas_negativos_aspecto;
@@ -79,4 +79,5 @@ public class PacienteRequest {
 
     @JsonProperty("estudio_causa_natural")
     private String estudio_causa_natural;
-}
+
+} 
