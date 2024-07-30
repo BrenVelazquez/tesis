@@ -53,8 +53,6 @@ public class PacienteRequest {
     @JsonProperty("sintomas_positivos_tipo_contenido_pensamiento")
     private String sintomas_positivos_tipo_contenido_pensamiento;
 
-    @JsonProperty("sintomas_positivos_delirios")
-    private String sintomas_positivos_delirios;
 
     @JsonProperty("sintomas_negativos_duracion")
     private String sintomas_negativos_duracion;
