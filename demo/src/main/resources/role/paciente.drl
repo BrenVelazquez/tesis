@@ -115,7 +115,7 @@ end
 
 rule "Diagnosticos descartados"
 when
-    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='No' && transtorno_bipolar=='No')  
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='No' && (transtorno_bipolar=='No'|| transtorno_depresivo=='No'))  
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas.",1)   
@@ -123,7 +123,7 @@ end
 
 rule "Diagnosticos no descartados"
 when
-    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='Si' || transtorno_bipolar=='Si' )
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='Si' || transtorno_bipolar=='Si'|| transtorno_depresivo=='Si' )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas.",1)   
