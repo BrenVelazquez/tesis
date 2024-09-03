@@ -14,31 +14,56 @@ dialect "mvel"
 
 rule "Sintomas obligatorios - Delirios"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-no-sistematizada')  && (sintomas_positivos_alucinaciones=='No se descarta' || sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_tipo_pensamiento=='pensamiento-disgregacion' || sintomas_positivos_tipo_pensamiento=='pensamiento-incoherencia' || sintomas_negativos_actividad=='actividad-abulia'))
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada")  
+    && (sintomas_positivos_alucinaciones=="No se descarta" 
+    || sintomas_positivos_alucinaciones=="Si" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser sintomas_positivos_delirioss, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - alucinaciones "
 when
-    $pacienteRequest: PacienteRequest( pacienteResponse.getPuntaje() == 0 && sintomas_positivos_alucinaciones=='Si' && (sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-no-sistematizada'|| sintomas_positivos_tipo_pensamiento=='pensamiento-disgregacion' || sintomas_positivos_tipo_pensamiento=='pensamiento-incoherencia' || sintomas_negativos_actividad=='actividad-abulia')  )
+    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje() == 0 
+    && sintomas_positivos_alucinaciones=="Si" 
+    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser sintomas_positivos_delirioss, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Disgregacion"
 when
-    $pacienteRequest: PacienteRequest( pacienteResponse.getPuntaje() == 0 && sintomas_positivos_tipo_pensamiento=='pensamiento-disgregacion' && (sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-no-sistematizada'|| sintomas_positivos_alucinaciones=='No se descarta' || sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_tipo_pensamiento=='pensamiento-incoherencia' || sintomas_negativos_actividad=='actividad-abulia') )
+    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje() == 0 
+    && sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    || sintomas_positivos_alucinaciones=="No se descarta" 
+    || sintomas_positivos_alucinaciones=="Si" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser sintomas_positivos_delirioss, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirioss, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Incoherencia"
 when
-    $pacienteRequest: PacienteRequest( sintomas_positivos_tipo_pensamiento=='pensamiento-incoherencia' && (sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-no-sistematizada' || sintomas_positivos_alucinaciones=='No se descarta' || sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_tipo_pensamiento=='pensamiento-disgregacion' || sintomas_negativos_actividad=='actividad-abulia')) 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    || sintomas_positivos_alucinaciones=="No se descarta" 
+    || sintomas_positivos_alucinaciones=="Si" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    || sintomas_negativos_actividad=="actividad-abulia")) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser sintomas_positivos_delirioss, alucionaciones, disgregación o incoherencia",1)   
@@ -46,10 +71,14 @@ end
 
 rule "Sintomas obligatorios - Ninguno"
 when
-    $pacienteRequest: PacienteRequest( sintomas_positivos_tipo_contenido_pensamiento!='contenido-pensamiento-ideacion-delirante-sistematizada' && sintomas_positivos_tipo_contenido_pensamiento!='contenido-pensamiento-ideacion-delirante-no-sistematizada' && sintomas_positivos_alucinaciones=='No' && sintomas_positivos_tipo_pensamiento!='pensamiento-disgregacion' && sintomas_positivos_tipo_pensamiento!='pensamiento-incoherencia' ) 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-sistematizada" 
+    && sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    && sintomas_positivos_alucinaciones=="No" 
+    && sintomas_positivos_tipo_pensamiento!="pensamiento-disgregacion" 
+    && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
-    pacienteResponse.actualizarJustificacion("No presenta sintomas_positivos_alucinaciones, sintomas_positivos_delirios, digregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("No presenta alucionaciones, delirios, digregación o incoherencia",1)   
 end
 
 
@@ -57,7 +86,8 @@ end
 
 rule "Tiempo - Menor 1 mes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == 'Menos de un mes'|| sintomas_negativos_duracion == 'Menos de un mes') 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Menos de un mes" 
+    || sintomas_negativos_duracion == "Menos de un mes") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("La duración de síntomas positivos o negativos menor a un mes",1)   
@@ -65,10 +95,11 @@ end
 
 rule "Tiempo - mayor 1 mes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == 'Mayor o igual a un mes' && sintomas_negativos_duracion == 'Mayor o igual a un mes') 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Mayor o igual a un mes" 
+    && sintomas_negativos_duracion == "Mayor o igual a un mes") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-    pacienteResponse.actualizarJustificacion("La duración de síntomas sintomas positivos y negativos es mayor a un mes",1)   
+    pacienteResponse.actualizarJustificacion("La duración de síntomas positivos y negativos es mayor a un mes",1)   
 end
 
 
@@ -76,29 +107,29 @@ end
 
 rule "Ambitos principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto!='aspecto-bizarro' 
-    || sintomas_negativos_aspecto!='aspecto-extravagante' 
-    || sintomas_negativos_aspecto!='aspecto-inadecuado' 
-    || sintomas_negativos_aspecto!='aspecto-adelgazado'
-    || sintomas_negativos_atencion=='atencion-hiperprosexia' 
-    || sintomas_negativos_atencion=='aspecto-hipomimico' 
-    || sintomas_negativos_atencion=='atencion-paraprosexia' 
-    || sintomas_negativos_actividad=='actividad-abulia' 
-    || sintomas_negativos_actividad=='actividad-apraxia'
-    || sintomas_negativos_actividad=='actividad-ataxia' 
-    || sintomas_negativos_actividad=='actividad-hipobulia' 
-    || sintomas_negativos_actividad=='actividad-compulsiones' 
-    || sintomas_negativos_actividad=='actividad-ecopraxia' 
-    || sintomas_negativos_actividad=='actividad-manierismo' 
-    || sintomas_negativos_actividad=='Esterotipia' 
-    || sintomas_negativos_actividad=='actividad-negativismo' 
-    || sintomas_negativos_actividad=='actividad-flexibilidad-cerea' 
-    || sintomas_negativos_afectividad=='afectividad-aplanamiento-afectivo' 
-    || sintomas_negativos_afectividad=='afectividad-labilidad' 
-    || sintomas_negativos_afectividad=='afectividad-irritabilidad' 
-    || sintomas_negativos_afectividad=='afectividad-expansivo' 
-    || sintomas_negativos_afectividad=='afectividad-inapropiado' 
-    || sintomas_negativos_afectividad=='afectividad-anhedonia')
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto!="aspecto-bizarro" 
+    || sintomas_negativos_aspecto!="aspecto-extravagante" 
+    || sintomas_negativos_aspecto!="aspecto-inadecuado" 
+    || sintomas_negativos_aspecto!="aspecto-adelgazado"
+    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion=="aspecto-hipomimico" 
+    || sintomas_negativos_atencion=="atencion-paraprosexia" 
+    || sintomas_negativos_actividad=="actividad-abulia" 
+    || sintomas_negativos_actividad=="actividad-apraxia"
+    || sintomas_negativos_actividad=="actividad-ataxia" 
+    || sintomas_negativos_actividad=="actividad-hipobulia" 
+    || sintomas_negativos_actividad=="actividad-compulsiones" 
+    || sintomas_negativos_actividad=="actividad-ecopraxia" 
+    || sintomas_negativos_actividad=="actividad-manierismo" 
+    || sintomas_negativos_actividad=="Esterotipia" 
+    || sintomas_negativos_actividad=="actividad-negativismo" 
+    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
+    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
+    || sintomas_negativos_afectividad=="afectividad-labilidad" 
+    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
+    || sintomas_negativos_afectividad=="afectividad-expansivo" 
+    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
+    || sintomas_negativos_afectividad=="afectividad-anhedonia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Durante una parte significativa del tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
@@ -106,7 +137,29 @@ end
 
 rule "Ambitos principales - Normal"
 when
-    $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto!='aspecto-bizarro' || sintomas_negativos_aspecto!='aspecto-extravagante' || sintomas_negativos_aspecto!='aspecto-inadecuado' || sintomas_negativos_aspecto!='aspecto-adelgazado'|| sintomas_negativos_atencion=='atencion-hiperprosexia' || sintomas_negativos_atencion=='aspecto-hipomimico' || sintomas_negativos_atencion=='atencion-paraprosexia' || sintomas_negativos_actividad=='actividad-abulia' || sintomas_negativos_actividad=='actividad-apraxia'|| sintomas_negativos_actividad=='actividad-ataxia' || sintomas_negativos_actividad=='actividad-hipobulia'  || sintomas_negativos_actividad=='actividad-compulsiones' || sintomas_negativos_actividad=='actividad-ecopraxia' || sintomas_negativos_actividad=='actividad-manierismo' || sintomas_negativos_actividad=='Esterotipia' || sintomas_negativos_actividad=='actividad-negativismo' || sintomas_negativos_actividad=='actividad-flexibilidad-cerea' || sintomas_negativos_afectividad=='afectividad-aplanamiento-afectivo' || sintomas_negativos_afectividad=='afectividad-labilidad' || sintomas_negativos_afectividad=='afectividad-irritabilidad' || sintomas_negativos_afectividad=='afectividad-expansivo' || sintomas_negativos_afectividad=='afectividad-inapropiado' || sintomas_negativos_afectividad=='afectividad-anhedonia'))
+    $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto!="aspecto-bizarro" 
+    || sintomas_negativos_aspecto!="aspecto-extravagante" 
+    || sintomas_negativos_aspecto!="aspecto-inadecuado" 
+    || sintomas_negativos_aspecto!="aspecto-adelgazado" 
+    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion=="aspecto-hipomimico" 
+    || sintomas_negativos_atencion=="atencion-paraprosexia" 
+    || sintomas_negativos_actividad=="actividad-abulia" 
+    || sintomas_negativos_actividad=="actividad-apraxia"
+    || sintomas_negativos_actividad=="actividad-ataxia" 
+    || sintomas_negativos_actividad=="actividad-hipobulia" 
+    || sintomas_negativos_actividad=="actividad-compulsiones" 
+    || sintomas_negativos_actividad=="actividad-ecopraxia" 
+    || sintomas_negativos_actividad=="actividad-manierismo" 
+    || sintomas_negativos_actividad=="Esterotipia" 
+    || sintomas_negativos_actividad=="actividad-negativismo" 
+    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
+    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
+    || sintomas_negativos_afectividad=="afectividad-labilidad" 
+    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
+    || sintomas_negativos_afectividad=="afectividad-expansivo" 
+    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
+    || sintomas_negativos_afectividad=="afectividad-anhedonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No presenta nivel de funcionamiento bajo en ambitos principales",1)   
@@ -118,7 +171,11 @@ end
 
 rule "Antecedentes - presencia de delirios o alucionaciones"
 when
-    $pacienteRequest: PacienteRequest((transtorno_autista=='Si'|| transtorno_comunicacion=='Si') && (sintomas_positivos_alucinaciones=='Si' || sintomas_positivos_tipo_contenido_pensamiento== 'contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-ideacion-delirante-no-sistematizada') )
+    $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
+    || transtorno_comunicacion=="Si") 
+    && (sintomas_positivos_alucinaciones=="Si" 
+    || sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
@@ -126,7 +183,11 @@ end
 
 rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucionaciones"
 when
-    $pacienteRequest: PacienteRequest((transtorno_autista=='Si'|| transtorno_comunicacion=='Si') &&  sintomas_positivos_tipo_contenido_pensamiento!= 'contenido-pensamiento-ideacion-delirante-sistematizada' && sintomas_positivos_tipo_contenido_pensamiento!='contenido-pensamiento-ideacion-delirante-no-sistematizada' && sintomas_positivos_alucinaciones=='No' )
+    $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
+    || transtorno_comunicacion=="Si") 
+    && sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-sistematizada" 
+    && sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    && sintomas_positivos_alucinaciones=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones",1)   
@@ -137,7 +198,9 @@ end
 
 rule "Diagnosticos descartados"
 when
-    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='No' && (transtorno_bipolar=='No'|| transtorno_depresivo=='No'))  
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=="No" 
+    && (transtorno_bipolar=="No" 
+    || transtorno_depresivo=="No"))  
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
@@ -145,7 +208,9 @@ end
 
 rule "Diagnosticos no descartados"
 when
-    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=='Si' || transtorno_bipolar=='Si'|| transtorno_depresivo=='Si' )
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=="Si" 
+    || transtorno_bipolar=="Si" 
+    || transtorno_depresivo=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
@@ -157,7 +222,7 @@ end
 
 rule "Efectos fisiologicos - No"
 when
-    $pacienteRequest: PacienteRequest(sustancias=='No' )
+    $pacienteRequest: PacienteRequest(sustancias=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("El trastorno no se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
@@ -165,7 +230,7 @@ end
 
 rule "Efectos fisiologicos - Si"
 when
-    $pacienteRequest: PacienteRequest(sustancias=='Si' )
+    $pacienteRequest: PacienteRequest(sustancias=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0)
     pacienteResponse.actualizarJustificacion("El trastorno se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
@@ -176,7 +241,7 @@ end
 
 rule "Causa organica - No"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=='No' )
+    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-no")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se descarta causa orgánica",1)   
@@ -184,7 +249,7 @@ end
 
 rule "Causa organica - Si"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=='Si' )
+    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Se detecta causa orgánica",1)   
@@ -192,9 +257,10 @@ end
 
 rule "Causa organica - No evalua"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=='Sin estudios' )
+    $pacienteRequest: PacienteRequest(estudios=="estudios-no" )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    // No tendriamos que mostrar otro mensaje?
     pacienteResponse.actualizarJustificacion("Se detecta causa orgánica",1)   
 end
 
@@ -202,7 +268,9 @@ end
 
 rule "PUNTAJE: Alucinaciones - Si"
 when
-    $pacienteRequest: PacienteRequest( sintomas_positivos_tipo_alucinaciones!='No se descarta' && sintomas_positivos_tipo_alucinaciones=='No'  )
+    $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones!="No se descarta" 
+    && sintomas_positivos_alucinaciones=="No")
+    //No es mejor poner asi?   $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
@@ -210,7 +278,7 @@ end
 
 rule "PUNTAJE: Alucinaciones - No se descarta"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=='No se descarta'  )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="No se descarta")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No se descartan alucinaciones",1)   
@@ -218,7 +286,7 @@ end
 
 rule "PUNTAJE: Alucinaciones - No"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=='No'  )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("No posee alucinaciones",1)   
@@ -230,7 +298,8 @@ end
 
 rule "PUNTAJE: Delirios - Si"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento== 'contenido-pensamiento-ideacion-delirante-sistematizada' || sintomas_positivos_tipo_contenido_pensamiento== 'contenido-pensamiento-ideacion-delirante-no-sistematizada' )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-sistematizada" 
+    || sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-no-sistematizada" )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta delirios",1)   
@@ -238,7 +307,8 @@ end
 
 rule "PUNTAJE: Delirios - No"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!= 'contenido-pensamiento-ideacion-delirante-sistematizada' && sintomas_positivos_tipo_contenido_pensamiento!= 'contenido-pensamiento-ideacion-delirante-no-sistematizada')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-sistematizada" 
+    && sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-no-sistematizada")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta delirios",1)   
@@ -250,7 +320,7 @@ end
 
 rule "PUNTAJE: Edad - Adolescente hombre "
 when
-    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=='Masculino')
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
         pacienteResponse.actualizarJustificacion("Es adolescente",1)   
@@ -266,7 +336,7 @@ end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60 "
 when
-    $pacienteRequest: PacienteRequest(sexo=='Masculino' && (edad > 25 && edad <= 59))
+    $pacienteRequest: PacienteRequest(sexo=="Masculino" && (edad > 25 && edad <= 59))
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
         pacienteResponse.actualizarJustificacion("No es adolescente",1)   
@@ -275,7 +345,7 @@ end
 
 rule "PUNTAJE: Edad - Adolescente mujer "
 when
-    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=='Femenino')
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
         pacienteResponse.actualizarJustificacion("Es adolescente",1)   
@@ -283,7 +353,8 @@ end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
 when
-    $pacienteRequest: PacienteRequest(sexo=='Femenino' && (edad >= 11 || (edad >= 19 && edad <= 59)))
+    $pacienteRequest: PacienteRequest(sexo=="Femenino" 
+    && (edad >= 11 || (edad >= 19 && edad <= 59)))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
@@ -305,7 +376,10 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == 'lenguaje-taquilalia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-verborragia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-bradilalia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-mutismo')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
@@ -314,16 +388,22 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= 'lenguaje-sin-particularidades' && sintomas_positivos_tipo_lenguaje != 'lenguaje-latencia' &&!(sintomas_positivos_tipo_lenguaje == 'lenguaje-taquilalia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-verborragia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-bradilalia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-latencia' || sintomas_positivos_tipo_lenguaje == 'lenguaje-mutismo'))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= "lenguaje-sin-particularidades" 
+    && sintomas_positivos_tipo_lenguaje != "lenguaje-latencia" 
+    &&!(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-latencia" 
+    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo"))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
         pacienteResponse.actualizarJustificacion("Lenguaje con particularidades características de esquizofrenia",1)   
 end
 
-rule "PUNTAJE: Tipo de lenguaje - Mas común"
+rule "PUNTAJE: Tipo de lenguaje - más común"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == 'lenguaje-latencia')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-latencia")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
@@ -332,7 +412,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=='lenguaje-sin-particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=="lenguaje-sin-particularidades")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -344,7 +424,8 @@ end
 
 rule "PUNTAJE: Pensamiento - principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=='Disgregación' || sintomas_positivos_tipo_pensamiento=='pensamiento-incoherencia')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
@@ -353,16 +434,18 @@ end
 
 rule "PUNTAJE: Pensamiento - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento!='pensamiento-sin-particularidades' && sintomas_positivos_tipo_pensamiento!='Disgregación' && sintomas_positivos_tipo_pensamiento!='pensamiento-incoherencia')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento!="pensamiento-sin-particularidades" 
+    && sintomas_positivos_tipo_pensamiento!="pensamiento-disgregacion" 
+    && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia")
 then
     
-        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
         pacienteResponse.actualizarJustificacion("Pensamiento con particularidades",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=='pensamiento-sin-particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-sin-particularidades")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -395,25 +478,29 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!='contenido-pensamiento-sin-particularidades' && !(sintomas_positivos_tipo_contenido_pensamiento== 'contenido-pensamiento-idea-obsesiva' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-idea-fija'  ))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
+    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
         pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades",1)   
 end
 
-rule "PUNTAJE: Contenido pensamiento - particularidades mas comunes"
+rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!='contenido-pensamiento-sin-particularidades' && (sintomas_positivos_tipo_contenido_pensamiento== 'contenido-pensamiento-idea-obsesiva' || sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-idea-fija'  ))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
+    && (sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades mas comunes",1)   
+        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades más comunes",1)   
 end
 
 rule "PUNTAJE: Contenido pensamiento - sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento=='contenido-pensamiento-sin-particularidades')
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-sin-particularidades")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -425,7 +512,7 @@ end
 
 rule "PUNTAJE: Antecedentes familiares - Si"
 when
-    $pacienteRequest: PacienteRequest(antecedentes_familiares=='Si')
+    $pacienteRequest: PacienteRequest(antecedentes_familiares=="Si")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
@@ -434,7 +521,7 @@ end
 
 rule "PUNTAJE: Antecedentes familiares - No"
 when
-    $pacienteRequest: PacienteRequest(antecedentes_familiares=='No')
+    $pacienteRequest: PacienteRequest(antecedentes_familiares=="No")
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -446,7 +533,9 @@ end
 
 rule "PUNTAJE: Aspecto - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=='aspecto-facie' || sintomas_negativos_aspecto=='aspecto-aliño' || sintomas_negativos_aspecto=='aspecto-aseo'  )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=="aspecto-facie" 
+    || sintomas_negativos_aspecto=="aspecto-aliño" 
+    || sintomas_negativos_aspecto=="aspecto-aseo"  )
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Aspecto normal",1)   
@@ -454,7 +543,9 @@ end
 
 rule "PUNTAJE: Aspecto - Particularidades"
 when
-    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto != 'aspecto-facie' && sintomas_negativos_aspecto != 'aspecto-aliño' && sintomas_negativos_aspecto != 'aspecto-aseo' ) )
+    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto != "aspecto-facie" 
+    && sintomas_negativos_aspecto != "aspecto-aliño" 
+    && sintomas_negativos_aspecto != "aspecto-aseo"))
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Aspecto con particularidades",1)   
@@ -464,7 +555,7 @@ end
 
 rule "PUNTAJE: Atencion - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=='atencion-euprosexia')
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-euprosexia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Atencion normal",1)   
@@ -472,26 +563,28 @@ end
 
 rule "PUNTAJE: Atención con particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=='atencion-hipoprosexia' )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-hipoprosexia" )
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
         pacienteResponse.actualizarJustificacion("Atención con particularidades",1)   
 end
 
-rule "PUNTAJE: Atención con particularidades mas comunes"
+rule "PUNTAJE: Atención con particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=='atencion-hiperprosexia' || sintomas_negativos_atencion=='atencion-paraprosexia' )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion=="atencion-paraprosexia" )
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Atención con particularidades mas comunes",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades comunes en esquizofrenia en la Atención (hiperprosexia y/o paraprosexia)",1)   
 end
-
-
 
 
 rule "PUNTAJE: Actividad - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=='actividad-normobulico' || sintomas_negativos_actividad=='actividad-hiperbulia-productiva' || sintomas_negativos_actividad=='actividad-apraxia' || sintomas_negativos_actividad=='actividad-ataxia')
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico" 
+    || sintomas_negativos_actividad=="actividad-hiperbulia-productiva" 
+    || sintomas_negativos_actividad=="actividad-apraxia" 
+    || sintomas_negativos_actividad=="actividad-ataxia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Actividad normal",1)   
@@ -499,40 +592,41 @@ end
 
 rule "PUNTAJE: Actividad con particularidades frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=='actividad-hiperbulia-improductiva' || sintomas_negativos_actividad=='Interceptación cinética'   )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-hiperbulia-improductiva" 
+    || sintomas_negativos_actividad=="Interceptación cinética"   )
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
         pacienteResponse.actualizarJustificacion("Atención con particularidades frecuentes",1)   
 end
 
-rule "PUNTAJE: Actividad con particularidades mas comunes"
+rule "PUNTAJE: Actividad con particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=='actividad-hipobulia' 
-    || sintomas_negativos_actividad=='actividad-abulia' 
-    ||  sintomas_negativos_actividad=='actividad-compulsiones' 
-    || sintomas_negativos_actividad=='actividad-ecopraxia'
-    ||sintomas_negativos_actividad=='actividad-manierismo' 
-    || sintomas_negativos_actividad=='actividad-estereotipia' 
-    || sintomas_negativos_actividad=='actividad-motora' 
-    || sintomas_negativos_actividad=='actividad-negativismo' )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-hipobulia" 
+    || sintomas_negativos_actividad=="actividad-abulia" 
+    ||  sintomas_negativos_actividad=="actividad-compulsiones" 
+    || sintomas_negativos_actividad=="actividad-ecopraxia"
+    ||sintomas_negativos_actividad=="actividad-manierismo" 
+    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
+    || sintomas_negativos_actividad=="actividad-negativismo")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Atención con particularidades mas comunes",1)   
+        pacienteResponse.actualizarJustificacion("Presena alguna de las particularidades más comunes en Actividad (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo)",1)   
 end
 
 rule "PUNTAJE: Actividad con part. - otros diagnosticos"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=='actividad-impulsiones' || sintomas_negativos_actividad=='actividad-flexibilidad-cerea' )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-impulsiones" 
+    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" )
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-        pacienteResponse.actualizarJustificacion("Particularidades de la actividad mas frecuentes en otros diagnosticos",1)   
+        pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnosticos",1)   
 end
 
 
 
-rule "PUNTAJE: Afectividad - mas comun"
+rule "PUNTAJE: Afectividad - más comun"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=='afectividad-aplanamiento-afectivo'  )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
         pacienteResponse.actualizarJustificacion("Particularidades de afectividad muy comun es esquizofrenia",1)   
@@ -540,7 +634,7 @@ end
 
 rule "PUNTAJE: Afectividad - Frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=='afectividad-hipotimia'  )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-hipotimia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
         pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en esquizofrenia",1)   
@@ -548,7 +642,7 @@ end
 
 rule "PUNTAJE: Afectividad - normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!='afectividad-eutimia')
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!="afectividad-eutimia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Afectividad normal",1)   
@@ -557,7 +651,9 @@ end
 
 rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!='afectividad-aplanamiento-afectivo' && sintomas_negativos_afectividad!='afectividad-hipotimia' && sintomas_negativos_afectividad=='afectividad-eutimia'   )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!="afectividad-aplanamiento-afectivo" 
+    && sintomas_negativos_afectividad!="afectividad-hipotimia" 
+    && sintomas_negativos_afectividad=="afectividad-eutimia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
         pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnosticos",1)   
@@ -583,9 +679,11 @@ then
         pacienteResponse.actualizarJustificacion("Los sintomas indican que el paciente no tiene esquizofrenia",1)   
 end
 
-rule "Avaluar temporal"
+rule "Evaluar temporal"
 when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje()>=46 && (sintomas_positivos_duracion == 'Menos de un mes'  || sintomas_negativos_duracion== 'Menos de un mes')) 
+    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje()>=46 
+    && (sintomas_positivos_duracion == "Menos de un mes"  
+    || sintomas_negativos_duracion== "Menos de un mes")) 
 then
     pacienteResponse.posibleTemporal()   
     pacienteResponse.calcularDiagnostico();

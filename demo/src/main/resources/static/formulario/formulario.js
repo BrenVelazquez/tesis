@@ -210,7 +210,8 @@ function determinar_diagnostico() {
             document.querySelector("#antecedentes-familiares-no.selected") ? "No" : "";
 
     // sintomas positivos            
-    const sintomasPositivosDuracion = document.getElementById("sintomas-positivos-duracion").value;
+    const selectedSPDuracion = document.getElementById("sintomas-positivos-duracion");
+    const sintomasPositivosDuracion = selectedSPDuracion.options[selectedSPDuracion.selectedIndex].text;
     const sintomasPositivosAlucinaciones =
         document.querySelector("#sintomas-positivos-alucinaciones-si.selected") ? "Si" :
             document.querySelector("#sintomas-positivos-alucinaciones-no.selected") ? "No" :
@@ -226,7 +227,8 @@ function determinar_diagnostico() {
             document.querySelector("#sintomas-positivos-delirios-ausencia.selected") ? "Ausencia" : "";
 
     // sintomas negativos
-    const sintomasNegativosDuracion = document.getElementById("sintomas-negativos-duracion").value;
+    const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
+    const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
     const sintomasNegativosAspecto = document.getElementById("aspecto").value;
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
@@ -239,12 +241,11 @@ function determinar_diagnostico() {
     const estudios =
         document.querySelector("#estudios-si.selected") ? "Si" :
             document.querySelector("#estudios-no.selected") ? "No" : "";
-    const estudioCausaNatural = document.getElementById("estudio-causa-natural").value;
+    const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
     const estudioComentario = document.getElementById("estudio-comentario").value;
 
     // Se crea un objeto con los valores recolectados
-    
     console.log("datosFormulario: ", datosFormulario);
     datosFormulario = {
         edad: edad,
@@ -279,7 +280,6 @@ function determinar_diagnostico() {
         // posibilidad,
         recomendacion,
         // justificacion,
-        
     };
 
     const jsonString = JSON.stringify(datosFormulario);
@@ -312,7 +312,7 @@ function determinar_diagnostico() {
 
             // Actualizar el texto de "Recomendaciones" según la respuesta
             let recomendacion = response.recomendacion;
-            recomendacion = "Se recomienda iniciar tratamiento.";
+            // recomendacion = "Se recomienda iniciar tratamiento.";
             console.log("recomendacion: " + recomendacion);
             if (recomendacion != null) {
                 $("#recomendacion-title").css("display", "block");
