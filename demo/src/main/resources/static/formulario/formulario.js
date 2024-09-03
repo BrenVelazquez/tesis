@@ -244,6 +244,8 @@ function determinar_diagnostico() {
     const estudioComentario = document.getElementById("estudio-comentario").value;
 
     // Se crea un objeto con los valores recolectados
+    
+    console.log("datosFormulario: ", datosFormulario);
     datosFormulario = {
         edad: edad,
         sexo: sexo,
@@ -274,9 +276,9 @@ function determinar_diagnostico() {
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
         //respuestas del diagnostico
-        posibilidad,
+        // posibilidad,
         recomendacion,
-        justificacion,
+        // justificacion,
         
     };
 

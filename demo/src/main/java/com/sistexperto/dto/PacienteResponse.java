@@ -51,23 +51,23 @@ public class PacienteResponse {
 
     public void posibleEsquizofrenia() { 
         this.setPosibilidad("Posible esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda iniciar tratamiento.");
-            }
+        if (recomendacion == null) {
+            this.setRecomendacion("Se recomienda iniciar tratamiento.");
+        }
     }
 
     public void noPosibleEsquizofrenia() { 
         this.setPosibilidad("No es posible que tenga esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
-            }
+        if (recomendacion == null) {
+            this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
+        }
     }
 
     public void posibleTemporal() {   //en la regla evaluo que tenga el puntaje para esquizofrenia pero la duración sea menor a un mes
         this.setPosibilidad("Posible Esquizofrenia Temporal");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
-            }
+        if (recomendacion == null) {
+            this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
+        }
     }
 
     // Logica de Mati
