@@ -97,7 +97,7 @@ function initializeComplementaryButtons() {
                 //Para que se desplieguen los campos de estudio
                 if (this.id === 'estudios-si') {
                     $("#estudio-comentario").slideDown();
-                    $("#estudio-causa-natural").slideDown();
+                    $("#estudio-causa-natural-id").slideDown();
                     $("#image-container").slideDown();
                 }
             });
@@ -110,7 +110,7 @@ function initializeComplementaryButtons() {
                 //Para que se dejen de mostrar los campos de estudio
                 if (this.id === 'estudios-no') {
                     $("#estudio-comentario").slideUp();
-                    $("#estudio-causa-natural").slideUp();
+                    $("#estudio-causa-natural-id").slideUp();
                     $("#image-container").slideUp();
                 }
             });
@@ -157,21 +157,21 @@ function initializePositiveButtons() {
             btnYesAlucinaciones.classList.add('selected');
             btnNoAlucinaciones.classList.remove('selected');
             btnNoSeDescartaAlucinaciones.classList.remove('selected');
-            $("#tipo-alucinaciones").slideDown();
+            $("#tipo-alucinaciones-id").slideDown();
         });
 
         btnNoAlucinaciones.addEventListener('click', function () {
             btnNoAlucinaciones.classList.add('selected');
             btnYesAlucinaciones.classList.remove('selected');
             btnNoSeDescartaAlucinaciones.classList.remove('selected');
-            $("#tipo-alucinaciones").slideUp();
+            $("#tipo-alucinaciones-id").slideUp();
         });
 
         btnNoSeDescartaAlucinaciones.addEventListener('click', function () {
             btnNoSeDescartaAlucinaciones.classList.add('selected');
             btnYesAlucinaciones.classList.remove('selected');
             btnNoAlucinaciones.classList.remove('selected');
-            $("#tipo-alucinaciones").slideUp();
+            $("#tipo-alucinaciones-id").slideUp();
         });
     } else {
         console.error('Uno o más botones de alucinaciones no encontrados.');
@@ -185,6 +185,7 @@ function validar_campos(datosFormulario) {
 
     resetearErrores(); // Resetear mensajes de error y estilos previos
     let esValido = true;
+    const errorText = "Por favor, seleccione una opción.";
 
     if (datosFormulario.nombre === "") {
         mostrarError(document.getElementById("nombre"), "Por favor, ingrese el nombre del paciente.");
@@ -195,10 +196,147 @@ function validar_campos(datosFormulario) {
         mostrarError(document.getElementById("edad"), "Por favor, ingrese la edad del paciente.");
         esValido = false;
     }
+    else if (datosFormulario.edad > 120 || datosFormulario.edad < 1) {
+        mostrarError(document.getElementById("edad"), "Por favor, ingrese una edad valida.");
+        esValido = false;
+    }
 
     if (datosFormulario.sexo === "-1") {
-        mostrarError(document.getElementById("sexo"), "Por favor, seleccione una opción.");
+        mostrarError(document.getElementById("sexo"), errorText);
         esValido = false;
+    }
+
+    if (!datosFormulario.transtorno_autista) {
+        document.getElementById("error-transtorno-autista").textContent = errorText;
+        document.getElementById("error-transtorno-autista").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-transtorno-autista").style.display = "none";
+    }
+
+    if (!datosFormulario.transtorno_comunicacion) {
+        document.getElementById("error-transtorno-comunicacion").textContent = errorText;
+        document.getElementById("error-transtorno-comunicacion").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-transtorno-comunicacion").style.display = "none";
+    }
+
+    if (!datosFormulario.transtorno_esquizoafectivo) {
+        document.getElementById("error-transtorno-esquizoafectivo").textContent = errorText;
+        document.getElementById("error-transtorno-esquizoafectivo").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-transtorno-esquizoafectivo").style.display = "none";
+    }
+
+    if (!datosFormulario.transtorno_depresivo) {
+        document.getElementById("error-transtorno-depresivo").textContent = errorText;
+        document.getElementById("error-transtorno-depresivo").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-transtorno-depresivo").style.display = "none";
+    }
+
+    if (!datosFormulario.transtorno_bipolar) {
+        document.getElementById("error-transtorno-bipolar").textContent = errorText;
+        document.getElementById("error-transtorno-bipolar").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-transtorno-bipolar").style.display = "none";
+    }
+
+    if (!datosFormulario.antecedentes_familiares) {
+        document.getElementById("error-antecedentes-familiares").textContent = errorText;
+        document.getElementById("error-antecedentes-familiares").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-antecedentes-familiares").style.display = "none";
+    }
+
+    // SINTOMAS POSITIVOS
+    if (datosFormulario.sintomas_positivos_duracion === "Seleccioná una opción") {
+        mostrarError(document.getElementById("sintomas-positivos-duracion"), errorText);
+        esValido = false;
+    }
+
+    if (!datosFormulario.sintomas_positivos_alucinaciones) {
+        document.getElementById("error-sintomas-positivos-alucinaciones").textContent = errorText;
+        document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "none";
+        if (datosFormulario.sintomas_positivos_alucinaciones == "Si" && datosFormulario.sintomas_positivos_tipo_alucinaciones === "") {
+            mostrarError(document.getElementById("alucinaciones"), errorText);
+            esValido = false;
+        }
+    }
+
+    if (datosFormulario.sintomas_positivos_tipo_lenguaje === "-1") {
+        mostrarError(document.getElementById("lenguaje"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_positivos_tipo_pensamiento === "-1") {
+        mostrarError(document.getElementById("pensamiento"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento === "-1") {
+        mostrarError(document.getElementById("ritmo-pensamiento"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_positivos_tipo_contenido_pensamiento === "-1") {
+        mostrarError(document.getElementById("contenido-pensamiento"), errorText);
+        esValido = false;
+    }
+
+    // SINTOMAS NEGATIVOS
+    if (datosFormulario.sintomas_negativos_duracion === "Seleccioná una opción") {
+        mostrarError(document.getElementById("sintomas-negativos-duracion"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_negativos_aspecto === "-1") {
+        mostrarError(document.getElementById("aspecto"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_negativos_atencion === "-1") {
+        mostrarError(document.getElementById("atencion"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_negativos_actividad === "-1") {
+        mostrarError(document.getElementById("actividad"), errorText);
+        esValido = false;
+    }
+
+    if (datosFormulario.sintomas_negativos_afectividad === "-1") {
+        mostrarError(document.getElementById("afectividad"), errorText);
+        esValido = false;
+    }
+
+    // COMPLEMENTARIOS
+    if (!datosFormulario.sustancias) {
+        document.getElementById("error-sustancias").textContent = errorText;
+        document.getElementById("error-sustancias").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-sustancias").style.display = "none";
+    }    
+    
+    if (!datosFormulario.estudios) {
+        document.getElementById("error-estudios").textContent = errorText;
+        document.getElementById("error-estudios").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-estudios").style.display = "none";
+        if (datosFormulario.estudios == "Si" && datosFormulario.estudio_causa_natural === "-1") {
+            mostrarError(document.getElementById("estudio-causa-natural-opcion"), errorText);
+            esValido = false;
+        }
     }
 
     console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
@@ -207,21 +345,21 @@ function validar_campos(datosFormulario) {
 
 
 function mostrarError(campo, mensaje) {
-    campo.style.borderColor = "red"; // Resaltar el campo con borde rojo
+    campo.style.borderColor = "red"; // Resalta el campo con borde rojo
     const errorDiv = document.createElement("div");
     errorDiv.className = "error-message";
     errorDiv.style.color = "red";
     errorDiv.textContent = mensaje;
-    campo.parentNode.appendChild(errorDiv); // Mostrar mensaje de error debajo del campo
+    campo.parentNode.appendChild(errorDiv); // Muestra el mensaje de error debajo del campo
 }
 
 function resetearErrores() {
     const campos = document.querySelectorAll("input, select");
     campos.forEach(campo => {
-        campo.style.borderColor = ""; // Resetear borde
+        campo.style.borderColor = ""; // Resetea borde
         const errorMessage = campo.parentNode.querySelector(".error-message");
         if (errorMessage) {
-            campo.parentNode.removeChild(errorMessage); // Eliminar mensaje de error
+            campo.parentNode.removeChild(errorMessage); // Elimina el mensaje de error
         }
     });
 }
