@@ -180,9 +180,53 @@ function initializePositiveButtons() {
 
 }
 
+function validar_campos(datosFormulario) {
+    console.log("INICIO VALIDAR CAMPOS");
+
+    resetearErrores(); // Resetear mensajes de error y estilos previos
+    let esValido = true;
+
+    if (datosFormulario.nombre === "") {
+        mostrarError(document.getElementById("nombre"), "Por favor, ingrese el nombre del paciente.");
+        esValido = false;
+    }
+
+    if (datosFormulario.edad === "") {
+        mostrarError(document.getElementById("edad"), "Por favor, ingrese la edad del paciente.");
+        esValido = false;
+    }
+
+    if (datosFormulario.sexo === "-1") {
+        mostrarError(document.getElementById("sexo"), "Por favor, seleccione una opción.");
+        esValido = false;
+    }
+
+    console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
+    return esValido; // Retorna true si todo es válido, false si hay algún campo incompleto
+}
+
+
+function mostrarError(campo, mensaje) {
+    campo.style.borderColor = "red"; // Resaltar el campo con borde rojo
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.style.color = "red";
+    errorDiv.textContent = mensaje;
+    campo.parentNode.appendChild(errorDiv); // Mostrar mensaje de error debajo del campo
+}
+
+function resetearErrores() {
+    const campos = document.querySelectorAll("input, select");
+    campos.forEach(campo => {
+        campo.style.borderColor = ""; // Resetear borde
+        const errorMessage = campo.parentNode.querySelector(".error-message");
+        if (errorMessage) {
+            campo.parentNode.removeChild(errorMessage); // Eliminar mensaje de error
+        }
+    });
+}
 
 function determinar_diagnostico() {
-
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
     // Obtener los valores de los campos del formulario
@@ -244,7 +288,6 @@ function determinar_diagnostico() {
     const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
     const estudioComentario = document.getElementById("estudio-comentario").value;
-
     // Se crea un objeto con los valores recolectados
     console.log("datosFormulario: ", datosFormulario);
     datosFormulario = {
@@ -284,59 +327,62 @@ function determinar_diagnostico() {
 
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
+    if (validar_campos(datosFormulario)) {
 
-    $.ajax({
-        type: "POST",
-        url: "/diagnosticar", // La URL del Controller
-        contentType: "application/json",
-        data: jsonString,
-        success: function (response) {
-            console.log("Respuesta: ", response);
-            // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
-            let posibilidad = response.posibilidad;
+        $.ajax({
+            type: "POST",
+            url: "/diagnosticar", // La URL del Controller
+            contentType: "application/json",
+            data: jsonString,
+            success: function (response) {
+                console.log("Respuesta: ", response);
+                // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
+                let posibilidad = response.posibilidad;
 
-            //Dato para harcodear en el front
-            // posibilidad = "Posible esquizofrenia";
+                //Dato para harcodear en el front
+                // posibilidad = "Posible esquizofrenia";
 
-            // Mostrar el elemento correspondiente según el valor de "posibilidad"
-            if (posibilidad === "Posible esquizofrenia") {
-                $("#posible-esquizofrenia").css("display", "block");
+                // Mostrar el elemento correspondiente según el valor de "posibilidad"
+                if (posibilidad === "Posible esquizofrenia") {
+                    $("#posible-esquizofrenia").css("display", "block");
+                }
+                else if (posibilidad === "Posible Esquizofrenia Temporal") {
+                    $("#evaluar-temporal").css("display", "block");
+                }
+                else if (posibilidad === "No es posible que tenga esquizofrenia") {
+                    $("#no-posible-esquizofrenia").css("display", "block");
+                }
+                datosFormulario.posibilidad = response.posibilidad;
+
+                // Actualizar el texto de "Recomendaciones" según la respuesta
+                let recomendacion = response.recomendacion;
+                // recomendacion = "Se recomienda iniciar tratamiento.";
+                console.log("recomendacion: " + recomendacion);
+                if (recomendacion != null) {
+                    $("#recomendacion-title").css("display", "block");
+                    $("#recomendacion").css("display", "block");
+                    $("#recomendacion").text(recomendacion ? recomendacion : "-");
+                }
+                datosFormulario.recomendacion = recomendacion;
+
+                // Actualizar el texto de "Justificacion" según la respuesta
+                let justificacion = response.justificacion;
+                if (justificacion != null) {
+                    $("#posibles-causas").css("display", "block");
+                    $("#posibles-causas").text(response.justificacion ? response.justificacion : "No disponible");
+                }
+                datosFormulario.justificacion = response.justificacion;
+
+                // datosFormulario.codigo_paciente = response.codigo_paciente;
+                console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
+                mostrarPopup();
+            },
+            error: function (error) {
+                console.error("Error en la solicitud de diagnósitco: " + JSON.stringify(error));
             }
-            else if (posibilidad === "Posible Esquizofrenia Temporal") {
-                $("#evaluar-temporal").css("display", "block");
-            }
-            else if (posibilidad === "No es posible que tenga esquizofrenia") {
-                $("#no-posible-esquizofrenia").css("display", "block");
-            }
-            datosFormulario.posibilidad = response.posibilidad;
+        });
 
-            // Actualizar el texto de "Recomendaciones" según la respuesta
-            let recomendacion = response.recomendacion;
-            // recomendacion = "Se recomienda iniciar tratamiento.";
-            console.log("recomendacion: " + recomendacion);
-            if (recomendacion != null) {
-                $("#recomendacion-title").css("display", "block");
-                $("#recomendacion").css("display", "block");
-                $("#recomendacion").text(recomendacion ? recomendacion : "-");
-            }
-            datosFormulario.recomendacion = recomendacion;
-
-            // Actualizar el texto de "Justificacion" según la respuesta
-            let justificacion = response.justificacion;
-            if (justificacion != null) {
-                $("#posibles-causas").css("display", "block");
-                $("#posibles-causas").text(response.justificacion ? response.justificacion : "No disponible");
-            }
-            datosFormulario.justificacion = response.justificacion;
-
-            // datosFormulario.codigo_paciente = response.codigo_paciente;
-            console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
-            mostrarPopup();
-        },
-        error: function (error) {
-            console.error("Error en la solicitud de diagnósitco: " + JSON.stringify(error));
-        }
-    });
+    }
     console.log("FIN FUNCION DIAGNOSTICO()");
 
 }
