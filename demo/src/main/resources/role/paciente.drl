@@ -52,7 +52,7 @@ when
     || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirioss, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Incoherencia"
@@ -66,7 +66,7 @@ when
     || sintomas_negativos_actividad=="actividad-abulia")) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser sintomas_positivos_delirioss, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Ninguno"
@@ -318,7 +318,7 @@ end
 
 
 
-rule "PUNTAJE: Edad - Adolescente hombre "
+rule "PUNTAJE: Edad - Adolescente hombre"
 when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
@@ -326,15 +326,15 @@ then
         pacienteResponse.actualizarJustificacion("Es adolescente",1)   
 end
 
-rule "PUNTAJE: Edad - Menor "
+rule "PUNTAJE: Edad - Menor"
 when
-    $pacienteRequest: PacienteRequest( edad <12 )
+    $pacienteRequest: PacienteRequest( edad < 12 )
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
         pacienteResponse.actualizarJustificacion("Es menor",1)   
 end
 
-rule "PUNTAJE: Edad - Adulto masculino menor de 60 "
+rule "PUNTAJE: Edad - Adulto masculino menor de 60"
 when
     $pacienteRequest: PacienteRequest(sexo=="Masculino" && (edad > 25 && edad <= 59))
 then
@@ -368,7 +368,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-        pacienteResponse.actualizarJustificacion("Adulto mayor",1)   
+        pacienteResponse.actualizarJustificacion("Es un adulto mayor",1)   
 end
 
 

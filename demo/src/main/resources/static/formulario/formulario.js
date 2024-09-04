@@ -122,9 +122,7 @@ function initializeComplementaryButtons() {
 }
 
 function initializePositiveButtons() {
-    const buttonPairs = [
-        { yes: 'sintomas-positivos-delirios-presencia', no: 'sintomas-positivos-delirios-ausencia' },
-    ];
+    const buttonPairs = [];
 
     buttonPairs.forEach(pair => {
         const btnYes = document.getElementById(pair.yes);
@@ -325,8 +323,8 @@ function validar_campos(datosFormulario) {
         esValido = false;
     } else {
         document.getElementById("error-sustancias").style.display = "none";
-    }    
-    
+    }
+
     if (!datosFormulario.estudios) {
         document.getElementById("error-estudios").textContent = errorText;
         document.getElementById("error-estudios").style.display = "block";
@@ -404,9 +402,6 @@ function determinar_diagnostico() {
     const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
     const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
-    const sintomasPositivosDelirios =
-        document.querySelector("#sintomas-positivos-delirios-presencia.selected") ? "Presencia" :
-            document.querySelector("#sintomas-positivos-delirios-ausencia.selected") ? "Ausencia" : "";
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
@@ -446,7 +441,6 @@ function determinar_diagnostico() {
         sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
         sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
         sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
-        sintomas_positivos_delirios: sintomasPositivosDelirios,
         // sintomas negativos,
         sintomas_negativos_duracion: sintomasNegativosDuracion,
         sintomas_negativos_aspecto: sintomasNegativosAspecto,
