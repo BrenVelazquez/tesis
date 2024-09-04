@@ -660,32 +660,18 @@ then
 end
 
 
-rule "Posible esquizofrenia"
-when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje()>=51)
-then
-    
-        pacienteResponse.posibleEsquizofrenia()
-        pacienteResponse.actualizarJustificacion("Los síntomas indican que el paciente tiene posible esquizofrenia",1)   
-end
-
-rule "Esquizofrenia no posible"
-when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje()<51)
-then
-    
-        pacienteResponse.noPosibleEsquizofrenia()   
-        pacienteResponse.calcularDiagnostico();
-        pacienteResponse.actualizarJustificacion("Los sintomas indican que el paciente no tiene esquizofrenia",1)   
-end
-
 rule "Evaluar temporal"
 when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje()>=46 
-    && (sintomas_positivos_duracion == "Menos de un mes"  
-    || sintomas_negativos_duracion== "Menos de un mes")) 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Menos de un mes"  
+    || sintomas_negativos_duracion== "Menos de un mes")
 then
-    pacienteResponse.posibleTemporal()   
-    pacienteResponse.calcularDiagnostico();
-    pacienteResponse.actualizarJustificacion("Los síntomas indican esquizofrenia pero la duración no alcanza para descartar la esquizofrenia temporal",1)   
+    pacienteResponse.calcularDiagnostico(false);
+end
+
+rule "Posible esquizofrenia"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Mayor o igual a un mes"  
+    && sintomas_negativos_duracion== "Mayor o igual a un mes")
+then
+    pacienteResponse.calcularDiagnostico(true);
 end

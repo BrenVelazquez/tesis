@@ -28,13 +28,16 @@ public class PacienteResponse {
     @JsonProperty("justificacion")
     private String justificacion;
 
-    public void calcularDiagnostico() {  //yo evaluo los puntajes para dar el diagnostico en las reglas, agrego lo que había hecho (que se ve que lo borre ) para que no rompan las reglas y después definimos como lo hacemos
-        if (puntaje < 51) {
+ 
+
+
+    public void calcularDiagnostico(Boolean temporal) {  //yo evaluo los puntajes para dar el diagnostico en las reglas, agrego lo que había hecho (que se ve que lo borre ) para que no rompan las reglas y después definimos como lo hacemos
+        if (puntaje <= 51) {
             this.setPosibilidad("No es posible que tenga esquizofrenia");
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar otras enfermedades como Depresión y Transtorno Bipolar.");
             }
-        } else if (puntaje <= 20) {  // la temporal solo se puede saber con el tiempo, no con el puntaje
+        } else if (puntaje > 51 && !temporal) {  
             this.setPosibilidad("Posible Esquizofrenia Temporal");
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
@@ -44,29 +47,6 @@ public class PacienteResponse {
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda iniciar tratamiento.");
             }
-        }
-    }
-
-    // opción de calcular diagnóstico en reglas 
-
-    public void posibleEsquizofrenia() { 
-        this.setPosibilidad("Posible esquizofrenia");
-        if (recomendacion == null) {
-            this.setRecomendacion("Se recomienda iniciar tratamiento.");
-        }
-    }
-
-    public void noPosibleEsquizofrenia() { 
-        this.setPosibilidad("No es posible que tenga esquizofrenia");
-        if (recomendacion == null) {
-            this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
-        }
-    }
-
-    public void posibleTemporal() {   //en la regla evaluo que tenga el puntaje para esquizofrenia pero la duración sea menor a un mes
-        this.setPosibilidad("Posible Esquizofrenia Temporal");
-        if (recomendacion == null) {
-            this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
         }
     }
 
