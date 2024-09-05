@@ -115,6 +115,31 @@ body {
     /* Centra horizontalmente */
 }
 
+.causas-text {
+    white-space: pre-wrap;
+    /* Mantiene los saltos de línea del texto */
+    word-wrap: break-word;
+    /* Corta las palabras largas para que no desborden */
+    overflow-wrap: break-word;
+    /* Evita el desbordamiento horizontal */
+    max-width: 100%;
+    /* Se asegura de que el texto no cause scroll horizontal */
+    margin-top: 10px;
+    /* font-family: 'Courier New', Courier, monospace; */
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: justify;
+}
+
+.diagnostico-text {
+    /* max-width: 95%; */
+    margin-top: 10px;
+    /* background-color: #f1f9f8; */
+    padding: 10px;
+    border-radius: 15px;
+}
+
 .close-popup {
     position: absolute;
     top: 10px;

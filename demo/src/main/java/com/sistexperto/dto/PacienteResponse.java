@@ -60,7 +60,7 @@ public class PacienteResponse {
                 justificacion = utf8Texto;
 
             } else {
-                justificacion += ",\n " + utf8Texto;
+                justificacion += ", \n" + utf8Texto;
             }
         } else if (opcion == 2) {
             // Opción 2: Reemplazar el contenido existente
