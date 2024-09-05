@@ -99,7 +99,7 @@ public class PacienteService {
         paciente.setSexo(pacienteCompleto.getSexo());
         paciente.setEdad(pacienteCompleto.getEdad());
         // paciente.setNivelRiesgo(pacienteCompleto.getNivelRiesgo());
-        // paciente.setPosiblesCausas(pacienteCompleto.getPosiblesCausas());
+        // paciente.setJustificacion(pacienteCompleto.getJustificacion());
         // paciente.setRecomendacion(pacienteCompleto.getRecomendacion());
         // paciente.setComentariosMedicos(pacienteCompleto.getComentariosMedicos());
         // paciente.setEstado(pacienteCompleto.getEstado());
