@@ -260,17 +260,14 @@ when
     $pacienteRequest: PacienteRequest(estudios=="estudios-no" )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    // No tendriamos que mostrar otro mensaje?
-    pacienteResponse.actualizarJustificacion("Se detecta causa orgánica",1)   
+    pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
 end
 
 
 
 rule "PUNTAJE: Alucinaciones - Si"
 when
-    $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones!="No se descarta" 
-    && sintomas_positivos_alucinaciones=="No")
-    //No es mejor poner asi?   $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones=="Si")
+    $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
