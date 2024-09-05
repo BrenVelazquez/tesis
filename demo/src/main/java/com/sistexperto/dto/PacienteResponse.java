@@ -37,7 +37,7 @@ public class PacienteResponse {
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar otras enfermedades como Depresión y Transtorno Bipolar."); //No queda mas lindo "evaluar otros diagnósticos"?
             }
-        } else if (puntaje > 51 && !temporal) {  
+        } else if (puntaje > 46 && !temporal) {  
             this.setPosibilidad("Posible Esquizofrenia Temporal");
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
