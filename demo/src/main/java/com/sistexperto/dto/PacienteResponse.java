@@ -35,7 +35,7 @@ public class PacienteResponse {
         if (puntaje <= 51) {
             this.setPosibilidad("No es posible que tenga esquizofrenia");
             if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar otras enfermedades como Depresión y Transtorno Bipolar.");
+                this.setRecomendacion("Se recomienda evaluar otras enfermedades como Depresión y Transtorno Bipolar."); //No queda mas lindo "evaluar otros diagnósticos"?
             }
         } else if (puntaje > 51 && !temporal) {  
             this.setPosibilidad("Posible Esquizofrenia Temporal");
