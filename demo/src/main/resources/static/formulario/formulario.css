@@ -69,27 +69,6 @@ body {
     background-color: #038073;
 }
 
-.btn-red {
-    background-color: #dc3545;
-    color: #fff;
-    transition: background-color 0.3s;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.btn-red i {
-    margin-right: 10px;
-}
-
-.btn-red:hover {
-    background-color: #8f2731;
-}
-
 .btn-choice {
     transition: background-color 0.3s, border-color 0.3s;
     border-radius: 10px;
@@ -136,27 +115,7 @@ body {
     /* Centra horizontalmente */
 }
 
-#justificacion-title {
-    display: flex;
-    align-items: center;
-}
-
-#justificacion-icon {
-    margin-right: 10px; /* Espacio entre el icono y el texto */
-    transition: transform 0.3s; /* Transición suave para el cambio del ícono */
-}
-
-#justificacion-title.collapsed #justificacion-icon {
-    transform: rotate(-90deg); /* Girar el icono cuando la sección esté colapsada */
-}
-
-#justificacion {
-    border: 1px solid #009587; /* Bordes en color azul */
-    padding: 10px;
-    border-radius: 5px; /* Bordes redondeados */
-}
-
-.justificacion-text {
+.causas-text {
     white-space: pre-wrap;
     /* Mantiene los saltos de línea del texto */
     word-wrap: break-word;
@@ -173,63 +132,12 @@ body {
     text-align: justify;
 }
 
-#justificacion ul {
-    list-style-type: disc; /* Cambia a 'circle' o 'square' si prefieres otro tipo de viñeta */
-    padding-left: 20px; /* Ajusta el espacio según sea necesario */
-}
-
-#justificacion li {
-    margin-bottom: 5px; /* Ajusta el espacio entre ítems de la lista */
-}
-
-#recomendacion-title {
-    display: flex;
-    align-items: center;
-}
-
-#recomendacion-icon {
-    margin-right: 10px; /* Espacio entre el icono y el texto */
-    transition: transform 0.3s; /* Transición suave para el cambio del ícono */
-}
-
-#recomendacion-title.collapsed #recomendacion-icon {
-    transform: rotate(-90deg); /* Girar el icono cuando la sección esté colapsada */
-}
-
-#recomendacion {
-    border: 1px solid #009587; /* Bordes en color azul */
-    padding: 10px;
-    border-radius: 5px; /* Bordes redondeados */
-}
-
-.recomendacion-text {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
-    /* margin-top: 10px; */
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 15px;
-    text-align: justify;
-}
-
-
 .diagnostico-text {
     /* max-width: 95%; */
     margin-top: 10px;
     /* background-color: #f1f9f8; */
     padding: 10px;
     border-radius: 15px;
-}
-
-#diagnostico-container {
-    display: inline-block;
-    align-items: center; 
-}
-
-.posibilidad-seccion {
-    display: none; /* Ocultar todas las secciones inicialmente */
 }
 
 .close-popup {
@@ -249,7 +157,7 @@ body {
 }
 
 .close-popup:hover {
-    color: #000;
+    color: #000000;
 }
 
 .posible-esquizofrenia {
@@ -264,11 +172,22 @@ body {
     color: green;
 }
 
-.btn-consultar-formulario {
-    margin-top: 50px
+#cerrar-popup {
+    background-color: #009587;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.btn-red-formulario {
+#cerrar-popup:hover {
+    background-color: #0056b3;
+}
+
+.btn-consultar-formulario {
     margin-top: 50px
 }
 
@@ -384,8 +303,9 @@ body {
 
 .button-container-popup {
     display: flex;
-    justify-content: center;
-    margin: 0 0 15px 0;
+    justify-content: space-between;
+    margin: 10px 0;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -416,7 +336,7 @@ body {
         /* Espacio entre botones en dispositivos móviles */
     }
 
-    #justificacion {
+    #posibles-causas {
         word-wrap: break-word;
         overflow-x: hidden;
         white-space: pre-wrap;
@@ -470,7 +390,6 @@ body {
     .popup-inner {
         width: 100%;
         /* Ancho del popup para pantallas pequeñas */
-        padding: 20px;
     }
 }
 

@@ -3,99 +3,95 @@
     <div class="popup-inner">
         <button class="close-popup" id="close-popup">&times;</button>
         <!-- <div class="row">
-            <div class="col-md-12 text-right">
-                <p>Código de Paciente: <span id="codigo-paciente"></span></p>
-            </div>
-        </div> -->
-        <div id="diagnostico-container" style="margin-top: 3%;">
-            <h3>Diagnóstico: </h3>
-            <div class="diagnostico-texto">
-                <h3 id="posible-esquizofrenia" class="posibilidad-seccion posible-esquizofrenia">
-                    <strong> Existe posibilidad de esquizofrenia</strong>
-                </h3>
-                <h3 id="evaluar-temporal" class="posibilidad-seccion evaluar-temporal">
-                    <strong> Evaluar esquizofrenia temporal</strong>
-                </h3>
-                <h3 id="no-posible-esquizofrenia" class="posibilidad-seccion no-posible-esquizofrenia">
-                    <strong> No existe posibilidad de esquizofrenia</strong>
-                </h3>
+                    <div class="col-md-12 text-right">
+                        <p>Código de Paciente: <span id="codigo-paciente"></span></p>
+                    </div>
+                </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Diagnóstico</h3>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-12" style="margin-top: 3%;">
-                <h3 id="justificacion-title" style="cursor: pointer; text-align: left;">
-                    <i class="fas fa-chevron-down fa-fw" id="justificacion-icon"></i>Justificación
-                </h3>
+            <div class="col-md-12 diagnostico-text" >
+                <!-- <p class="diagnostico-text"> -->
+                <h2 class="posible-esquizofrenia" style="display: none;" id="posible-esquizofrenia">
+                    Posible Esquizofrenia
+                </h2>
+                <h2 class="evaluar-temporal" style="display: none;" id="evaluar-temporal">
+                    Evaluar Esquizofrenia Temporal
+                </h2>
+                <h2 class="no-posible-esquizofrenia" style="display: none" id="no-posible-esquizofrenia">
+                    Esquizofrenia No Posible
+                </h2>
+                </p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <p id="justificacion" class="justificacion-text" style="display: none;"></p>
+                <h3>Justificación</h3>
             </div>
         </div>
-        <hr>
         <div class="row">
             <div class="col-md-12">
-                <h3 id="recomendacion-title" style="display: none; cursor: pointer; text-align: left;">
-                    <i class="fas fa-chevron-down fa-fw" id="recomendacion-icon"></i> Recomendación
-                </h3>
+                <pre id="posibles-causas" class="causas-text"></pre>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
-                <p id="recomendacion" class="recomendacion-text" style="display: none;"></p>
+                <h3 id="recomendacion-title" style="display: none">Recomendación</h3>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-12" style="margin-top: 2%;">
+            <div class="col-md-12">
+                <p id="recomendacion" class="recomendacion-text" style="display: none"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <h3>Comentarios adicionales sobre el paciente</h3>
             </div>
         </div>
-
         <div class="row cuadro-comentarios-medico">
             <div class="col-md-6">
                 <textarea id="comentarios-medicos" class="form-control" rows="4"
                     placeholder="Ingresá tus comentarios"></textarea>
             </div>
         </div>
-
         <div class="button-container-popup">
-            <button id="confirmar-diagnostico" class="btn-consultar btn-rounded" onclick="guardarRegistro('Confirmado')"
-                style="margin: 20px;">
-                <i class="fas fa-solid fa-check"></i> Confirmar diagnóstico
+            <button id="confirmar-diagnostico" class="btn btn-consultar btn-rounded"
+                onclick="guardarRegistro('Confirmado')">
+                <i class="fas fa-solid fa-check"></i>
+                Confirmar Diagnostico
             </button>
-            <button id="rechazar-diagnostico" class="btn-red btn-rounded" onclick="mostrarJustificacion()"
-                style="margin: 20px;">
-                <i class="fas fa-ban"></i>
-                Rechazar diagnóstico
+            <button id="rechazar-diagnostico" class="btn btn-consultar btn-rounded"
+                style="background-color: #dc3545 !important;" onclick="mostrarJustificacion()">
+                <i class="fa fa-window-close"></i>
+                Rechazar Diagnostico
             </button>
         </div>
-
         <div class="justificacion" id="justificacion-explicacion" style="display: none;">
             <div class="row">
                 <div class="col-md-12">
                     <h3>Explicación de rechazo</h3>
                 </div>
             </div>
-
             <div class="row cuadro-comentarios-medico">
                 <div class="col-md-6">
                     <textarea id="justificacion-rechazo" class="form-control" rows="4"
                         placeholder="Por favor, explique la razón de rechazo del diagnóstico"></textarea>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
-                    <button id="rechazar-diagnostico" class="btn btn-danger btn-rounded"
-                        onclick="guardarRegistro('Rechazado')" style="margin-top: 10px;">
-                        <i class="fas fa-solid fa-check-double"></i> Confirmar rechazo
+                    <button id="rechazar-diagnostico" class="btn btn-danger btn-rounded data-columns"
+                        onclick="guardarRegistro('Rechazado')">
+                        <i class="fas fa-solid fa-check-double"></i>
+                        Confirmar Rechazo
                     </button>
                 </div>
+
             </div>
         </div>
     </div>
