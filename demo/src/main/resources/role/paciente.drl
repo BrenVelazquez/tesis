@@ -199,8 +199,8 @@ end
 rule "Diagnosticos descartados"
 when
     $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=="No" 
-    && (transtorno_bipolar=="No" 
-    || transtorno_depresivo=="No"))  
+    && transtorno_bipolar=="No" 
+    && transtorno_depresivo=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
@@ -268,6 +268,7 @@ end
 rule "PUNTAJE: Alucinaciones - Si"
 when
     $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones=="Si")
+
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
@@ -626,7 +627,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Particularidades de afectividad muy comun es esquizofrenia",1)   
+        pacienteResponse.actualizarJustificacion("Particularidad de afectividad muy comun es esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Afectividad - Frecuente"
@@ -637,9 +638,18 @@ then
         pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en esquizofrenia",1)   
 end
 
+
+rule "PUNTAJE: Afectividad - Menos frecuente"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-timia-displacentera" || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
+then 
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
+        pacienteResponse.actualizarJustificacion("Afectividad normal",1)   
+end
+
 rule "PUNTAJE: Afectividad - normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!="afectividad-eutimia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-eutimia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
         pacienteResponse.actualizarJustificacion("Afectividad normal",1)   
@@ -655,6 +665,7 @@ then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
         pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnosticos",1)   
 end
+
 
 
 rule "Evaluar temporal"
