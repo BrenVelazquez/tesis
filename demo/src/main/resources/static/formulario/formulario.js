@@ -422,7 +422,6 @@ function determinar_diagnostico() {
 
     const estudioComentario = document.getElementById("estudio-comentario").value;
     // Se crea un objeto con los valores recolectados
-    console.log("datosFormulario: ", datosFormulario);
     datosFormulario = {
         edad: edad,
         sexo: sexo,
@@ -461,6 +460,34 @@ function determinar_diagnostico() {
     console.log("Datos del formulario en formato JSON: ", jsonString);
     if (validar_campos(datosFormulario)) {
 
+        $("#justificacion-title").click(function () {
+            $("#justificacion").toggle(); // Alternar la visibilidad del contenido
+
+            // Alternar la clase 'collapsed' para el título
+            $(this).toggleClass('collapsed');
+
+            // Cambiar el ícono según el estado de colapso
+            if ($("#justificacion").is(":visible")) {
+                $("#justificacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            } else {
+                $("#justificacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            }
+        });
+
+        $("#recomendacion-title").click(function () {
+            $("#recomendacion").toggle(); // Alternar la visibilidad del contenido
+
+            // Alternar la clase 'collapsed' para el título
+            $(this).toggleClass('collapsed');
+
+            // Cambiar el ícono según el estado de colapso
+            if ($("#recomendacion").is(":visible")) {
+                $("#recomendacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            } else {
+                $("#recomendacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            }
+        });
+
         $.ajax({
             type: "POST",
             url: "/diagnosticar", // La URL del Controller
@@ -471,25 +498,29 @@ function determinar_diagnostico() {
                 // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
                 let posibilidad = response.posibilidad;
 
-                //Dato para harcodear en el front
-                // posibilidad = "Posible esquizofrenia";
+                // Mostrar el elemento correspondiente según el valor de "posibilidad"
+                // Ocultar todas las secciones primero
+                $(".posibilidad-seccion").css("display", "none");
 
                 // Mostrar el elemento correspondiente según el valor de "posibilidad"
-                if (posibilidad === "Posible esquizofrenia") {
-                    $("#posible-esquizofrenia").css("display", "block");
-                }
-                else if (posibilidad === "Posible Esquizofrenia Temporal") {
-                    $("#evaluar-temporal").css("display", "block");
-                }
-                else if (posibilidad === "No es posible que tenga esquizofrenia") {
-                    $("#no-posible-esquizofrenia").css("display", "block");
+                switch (posibilidad) {
+                    case "Posible esquizofrenia":
+                        $("#posible-esquizofrenia").css("display", "block");
+                        break;
+                    case "Posible Esquizofrenia Temporal":
+                        $("#evaluar-temporal").css("display", "block");
+                        break;
+                    case "No es posible que tenga esquizofrenia":
+                        $("#no-posible-esquizofrenia").css("display", "block");
+                        break;
+                    default:
+                        console.log("Opción de posibilidad desconocida");
                 }
                 datosFormulario.posibilidad = response.posibilidad;
 
+
                 // Actualizar el texto de "Recomendaciones" según la respuesta
                 let recomendacion = response.recomendacion;
-                // recomendacion = "Se recomienda iniciar tratamiento.";
-                console.log("recomendacion: " + recomendacion);
                 if (recomendacion != null) {
                     $("#recomendacion-title").css("display", "block");
                     $("#recomendacion").css("display", "block");
@@ -500,8 +531,15 @@ function determinar_diagnostico() {
                 // Actualizar el texto de "Justificacion" según la respuesta
                 let justificacion = response.justificacion;
                 if (justificacion != null) {
-                    $("#posibles-causas").css("display", "block");
-                    $("#posibles-causas").text(response.justificacion ? response.justificacion : "No disponible");
+                    $("#justificacion").css("display", "block");
+                    // $("#justificacion").text(response.justificacion ? response.justificacion : "No disponible");
+                    // Convertir el texto en una lista
+                    let justificacionArray = justificacion.split('\n');
+                    let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
+                    $("#justificacion").html(`<ul>${listItems}</ul>`);
+                } 
+                else {
+                    $("#justificacion").text("No disponible");
                 }
                 datosFormulario.justificacion = response.justificacion;
 
