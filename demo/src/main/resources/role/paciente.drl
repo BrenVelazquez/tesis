@@ -7,6 +7,8 @@ global Boolean posibleEsquizofrenia;
 global Boolean noPosibleEsquizofrenia;
 global Boolean posibleTemporal;
 
+global Integer puntaje;
+
 dialect "mvel"
 
 
@@ -23,12 +25,13 @@ when
     || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    puntaje=pacienteResponse.getPuntaje()
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - alucinaciones "
 when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje() == 0 
+    $pacienteRequest: PacienteRequest(puntaje == 0 
     && sintomas_positivos_alucinaciones=="Si" 
     && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
     || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
@@ -37,12 +40,13 @@ when
     || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    puntaje=pacienteResponse.getPuntaje()
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Disgregacion"
 when
-    $pacienteRequest: PacienteRequest(pacienteResponse.getPuntaje() == 0 
+    $pacienteRequest: PacienteRequest(puntaje == 0 
     && sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
     && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
     || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
@@ -52,6 +56,7 @@ when
     || sintomas_negativos_actividad=="actividad-abulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    puntaje=pacienteResponse.getPuntaje()
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
 end
 
@@ -259,7 +264,7 @@ rule "Causa organica - No evalua"
 when
     $pacienteRequest: PacienteRequest(estudios=="estudios-no" )
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
 end
 
@@ -608,7 +613,7 @@ when
     || sintomas_negativos_actividad=="actividad-negativismo")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Presena alguna de las particularidades más comunes en Actividad (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo)",1)   
+        pacienteResponse.actualizarJustificacion("Presenta alguna de las particularidades más comunes en Actividad (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo)",1)   
 end
 
 rule "PUNTAJE: Actividad con part. - otros diagnosticos"
@@ -644,7 +649,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-timia-displacentera" || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
-        pacienteResponse.actualizarJustificacion("Afectividad normal",1)   
+        pacienteResponse.actualizarJustificacion("Afectividad con particularidades menos frecuentes en esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Afectividad - normal"
@@ -673,7 +678,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Menos de un mes"  
     || sintomas_negativos_duracion== "Menos de un mes")
 then
-    pacienteResponse.calcularDiagnostico(false);
+    pacienteResponse.calcularDiagnostico(true);
 end
 
 rule "Posible esquizofrenia"
@@ -681,5 +686,5 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Mayor o igual a un mes"  
     && sintomas_negativos_duracion== "Mayor o igual a un mes")
 then
-    pacienteResponse.calcularDiagnostico(true);
+    pacienteResponse.calcularDiagnostico(false);
 end
