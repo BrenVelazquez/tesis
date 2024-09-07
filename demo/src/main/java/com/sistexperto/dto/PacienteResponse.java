@@ -30,12 +30,12 @@ public class PacienteResponse {
 
 
     public void calcularDiagnostico(Boolean temporal) {  //yo evaluo los puntajes para dar el diagnostico en las reglas, agrego lo que había hecho (que se ve que lo borre ) para que no rompan las reglas y después definimos como lo hacemos
-        if (puntaje <= 51 && !temporal) {
+        if (puntaje < 46 && !temporal) {
             this.setPosibilidad("No es posible que tenga esquizofrenia");
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
             }
-        } else if (puntaje > 46 && temporal) {  
+        } else if (puntaje >= 46 && temporal) {  
             this.setPosibilidad("Posible Esquizofrenia Temporal");
             if (recomendacion == null) {
                 this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
@@ -82,6 +82,7 @@ public class PacienteResponse {
 
             } else {
                 justificacion += ", \n" + utf8Texto;
+                justificacion += ", \n" + puntaje;
             }
         } else if (opcion == 2) {
             // Opción 2: Reemplazar el contenido existente
@@ -89,6 +90,7 @@ public class PacienteResponse {
         }
         System.out.println(justificacion);
         setJustificacion(justificacion);
+        
     }
 
     public void actualizarRecomendacion(String texto, int opcion) {

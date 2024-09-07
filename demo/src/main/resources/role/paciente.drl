@@ -26,7 +26,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     puntaje=pacienteResponse.getPuntaje()
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - alucinaciones "
@@ -41,7 +41,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     puntaje=pacienteResponse.getPuntaje()
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Disgregacion"
@@ -57,7 +57,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     puntaje=pacienteResponse.getPuntaje()
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Incoherencia"
@@ -71,7 +71,7 @@ when
     || sintomas_negativos_actividad=="actividad-abulia")) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucionaciones, disgregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - Ninguno"
@@ -83,7 +83,7 @@ when
     && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
-    pacienteResponse.actualizarJustificacion("No presenta alucionaciones, delirios, digregación o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación  o incoherencia",1)   
 end
 
 
@@ -137,7 +137,7 @@ when
     || sintomas_negativos_afectividad=="afectividad-anhedonia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Durante una parte significativa del tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
+    pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
 end
 
 rule "Ambitos principales - Normal"
@@ -174,7 +174,7 @@ end
 
 
 
-rule "Antecedentes - presencia de delirios o alucionaciones"
+rule "Antecedentes - presencia de delirios o alucinaciones"
 when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
@@ -186,7 +186,7 @@ then
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
 end
 
-rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucionaciones"
+rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucinaciones"
 when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
@@ -486,8 +486,8 @@ when
     || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
 then
     
-        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades",1)   
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
+        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades más comunes",1)   
 end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
@@ -498,7 +498,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades más comunes",1)   
+        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades",1)   
 end
 
 rule "PUNTAJE: Contenido pensamiento - sin particularidades"
@@ -519,7 +519,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
-        pacienteResponse.actualizarJustificacion("Antecedentes familiares psiquiatricos",1)   
+        pacienteResponse.actualizarJustificacion("Antecedentes familiares psiquiátricos",1)   
 end
 
 rule "PUNTAJE: Antecedentes familiares - No"
@@ -528,7 +528,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Sin antecedentes familiares psiquiatricos",1)   
+        pacienteResponse.actualizarJustificacion("Sin antecedentes familiares psiquiátricos",1)   
 end
 
 
@@ -561,7 +561,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-euprosexia")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Atencion normal",1)   
+        pacienteResponse.actualizarJustificacion("Atención normal",1)   
 end
 
 rule "PUNTAJE: Atención con particularidades"
