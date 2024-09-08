@@ -6,13 +6,9 @@ global com.sistexperto.dto.PacienteResponse pacienteResponse;
 global Boolean posibleEsquizofrenia;
 global Boolean noPosibleEsquizofrenia;
 global Boolean posibleTemporal;
-
 global Integer puntaje;
 
 dialect "mvel"
-
-
-
 
 rule "Sintomas obligatorios - Delirios"
 when
@@ -167,7 +163,7 @@ when
     || sintomas_negativos_afectividad=="afectividad-anhedonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("No presenta nivel de funcionamiento bajo en ambitos principales",1)   
+    pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
 end
 
 
@@ -238,7 +234,7 @@ when
     $pacienteRequest: PacienteRequest(sustancias=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0)
-    pacienteResponse.actualizarJustificacion("El trastorno se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
+    pacienteResponse.actualizarJustificacion("El trastorno se atribuibuye a los efectos fisiológicos de una sustancia u otra afección médica",1)   
 end
 
 
@@ -249,7 +245,7 @@ when
     $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-no")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Se descarta causa orgánica",1)   
+    pacienteResponse.actualizarJustificacion("Los síntomas no se deben a una causa orgánica",1)   
 end
 
 rule "Causa organica - Si"
@@ -257,12 +253,12 @@ when
     $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("Se detecta causa orgánica",1)   
+    pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuír a una causa orgánica",1)   
 end
 
 rule "Causa organica - No evalua"
 when
-    $pacienteRequest: PacienteRequest(estudios=="estudios-no" )
+    $pacienteRequest: PacienteRequest(estudios=="estudios-no")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
@@ -283,7 +279,7 @@ rule "PUNTAJE: Alucinaciones - No se descarta"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="No se descarta")
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("No se descartan alucinaciones",1)   
 end
 
@@ -291,8 +287,43 @@ rule "PUNTAJE: Alucinaciones - No"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="No")
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No posee alucinaciones",1)   
+end
+
+rule "RECOMENDACION: Alucinaciones - Cenestésicas"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="alucinaciones-cenestesicas")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarRecomendacion("Se recomienda evaluar esquizofrenia cenestésica.",1)   
+end
+
+rule "RECOMENDACION: Alucinaciones - Visuales"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="alucinaciones-visuales" 
+    && sustancias=="No")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarRecomendacion("Se recomienda descartar efectos secundarios de otras medicaciones y consumo de sustancias.",1)   
+end
+
+rule "RECOMENDACION: Alucinaciones - Olfativas"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="alucinaciones-olfativas" 
+    && estudios=="estudios-no")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios para evaluar causas orgánicas.",1)   
+end
+
+rule "RECOMENDACION: Alucinaciones - Olfativas"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="alucinaciones-olfativas" 
+    && estudio_causa_natural=="estudio-causa-natural-si")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarRecomendacion("Se recomienda realizar derivar a neurología.",1)   
 end
 
 
@@ -334,7 +365,7 @@ when
     $pacienteRequest: PacienteRequest( edad < 12 )
 then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-        pacienteResponse.actualizarJustificacion("Es menor",1)   
+        pacienteResponse.actualizarJustificacion("Es menor",1)  //cambiar porque menor es hasta los 17 años 
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
@@ -386,7 +417,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-        pacienteResponse.actualizarJustificacion("Lenguaje con particularidades",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
@@ -401,7 +432,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-        pacienteResponse.actualizarJustificacion("Lenguaje con particularidades características de esquizofrenia",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - más común"
@@ -410,7 +441,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
-        pacienteResponse.actualizarJustificacion("Lenguaje con particularidades características de esquizofrenia",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
@@ -419,7 +450,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Lenguaje sin particularidades ",1)   
+        pacienteResponse.actualizarJustificacion("No presenta particularidades en el lenguaje",1)   
 end
 
 
@@ -432,7 +463,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Pensamiento con particularidades características de esquizofrenia",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades del pensamiento características de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Particularidades"
@@ -443,7 +474,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
-        pacienteResponse.actualizarJustificacion("Pensamiento con particularidades",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
@@ -452,7 +483,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Pensamiento sin particularidades",1)   
+        pacienteResponse.actualizarJustificacion("No presenta particularidades en el pensamiento",1)   
 end
 
 
@@ -464,7 +495,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-        pacienteResponse.actualizarJustificacion("Ritmo de pensamiento con particularidades",1)   
+        pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento",1)   
 end
 
 rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
@@ -473,32 +504,32 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Ritmo de pensamiento sin particularidades",1)   
+        pacienteResponse.actualizarJustificacion("No presenta particularidades en el ritmo del pensamiento",1)   
 end
 
 
 
-
-rule "PUNTAJE: Contenido pensamiento - particularidades"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
-    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
-then
-    
-        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades más comunes",1)   
-end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
-    && (sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
+    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija")
+    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
 then
     
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
+        pacienteResponse.actualizarJustificacion("Presenta particularidades en el contenido de pensamiento más comunes (Ideación delirante sistematizada o no sistematizada)",1)   
+end
+
+rule "PUNTAJE: Contenido pensamiento - particularidades menos comunes"
+when
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
+then
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento con particularidades",1)   
+        pacienteResponse.actualizarJustificacion("Presenta contenido de pensamiento con particularidades (idea fija u obsesiva)",1)   
 end
 
 rule "PUNTAJE: Contenido pensamiento - sin particularidades"
@@ -507,7 +538,17 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-        pacienteResponse.actualizarJustificacion("Contenido de pensamiento sin particularidades",1)   
+        pacienteResponse.actualizarJustificacion("No presenta particularidades en el contenido del pensamiento",1)   
+end
+
+rule "RECOMENDACION: Contenido pensamiento - ideas de muerte o suicidas"
+when
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
+    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
+then
+    
+        pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
+        pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta idea de muerte o suicidas",1)   
 end
 
 
@@ -519,7 +560,7 @@ when
 then
     
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
-        pacienteResponse.actualizarJustificacion("Antecedentes familiares psiquiátricos",1)   
+        pacienteResponse.actualizarJustificacion("Posee antecedentes familiares psiquiátricos",1)   
 end
 
 rule "PUNTAJE: Antecedentes familiares - No"
@@ -646,7 +687,8 @@ end
 
 rule "PUNTAJE: Afectividad - Menos frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-timia-displacentera" || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-timia-displacentera" 
+    || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
 then 
         pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
         pacienteResponse.actualizarJustificacion("Afectividad con particularidades menos frecuentes en esquizofrenia",1)   

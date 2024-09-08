@@ -82,13 +82,13 @@ public class PacienteResponse {
 
             } else {
                 justificacion += ", \n" + utf8Texto;
-                justificacion += ", \n" + puntaje;
             }
         } else if (opcion == 2) {
             // Opción 2: Reemplazar el contenido existente
             justificacion = texto;
         }
         System.out.println(justificacion);
+        System.out.println("- Puntaje: " + puntaje); // de esta forma lo podes ver en la consola, sin modificar lo que se en la interfaz
         setJustificacion(justificacion);
         
     }
