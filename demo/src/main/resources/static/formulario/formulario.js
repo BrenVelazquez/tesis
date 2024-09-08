@@ -494,10 +494,10 @@ function determinar_diagnostico() {
             contentType: "application/json",
             data: jsonString,
             success: function (response) {
-                console.log("Respuesta: ", response);
-                // document.getElementById("codigo-paciente").textContent = response.codigo_paciente;
-                let posibilidad = response.posibilidad;
+                console.log("Respuesta: ", JSON.stringify(response));
+                document.getElementById("nombre-paciente").textContent = datosFormulario.nombre;
 
+                let posibilidad = response.posibilidad;
                 // Mostrar el elemento correspondiente según el valor de "posibilidad"
                 // Ocultar todas las secciones primero
                 $(".posibilidad-seccion").css("display", "none");
