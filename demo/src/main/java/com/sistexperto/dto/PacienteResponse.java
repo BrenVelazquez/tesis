@@ -28,48 +28,50 @@ public class PacienteResponse {
     @JsonProperty("justificacion")
     private String justificacion;
 
-
-    public void calcularDiagnostico(Boolean temporal) {  //yo evaluo los puntajes para dar el diagnostico en las reglas, agrego lo que había hecho (que se ve que lo borre ) para que no rompan las reglas y después definimos como lo hacemos
+    public void calcularDiagnostico(Boolean temporal) {
+        String recomendacion = "";
         if (puntaje < 46 && !temporal) {
             this.setPosibilidad("No es posible que tenga esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
-            }
-        } else if (puntaje >= 46 && temporal) {  
+            recomendacion = "Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.";
+        } else if (puntaje >= 46 && temporal) {
             this.setPosibilidad("Posible Esquizofrenia Temporal");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
-            }
+            recomendacion = "Se recomienda evaluar esquizofrenia temporal.";
         } else {
             this.setPosibilidad("Posible esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda iniciar tratamiento.");
-            }
+            recomendacion = "Se recomienda iniciar tratamiento.";
+        }
+
+        if (recomendacion == "") {
+            this.actualizarRecomendacion(recomendacion, 1);
+        } else {
+            this.actualizarRecomendacion(recomendacion,1);
         }
     }
 
-    /* 
-    public void posibleEsquizofrenia(){
-        this.setPosibilidad("Posible esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda iniciar tratamiento.");
-            }
-    }
-
-    public void noPosibleEsquizofrenia(){
-        this.setPosibilidad("No es posible que tenga esquizofrenia");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.");
-            }
-    }
-
-    public void posibleEsquizofreniaTemporal(){
-        this.setPosibilidad("Posible Esquizofrenia Temporal");
-            if (recomendacion == null) {
-                this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
-            }
-    }
-*/
+    /*
+     * public void posibleEsquizofrenia(){
+     * this.setPosibilidad("Posible esquizofrenia");
+     * if (recomendacion == null) {
+     * this.setRecomendacion("Se recomienda iniciar tratamiento.");
+     * }
+     * }
+     * 
+     * public void noPosibleEsquizofrenia(){
+     * this.setPosibilidad("No es posible que tenga esquizofrenia");
+     * if (recomendacion == null) {
+     * this.
+     * setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar."
+     * );
+     * }
+     * }
+     * 
+     * public void posibleEsquizofreniaTemporal(){
+     * this.setPosibilidad("Posible Esquizofrenia Temporal");
+     * if (recomendacion == null) {
+     * this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
+     * }
+     * }
+     */
 
     // Logica de Mati
     public void actualizarJustificacion(String texto, int opcion) {
@@ -87,10 +89,11 @@ public class PacienteResponse {
             // Opción 2: Reemplazar el contenido existente
             justificacion = texto;
         }
-        System.out.println(justificacion);
-        System.out.println("- Puntaje: " + puntaje); // de esta forma lo podes ver en la consola, sin modificar lo que se en la interfaz
+        System.out.println("Justificacion: " + justificacion);
+        System.out.println("- Puntaje: " + puntaje); // de esta forma lo podes ver en la consola, sin modificar lo que
+                                                     // se en la interfaz
         setJustificacion(justificacion);
-        
+
     }
 
     public void actualizarRecomendacion(String texto, int opcion) {
@@ -102,13 +105,13 @@ public class PacienteResponse {
                 recomendacion = utf8Texto;
 
             } else {
-                recomendacion += ",\n " + utf8Texto;
+                recomendacion += ",\n" + utf8Texto;
             }
         } else if (opcion == 2) {
             // Opción 2: Reemplazar el contenido existente
             recomendacion = texto;
         }
-        System.out.println(recomendacion);
+        System.out.println("Recomendacion: " + recomendacion);
         setRecomendacion(recomendacion);
     }
 }
