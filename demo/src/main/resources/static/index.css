@@ -1,5 +1,5 @@
 body {
-    background-color: #ebebeb;
+    background-color: #f0f0f0;
 }
 
 .page-title {
@@ -9,36 +9,53 @@ body {
     text-align: center;
 }
 
-.contenedor {
+.container {
     display: flex;
-    justify-content: space-between;
-    margin: 2rem;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.contenedor {
+    flex-wrap: wrap;
+    min-width: 250px;
+    max-width: 550px;
+    width: inherit;
 }
 
 .button {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     text-decoration: none;
+    height: 250px;
 }
 
 .button:hover {
-    background-color: #038073;
+    background-color: #1da799b2;
     color: #fff;
 }
 
 .button-icon {
     font-size: 3rem;
     color: #000000;
+    margin-bottom: 1rem; 
 }
 .button-title {
     color: #000000;  
+    margin-bottom: 0.5rem;
 }
 
 .button-description {
-    color: #000000;  
+    color: #000000; 
 }
