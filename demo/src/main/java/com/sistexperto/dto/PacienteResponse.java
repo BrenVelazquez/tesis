@@ -48,6 +48,19 @@ public class PacienteResponse {
         }
     }
 
+
+
+    /* 
+    public void revisarCenestesicas(ArrayList<String>sintomas_positivos_tipo_alucinaciones) {
+        for(int i = 0;i<sintomas_positivos_tipo_alucinaciones.size();i++){
+            if(sintomas_positivos_tipo_alucinaciones.get(i)=="Cenestésicas"){
+                setRecomendacion("...");
+                System.out.println("TIENE CENESTESICA");
+                break;
+            }
+        }
+    }*/
+
     /*
      * public void posibleEsquizofrenia(){
      * this.setPosibilidad("Posible esquizofrenia");
