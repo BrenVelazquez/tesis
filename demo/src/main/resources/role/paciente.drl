@@ -6,17 +6,9 @@ global com.sistexperto.dto.PacienteResponse pacienteResponse;
 global Boolean posibleEsquizofrenia;
 global Boolean noPosibleEsquizofrenia;
 global Boolean posibleTemporal;
-global Boolean regla;
 
 dialect "mvel"
 
-rule "Print global value"
-when
- 
-then
-    regla=true
-  System.out.println("global value: " + regla)
-end
 
 rule "Sintomas obligatorios - Delirios"
 when
@@ -30,19 +22,14 @@ when
     || sintomas_negativos_actividad=="actividad-hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    regla=false
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
 rule "Sintomas obligatorios - alucinaciones "
 when
-//puntaje == 0 es para que no se duplique el mensaje?
-// porque si es para eso tenemos la funcion actualizarJustificacion(mensaje, 2)
-// la OPCION 2 pisa lo que habia antes y guarda el nuevo mensaje.
-//No pude usar cosas del Response en el When, si podes hacerlo andar hasta podemos dejar mejor las últimas dos reglas.
-    $pacienteRequest: PacienteRequest((regla==true
-    && (sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_alucinaciones=="No se descarta"))
+    $pacienteResponse: PacienteResponse(puntaje == 0)
+    $pacienteRequest: PacienteRequest((sintomas_positivos_alucinaciones=="Si" 
+    || sintomas_positivos_alucinaciones=="No se descarta")
     && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
     || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
     || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
@@ -51,14 +38,13 @@ when
     || sintomas_negativos_actividad=="actividad-hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    regla=false
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
+    update($pacienteResponse);
 end
 
 rule "Sintomas obligatorios - Disgregacion"
 when
-    $pacienteRequest: PacienteRequest(regla==true
-    && sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
     && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
     || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
     || sintomas_positivos_alucinaciones=="No se descarta" 
@@ -66,9 +52,9 @@ when
     || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
     || sintomas_negativos_actividad=="actividad-abulia"
     || sintomas_negativos_actividad=="actividad-hipobulia"))
+    $pacienteResponse: PacienteResponse(puntaje == 0)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    regla=false
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
 end
 
@@ -268,7 +254,7 @@ end
 
 rule "Causa organica - No"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=="No")
+    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-no")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Los síntomas no se deben a una causa orgánica",1)   
@@ -276,7 +262,7 @@ end
 
 rule "Causa organica - Si"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=="Si")
+    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuír a una causa orgánica",1)   
@@ -382,7 +368,7 @@ when
     $pacienteRequest: PacienteRequest( edad < 12 )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-    pacienteResponse.actualizarJustificacion("Es menor",1)  //cambiar porque menor es hasta los 17 años 
+    pacienteResponse.actualizarJustificacion("Es infante",1)
 end
 
 rule "PUNTAJE: Edad - Adolescente hombre"
@@ -390,7 +376,8 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-    pacienteResponse.actualizarJustificacion("Es adolescente",1)   
+    // por que 3 y no 5?
+    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
@@ -406,7 +393,7 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Es adolescente",1)   
+    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
@@ -587,7 +574,7 @@ end
 rule "PUNTAJE: Aspecto - Normal"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=="aspecto-facie" 
-    || sintomas_negativos_aspecto=="aspecto-aliño" 
+    || sintomas_negativos_aspecto=="aspecto-alinio" 
     || sintomas_negativos_aspecto=="aspecto-aseo"  )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -597,7 +584,7 @@ end
 rule "PUNTAJE: Aspecto - Particularidades"
 when
     $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto != "aspecto-facie" 
-    && sintomas_negativos_aspecto != "aspecto-aliño" 
+    && sintomas_negativos_aspecto != "aspecto-alinio" 
     && sintomas_negativos_aspecto != "aspecto-aseo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
