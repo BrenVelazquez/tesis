@@ -198,10 +198,10 @@ then
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones",1)   
 end
 
-rule "Sin antecedente de autismo y transtorno_comunicacion en la infancia"
+rule "Sin antecedente de autismo y transtorno de la comunicacion en la infancia"
 when
     $pacienteRequest: PacienteRequest(transtorno_autista=="No" 
-    || transtorno_comunicacion=="No") 
+    && transtorno_comunicacion=="No") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia",1)   
@@ -664,7 +664,7 @@ when
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnosticos",1)   
+    pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos",1)   
 end
 
 
@@ -713,7 +713,7 @@ when
     && sintomas_negativos_afectividad!="afectividad-hipertimia-displacentera")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnosticos",1)   
+    pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnósticos",1)   
 end
 
 
