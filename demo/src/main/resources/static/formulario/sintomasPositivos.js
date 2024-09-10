@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     console.log("NO ESTA ENTRANDO ACA");
     // Manejo del multiselect tipo-alucinaciones
     const tipoAlucinacionesSelect = document.getElementById('alucinaciones');
@@ -26,4 +26,4 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedOptionsContainer = document.getElementById('selected-options');
 
 
-});
+});*/

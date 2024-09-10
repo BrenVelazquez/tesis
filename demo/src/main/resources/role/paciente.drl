@@ -284,8 +284,10 @@ when
 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    //pacienteResponse.revisarCenestesicas($pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones))
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
 end
+
 
 rule "PUNTAJE: Alucinaciones - No se descarta"
 when

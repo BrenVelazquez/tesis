@@ -397,7 +397,17 @@ function determinar_diagnostico() {
             document.querySelector("#sintomas-positivos-alucinaciones-no.selected") ? "No" :
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
-    const sintomasPositivosTipoAlucinaciones = document.getElementById("alucinaciones").value;
+    //const sintomasPositivosTipoAlucinaciones = document.getElementById("alucinaciones").value;
+    const select1 = document.getElementById("alucinaciones");
+    const alucinaciones = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoAlucinaciones=alucinaciones.toString();
+    console.log(sintomasPositivosTipoAlucinaciones);
+    
+    //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
+  
     const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
     const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
