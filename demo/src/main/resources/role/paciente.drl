@@ -272,6 +272,7 @@ rule "Causa organica - No evalua"
 when
     $pacienteRequest: PacienteRequest(estudios=="No")
 then
+    // DEBERIA SER 0
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
 end
@@ -323,7 +324,7 @@ end
 rule "RECOMENDACION: Alucinaciones - Olfativas sin estudios"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-olfativas" 
-    && estudios=="estudios-no")
+    && estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios para evaluar causas orgánicas",1)   
