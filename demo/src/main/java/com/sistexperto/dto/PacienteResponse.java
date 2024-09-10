@@ -22,7 +22,7 @@ public class PacienteResponse {
     private String recomendacion;
 
     @JsonProperty("puntaje")
-    private int puntaje;
+    private int puntaje = 0;
 
     // Tenemos que justificar el resultado que damos
     @JsonProperty("justificacion")
@@ -76,7 +76,7 @@ public class PacienteResponse {
     // Logica de Mati
     public void actualizarJustificacion(String texto, int opcion) {
         String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
-        System.out.println(utf8Texto);
+        System.out.println("Nueva Justificacion: " + utf8Texto);
         if (opcion == 1) {
             // Opción 1: Concatenar el texto con una coma
             if (justificacion == null || justificacion.isEmpty()) {
@@ -89,7 +89,7 @@ public class PacienteResponse {
             // Opción 2: Reemplazar el contenido existente
             justificacion = texto;
         }
-        System.out.println("Justificacion: " + justificacion);
+        // System.out.println("Justificacion: " + justificacion);
         System.out.println("- Puntaje: " + puntaje); // de esta forma lo podes ver en la consola, sin modificar lo que
                                                      // se en la interfaz
         setJustificacion(justificacion);
