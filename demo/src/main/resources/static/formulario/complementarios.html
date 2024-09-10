@@ -13,7 +13,6 @@
     <h3>Complementarios</h3>
     <div class="col-md-12">
         <div class="gray-box">
-            <!-- <div class="button-row"> -->
             <div class="button-container opciones">
                 <h6 for="sustancias">Bajo sustancias o efectos médicos</h6>
                 <div class="btn-group">
@@ -42,28 +41,26 @@
                 </div>
                 <div id="estudio-comentario" class="margin-filas" style="display: none;">
                     <h6 for="estudio-comentario">Comentario sobre el estudio</h6>
-                    <!-- <input type="text" class="form-control" id="comentario" name="comentario"
-                        placeholder="Ingrese un comentario del estudio"> -->
                     <textarea id="estudio-comentario" class="form-control" rows="4"
                         placeholder="Comentarios sobre el estudio"></textarea>
                 </div>
-                <div id="image-container" class="image-container" style="display: none;">
-                    <input type="file" id="imagen" name="imagen" class="image-upload">
-                    <img src="#" alt="Imagen Mancha" class="image-preview" id="imagen-preview">
-
-                    <div class="insert-photo-message">
+                <div id="image-container" class="image-container">
+                    <input type="file" id="imagen" name="imagen" class="image-upload" accept="image/*"
+                        style="display: none;">
+                    <img src="#" alt="Imagen Estudio" class="image-preview" id="imagen-preview"
+                        style="display: none;" />
+                    <div class="insert-photo-message" id="insert-photo-message">
                         <i class="fas fa-regular fa-file-image 3x button-icon"></i>
                         Insertar Foto
                     </div>
                 </div>
+
             </div>
-            <!-- </div> -->
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="complementarios.js"></script>
 </body>
 
 </html>

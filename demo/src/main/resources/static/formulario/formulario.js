@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     $("#complementarios-container").load("complementarios.html", function () {
         initializeComplementaryButtons();
+        insertarImagen();
     });
 
     $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
@@ -24,7 +25,40 @@ $(document).ready(function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () { });
+document.addEventListener('DOMContentLoaded', function () {});
+
+function insertarImagen() {
+    const imagenInput = document.getElementById('imagen');
+    const imagenPreview = document.getElementById('imagen-preview');
+    const insertPhotoMessage = document.getElementById('insert-photo-message');
+
+    if (!imagenInput || !imagenPreview || !insertPhotoMessage) {
+        console.error("Uno o más elementos no existen en el DOM.");
+        return;
+    }
+    // Asigna el evento click al mensaje para insertar la foto
+    insertPhotoMessage.addEventListener('click', function () {
+        console.log("ENTROOO 1"); 
+        imagenInput.click(); // Simula el clic en el input de archivo
+    })
+    // Cuando el usuario selecciona un archivo, muestra la previsualización
+    imagenInput.addEventListener('change', function () {
+        console.log("ENTROOO 2"); 
+        const file = this.files[0]; // Obtiene el archivo seleccionado
+        if (file) {
+            const reader = new FileReader(); // Crea un FileReader para leer el archivo
+            reader.onload = function (e) {
+                imagenPreview.src = e.target.result; // Asigna la imagen previsualizada
+                imagenPreview.style.display = 'block'; // Muestra la previsualización
+                insertPhotoMessage.style.display = 'none'; // Oculta el mensaje de insertar foto
+            };
+            reader.readAsDataURL(file); // Lee el archivo como una URL
+        } else {
+            imagenPreview.style.display = 'none'; // Si no hay archivo, oculta la previsualización
+            insertPhotoMessage.style.display = 'block'; // Muestra el mensaje de insertar foto
+        }
+    });
+}
 
 function mostrarPopup() {
     $("#popup").fadeIn(1000);
@@ -362,6 +396,8 @@ function resetearErrores() {
     });
 }
 
+// region determinar_diagnostico
+
 function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
@@ -537,7 +573,7 @@ function determinar_diagnostico() {
                     let justificacionArray = justificacion.split('\n');
                     let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
                     $("#justificacion").html(`<ul>${listItems}</ul>`);
-                } 
+                }
                 else {
                     $("#justificacion").text("No disponible");
                 }
@@ -557,6 +593,11 @@ function determinar_diagnostico() {
 
 }
 
+
+// endregion determinar_diagnostico
+
+
+// region guardarRegistro
 function guardarRegistro(estado) {
 
     // Obtener el archivo seleccionado
@@ -603,3 +644,5 @@ function guardarRegistro(estado) {
     //     }
     // });
 }
+
+// endregion guardarRegistro
