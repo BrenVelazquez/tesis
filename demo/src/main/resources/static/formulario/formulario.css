@@ -146,7 +146,7 @@ body {
 #justificacion-icon {
     margin-right: 10px;
     /* Espacio entre el icono y el texto */
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
     /* Transición suave para el cambio del ícono */
 }
 
@@ -200,13 +200,12 @@ body {
 #recomendacion-icon {
     margin-right: 10px;
     /* Espacio entre el icono y el texto */
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
     /* Transición suave para el cambio del ícono */
 }
 
 #recomendacion-title.collapsed #recomendacion-icon {
     transform: rotate(-90deg);
-    /* Girar el icono cuando la sección esté colapsada */
 }
 
 #recomendacion {

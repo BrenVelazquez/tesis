@@ -13,6 +13,10 @@ import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 import com.sistexperto.service.PacienteService;
 
+import java.util.List;
+
+import javax.imageio.IIOException;
+
 @RestController
 public class PacienteController {
     private final PacienteService pacienteService;

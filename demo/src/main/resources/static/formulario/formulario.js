@@ -25,7 +25,7 @@ $(document).ready(function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {});
+document.addEventListener('DOMContentLoaded', function () { });
 
 function insertarImagen() {
     const imagenInput = document.getElementById('imagen');
@@ -38,12 +38,10 @@ function insertarImagen() {
     }
     // Asigna el evento click al mensaje para insertar la foto
     insertPhotoMessage.addEventListener('click', function () {
-        console.log("ENTROOO 1"); 
         imagenInput.click(); // Simula el clic en el input de archivo
     })
     // Cuando el usuario selecciona un archivo, muestra la previsualización
     imagenInput.addEventListener('change', function () {
-        console.log("ENTROOO 2"); 
         const file = this.files[0]; // Obtiene el archivo seleccionado
         if (file) {
             const reader = new FileReader(); // Crea un FileReader para leer el archivo
@@ -439,11 +437,9 @@ function determinar_diagnostico() {
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
     }
-    const sintomasPositivosTipoAlucinaciones=alucinaciones.toString();
+    const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
     console.log(sintomasPositivosTipoAlucinaciones);
-    
     //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
-  
     const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
     const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
@@ -513,24 +509,24 @@ function determinar_diagnostico() {
             $(this).toggleClass('collapsed');
 
             // Cambiar el ícono según el estado de colapso
-            if ($("#justificacion").is(":visible")) {
-                $("#justificacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            if ($(this).hasClass('collapsed')) {
+                // Flecha apuntando hacia la derecha (colapsada)
+                $("#justificacion-icon").css("transform", "rotate(-90deg)");
             } else {
-                $("#justificacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                // Flecha apuntando hacia abajo (expandida)
+                $("#justificacion-icon").css("transform", "rotate(0deg)");
             }
         });
 
         $("#recomendacion-title").click(function () {
-            $("#recomendacion").toggle(); // Alternar la visibilidad del contenido
-
-            // Alternar la clase 'collapsed' para el título
+            $("#recomendacion").toggle();
             $(this).toggleClass('collapsed');
 
-            // Cambiar el ícono según el estado de colapso
-            if ($("#recomendacion").is(":visible")) {
-                $("#recomendacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            // Verificar si la sección está colapsada y ajustar el ícono
+            if ($(this).hasClass('collapsed')) {
+                $("#recomendacion-icon").css("transform", "rotate(-90deg)");
             } else {
-                $("#recomendacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $("#recomendacion-icon").css("transform", "rotate(0deg)");
             }
         });
 
