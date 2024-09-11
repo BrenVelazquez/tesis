@@ -53,7 +53,8 @@
 
             <div id="tipo-lenguaje-id" class="form-group margin-filas">
                 <h6 for="tipo-lenguaje">Lenguaje</h6>
-                <select class="form-control" id="lenguaje" name="lenguaje" required>
+                <div id="selected-options" class="selected-options"></div>
+                <select class="form-control" id="lenguaje" name="lenguaje" multiple>
                     <option value="lenguaje-sin-particularidades">Sin particularidades</option>
                     <option value="lenguaje-taquilalia">Taquilalia</option>
                     <option value="lenguaje-verborragia">Verborragia</option>
@@ -69,7 +70,7 @@
                     <option value="lenguaje-estereotipia-verbal">Estereotipia verbal</option>
                     <option value="lenguaje-verbigeracion">Verbigeración</option>
                     <option value="lenguaje-homofonia">Asociación por homofonía</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
+                    <!-- <option value="-1" selected>Seleccioná una opción</option> -->
                 </select>
             </div>
 

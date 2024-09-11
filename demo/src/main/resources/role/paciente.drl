@@ -308,7 +308,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Cenestésicas"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-cenestesicas")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-cenestesicas"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda evaluar esquizofrenia cenestésica",1)   
@@ -316,7 +316,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Visuales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-visuales" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-visuales")
     && sustancias=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -325,7 +325,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas sin estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-olfativas" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas") 
     && estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -334,7 +334,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas con estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-olfativas" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas" )
     && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -419,42 +419,41 @@ end
 
 
 
+rule "PUNTAJE: Tipo de lenguaje - más común"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
+    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
+    pacienteResponse.setLenguaje(1);
+end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo")
+    $pacienteResponse: PacienteResponse(lenguaje==0)
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia" )
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia" )
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
+    pacienteResponse.setLenguaje(1);
+    update($pacienteResponse)
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= "lenguaje-sin-particularidades" 
-    && sintomas_positivos_tipo_lenguaje != "lenguaje-latencia" 
-    &&!(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-latencia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo"))
+    $pacienteResponse: PacienteResponse(lenguaje==0)
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia",1)   
 end
 
-rule "PUNTAJE: Tipo de lenguaje - más común"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-latencia")
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
-    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
-end
-
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
+    $pacienteResponse: PacienteResponse(!justificacion.contains("lenguaje"))
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=="lenguaje-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )

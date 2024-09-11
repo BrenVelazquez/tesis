@@ -25,6 +25,9 @@ public class PacienteResponse {
     @JsonProperty("puntaje")
     private int puntaje = 0;
 
+    @JsonProperty("lenguaje")
+    private int lenguaje = 0;
+
     // Tenemos que justificar el resultado que damos
     @JsonProperty("justificacion")
     private String justificacion;
@@ -49,9 +52,7 @@ public class PacienteResponse {
         }
     }
 
-
-
- 
+    
 
     
 

@@ -398,7 +398,7 @@ function determinar_diagnostico() {
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
     //const sintomasPositivosTipoAlucinaciones = document.getElementById("alucinaciones").value;
-    const select1 = document.getElementById("alucinaciones");
+    var select1 = document.getElementById("alucinaciones");
     const alucinaciones = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
@@ -408,7 +408,15 @@ function determinar_diagnostico() {
     
     //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
   
-    const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
+    //const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
+    select1 = document.getElementById("lenguaje");
+    const lenguaje = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) lenguaje.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoLenguaje=lenguaje.toString();
+    console.log(sintomasPositivosTipoLenguaje);
+    
     const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
     const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
