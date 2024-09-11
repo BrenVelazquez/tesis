@@ -416,19 +416,12 @@ body {
 }
 
 /* Estilos para dispositivos móviles */
-@media (max-width: 767px) {
-    .button-container {
-        flex-direction: column;
-        /* Cambia a columna en pantallas más pequeñas */
-        align-items: stretch;
-        /* Alinea los botones a lo ancho del contenedor */
-    }
+@media (max-width: 768px) {
 
     .button-container .btn {
         width: 100%;
-        /* Asegura que los botones ocupen todo el ancho del contenedor */
         margin-bottom: 10px;
-        /* Espacio entre botones en dispositivos móviles */
+        font-size: 0.7rem;
     }
 
     #justificacion {
@@ -457,20 +450,18 @@ body {
         box-sizing: border-box;
     }
 
-    .btn-group {
+    /* .btn-group {
         display: flex;
         flex-direction: row;
-        /* position: absolute; */
         justify-content: center;
         margin-bottom: 10px;
         width: 100%;
     }
 
     .btn-group button {
-        /* margin: 5px 5px; */
         flex: 1;
         margin: 0 5px;
-    }
+    } */
 
     #sintomas-positivos-container,
     #sintomas-negativos-container,
