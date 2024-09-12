@@ -78,6 +78,7 @@ function initializeButtons() {
 }
 
 
+
 function initializeComplementaryButtons() {
     const buttonPairs = [
         { yes: 'estudios-si', no: 'estudios-no' },
@@ -177,6 +178,14 @@ function initializePositiveButtons() {
     /*Fin Botones Alucinaciones*/
 
 }
+
+/*function clearSelectedLenguaje(){
+    var elements = document.getElementById("lenguaje").selectedOptions;
+
+    for(var i = 1; i < elements.length; i++){
+      elements[i].selected = false;
+    }
+  }*/
 
 function validar_campos(datosFormulario) {
     console.log("INICIO VALIDAR CAMPOS");
@@ -438,10 +447,31 @@ function determinar_diagnostico() {
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
-    const sintomasNegativosAspecto = document.getElementById("aspecto").value;
+    //const sintomasNegativosAspecto = document.getElementById("aspecto").value;
+
+ 
+    var select2 = document.getElementById("aspecto");
+    const aspecto = [];
+    for (var i = 0; i < select2.length; i++) {
+        if (select2.options[i].selected) aspecto.push(select2.options[i].value);
+    }
+    const sintomasNegativosAspecto=aspecto.toString();
+    console.log(sintomasNegativosAspecto);
+
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
-    const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
+    //const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
+    
+
+    select2=null;
+
+    select2 = document.getElementById("afectividad");
+    const afectividad = [];
+    for (var i = 0; i < select2.length; i++) {
+        if (select2.options[i].selected) afectividad.push(select2.options[i].value);
+    }
+    const sintomasNegativosAfectividad=afectividad.toString();
+    console.log(sintomasNegativosAfectividad);
 
     //complementarios
     const sustancias =
@@ -589,6 +619,8 @@ function determinar_diagnostico() {
 
 }
 
+
+
 function guardarRegistro(estado) {
 
     // Obtener el archivo seleccionado
@@ -619,7 +651,6 @@ function guardarRegistro(estado) {
     //     });
     // }
 
-
     // // Metodo de Cargar Paciente
     // $.ajax({
     //     type: "POST",
@@ -634,4 +665,6 @@ function guardarRegistro(estado) {
     //         console.error('Error al registrar al paciente:', error);
     //     }
     // });
+
 }
+
