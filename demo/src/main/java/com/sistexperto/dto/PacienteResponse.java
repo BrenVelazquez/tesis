@@ -1,6 +1,7 @@
 package com.sistexperto.dto;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,6 +24,9 @@ public class PacienteResponse {
 
     @JsonProperty("puntaje")
     private int puntaje = 0;
+
+    @JsonProperty("lenguaje")
+    private int lenguaje = 0;
 
     // Tenemos que justificar el resultado que damos
     @JsonProperty("justificacion")
@@ -49,17 +53,7 @@ public class PacienteResponse {
     }
 
 
-
-    /* 
-    public void revisarCenestesicas(ArrayList<String>sintomas_positivos_tipo_alucinaciones) {
-        for(int i = 0;i<sintomas_positivos_tipo_alucinaciones.size();i++){
-            if(sintomas_positivos_tipo_alucinaciones.get(i)=="Cenestésicas"){
-                setRecomendacion("...");
-                System.out.println("TIENE CENESTESICA");
-                break;
-            }
-        }
-    }*/
+    
 
     /*
      * public void posibleEsquizofrenia(){

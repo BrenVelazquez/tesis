@@ -110,6 +110,7 @@ function initializeButtons() {
 }
 
 
+
 function initializeComplementaryButtons() {
     const buttonPairs = [
         { yes: 'estudios-si', no: 'estudios-no' },
@@ -210,6 +211,14 @@ function initializePositiveButtons() {
 
 }
 
+/*function clearSelectedLenguaje(){
+    var elements = document.getElementById("lenguaje").selectedOptions;
+
+    for(var i = 1; i < elements.length; i++){
+      elements[i].selected = false;
+    }
+  }*/
+
 function validar_campos(datosFormulario) {
     console.log("INICIO VALIDAR CAMPOS");
 
@@ -228,11 +237,6 @@ function validar_campos(datosFormulario) {
     }
     else if (datosFormulario.edad > 120 || datosFormulario.edad < 1) {
         mostrarError(document.getElementById("edad"), "Por favor, ingrese una edad valida.");
-        esValido = false;
-    }
-
-    if (datosFormulario.sexo === "-1") {
-        mostrarError(document.getElementById("sexo"), errorText);
         esValido = false;
     }
 
@@ -432,7 +436,7 @@ function determinar_diagnostico() {
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
     //const sintomasPositivosTipoAlucinaciones = document.getElementById("alucinaciones").value;
-    const select1 = document.getElementById("alucinaciones");
+    var select1 = document.getElementById("alucinaciones");
     const alucinaciones = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
@@ -440,18 +444,67 @@ function determinar_diagnostico() {
     const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
     console.log(sintomasPositivosTipoAlucinaciones);
     //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
-    const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
-    const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
+  
+    //const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
+    select1 = document.getElementById("lenguaje");
+    const lenguaje = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) lenguaje.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoLenguaje=lenguaje.toString();
+    console.log(sintomasPositivosTipoLenguaje);
+    
+    //const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
+
+    select1 = document.getElementById("pensamiento");
+    const pensamiento = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) pensamiento.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoPensamiento=pensamiento.toString();
+    console.log(sintomasPositivosTipoPensamiento);
+
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
-    const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
+
+    
+
+    select1 = document.getElementById("contenido-pensamiento");
+    const contenido = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) contenido.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoContenidoPensamiento=contenido.toString();
+    console.log(sintomasPositivosTipoContenidoPensamiento);
+    //const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
-    const sintomasNegativosAspecto = document.getElementById("aspecto").value;
+    //const sintomasNegativosAspecto = document.getElementById("aspecto").value;
+
+ 
+    var select2 = document.getElementById("aspecto");
+    const aspecto = [];
+    for (var i = 0; i < select2.length; i++) {
+        if (select2.options[i].selected) aspecto.push(select2.options[i].value);
+    }
+    const sintomasNegativosAspecto=aspecto.toString();
+    console.log(sintomasNegativosAspecto);
+
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
-    const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
+    //const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
+    
+
+    select2=null;
+
+    select2 = document.getElementById("afectividad");
+    const afectividad = [];
+    for (var i = 0; i < select2.length; i++) {
+        if (select2.options[i].selected) afectividad.push(select2.options[i].value);
+    }
+    const sintomasNegativosAfectividad=afectividad.toString();
+    console.log(sintomasNegativosAfectividad);
 
     //complementarios
     const sustancias =
@@ -600,6 +653,8 @@ function determinar_diagnostico() {
 }
 
 
+
+
 // endregion determinar_diagnostico
 
 
@@ -634,7 +689,6 @@ function guardarRegistro(estado) {
     //     });
     // }
 
-
     // // Metodo de Cargar Paciente
     // $.ajax({
     //     type: "POST",
@@ -649,6 +703,7 @@ function guardarRegistro(estado) {
     //         console.error('Error al registrar al paciente:', error);
     //     }
     // });
+
 }
 
 // endregion guardarRegistro

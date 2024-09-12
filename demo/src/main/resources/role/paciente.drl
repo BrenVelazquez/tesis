@@ -226,7 +226,6 @@ when
     || transtorno_depresivo=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    //cambiar por un mensaje mas entendible
     pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
 end
 
@@ -272,8 +271,7 @@ rule "Causa organica - No evalua"
 when
     $pacienteRequest: PacienteRequest(estudios=="No")
 then
-    // DEBERIA SER 0
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     // no deberia sumar 5, si no se evalua deberia ser 0
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
 end
@@ -309,7 +307,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Cenestésicas"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-cenestesicas")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-cenestesicas"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda evaluar esquizofrenia cenestésica",1)   
@@ -317,7 +315,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Visuales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-visuales" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-visuales")
     && sustancias=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -326,7 +324,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas sin estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-olfativas" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas") 
     && estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -335,11 +333,11 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas con estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones=="alucinaciones-olfativas" 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas" )
     && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarRecomendacion("Se recomienda realizar derivar a neurología",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda derivar o relaizar consulta a neurología",1)   
 end
 
 
@@ -379,9 +377,8 @@ rule "PUNTAJE: Edad - Adolescente hombre"
 when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-    // por que 3 y no 5?
-    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo para hombres",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
@@ -397,7 +394,7 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
+    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo para mujeres",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
@@ -409,7 +406,6 @@ then
     pacienteResponse.actualizarJustificacion("Es adulto menor de 60",1)   
 end
 
-
 rule "PUNTAJE: Edad - Mayor "
 when
     $pacienteRequest: PacienteRequest(edad > 59 )
@@ -418,15 +414,30 @@ then
     pacienteResponse.actualizarJustificacion("Es un adulto mayor",1)   
 end
 
+rule "PUNTAJE: Edad - Edad de mayor riesgo sin sexo"
+when
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 28) && sexo=="-1")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
+end
 
 
+
+rule "PUNTAJE: Tipo de lenguaje - más común"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
+    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
+end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo")
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
@@ -434,28 +445,27 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje!= "lenguaje-sin-particularidades" 
-    && sintomas_positivos_tipo_lenguaje != "lenguaje-latencia" 
-    &&!(sintomas_positivos_tipo_lenguaje == "lenguaje-taquilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-verborragia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-bradilalia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-latencia" 
-    || sintomas_positivos_tipo_lenguaje == "lenguaje-mutismo"))
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo") &&(
+    sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia",1)   
-end
-
-rule "PUNTAJE: Tipo de lenguaje - más común"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje == "lenguaje-latencia")
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
-    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
+    $pacienteResponse: PacienteResponse(!justificacion.contains("lenguaje"))
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=="lenguaje-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
@@ -467,19 +477,28 @@ end
 
 rule "PUNTAJE: Pensamiento - principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades del pensamiento características de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Particularidades"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento!="pensamiento-sin-particularidades" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-disgregacion" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia")
+when 
+//no me tomaba el ! así que tuve que poner ==false
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") ==false
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")==false 
+    && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-tangencial") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-minuciosidad") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-viscosidad") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-concreto") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-idea-fija") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-interceptacion-pensamiento") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial")))
 then
+
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento",1)   
 end
@@ -500,7 +519,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento != "ritmo-pensamiento-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
 end
 
 rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
@@ -516,11 +535,8 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
-    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija")
-    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el contenido del pensamiento más comunes en esquizofrenia (Ideación delirante sistematizada o no sistematizada)",1)   
@@ -528,8 +544,10 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades menos comunes"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
+    && (sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-idea-obsesiva") 
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-idea-fija")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
     pacienteResponse.actualizarJustificacion("Presenta contenido del pensamiento con particularidades (idea fija u obsesiva)",1)   
@@ -545,10 +563,9 @@ end
 
 rule "RECOMENDACION: Contenido pensamiento - ideas de muerte o suicidas"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-muerte" )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-suicidas")))
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta idea de muerte o suicidas",1)   
 end
 
@@ -575,24 +592,42 @@ end
 
 
 
+rule "PUNTAJE: Aspecto - Particularidades"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")
+    || sintomas_negativos_aspecto.contains("aspecto-extravagante")
+    || sintomas_negativos_aspecto.contains("aspecto-inadecuado") 
+    || sintomas_negativos_aspecto.contains("aspecto-adelgazado"))
+then 
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto",1)   
+end
+
+rule "PUNTAJE: Aspecto - Particularidades menos comunes"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")==false
+    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false
+    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false
+    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    && sintomas_negativos_aspecto.contains("aspecto-hipomimico"))
+then 
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto",1)   
+end
+
 rule "PUNTAJE: Aspecto - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=="aspecto-facie" 
-    || sintomas_negativos_aspecto=="aspecto-alinio" 
-    || sintomas_negativos_aspecto=="aspecto-aseo"  )
+    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("aspecto-bizarro")==false
+    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false
+    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false
+    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    && sintomas_negativos_aspecto.contains("aspecto-hipomimico")== false) 
+    && sintomas_negativos_aspecto.contains("aspecto-facie")
+    || sintomas_negativos_aspecto.contains("aspecto-alinio")
+    ||sintomas_negativos_aspecto.contains("aspecto-aseo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Aspecto normal",1)   
-end
-
-rule "PUNTAJE: Aspecto - Particularidades"
-when
-    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto != "aspecto-facie" 
-    && sintomas_negativos_aspecto != "aspecto-alinio" 
-    && sintomas_negativos_aspecto != "aspecto-aseo"))
-then 
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto",1)   
 end
 
 
@@ -625,14 +660,9 @@ end
 
 rule "PUNTAJE: Actividad - Normal" 
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico" 
-    || sintomas_negativos_actividad=="actividad-hiperbulia-productiva" 
-    || sintomas_negativos_actividad=="actividad-apraxia" 
-    || sintomas_negativos_actividad=="actividad-ataxia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico")
 then 
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )        
-    //hiperbulia-productiva, apraxia y ataxia no son normal, esta mal mostrar ese mensaje
-    //podemos dividir la regla en 2 o sino directamente sacar esos sintomas.
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Actividad normal",1)   
 end
 
@@ -668,32 +698,64 @@ then
     pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos",1)   
 end
 
+rule "RECOMENDACION: Actividad - Manierismo y estudios NO"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="No")
+then 
+    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurologia para encontrar la causa del Manierismo",1)   
+end
+
+rule "RECOMENDACION: Actividad - Manierismo y estudios SI"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="Si")
+then 
+    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurologia para encontrar la causa del Manierismo",1)   
+end
+
 
 
 rule "PUNTAJE: Afectividad - más comun"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-    pacienteResponse.actualizarJustificacion("Particularidad de afectividad (aplanamiento afectivo) muy comun es esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta aplanamiento afectivo, una particularidad de afectividad muy común es esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Afectividad - Frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-hipotimia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipotimia"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
-    pacienteResponse.actualizarJustificacion("Particularidad de afectividad (hipotimia) frecuente en esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta hipotimia, una particularidad de afectividad muy frecuente en esquizofrenia",1)   
 end
-
 
 rule "PUNTAJE: Afectividad - Menos frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-timia-displacentera" 
-    || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
+    && (sintomas_negativos_afectividad.contains("afectividad-timia-displacentera" )
+    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
-    pacienteResponse.actualizarJustificacion("Particularidades en afectividad menos frecuentes en esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en afectividad no tan frecuentes en esquizofrenia (timia displacentera, hipertimia displacentera)",1)   
+end
+
+rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
+when
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
+    && (sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo") 
+    || sintomas_negativos_afectividad.contains("afectividad-hipotimia") 
+    || sintomas_negativos_afectividad.contains("afectividad-eutimia")
+    || sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")
+    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")))
+then 
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
+    pacienteResponse.actualizarJustificacion("Presenta particularidades de afectividad más frecuentes en otros diagnósticos (labilidad, irritabilidad, expansivo, inapropiado, anhedonia)",1)   
 end
 
 rule "PUNTAJE: Afectividad - normal"
@@ -705,17 +767,9 @@ then
 end
 
 
-rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
-when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad!="afectividad-aplanamiento-afectivo" 
-    && sintomas_negativos_afectividad!="afectividad-hipotimia" 
-    && sintomas_negativos_afectividad!="afectividad-eutimia"
-    && sintomas_negativos_afectividad!="afectividad-timia-displacentera" 
-    && sintomas_negativos_afectividad!="afectividad-hipertimia-displacentera")
-then 
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnósticos",1)   
-end
+
+
+
 
 
 
