@@ -338,7 +338,7 @@ when
     && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarRecomendacion("Se recomienda realizar derivar a neurología",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda derivar o relaizar consulta a neurología",1)   
 end
 
 
@@ -431,8 +431,8 @@ end
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
     $pacienteResponse: PacienteResponse(lenguaje==0)
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia" )
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia" )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo"))
 then
@@ -445,10 +445,18 @@ end
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
     $pacienteResponse: PacienteResponse(lenguaje==0)
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
-    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
