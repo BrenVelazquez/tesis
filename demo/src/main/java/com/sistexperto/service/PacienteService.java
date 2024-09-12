@@ -75,8 +75,6 @@ public class PacienteService {
     }
 
     private boolean isFileExtensionValid(MultipartFile file) {
-        // Cambia esta implementación según las extensiones de archivo válidas que
-        // querramos permitir, ejemplo pdf
         String[] allowedExtensions = { "jpg", "png" };
         String fileExtension = getFileExtension(file.getOriginalFilename());
         return Arrays.stream(allowedExtensions).anyMatch(ext -> ext.equalsIgnoreCase(fileExtension));

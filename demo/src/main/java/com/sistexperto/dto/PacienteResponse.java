@@ -25,9 +25,6 @@ public class PacienteResponse {
     @JsonProperty("puntaje")
     private int puntaje = 0;
 
-    @JsonProperty("lenguaje")
-    private int lenguaje = 0;
-
     // Tenemos que justificar el resultado que damos
     @JsonProperty("justificacion")
     private String justificacion;
@@ -48,37 +45,9 @@ public class PacienteResponse {
         if (recomendacion == "") {
             this.actualizarRecomendacion(recomendacion, 1);
         } else {
-            this.actualizarRecomendacion(recomendacion,1);
+            this.actualizarRecomendacion(recomendacion, 1);
         }
     }
-
-
-    
-
-    /*
-     * public void posibleEsquizofrenia(){
-     * this.setPosibilidad("Posible esquizofrenia");
-     * if (recomendacion == null) {
-     * this.setRecomendacion("Se recomienda iniciar tratamiento.");
-     * }
-     * }
-     * 
-     * public void noPosibleEsquizofrenia(){
-     * this.setPosibilidad("No es posible que tenga esquizofrenia");
-     * if (recomendacion == null) {
-     * this.
-     * setRecomendacion("Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar."
-     * );
-     * }
-     * }
-     * 
-     * public void posibleEsquizofreniaTemporal(){
-     * this.setPosibilidad("Posible Esquizofrenia Temporal");
-     * if (recomendacion == null) {
-     * this.setRecomendacion("Se recomienda evaluar esquizofrenia temporal.");
-     * }
-     * }
-     */
 
     // Logica de Mati
     public void actualizarJustificacion(String texto, int opcion) {
@@ -97,8 +66,7 @@ public class PacienteResponse {
             justificacion = texto;
         }
         // System.out.println("Justificacion: " + justificacion);
-        System.out.println("- Puntaje: " + puntaje); // de esta forma lo podes ver en la consola, sin modificar lo que
-                                                     // se en la interfaz
+        System.out.println("- Puntaje: " + puntaje);
         setJustificacion(justificacion);
 
     }
