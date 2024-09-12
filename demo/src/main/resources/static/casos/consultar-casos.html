@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Casos</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="consultar-casos.css">
+</head>
+
+<body>
+    <div class="page-title">
+        <h1>Sistema Experto - Diagnóstico de Esquizofrenia</h1>
+    </div>
+    <div class="container">
+        <h1 class="title">Listado de Casos</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Buscar paciente...">
+            <button class="search-button" onclick="buscarPacientes(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="tabla-pacientes">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Diagnóstico</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos de los pacientes se insertarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="consultar-casos.js"></script>
+</body>
+</html>
