@@ -14,8 +14,7 @@ body {
 }
 
 .container {
-    width: 95%;
-    max-width: 1200px;
+    max-width: 75%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -59,7 +58,7 @@ body {
     overflow-x: auto;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
+    max-width: 75%;  
     margin: 0 auto;
 }
 
@@ -99,6 +98,39 @@ tr:hover {
     background-color: #007a6e;
 }
 
+.btn-volver-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-top: 50px;
+}
+
+.btn-volver {
+    background-color: #009587;
+    color: white;
+    font-size: 18px; 
+    font-family: Arial, sans-serif;     
+    font-weight: bold;       
+    padding: 15px 40px;
+    border-radius: 8px;         
+    border: none;                
+    cursor: pointer;           
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; 
+    letter-spacing: 1px;
+}
+
+.btn-volver:hover {
+    background-color: #038073;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-volver:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 767px) {
     .container {
         width: 95%;
@@ -110,20 +142,33 @@ tr:hover {
     }
 
     .table-container {
-        overflow-x: auto;
+        /* overflow-x: auto;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        max-width: 1200px;
-        margin: '1%';
+        max-width: 1200px; */
+        /* margin: '1%';  */
+        /* Permite el desplazamiento horizontal si la tabla es muy ancha */
+        max-width: 95%;  
+        overflow-x: scroll;  
+        -webkit-overflow-scrolling: touch;
     }
 
     th,
     td {
-        padding: 8px;
+        padding: 8px;             /* Reduce el padding en pantallas pequeñas */
+        font-size: 14px;
     }
 
     .btn-detalle {
         padding: 4px 8px;
         font-size: 12px;
     }
+
+    /* Opcional: Puedes ocultar algunas columnas en pantallas muy pequeñas si son demasiadas para mostrar */
+    /* Ejemplo: Ocultar la columna "Acciones" */
+    
+    td:nth-child(5), th:nth-child(5) {
+        display: none;
+    }
+   
 }
