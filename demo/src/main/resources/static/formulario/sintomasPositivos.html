@@ -36,7 +36,7 @@
             <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;">
                 <h6 for="tipo-alucinaciones">Alucinaciones</h6>
                 <div id="selected-options" class="selected-options"></div>
-                <select class="form-control" id="alucinaciones" name="alucinaciones" multiple>
+                <select class="form-control" id="alucinaciones" name="alucinaciones" multiple required>
                     <option value="alucinaciones-auditivas-simples">Auditivas Simples</option>
                     <option value="alucinaciones-auditivas-complejas">Auditivas Complejas</option>
                     <option value="alucinaciones-visuales">Visuales</option>
@@ -54,7 +54,7 @@
             <div id="tipo-lenguaje-id" class="form-group margin-filas">
                 <h6 for="tipo-lenguaje">Lenguaje</h6>
                 <div id="selected-options" class="selected-options"></div>
-                <select class="form-control" id="lenguaje" name="lenguaje" multiple>
+                <select class="form-control" id="lenguaje" name="lenguaje" multiple required>
                     <option value="lenguaje-sin-particularidades">Sin particularidades</option>
                     <option value="lenguaje-taquilalia">Taquilalia</option>
                     <option value="lenguaje-verborragia">Verborragia</option>
@@ -76,7 +76,8 @@
 
             <div id="tipo-pensamiento-id" class="form-group margin-filas">
                 <h6 for="tipo-pensamiento">Pensamiento</h6>
-                <select class="form-control" id="pensamiento" name="pensamiento" required>
+                <div id="selected-options" class="selected-options"></div>
+                <select class="form-control" id="pensamiento" name="pensamiento" multiple required>
                     <option value="pensamiento-sin-particularidades">Sin particularidades</option>
                     <!-- <option value="pensamiento-conserva-idea-directriz">Conserva idea directriz</option> -->
                     <option value="pensamiento-tangencial">Tangencial</option>
@@ -104,7 +105,8 @@
 
             <div id="tipo-contenido-pensamiento-id" class="form-group margin-filas">
                 <h6 for="tipo-contenido-pensamiento">Contenido del pensamiento</h6>
-                <select class="form-control" id="contenido-pensamiento" name="contenido-pensamiento" required>
+                <div id="selected-options" class="selected-options"></div>
+                <select class="form-control" id="contenido-pensamiento" name="contenido-pensamiento" multiple required>
                     <option value="contenido-pensamiento-sin-particularidades">Sin particularidades</option>
                     <option value="contenido-pensamiento-idea-obsesiva">Idea obsesiva</option>
                     <option value="contenido-pensamiento-idea-fija">Idea fija</option>

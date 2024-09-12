@@ -412,9 +412,28 @@ function determinar_diagnostico() {
     const sintomasPositivosTipoLenguaje=lenguaje.toString();
     console.log(sintomasPositivosTipoLenguaje);
     
-    const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
+    //const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
+
+    select1 = document.getElementById("pensamiento");
+    const pensamiento = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) pensamiento.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoPensamiento=pensamiento.toString();
+    console.log(sintomasPositivosTipoPensamiento);
+
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
-    const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
+
+    
+
+    select1 = document.getElementById("contenido-pensamiento");
+    const contenido = [];
+    for (var i = 0; i < select1.length; i++) {
+        if (select1.options[i].selected) contenido.push(select1.options[i].value);
+    }
+    const sintomasPositivosTipoContenidoPensamiento=contenido.toString();
+    console.log(sintomasPositivosTipoContenidoPensamiento);
+    //const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");

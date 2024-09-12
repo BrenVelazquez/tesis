@@ -430,27 +430,26 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
-    pacienteResponse.setLenguaje(1);
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteResponse: PacienteResponse(lenguaje==0)
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo"))
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
-    pacienteResponse.setLenguaje(1);
-    update($pacienteResponse)
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteResponse: PacienteResponse(lenguaje==0)
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo") &&(
+    sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") 
@@ -458,7 +457,7 @@ when
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia"))
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
@@ -478,19 +477,20 @@ end
 
 rule "PUNTAJE: Pensamiento - principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades del pensamiento características de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Particularidades"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento!="pensamiento-sin-particularidades" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-disgregacion" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia")
+when 
+//no me tomaba el ! así que tuve que poner ==false
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") ==false
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")==false && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-tangencial") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-minuciosidad") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-viscosidad") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-concreto") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-idea-fija") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-interceptacion-pensamiento") || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial")))
 then
+
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento",1)   
 end
@@ -527,11 +527,7 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-sin-particularidades" 
-    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija")
-    && !(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el contenido del pensamiento más comunes en esquizofrenia (Ideación delirante sistematizada o no sistematizada)",1)   
@@ -539,8 +535,9 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades menos comunes"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-idea-obsesiva" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-idea-fija"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
+    && (sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-idea-obsesiva") 
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-idea-fija")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
     pacienteResponse.actualizarJustificacion("Presenta contenido del pensamiento con particularidades (idea fija u obsesiva)",1)   
@@ -556,8 +553,8 @@ end
 
 rule "RECOMENDACION: Contenido pensamiento - ideas de muerte o suicidas"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideas-muerte" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideas-suicidas"))
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-muerte" )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-suicidas")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta idea de muerte o suicidas",1)   
