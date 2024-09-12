@@ -226,7 +226,6 @@ when
     || transtorno_depresivo=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    //cambiar por un mensaje mas entendible
     pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
 end
 
@@ -379,7 +378,6 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    // por que 3 y no 5?
     pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo para hombres",1)   
 end
 
@@ -513,7 +511,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento != "ritmo-pensamiento-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
 end
 
 rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
@@ -638,14 +636,9 @@ end
 
 rule "PUNTAJE: Actividad - Normal" 
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico" 
-    || sintomas_negativos_actividad=="actividad-hiperbulia-productiva" 
-    || sintomas_negativos_actividad=="actividad-apraxia" 
-    || sintomas_negativos_actividad=="actividad-ataxia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico")
 then 
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )        
-    //hiperbulia-productiva, apraxia y ataxia no son normal, esta mal mostrar ese mensaje
-    //podemos dividir la regla en 2 o sino directamente sacar esos sintomas.
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Actividad normal",1)   
 end
 
@@ -688,7 +681,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-    pacienteResponse.actualizarJustificacion("Particularidad de afectividad (aplanamiento afectivo) muy comun es esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta aplanamiento afectivo, una particularidad de afectividad muy común es esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Afectividad - Frecuente"
@@ -696,7 +689,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-hipotimia")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
-    pacienteResponse.actualizarJustificacion("Particularidad de afectividad (hipotimia) frecuente en esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta hipotimia, una particularidad de afectividad muy frecuente en esquizofrenia",1)   
 end
 
 
@@ -706,7 +699,7 @@ when
     || sintomas_negativos_afectividad=="afectividad-hipertimia-displacentera")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
-    pacienteResponse.actualizarJustificacion("Particularidades en afectividad menos frecuentes en esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en afectividad no tan frecuentes en esquizofrenia (timia displacentera, hipertimia displacentera)",1)   
 end
 
 rule "PUNTAJE: Afectividad - normal"
@@ -727,7 +720,7 @@ when
     && sintomas_negativos_afectividad!="afectividad-hipertimia-displacentera")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Particularidades de afectividad frecuentes en otros diagnósticos",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades de afectividad más frecuentes en otros diagnósticos (labilidad, irritabilidad, expansivo, inapropiado, anhedonia)",1)   
 end
 
 
