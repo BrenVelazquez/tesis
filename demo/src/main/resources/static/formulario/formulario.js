@@ -199,11 +199,6 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    if (datosFormulario.sexo === "-1") {
-        mostrarError(document.getElementById("sexo"), errorText);
-        esValido = false;
-    }
-
     if (!datosFormulario.transtorno_autista) {
         document.getElementById("error-transtorno-autista").textContent = errorText;
         document.getElementById("error-transtorno-autista").style.display = "block";
