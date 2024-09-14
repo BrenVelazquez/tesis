@@ -599,10 +599,10 @@ function determinar_diagnostico() {
                     case "Posible esquizofrenia":
                         $("#posible-esquizofrenia").css("display", "block");
                         break;
-                    case "Posible Esquizofrenia Temporal":
+                    case "Posible esquizofrenia temporal":
                         $("#evaluar-temporal").css("display", "block");
                         break;
-                    case "Esquizofrenia No posible":
+                    case "Esquizofrenia no posible":
                         $("#no-posible-esquizofrenia").css("display", "block");
                         break;
                     default:

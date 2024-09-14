@@ -32,11 +32,11 @@ public class PacienteResponse {
     public void calcularDiagnostico(Boolean temporal) {
         String recomendacion = "";
         if (puntaje < 41) {
-            this.setPosibilidad("Esquizofrenia No posible");
+            this.setPosibilidad("Esquizofrenia no posible");
             recomendacion = "Se recomienda evaluar otros diagnósticos como Depresión y Transtorno Bipolar.";
         } else {
             if (puntaje >= 41 && temporal) {
-                this.setPosibilidad("Posible Esquizofrenia Temporal");
+                this.setPosibilidad("Posible esquizofrenia temporal");
                 recomendacion = "Se recomienda evaluar esquizofrenia temporal.";
             } else {
                 this.setPosibilidad("Posible esquizofrenia");
