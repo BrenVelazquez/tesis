@@ -507,7 +507,7 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento != "ritmo-pensamiento-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-taquipsiquia" || sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-bradipsiquia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
