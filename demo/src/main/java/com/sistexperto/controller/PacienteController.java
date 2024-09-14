@@ -13,6 +13,10 @@ import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 import com.sistexperto.service.PacienteService;
 
+import java.util.List;
+
+import javax.imageio.IIOException;
+
 @RestController
 public class PacienteController {
     private final PacienteService pacienteService;
@@ -41,13 +45,34 @@ public class PacienteController {
     @PostMapping("/subirImagen")
     public ResponseEntity<Object> subirImagen(
             @RequestParam("codigoPaciente") String codigoPaciente,
-            @RequestPart("file") MultipartFile file) {
+            @RequestPart("file") MultipartFile file,
+            @RequestParam("estado") String estado,
+            @RequestParam("diagnostico") String diagnostico) {
         try {
             // armar logica
+            pacienteService.validateFile(file);
+
+            String originalFileName = cleanFileName(file.getOriginalFilename());
+            logger.info("Estado", estado);
+            pacienteService.guardarImagen(codigoPaciente, originalFileName, file, estado, diagnostico);
+
             return ResponseEntity.ok("Imagen subida y guardada con éxito.");
+        } catch (IIOException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error al subir la imagen.");
         }
+    }
+
+    public String cleanFileName(String fileName) {
+        // Remover caracteres especiales 
+        // mantener solo letras, números, guiones y puntos
+        String cleanedFileName = fileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+
+        // Asegurarse de que el nombre de archivo no comience con un guion o un punto
+        cleanedFileName = cleanedFileName.replaceAll("^[.-]", "_");
+
+        return cleanedFileName;
     }
 
     @PostMapping("/ingresarPaciente")

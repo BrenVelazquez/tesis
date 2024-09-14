@@ -117,7 +117,7 @@ when
     || sintomas_negativos_actividad=="actividad-compulsiones" 
     || sintomas_negativos_actividad=="actividad-ecopraxia" 
     || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="Esterotipia" 
+    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
     || sintomas_negativos_actividad=="actividad-negativismo" 
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
     || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
@@ -147,7 +147,7 @@ when
     || sintomas_negativos_actividad=="actividad-compulsiones" 
     || sintomas_negativos_actividad=="actividad-ecopraxia" 
     || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="Esterotipia" 
+    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
     || sintomas_negativos_actividad=="actividad-negativismo" 
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
     || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
@@ -235,7 +235,7 @@ when
     $pacienteRequest: PacienteRequest(sustancias=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0)
-    pacienteResponse.actualizarJustificacion("El trastorno se podría atribuír a los efectos fisiológicos de una sustancia u otra afección médica",1)   
+    pacienteResponse.actualizarJustificacion("El trastorno se podría atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
     pacienteResponse.actualizarRecomendacion("Se recomienda descartar que los síntomas se deban a efectos secundarios de otras medicaciones o al consumo de sustancias",1)   
 end
 
@@ -255,7 +255,7 @@ when
     $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuír a una causa orgánica",1)   
+    pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuir a una causa orgánica",1)   
 end
 
 rule "Causa organica - No evalua"
@@ -436,11 +436,12 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") 
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
     && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
     && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
-    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo") &&(
-    sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
+    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo") 
+    && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") 
@@ -491,7 +492,7 @@ when
 then
 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento comunes en esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
@@ -557,7 +558,7 @@ when
     $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-muerte" )
     || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-suicidas")))
 then
-    pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta idea de muerte o suicidas",1)   
+    pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta ideas de muerte o suicidas",1)   
 end
 
 
@@ -591,7 +592,7 @@ when
     || sintomas_negativos_aspecto.contains("aspecto-adelgazado"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (bizarro, extravagante, inadecuado, adelgazado)",1)   
 end
 
 rule "PUNTAJE: Aspecto - Particularidades menos comunes"
@@ -636,7 +637,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-hipoprosexia" )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención (hipoprosexia)",1)   
 end
 
 rule "PUNTAJE: Atención con particularidades más comunes"
@@ -660,10 +661,10 @@ end
 rule "PUNTAJE: Actividad con particularidades frecuentes"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-hiperbulia-improductiva" 
-    || sintomas_negativos_actividad=="Interceptación cinética"   )
+    || sintomas_negativos_actividad=="actividad-interceptacion-cinetica")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
-    pacienteResponse.actualizarJustificacion("Atención con particularidades frecuentes",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en la actividad frecuentes en esquizofrenia (interceptación cinética, hiperbulia improductiva)",1)   
 end
 
 rule "PUNTAJE: Actividad con particularidades más comunes"
@@ -686,21 +687,21 @@ when
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
-    pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos",1)   
+    pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos (impulsiones, flexibilidad cérea)",1)   
 end
 
 rule "RECOMENDACION: Actividad - Manierismo y estudios NO"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="No")
 then 
-    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurologia para encontrar la causa del Manierismo",1)   
+    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
 end
 
 rule "RECOMENDACION: Actividad - Manierismo y estudios SI"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="Si")
 then 
-    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurologia para encontrar la causa del Manierismo",1)   
+    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
 end
 
 

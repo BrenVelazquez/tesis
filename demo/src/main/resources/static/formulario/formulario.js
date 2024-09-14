@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     $("#complementarios-container").load("complementarios.html", function () {
         initializeComplementaryButtons();
+        insertarImagen();
     });
 
     $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
@@ -23,9 +24,42 @@ $(document).ready(function () {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function () { });
 
+// region imagen
+function insertarImagen() {
+    const imagenInput = document.getElementById('imagen');
+    const imagenPreview = document.getElementById('imagen-preview');
+    const insertPhotoMessage = document.getElementById('insert-photo-message');
+
+    if (!imagenInput || !imagenPreview || !insertPhotoMessage) {
+        console.error("Uno o más elementos no existen en el DOM.");
+        return;
+    }
+
+    insertPhotoMessage.addEventListener('click', function () {
+        imagenInput.click();
+    })
+
+    imagenInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagenPreview.src = e.target.result;
+                imagenPreview.style.display = 'block';
+                insertPhotoMessage.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagenPreview.style.display = 'none';
+            insertPhotoMessage.style.display = 'block';
+        }
+    });
+}
+// endregion imagen
+
+// region popup
 function mostrarPopup() {
     $("#popup").fadeIn(1000);
 }
@@ -39,11 +73,12 @@ function cerrarPopup() {
     setTimeout(function () {
         $("#message-container").fadeOut();
         $("#popup").fadeOut();
-        // Redirige al inicio (index.html) en localhost:8080
-        // window.location.href = "http://192.168.0.13:8080/";
+        // Redirige al inicio
+        // window.location.href = "/";
         // window.location.href = "http://127.0.0.1:8080/formulario/formulario.html";
     }, 1000); // Muestra el mensaje durante 1 segundo
 }
+// endregion popup
 
 function initializeButtons() {
     const buttonPairs = [
@@ -95,7 +130,6 @@ function initializeComplementaryButtons() {
                 btnNo.classList.remove('selected');
                 this.classList.add('selected');
 
-                //Para que se desplieguen los campos de estudio
                 if (this.id === 'estudios-si') {
                     $("#estudio-comentario").slideDown();
                     $("#estudio-causa-natural-id").slideDown();
@@ -108,7 +142,6 @@ function initializeComplementaryButtons() {
                 btnNo.classList.remove('selected');
                 this.classList.add('selected');
 
-                //Para que se dejen de mostrar los campos de estudio
                 if (this.id === 'estudios-no') {
                     $("#estudio-comentario").slideUp();
                     $("#estudio-causa-natural-id").slideUp();
@@ -187,6 +220,7 @@ function initializePositiveButtons() {
     }
   }*/
 
+// region validar campos
 function validar_campos(datosFormulario) {
     console.log("INICIO VALIDAR CAMPOS");
 
@@ -342,34 +376,36 @@ function validar_campos(datosFormulario) {
     }
 
     console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
-    return esValido; // Retorna true si todo es válido, false si hay algún campo incompleto
+    return esValido;
 }
+// endregion validar campos
 
 
 function mostrarError(campo, mensaje) {
-    campo.style.borderColor = "red"; // Resalta el campo con borde rojo
+    campo.style.borderColor = "red";
     const errorDiv = document.createElement("div");
     errorDiv.className = "error-message";
     errorDiv.style.color = "red";
     errorDiv.textContent = mensaje;
-    campo.parentNode.appendChild(errorDiv); // Muestra el mensaje de error debajo del campo
+    campo.parentNode.appendChild(errorDiv);
 }
 
 function resetearErrores() {
     const campos = document.querySelectorAll("input, select");
     campos.forEach(campo => {
-        campo.style.borderColor = ""; // Resetea borde
+        campo.style.borderColor = "";
         const errorMessage = campo.parentNode.querySelector(".error-message");
         if (errorMessage) {
-            campo.parentNode.removeChild(errorMessage); // Elimina el mensaje de error
+            campo.parentNode.removeChild(errorMessage);
         }
     });
 }
 
+// region determinar_diagnostico
+
 function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
-    // Obtener los valores de los campos del formulario
     const edad = document.getElementById("edad").value;
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
@@ -407,20 +443,19 @@ function determinar_diagnostico() {
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
     }
-    const sintomasPositivosTipoAlucinaciones=alucinaciones.toString();
+    const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
     console.log(sintomasPositivosTipoAlucinaciones);
-    
     //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
-  
+
     //const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
     select1 = document.getElementById("lenguaje");
     const lenguaje = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) lenguaje.push(select1.options[i].value);
     }
-    const sintomasPositivosTipoLenguaje=lenguaje.toString();
+    const sintomasPositivosTipoLenguaje = lenguaje.toString();
     console.log(sintomasPositivosTipoLenguaje);
-    
+
     //const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
 
     select1 = document.getElementById("pensamiento");
@@ -428,19 +463,19 @@ function determinar_diagnostico() {
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) pensamiento.push(select1.options[i].value);
     }
-    const sintomasPositivosTipoPensamiento=pensamiento.toString();
+    const sintomasPositivosTipoPensamiento = pensamiento.toString();
     console.log(sintomasPositivosTipoPensamiento);
 
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
 
-    
+
 
     select1 = document.getElementById("contenido-pensamiento");
     const contenido = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) contenido.push(select1.options[i].value);
     }
-    const sintomasPositivosTipoContenidoPensamiento=contenido.toString();
+    const sintomasPositivosTipoContenidoPensamiento = contenido.toString();
     console.log(sintomasPositivosTipoContenidoPensamiento);
     //const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
 
@@ -449,28 +484,28 @@ function determinar_diagnostico() {
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
     //const sintomasNegativosAspecto = document.getElementById("aspecto").value;
 
- 
+
     var select2 = document.getElementById("aspecto");
     const aspecto = [];
     for (var i = 0; i < select2.length; i++) {
         if (select2.options[i].selected) aspecto.push(select2.options[i].value);
     }
-    const sintomasNegativosAspecto=aspecto.toString();
+    const sintomasNegativosAspecto = aspecto.toString();
     console.log(sintomasNegativosAspecto);
 
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
     //const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
-    
 
-    select2=null;
+
+    select2 = null;
 
     select2 = document.getElementById("afectividad");
     const afectividad = [];
     for (var i = 0; i < select2.length; i++) {
         if (select2.options[i].selected) afectividad.push(select2.options[i].value);
     }
-    const sintomasNegativosAfectividad=afectividad.toString();
+    const sintomasNegativosAfectividad = afectividad.toString();
     console.log(sintomasNegativosAfectividad);
 
     //complementarios
@@ -483,7 +518,7 @@ function determinar_diagnostico() {
     const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
     const estudioComentario = document.getElementById("estudio-comentario").value;
-    // Se crea un objeto con los valores recolectados
+
     datosFormulario = {
         edad: edad,
         sexo: sexo,
@@ -523,30 +558,25 @@ function determinar_diagnostico() {
     if (validar_campos(datosFormulario)) {
 
         $("#justificacion-title").click(function () {
-            $("#justificacion").toggle(); // Alternar la visibilidad del contenido
+            $("#justificacion").toggle();
 
-            // Alternar la clase 'collapsed' para el título
             $(this).toggleClass('collapsed');
 
-            // Cambiar el ícono según el estado de colapso
-            if ($("#justificacion").is(":visible")) {
-                $("#justificacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            if ($(this).hasClass('collapsed')) {
+                $("#justificacion-icon").css("transform", "rotate(-90deg)");
             } else {
-                $("#justificacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $("#justificacion-icon").css("transform", "rotate(0deg)");
             }
         });
 
         $("#recomendacion-title").click(function () {
-            $("#recomendacion").toggle(); // Alternar la visibilidad del contenido
-
-            // Alternar la clase 'collapsed' para el título
+            $("#recomendacion").toggle();
             $(this).toggleClass('collapsed');
 
-            // Cambiar el ícono según el estado de colapso
-            if ($("#recomendacion").is(":visible")) {
-                $("#recomendacion-icon").removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            if ($(this).hasClass('collapsed')) {
+                $("#recomendacion-icon").css("transform", "rotate(-90deg)");
             } else {
-                $("#recomendacion-icon").removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $("#recomendacion-icon").css("transform", "rotate(0deg)");
             }
         });
 
@@ -599,7 +629,7 @@ function determinar_diagnostico() {
                     let justificacionArray = justificacion.split('\n');
                     let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
                     $("#justificacion").html(`<ul>${listItems}</ul>`);
-                } 
+                }
                 else {
                     $("#justificacion").text("No disponible");
                 }
@@ -618,9 +648,10 @@ function determinar_diagnostico() {
     console.log("FIN FUNCION DIAGNOSTICO()");
 
 }
+// endregion determinar_diagnostico
 
 
-
+// region guardarRegistro
 function guardarRegistro(estado) {
 
     // Obtener el archivo seleccionado
@@ -668,3 +699,4 @@ function guardarRegistro(estado) {
 
 }
 
+// endregion guardarRegistro
