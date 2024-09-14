@@ -66,19 +66,18 @@ end
 
 rule "Sintomas obligatorios - Ninguno"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && sintomas_positivos_alucinaciones=="No" 
-    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
-    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
-    && sintomas_negativos_actividad=="actividad-hipobulia") 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )==false)  //Aca no evalua hipobulia porque no es de los obligatorios
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
     pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación  o incoherencia",1)   
 end
 
 
-
+//agregamos reglas preguntando si tiene delirios y ninguna otra cosa, si tiene alucinaciones y ninguna otra cosa, etc??
 
 rule "Tiempo - Menor 1 mes"
 when
