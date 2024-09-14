@@ -368,12 +368,12 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo para hombres",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
 when
-    $pacienteRequest: PacienteRequest(sexo=="Masculino" && (edad > 25 && edad <= 59))
+    $pacienteRequest: PacienteRequest(sexo=="Masculino" || sexo=="No-especifica" && (edad > 25 && edad <= 59))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("Es un adulto menor de 60",1)   
@@ -384,7 +384,7 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo para mujeres",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la de edad de la media de diagnóstico de esquizofrenia",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
@@ -411,6 +411,9 @@ then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Está en la edad de más riesgo",1)   
 end
+
+
+
 
 
 
