@@ -93,7 +93,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Mayor o igual a un mes" 
     && sintomas_negativos_duracion == "Mayor o igual a un mes") 
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("La duración de síntomas positivos y negativos es mayor a un mes",1)   
 end
 
