@@ -524,14 +524,6 @@ end
 
 
 
-rule "PUNTAJE: Contenido pensamiento - particularidades más comunes"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el contenido del pensamiento más comunes en esquizofrenia (Ideación delirante sistematizada o no sistematizada)",1)   
-end
 
 rule "PUNTAJE: Contenido pensamiento - particularidades menos comunes"
 when
