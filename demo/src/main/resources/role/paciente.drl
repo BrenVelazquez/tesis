@@ -170,7 +170,7 @@ when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
     && (sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_contenido_pensamiento.contains( "contenido-pensamiento-ideacion-delirante-sistematizada" )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
     || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
@@ -181,7 +181,7 @@ rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucinacione
 when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-sistematizada" )
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
     && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )
     && sintomas_positivos_alucinaciones=="No")
 then
@@ -338,7 +338,7 @@ end
 rule "PUNTAJE: Delirios - Si"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
-    || sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta delirios",1)   
@@ -346,8 +346,8 @@ end
 
 rule "PUNTAJE: Delirios - No"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-no-sistematizada"))
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta delirios",1)   
