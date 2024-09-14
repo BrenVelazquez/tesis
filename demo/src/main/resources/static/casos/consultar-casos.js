@@ -1,4 +1,3 @@
-// Datos de ejemplo de pacientes
 const pacientes = [
     { id: '885e969d', nombre: "Armando Quilo", diagnostico: "Posible Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },
     { id: '5f2633bc', nombre: "Norma Caries", diagnostico: "No Posible Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },
@@ -9,7 +8,6 @@ const pacientes = [
     { id: '6edb40ae', nombre: "Romina Cordón", diagnostico: "Posible Esquizofrenia", estado: "Aprobado", fecha: "12/09/24" }
 ];
 
-// Función para cargar los datos de los pacientes en la tabla
 function cargarPacientes(pacientesFiltrados = pacientes, filtrado = false) {
     const tbody = document.querySelector("#tabla-pacientes tbody");
     tbody.innerHTML = "";
@@ -27,7 +25,6 @@ function cargarPacientes(pacientesFiltrados = pacientes, filtrado = false) {
     });
 }
 
-// Función para ver los detalles de un paciente
 function verDetalle(id) {
     const paciente = pacientes.find(p => p.id === id);
     if (paciente) {
@@ -36,11 +33,10 @@ function verDetalle(id) {
         Nombre: ${paciente.nombre}
         Diagnóstico: ${paciente.diagnostico}
         Estado: ${paciente.estado}
-        Fecha de ingreso: ${paciente.fecha}`);
+        Fecha de Ingreso: ${paciente.fecha}`);
     }
 }
 
-// Función para buscar pacientes
 function buscarPacientes() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
     console.log('searchTerm: ' + searchTerm);
@@ -55,9 +51,13 @@ function buscarPacientes() {
     cargarPacientes(pacientesFiltrados, true);
 }
 
+function refrescarTabla() {
+    document.getElementById('search-input').value = '';
+    cargarPacientes();
+}
+
 function volver() {
     window.location.href = "/";
 }
 
-// Cargar los pacientes cuando la página se cargue
 window.onload = cargarPacientes;

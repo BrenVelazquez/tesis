@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +24,16 @@
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
             </button>
+            <button class="refresh-button" onclick="refrescarTabla()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.98-3.36L23 10"></path>
+                    <path d="M20.49 15a9 9 0 0 1-14.98 3.36L1 14"></path>
+                </svg>
+            </button>
+
         </div>
     </div>
 
@@ -34,7 +45,7 @@
                     <th>Nombre</th>
                     <th>Diagnóstico</th>
                     <th>Estado</th>
-                    <th>Fecha de ingreso</th>
+                    <th>Fecha de Ingreso</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -43,7 +54,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="btn-volver-container">
         <button class="btn-volver" id="volver" onclick="volver()">
             Volver
@@ -52,4 +63,5 @@
 
     <script src="consultar-casos.js"></script>
 </body>
+
 </html>
