@@ -318,7 +318,7 @@ when
     && estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios para evaluar causas orgánicas",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios para evaluar causas orgánicas para alucinaciones olfativas",1)   
 end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas con estudios"
@@ -688,14 +688,14 @@ rule "RECOMENDACION: Actividad - Manierismo y estudios NO"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="No")
 then 
-    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
 end
 
 rule "RECOMENDACION: Actividad - Manierismo y estudios SI"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="Si")
 then 
-    pacienteResponse.actualizarJustificacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
 end
 
 
