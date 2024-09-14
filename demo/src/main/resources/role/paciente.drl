@@ -12,12 +12,12 @@ dialect "mvel"
 
 rule "Sintomas obligatorios - Delirios"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada")  
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada"))  
     && (sintomas_positivos_alucinaciones=="No se descarta" 
     || sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
     || sintomas_negativos_actividad=="actividad-abulia"
     || sintomas_negativos_actividad=="actividad-hipobulia"))
 then
@@ -27,32 +27,25 @@ end
 
 rule "Sintomas obligatorios - alucinaciones "
 when
-    $pacienteResponse: PacienteResponse(puntaje == 0)
     $pacienteRequest: PacienteRequest((sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_alucinaciones=="No se descarta")
-    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
+    || sintomas_positivos_alucinaciones=="No se descarta") && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
     || sintomas_negativos_actividad=="actividad-abulia"
     || sintomas_negativos_actividad=="actividad-hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
-    update($pacienteResponse);
 end
 
 rule "Sintomas obligatorios - Disgregacion"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
-    || sintomas_positivos_alucinaciones=="No se descarta" 
-    || sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
-    || sintomas_negativos_actividad=="actividad-abulia"
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") && !sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")
+    && sintomas_positivos_alucinaciones=="No" && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && (sintomas_negativos_actividad=="actividad-abulia"  //no evaluo incoherencia porque son los dos discurso desorganizado
     || sintomas_negativos_actividad=="actividad-hipobulia"))
-    $pacienteResponse: PacienteResponse(puntaje == 0)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
@@ -60,13 +53,11 @@ end
 
 rule "Sintomas obligatorios - Incoherencia"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-incoherencia" 
-    && (sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
-    || sintomas_positivos_alucinaciones=="No se descarta" 
-    || sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_pensamiento=="pensamiento-disgregacion" 
-    || sintomas_negativos_actividad=="actividad-abulia"
+    $pacienteResponse: PacienteResponse(puntaje == 0)
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia") && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion" )
+    && sintomas_positivos_alucinaciones=="No" && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && ( sintomas_negativos_actividad=="actividad-abulia"   //no cuento disgregacion porque tambien es discurso desorganizado
     || sintomas_negativos_actividad=="actividad-hipobulia")) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
@@ -75,11 +66,11 @@ end
 
 rule "Sintomas obligatorios - Ninguno"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-sistematizada" 
-    && sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
     && sintomas_positivos_alucinaciones=="No" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-disgregacion" 
-    && sintomas_positivos_tipo_pensamiento!="pensamiento-incoherencia"
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
     && sintomas_negativos_actividad=="actividad-hipobulia") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
@@ -179,8 +170,8 @@ when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
     && (sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-ideacion-delirante-no-sistematizada"))
+    || sintomas_positivos_tipo_contenido_pensamiento.contains( "contenido-pensamiento-ideacion-delirante-sistematizada" )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
@@ -190,8 +181,8 @@ rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucinacione
 when
     $pacienteRequest: PacienteRequest((transtorno_autista=="Si" 
     || transtorno_comunicacion=="Si") 
-    && sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-sistematizada" 
-    && sintomas_positivos_tipo_contenido_pensamiento!="contenido-pensamiento-ideacion-delirante-no-sistematizada" 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-sistematizada" )
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )
     && sintomas_positivos_alucinaciones=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -346,8 +337,8 @@ end
 
 rule "PUNTAJE: Delirios - Si"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-sistematizada" 
-    || sintomas_positivos_tipo_contenido_pensamiento== "contenido-pensamiento-ideacion-delirante-no-sistematizada" )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
+    || sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta delirios",1)   
@@ -355,8 +346,8 @@ end
 
 rule "PUNTAJE: Delirios - No"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-sistematizada" 
-    && sintomas_positivos_tipo_contenido_pensamiento!= "contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-sistematizada") 
+    && !sintomas_positivos_tipo_contenido_pensamiento.contains ("contenido-pensamiento-ideacion-delirante-no-sistematizada"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta delirios",1)   
