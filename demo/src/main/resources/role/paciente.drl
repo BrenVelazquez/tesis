@@ -73,7 +73,7 @@ when
     && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )==false)  //Aca no evalua hipobulia porque no es de los obligatorios
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
-    pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación  o incoherencia",1)   
+    pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación o incoherencia",1)   
 end
 
 
@@ -262,7 +262,6 @@ when
     $pacienteRequest: PacienteRequest(estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    // no deberia sumar 5, si no se evalua deberia ser 0
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
 end
 
@@ -292,7 +291,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("No posee alucinaciones",1)   
+    pacienteResponse.actualizarJustificacion("No presenta alucinaciones",1)   
 end
 
 rule "RECOMENDACION: Alucinaciones - Cenestésicas"
@@ -368,7 +367,7 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para hombres",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
@@ -384,7 +383,7 @@ when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Se encuentra en la de edad de la media de diagnóstico de esquizofrenia",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para mujeres",1)   
 end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
@@ -510,7 +509,8 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-taquipsiquia" || sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-bradipsiquia")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-taquipsiquia" 
+    || sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-bradipsiquia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
@@ -598,7 +598,7 @@ when
     && sintomas_negativos_aspecto.contains("aspecto-hipomimico"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto",1)   
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (hipomimia)",1)   
 end
 
 rule "PUNTAJE: Aspecto - Normal"
@@ -610,7 +610,7 @@ when
     && sintomas_negativos_aspecto.contains("aspecto-hipomimico")== false) 
     && sintomas_negativos_aspecto.contains("aspecto-facie")
     || sintomas_negativos_aspecto.contains("aspecto-alinio")
-    ||sintomas_negativos_aspecto.contains("aspecto-aseo"))
+    || sintomas_negativos_aspecto.contains("aspecto-aseo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Aspecto normal",1)   
