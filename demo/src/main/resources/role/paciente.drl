@@ -142,28 +142,28 @@ end
 rule "Ambitos principales - Normal"
 when
     $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("aspecto-bizarro")==false 
-    || sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
-    || sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false 
-    || sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
-    || sintomas_negativos_atencion!="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion!="aspecto-hipomimico" 
-    || sintomas_negativos_atencion!="atencion-paraprosexia" 
-    || sintomas_negativos_actividad!="actividad-abulia" 
-    || sintomas_negativos_actividad!="actividad-apraxia"
-    || sintomas_negativos_actividad!="actividad-ataxia" 
-    || sintomas_negativos_actividad!="actividad-hipobulia" 
-    || sintomas_negativos_actividad!="actividad-compulsiones" 
-    || sintomas_negativos_actividad!="actividad-ecopraxia" 
-    || sintomas_negativos_actividad!="actividad-manierismo" 
-    || sintomas_negativos_actividad!="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad!="actividad-negativismo" 
-    || sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false
-    || sintomas_negativos_afectividad.contains("afectividad-labilidad")==false 
-    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad")==false 
-    || sintomas_negativos_afectividad.contains("afectividad-expansivo")==false 
-    || sintomas_negativos_afectividad.contains("afectividad-inapropiado")==false 
-    || sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false))
+    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
+    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false 
+    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    && sintomas_negativos_atencion!="atencion-hiperprosexia" 
+    && sintomas_negativos_atencion!="aspecto-hipomimico" 
+    && sintomas_negativos_atencion!="atencion-paraprosexia" 
+    && sintomas_negativos_actividad!="actividad-abulia" 
+    && sintomas_negativos_actividad!="actividad-apraxia"
+    && sintomas_negativos_actividad!="actividad-ataxia" 
+    && sintomas_negativos_actividad!="actividad-hipobulia" 
+    && sintomas_negativos_actividad!="actividad-compulsiones" 
+    && sintomas_negativos_actividad!="actividad-ecopraxia" 
+    && sintomas_negativos_actividad!="actividad-manierismo" 
+    && sintomas_negativos_actividad!="actividad-estereotipia-motora" 
+    && sintomas_negativos_actividad!="actividad-negativismo" 
+    && sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
+    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false
+    && sintomas_negativos_afectividad.contains("afectividad-labilidad")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-irritabilidad")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-expansivo")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-inapropiado")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
