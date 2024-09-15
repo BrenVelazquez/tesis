@@ -111,23 +111,31 @@ end
 rule "Ambitos principales"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro") 
-    || sintomas_negativos_aspecto.contains("aspecto-extravagante") 
+    // || sintomas_negativos_aspecto.contains("aspecto-extravagante") 
     || sintomas_negativos_aspecto.contains("aspecto-inadecuado") 
-    || sintomas_negativos_aspecto.contains("aspecto-adelgazado")
+    // || sintomas_negativos_aspecto.contains("aspecto-adelgazado") 
+    || sintomas_negativos_aspecto.contains("aspecto-hipomimico")
+    || sintomas_negativos_atencion=="atencion-hipoprosexia" 
     || sintomas_negativos_atencion=="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion=="aspecto-hipomimico" 
     || sintomas_negativos_atencion=="atencion-paraprosexia" 
     || sintomas_negativos_actividad=="actividad-abulia" 
+    || sintomas_negativos_actividad=="actividad-hipobulia" 
+    || sintomas_negativos_actividad=="actividad-hiperbulia-improductiva" 
+    || sintomas_negativos_actividad=="actividad-impulsiones" 
+    || sintomas_negativos_actividad=="actividad-compulsiones" 
     || sintomas_negativos_actividad=="actividad-apraxia" 
     || sintomas_negativos_actividad=="actividad-ataxia" 
-    || sintomas_negativos_actividad=="actividad-hipobulia" 
-    || sintomas_negativos_actividad=="actividad-compulsiones" 
     || sintomas_negativos_actividad=="actividad-ecopraxia" 
     || sintomas_negativos_actividad=="actividad-manierismo" 
     || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
+    || sintomas_negativos_actividad=="actividad-interceptacion-cinetica" 
     || sintomas_negativos_actividad=="actividad-negativismo" 
+    || sintomas_negativos_actividad=="actividad-obediencia-automatica" 
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
     || sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo") 
+    || sintomas_negativos_afectividad.contains("afectividad-timia-displacentera") 
+    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera") 
+    || sintomas_negativos_afectividad.contains("afectividad-hipotimia") 
     || sintomas_negativos_afectividad.contains("afectividad-labilidad") 
     || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
     || sintomas_negativos_afectividad.contains("afectividad-expansivo") 
@@ -141,29 +149,38 @@ end
 
 rule "Ambitos principales - Normal"
 when
-    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("aspecto-bizarro")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")==false 
+    // && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
     && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    // && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    && sintomas_negativos_aspecto.contains("aspecto-hipomimico")==false
+    && sintomas_negativos_atencion!="atencion-hipoprosexia" 
     && sintomas_negativos_atencion!="atencion-hiperprosexia" 
-    && sintomas_negativos_atencion!="aspecto-hipomimico" 
     && sintomas_negativos_atencion!="atencion-paraprosexia" 
     && sintomas_negativos_actividad!="actividad-abulia" 
-    && sintomas_negativos_actividad!="actividad-apraxia"
-    && sintomas_negativos_actividad!="actividad-ataxia" 
     && sintomas_negativos_actividad!="actividad-hipobulia" 
+    && sintomas_negativos_actividad!="actividad-hiperbulia-improductiva" 
+    && sintomas_negativos_actividad!="actividad-impulsiones" 
     && sintomas_negativos_actividad!="actividad-compulsiones" 
+    && sintomas_negativos_actividad!="actividad-apraxia" 
+    && sintomas_negativos_actividad!="actividad-ataxia" 
     && sintomas_negativos_actividad!="actividad-ecopraxia" 
     && sintomas_negativos_actividad!="actividad-manierismo" 
     && sintomas_negativos_actividad!="actividad-estereotipia-motora" 
+    && sintomas_negativos_actividad!="actividad-interceptacion-cinetica" 
     && sintomas_negativos_actividad!="actividad-negativismo" 
-    && sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
-    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false
+    && sintomas_negativos_actividad!="actividad-obediencia-automatica" 
+    && sintomas_negativos_actividad!="actividad-flexibilidad-cerea"  
+    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
+    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
     && sintomas_negativos_afectividad.contains("afectividad-labilidad")==false 
     && sintomas_negativos_afectividad.contains("afectividad-irritabilidad")==false 
     && sintomas_negativos_afectividad.contains("afectividad-expansivo")==false 
     && sintomas_negativos_afectividad.contains("afectividad-inapropiado")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false))
+    && sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
