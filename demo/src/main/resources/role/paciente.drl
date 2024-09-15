@@ -245,13 +245,13 @@ then
     pacienteResponse.actualizarReglasEjecutadas("Diagnostico trastorno bipolar no descartado"); 
 end
 
-rule "Diagnostico esquitrastorno depresivo no descartado"
+rule "Diagnostico depresivo no descartado"
 when
     $pacienteRequest: PacienteRequest(trastorno_depresivo=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno depresivo",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Diagnostico esquitrastorno depresivo no descartado"); 
+    pacienteResponse.actualizarReglasEjecutadas("Diagnostico depresivo no descartado"); 
 end
 
 
