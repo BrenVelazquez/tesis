@@ -29,8 +29,8 @@ rule "Sintomas obligatorios - alucinaciones "
 when
     $pacienteRequest: PacienteRequest((sintomas_positivos_alucinaciones=="Si" 
     || sintomas_positivos_alucinaciones=="No se descarta") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada"==false) 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
     || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
     || sintomas_negativos_actividad=="actividad-abulia"
@@ -43,10 +43,9 @@ end
 rule "Sintomas obligatorios - Disgregacion"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
-    && !sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")
     && sintomas_positivos_alucinaciones=="No" 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && (sintomas_negativos_actividad=="actividad-abulia"  //no evaluo incoherencia porque son los dos discurso desorganizado
     || sintomas_negativos_actividad=="actividad-hipobulia"))
 then
@@ -56,12 +55,10 @@ end
 
 rule "Sintomas obligatorios - Incoherencia"
 when
-    $pacienteResponse: PacienteResponse(puntaje == 0)
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia") 
-    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion" )
     && sintomas_positivos_alucinaciones=="No" 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && ( sintomas_negativos_actividad=="actividad-abulia"   //no cuento disgregacion porque tambien es discurso desorganizado
     || sintomas_negativos_actividad=="actividad-hipobulia")) 
 then
@@ -185,8 +182,8 @@ rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucinacione
 when
     $pacienteRequest: PacienteRequest((trastorno_autista=="Si" 
     || trastorno_comunicacion=="Si") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )==false
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )==false
     && sintomas_positivos_alucinaciones=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -363,8 +360,8 @@ end
 
 rule "PUNTAJE: Delirios - No"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada") 
-    && !sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta delirios",1)   
@@ -445,7 +442,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
@@ -456,11 +453,11 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(!sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia") 
-    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
-    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
-    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
-    && !sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo") 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false 
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")==false 
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")==false 
     && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
@@ -477,7 +474,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
-    $pacienteResponse: PacienteResponse(!justificacion.contains("lenguaje"))
+    $pacienteResponse: PacienteResponse(justificacion.contains("lenguaje")==false)
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=="lenguaje-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
