@@ -531,7 +531,6 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
-    $pacienteResponse: PacienteResponse(justificacion.contains("lenguaje")==false)
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-sin-particularidades"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
