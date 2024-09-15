@@ -79,7 +79,6 @@ then
 end
 
 
-//agregamos reglas preguntando si tiene delirios y ninguna otra cosa, si tiene alucinaciones y ninguna otra cosa, etc??
 
 rule "Tiempo - Menor 1 mes"
 when
@@ -104,10 +103,10 @@ end
 
 rule "Ambitos principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto!="aspecto-bizarro" 
-    || sintomas_negativos_aspecto!="aspecto-extravagante" 
-    || sintomas_negativos_aspecto!="aspecto-inadecuado" 
-    || sintomas_negativos_aspecto!="aspecto-adelgazado"
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=="aspecto-bizarro" 
+    || sintomas_negativos_aspecto=="aspecto-extravagante" 
+    || sintomas_negativos_aspecto=="aspecto-inadecuado" 
+    || sintomas_negativos_aspecto=="aspecto-adelgazado"
     || sintomas_negativos_atencion=="atencion-hiperprosexia" 
     || sintomas_negativos_atencion=="aspecto-hipomimico" 
     || sintomas_negativos_atencion=="atencion-paraprosexia" 
@@ -138,25 +137,25 @@ when
     || sintomas_negativos_aspecto!="aspecto-extravagante" 
     || sintomas_negativos_aspecto!="aspecto-inadecuado" 
     || sintomas_negativos_aspecto!="aspecto-adelgazado" 
-    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion=="aspecto-hipomimico" 
-    || sintomas_negativos_atencion=="atencion-paraprosexia" 
-    || sintomas_negativos_actividad=="actividad-abulia" 
-    || sintomas_negativos_actividad=="actividad-apraxia"
-    || sintomas_negativos_actividad=="actividad-ataxia" 
-    || sintomas_negativos_actividad=="actividad-hipobulia" 
-    || sintomas_negativos_actividad=="actividad-compulsiones" 
-    || sintomas_negativos_actividad=="actividad-ecopraxia" 
-    || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad=="actividad-negativismo" 
-    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
-    || sintomas_negativos_afectividad=="afectividad-labilidad" 
-    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
-    || sintomas_negativos_afectividad=="afectividad-expansivo" 
-    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
-    || sintomas_negativos_afectividad=="afectividad-anhedonia"))
+    || sintomas_negativos_atencion!="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion!="aspecto-hipomimico" 
+    || sintomas_negativos_atencion!="atencion-paraprosexia" 
+    || sintomas_negativos_actividad!="actividad-abulia" 
+    || sintomas_negativos_actividad!="actividad-apraxia"
+    || sintomas_negativos_actividad!="actividad-ataxia" 
+    || sintomas_negativos_actividad!="actividad-hipobulia" 
+    || sintomas_negativos_actividad!="actividad-compulsiones" 
+    || sintomas_negativos_actividad!="actividad-ecopraxia" 
+    || sintomas_negativos_actividad!="actividad-manierismo" 
+    || sintomas_negativos_actividad!="actividad-estereotipia-motora" 
+    || sintomas_negativos_actividad!="actividad-negativismo" 
+    || sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
+    || sintomas_negativos_afectividad!="afectividad-aplanamiento-afectivo" 
+    || sintomas_negativos_afectividad!="afectividad-labilidad" 
+    || sintomas_negativos_afectividad!="afectividad-irritabilidad" 
+    || sintomas_negativos_afectividad!="afectividad-expansivo" 
+    || sintomas_negativos_afectividad!="afectividad-inapropiado" 
+    || sintomas_negativos_afectividad!="afectividad-anhedonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
