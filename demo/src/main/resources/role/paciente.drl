@@ -288,11 +288,10 @@ end
 
 rule "PUNTAJE: Alucinaciones - Si"
 when
-    $pacienteRequest: PacienteRequest( sintomas_positivos_alucinaciones=="Si")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_alucinaciones=="Si")
 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    //pacienteResponse.revisarCenestesicas($pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones))
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
 end
 
@@ -354,7 +353,7 @@ end
 
 rule "PUNTAJE: Delirios - Si"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")
     || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
@@ -492,7 +491,7 @@ end
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
     $pacienteResponse: PacienteResponse(justificacion.contains("lenguaje")==false)
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje=="lenguaje-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-sin-particularidades"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el lenguaje",1)   
@@ -530,7 +529,7 @@ end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento=="pensamiento-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-sin-particularidades"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el pensamiento",1)   
@@ -541,8 +540,8 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-taquipsiquia" 
-    || sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-bradipsiquia")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento=="ritmo-pensamiento-taquipsiquia" 
+    || sintomas_positivos_tipo_ritmo_pensamiento=="ritmo-pensamiento-bradipsiquia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
@@ -550,7 +549,7 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento=="ritmo-pensamiento-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el ritmo del pensamiento",1)   
@@ -573,7 +572,7 @@ end
 
 rule "PUNTAJE: Contenido pensamiento - sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento=="contenido-pensamiento-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-sin-particularidades"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el contenido del pensamiento",1)   
