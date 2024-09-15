@@ -543,7 +543,7 @@ function determinar_diagnostico() {
         sintomas_negativos_atencion: sintomasNegativosAtencion,
         sintomas_negativos_actividad: sintomasNegativosActividad,
         sintomas_negativos_afectividad: sintomasNegativosAfectividad,
-        //complementarios
+        // complementarios
         sustancias: sustancias,
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
@@ -609,7 +609,8 @@ function determinar_diagnostico() {
                         console.log("Opción de posibilidad desconocida");
                 }
                 datosFormulario.posibilidad = response.posibilidad;
-
+                
+                datosFormulario.puntaje = response.puntaje;
 
                 // Actualizar el texto de "Recomendaciones" según la respuesta
                 let recomendacion = response.recomendacion;

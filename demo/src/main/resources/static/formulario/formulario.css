@@ -450,32 +450,16 @@ body {
         box-sizing: border-box;
     }
 
-    /* .btn-group {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 10px;
-        width: 100%;
-    }
-
-    .btn-group button {
-        flex: 1;
-        margin: 0 5px;
-    } */
-
     #sintomas-positivos-container,
     #sintomas-negativos-container,
     #complementarios-container {
         width: 100%;
         float: none;
-        /* Asegura que los contenedores se apilen verticalmente */
         margin-bottom: 15px;
-        /* Añade margen entre los contenedores */
     }
 
     .popup-inner {
         width: 100%;
-        /* Ancho del popup para pantallas pequeñas */
         padding: 20px;
     }
 }

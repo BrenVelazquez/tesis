@@ -209,14 +209,28 @@ then
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
 end
 
-rule "Diagnosticos no descartados"
+rule "Diagnostico trastorno esquizoafectivo no descartado"
 when
-    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=="Si" 
-    || transtorno_bipolar=="Si" 
-    || transtorno_depresivo=="Si")
+    $pacienteRequest: PacienteRequest(transtorno_esquizoafectivo=="Si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("No se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
+    pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno esquizoafectivo",1)   
+end
+
+rule "Diagnostico trastorno bipolar no descartado"
+when
+    $pacienteRequest: PacienteRequest(transtorno_bipolar=="Si")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno bipolar con características psicóticas",1)   
+end
+
+rule "Diagnostico esquitrastorno depresivo no descartado"
+when
+    $pacienteRequest: PacienteRequest(transtorno_depresivo=="Si")
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno depresivo",1)   
 end
 
 
@@ -491,7 +505,6 @@ when
     || sintomas_positivos_tipo_pensamiento.contains("pensamiento-interceptacion-pensamiento") 
     || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial")))
 then
-
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento comunes en esquizofrenia",1)   
 end
