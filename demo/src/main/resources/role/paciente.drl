@@ -166,7 +166,7 @@ when
     && sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
+    pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
     pacienteResponse.actualizarReglasEjecutadas("Ambitos principales - Normal"); 
 end
 
