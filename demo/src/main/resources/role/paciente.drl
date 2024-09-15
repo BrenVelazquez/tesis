@@ -72,7 +72,7 @@ when
     && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && sintomas_positivos_alucinaciones=="No" 
     && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false 
-    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )==false)  //Aca no evalua hipobulia porque no es de los obligatorios
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")==false)  //Aca no evalua hipobulia porque no es de los obligatorios
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
     pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación o incoherencia",1)   
@@ -133,29 +133,29 @@ end
 
 rule "Ambitos principales - Normal"
 when
-    $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto!="aspecto-bizarro" 
-    || sintomas_negativos_aspecto!="aspecto-extravagante" 
-    || sintomas_negativos_aspecto!="aspecto-inadecuado" 
-    || sintomas_negativos_aspecto!="aspecto-adelgazado" 
-    || sintomas_negativos_atencion!="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion!="aspecto-hipomimico" 
-    || sintomas_negativos_atencion!="atencion-paraprosexia" 
-    || sintomas_negativos_actividad!="actividad-abulia" 
-    || sintomas_negativos_actividad!="actividad-apraxia"
-    || sintomas_negativos_actividad!="actividad-ataxia" 
-    || sintomas_negativos_actividad!="actividad-hipobulia" 
-    || sintomas_negativos_actividad!="actividad-compulsiones" 
-    || sintomas_negativos_actividad!="actividad-ecopraxia" 
-    || sintomas_negativos_actividad!="actividad-manierismo" 
-    || sintomas_negativos_actividad!="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad!="actividad-negativismo" 
-    || sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad!="afectividad-aplanamiento-afectivo" 
-    || sintomas_negativos_afectividad!="afectividad-labilidad" 
-    || sintomas_negativos_afectividad!="afectividad-irritabilidad" 
-    || sintomas_negativos_afectividad!="afectividad-expansivo" 
-    || sintomas_negativos_afectividad!="afectividad-inapropiado" 
-    || sintomas_negativos_afectividad!="afectividad-anhedonia"))
+    $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto=="aspecto-bizarro" 
+    || sintomas_negativos_aspecto=="aspecto-extravagante" 
+    || sintomas_negativos_aspecto=="aspecto-inadecuado" 
+    || sintomas_negativos_aspecto=="aspecto-adelgazado" 
+    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion=="aspecto-hipomimico" 
+    || sintomas_negativos_atencion=="atencion-paraprosexia" 
+    || sintomas_negativos_actividad=="actividad-abulia" 
+    || sintomas_negativos_actividad=="actividad-apraxia"
+    || sintomas_negativos_actividad=="actividad-ataxia" 
+    || sintomas_negativos_actividad=="actividad-hipobulia" 
+    || sintomas_negativos_actividad=="actividad-compulsiones" 
+    || sintomas_negativos_actividad=="actividad-ecopraxia" 
+    || sintomas_negativos_actividad=="actividad-manierismo" 
+    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
+    || sintomas_negativos_actividad=="actividad-negativismo" 
+    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
+    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
+    || sintomas_negativos_afectividad=="afectividad-labilidad" 
+    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
+    || sintomas_negativos_afectividad=="afectividad-expansivo" 
+    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
+    || sintomas_negativos_afectividad=="afectividad-anhedonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
@@ -170,9 +170,10 @@ when
     $pacienteRequest: PacienteRequest((trastorno_autista=="Si" 
     || trastorno_comunicacion=="Si") 
     && (sintomas_positivos_alucinaciones=="Si" 
-    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
-    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")
-    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )))
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
@@ -182,10 +183,11 @@ rule "Antecedentes - sin síntomas requeridos"
 when
     $pacienteRequest: PacienteRequest((trastorno_autista=="Si" 
     || trastorno_comunicacion=="Si") 
-    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )==false
-    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )==false
-    && sintomas_positivos_alucinaciones=="No" && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false 
-    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )==false)
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
+    && sintomas_positivos_alucinaciones=="No" 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")==false)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones",1)   
@@ -371,7 +373,7 @@ end
 
 rule "PUNTAJE: Abulia - Si"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_actividad.contains("abulia" ))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-abulia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta abulia",1)   
@@ -469,22 +471,21 @@ end
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false 
-    (sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-estereotipia-verbal")==false 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") ==false
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")==false
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")
-    && ))
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-estereotipia-verbal")==false 
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")==false
+    && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
 end
 
@@ -512,7 +513,7 @@ end
 rule "PUNTAJE: Pensamiento - Particularidades"
 when 
 //no me tomaba el ! así que tuve que poner ==false
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") ==false
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false
     && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia")==false 
     && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-tangencial") 
     || sintomas_positivos_tipo_pensamiento.contains("pensamiento-circunstancial") 
@@ -580,7 +581,7 @@ end
 
 rule "RECOMENDACION: Contenido pensamiento - ideas de muerte o suicidas"
 when
-    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-muerte" )
+    $pacienteRequest: PacienteRequest((sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-muerte")
     || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideas-suicidas")))
 then
     pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta ideas de muerte o suicidas",1)   
