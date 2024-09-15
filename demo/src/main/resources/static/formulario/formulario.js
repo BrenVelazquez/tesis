@@ -82,11 +82,11 @@ function cerrarPopup() {
 
 function initializeButtons() {
     const buttonPairs = [
-        { yes: 'transtorno-autista-si', no: 'transtorno-autista-no' },
-        { yes: 'transtorno-comunicacion-si', no: 'transtorno-comunicacion-no' },
-        { yes: 'transtorno-esquizoafectivo-si', no: 'transtorno-esquizoafectivo-no' },
-        { yes: 'transtorno-depresivo-si', no: 'transtorno-depresivo-no' },
-        { yes: 'transtorno-bipolar-si', no: 'transtorno-bipolar-no' },
+        { yes: 'trastorno-autista-si', no: 'trastorno-autista-no' },
+        { yes: 'trastorno-comunicacion-si', no: 'trastorno-comunicacion-no' },
+        { yes: 'trastorno-esquizoafectivo-si', no: 'trastorno-esquizoafectivo-no' },
+        { yes: 'trastorno-depresivo-si', no: 'trastorno-depresivo-no' },
+        { yes: 'trastorno-bipolar-si', no: 'trastorno-bipolar-no' },
         { yes: 'antecedentes-familiares-si', no: 'antecedentes-familiares-no' },
     ];
 
@@ -242,44 +242,44 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    if (!datosFormulario.transtorno_autista) {
-        document.getElementById("error-transtorno-autista").textContent = errorText;
-        document.getElementById("error-transtorno-autista").style.display = "block";
+    if (!datosFormulario.trastorno_autista) {
+        document.getElementById("error-trastorno-autista").textContent = errorText;
+        document.getElementById("error-trastorno-autista").style.display = "block";
         esValido = false;
     } else {
-        document.getElementById("error-transtorno-autista").style.display = "none";
+        document.getElementById("error-trastorno-autista").style.display = "none";
     }
 
-    if (!datosFormulario.transtorno_comunicacion) {
-        document.getElementById("error-transtorno-comunicacion").textContent = errorText;
-        document.getElementById("error-transtorno-comunicacion").style.display = "block";
+    if (!datosFormulario.trastorno_comunicacion) {
+        document.getElementById("error-trastorno-comunicacion").textContent = errorText;
+        document.getElementById("error-trastorno-comunicacion").style.display = "block";
         esValido = false;
     } else {
-        document.getElementById("error-transtorno-comunicacion").style.display = "none";
+        document.getElementById("error-trastorno-comunicacion").style.display = "none";
     }
 
-    if (!datosFormulario.transtorno_esquizoafectivo) {
-        document.getElementById("error-transtorno-esquizoafectivo").textContent = errorText;
-        document.getElementById("error-transtorno-esquizoafectivo").style.display = "block";
+    if (!datosFormulario.trastorno_esquizoafectivo) {
+        document.getElementById("error-trastorno-esquizoafectivo").textContent = errorText;
+        document.getElementById("error-trastorno-esquizoafectivo").style.display = "block";
         esValido = false;
     } else {
-        document.getElementById("error-transtorno-esquizoafectivo").style.display = "none";
+        document.getElementById("error-trastorno-esquizoafectivo").style.display = "none";
     }
 
-    if (!datosFormulario.transtorno_depresivo) {
-        document.getElementById("error-transtorno-depresivo").textContent = errorText;
-        document.getElementById("error-transtorno-depresivo").style.display = "block";
+    if (!datosFormulario.trastorno_depresivo) {
+        document.getElementById("error-trastorno-depresivo").textContent = errorText;
+        document.getElementById("error-trastorno-depresivo").style.display = "block";
         esValido = false;
     } else {
-        document.getElementById("error-transtorno-depresivo").style.display = "none";
+        document.getElementById("error-trastorno-depresivo").style.display = "none";
     }
 
-    if (!datosFormulario.transtorno_bipolar) {
-        document.getElementById("error-transtorno-bipolar").textContent = errorText;
-        document.getElementById("error-transtorno-bipolar").style.display = "block";
+    if (!datosFormulario.trastorno_bipolar) {
+        document.getElementById("error-trastorno-bipolar").textContent = errorText;
+        document.getElementById("error-trastorno-bipolar").style.display = "block";
         esValido = false;
     } else {
-        document.getElementById("error-transtorno-bipolar").style.display = "none";
+        document.getElementById("error-trastorno-bipolar").style.display = "none";
     }
 
     if (!datosFormulario.antecedentes_familiares) {
@@ -410,21 +410,21 @@ function determinar_diagnostico() {
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
 
-    const transtornoAutista =
-        document.querySelector("#transtorno-autista-si.selected") ? "Si" :
-            document.querySelector("#transtorno-autista-no.selected") ? "No" : "";
-    const transtornoComunicacion =
-        document.querySelector("#transtorno-comunicacion-si.selected") ? "Si" :
-            document.querySelector("#transtorno-comunicacion-no.selected") ? "No" : "";
-    const transtornoEsquizoafectivo =
-        document.querySelector("#transtorno-esquizoafectivo-si.selected") ? "Si" :
-            document.querySelector("#transtorno-esquizoafectivo-no.selected") ? "No" : "";
-    const transtornoDepresivo =
-        document.querySelector("#transtorno-depresivo-si.selected") ? "Si" :
-            document.querySelector("#transtorno-depresivo-no.selected") ? "No" : "";
-    const transtornoBipolar =
-        document.querySelector("#transtorno-bipolar-si.selected") ? "Si" :
-            document.querySelector("#transtorno-bipolar-no.selected") ? "No" : "";
+    const trastornoAutista =
+        document.querySelector("#trastorno-autista-si.selected") ? "Si" :
+            document.querySelector("#trastorno-autista-no.selected") ? "No" : "";
+    const trastornoComunicacion =
+        document.querySelector("#trastorno-comunicacion-si.selected") ? "Si" :
+            document.querySelector("#trastorno-comunicacion-no.selected") ? "No" : "";
+    const trastornoEsquizoafectivo =
+        document.querySelector("#trastorno-esquizoafectivo-si.selected") ? "Si" :
+            document.querySelector("#trastorno-esquizoafectivo-no.selected") ? "No" : "";
+    const trastornoDepresivo =
+        document.querySelector("#trastorno-depresivo-si.selected") ? "Si" :
+            document.querySelector("#trastorno-depresivo-no.selected") ? "No" : "";
+    const trastornoBipolar =
+        document.querySelector("#trastorno-bipolar-si.selected") ? "Si" :
+            document.querySelector("#trastorno-bipolar-no.selected") ? "No" : "";
     const antecedentesFamiliares =
         document.querySelector("#antecedentes-familiares-si.selected") ? "Si" :
             document.querySelector("#antecedentes-familiares-no.selected") ? "No" : "";
@@ -523,11 +523,11 @@ function determinar_diagnostico() {
         edad: edad,
         sexo: sexo,
         nombre: nombre,
-        transtorno_autista: transtornoAutista,
-        transtorno_comunicacion: transtornoComunicacion,
-        transtorno_esquizoafectivo: transtornoEsquizoafectivo,
-        transtorno_depresivo: transtornoDepresivo,
-        transtorno_bipolar: transtornoBipolar,
+        trastorno_autista: trastornoAutista,
+        trastorno_comunicacion: trastornoComunicacion,
+        trastorno_esquizoafectivo: trastornoEsquizoafectivo,
+        trastorno_depresivo: trastornoDepresivo,
+        trastorno_bipolar: trastornoBipolar,
         antecedentes_familiares: antecedentesFamiliares,
         // sintomas positivos,
         sintomas_positivos_duracion: sintomasPositivosDuracion,

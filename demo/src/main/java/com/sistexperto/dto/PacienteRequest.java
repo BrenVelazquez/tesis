@@ -15,20 +15,20 @@ public class PacienteRequest {
     @JsonProperty("sexo")
     private String sexo;
 
-    @JsonProperty("transtorno_autista")
-    private String transtorno_autista;
+    @JsonProperty("trastorno_autista")
+    private String trastorno_autista;
 
-    @JsonProperty("transtorno_comunicacion")
-    private String transtorno_comunicacion;
+    @JsonProperty("trastorno_comunicacion")
+    private String trastorno_comunicacion;
 
-    @JsonProperty("transtorno_esquizoafectivo")
-    private String transtorno_esquizoafectivo;
+    @JsonProperty("trastorno_esquizoafectivo")
+    private String trastorno_esquizoafectivo;
 
-    @JsonProperty("transtorno_depresivo")
-    private String transtorno_depresivo;
+    @JsonProperty("trastorno_depresivo")
+    private String trastorno_depresivo;
 
-    @JsonProperty("transtorno_bipolar")
-    private String transtorno_bipolar;
+    @JsonProperty("trastorno_bipolar")
+    private String trastorno_bipolar;
 
     @JsonProperty("antecedentes_familiares")
     private String antecedentes_familiares;
