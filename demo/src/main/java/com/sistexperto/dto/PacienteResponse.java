@@ -18,6 +18,9 @@ public class PacienteResponse {
     @JsonProperty("reglas")
     private int reglas;
 
+    @JsonProperty("reglas_ejecutadas")
+    private String reglasEjecutadas;
+
     // Para los casos en que se recomienda evaluar esquizofrenia temporal
     @JsonProperty("recomendacion")
     private String recomendacion;
@@ -90,5 +93,22 @@ public class PacienteResponse {
         }
         System.out.println("Recomendacion: " + recomendacion);
         setRecomendacion(recomendacion);
+    }
+
+    public void actualizarReglasEjecutadas(String texto) {
+        String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
+        System.out.println("Nueva Regla: " + utf8Texto);
+        if (reglas == 0) {
+            reglasEjecutadas = utf8Texto;
+            reglas++;
+
+        } else {
+            reglasEjecutadas += ", \n" + utf8Texto;
+            reglas++;
+        }
+        System.out.println("- reglas: " + reglas);
+        setReglasEjecutadas(reglasEjecutadas);
+        setReglas(reglas);
+
     }
 }
