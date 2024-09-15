@@ -369,6 +369,14 @@ then
 end
 
 
+rule "PUNTAJE: Abulia - Si"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_actividad.contains("abulia" ))
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
+    pacienteResponse.actualizarJustificacion("Presenta abulia",1)   
+end
+
 
 
 rule "PUNTAJE: Edad - Menor"
@@ -441,36 +449,43 @@ then
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
 end
 
-rule "PUNTAJE: Tipo de lenguaje - Particularidades"
-when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
-    pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
-end
-
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false 
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")==false
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")==false
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")==false 
-    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")==false 
     && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") 
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-esterotipia-verbal") 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta")
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-estereotipia-verbal")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") 
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
+end
+
+rule "PUNTAJE: Tipo de lenguaje - Particularidades"
+when
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("lenguaje-latencia")==false 
+    (sintomas_positivos_tipo_lenguaje.contains("lenguaje-musitaciones") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-soliloquio") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-neologismo") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-jergafasia") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-ecolalia") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-pararrespuesta") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-estereotipia-verbal")==false 
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verbigeracion") ==false
+    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-homofonia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")
+    && sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")
+    && ))
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
+    pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
