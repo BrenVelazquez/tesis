@@ -165,25 +165,27 @@ end
 
 
 
-rule "Antecedentes - presencia de delirios o alucinaciones"
+rule "Antecedentes - Síntomas requeridos"
 when
     $pacienteRequest: PacienteRequest((trastorno_autista=="Si" 
     || trastorno_comunicacion=="Si") 
     && (sintomas_positivos_alucinaciones=="Si" 
     || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )
-    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")))
+    || sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada") && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
 end
 
-rule "Antecedentes - sin presencia de sintomas_positivos_delirios o alucinaciones"
+rule "Antecedentes - sin síntomas requeridos"
 when
     $pacienteRequest: PacienteRequest((trastorno_autista=="Si" 
     || trastorno_comunicacion=="Si") 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada" )==false
     && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada" )==false
-    && sintomas_positivos_alucinaciones=="No")
+    && sintomas_positivos_alucinaciones=="No" && sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion")==false 
+    && sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )==false)
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones",1)   
