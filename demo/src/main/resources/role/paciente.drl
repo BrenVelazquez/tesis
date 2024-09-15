@@ -29,7 +29,7 @@ rule "Sintomas obligatorios - alucinaciones "
 when
     $pacienteRequest: PacienteRequest((sintomas_positivos_alucinaciones=="Si" 
     || sintomas_positivos_alucinaciones=="No se descarta") 
-    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada"==false) 
+    && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-sistematizada")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("contenido-pensamiento-ideacion-delirante-no-sistematizada")==false
     && (sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
     || sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia" )
