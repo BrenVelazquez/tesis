@@ -103,15 +103,15 @@ end
 
 rule "Ambitos principales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto=="aspecto-bizarro" 
-    || sintomas_negativos_aspecto=="aspecto-extravagante" 
-    || sintomas_negativos_aspecto=="aspecto-inadecuado" 
-    || sintomas_negativos_aspecto=="aspecto-adelgazado"
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro") 
+    || sintomas_negativos_aspecto.contains("aspecto-extravagante") 
+    || sintomas_negativos_aspecto.contains("aspecto-inadecuado") 
+    || sintomas_negativos_aspecto.contains("aspecto-adelgazado")
     || sintomas_negativos_atencion=="atencion-hiperprosexia" 
     || sintomas_negativos_atencion=="aspecto-hipomimico" 
     || sintomas_negativos_atencion=="atencion-paraprosexia" 
     || sintomas_negativos_actividad=="actividad-abulia" 
-    || sintomas_negativos_actividad=="actividad-apraxia"
+    || sintomas_negativos_actividad=="actividad-apraxia" 
     || sintomas_negativos_actividad=="actividad-ataxia" 
     || sintomas_negativos_actividad=="actividad-hipobulia" 
     || sintomas_negativos_actividad=="actividad-compulsiones" 
@@ -120,12 +120,12 @@ when
     || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
     || sintomas_negativos_actividad=="actividad-negativismo" 
     || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
-    || sintomas_negativos_afectividad=="afectividad-labilidad" 
-    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
-    || sintomas_negativos_afectividad=="afectividad-expansivo" 
-    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
-    || sintomas_negativos_afectividad=="afectividad-anhedonia")
+    || sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo") 
+    || sintomas_negativos_afectividad.contains("afectividad-labilidad") 
+    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
+    || sintomas_negativos_afectividad.contains("afectividad-expansivo") 
+    || sintomas_negativos_afectividad.contains("afectividad-inapropiado") 
+    || sintomas_negativos_afectividad.contains("afectividad-anhedonia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
@@ -133,29 +133,29 @@ end
 
 rule "Ambitos principales - Normal"
 when
-    $pacienteRequest: PacienteRequest(!(sintomas_negativos_aspecto=="aspecto-bizarro" 
-    || sintomas_negativos_aspecto=="aspecto-extravagante" 
-    || sintomas_negativos_aspecto=="aspecto-inadecuado" 
-    || sintomas_negativos_aspecto=="aspecto-adelgazado" 
-    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion=="aspecto-hipomimico" 
-    || sintomas_negativos_atencion=="atencion-paraprosexia" 
-    || sintomas_negativos_actividad=="actividad-abulia" 
-    || sintomas_negativos_actividad=="actividad-apraxia"
-    || sintomas_negativos_actividad=="actividad-ataxia" 
-    || sintomas_negativos_actividad=="actividad-hipobulia" 
-    || sintomas_negativos_actividad=="actividad-compulsiones" 
-    || sintomas_negativos_actividad=="actividad-ecopraxia" 
-    || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad=="actividad-negativismo" 
-    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad=="afectividad-aplanamiento-afectivo" 
-    || sintomas_negativos_afectividad=="afectividad-labilidad" 
-    || sintomas_negativos_afectividad=="afectividad-irritabilidad" 
-    || sintomas_negativos_afectividad=="afectividad-expansivo" 
-    || sintomas_negativos_afectividad=="afectividad-inapropiado" 
-    || sintomas_negativos_afectividad=="afectividad-anhedonia"))
+    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("aspecto-bizarro")==false 
+    || sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
+    || sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false 
+    || sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
+    || sintomas_negativos_atencion!="atencion-hiperprosexia" 
+    || sintomas_negativos_atencion!="aspecto-hipomimico" 
+    || sintomas_negativos_atencion!="atencion-paraprosexia" 
+    || sintomas_negativos_actividad!="actividad-abulia" 
+    || sintomas_negativos_actividad!="actividad-apraxia"
+    || sintomas_negativos_actividad!="actividad-ataxia" 
+    || sintomas_negativos_actividad!="actividad-hipobulia" 
+    || sintomas_negativos_actividad!="actividad-compulsiones" 
+    || sintomas_negativos_actividad!="actividad-ecopraxia" 
+    || sintomas_negativos_actividad!="actividad-manierismo" 
+    || sintomas_negativos_actividad!="actividad-estereotipia-motora" 
+    || sintomas_negativos_actividad!="actividad-negativismo" 
+    || sintomas_negativos_actividad!="actividad-flexibilidad-cerea" 
+    || sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false
+    || sintomas_negativos_afectividad.contains("afectividad-labilidad")==false 
+    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad")==false 
+    || sintomas_negativos_afectividad.contains("afectividad-expansivo")==false 
+    || sintomas_negativos_afectividad.contains("afectividad-inapropiado")==false 
+    || sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ambitos principales",1)   
@@ -550,7 +550,7 @@ end
 
 rule "PUNTAJE: Ritmo pensamiento - sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento =="ritmo-pensamiento-sin-particularidades")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_ritmo_pensamiento == "ritmo-pensamiento-sin-particularidades")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el ritmo del pensamiento",1)   
@@ -753,7 +753,7 @@ rule "PUNTAJE: Afectividad - Menos frecuente"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
     && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
-    && (sintomas_negativos_afectividad.contains("afectividad-timia-displacentera" )
+    && (sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")
     || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
@@ -766,11 +766,11 @@ when
     && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
     && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
     && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
-    && (sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo") 
-    || sintomas_negativos_afectividad.contains("afectividad-hipotimia") 
-    || sintomas_negativos_afectividad.contains("afectividad-eutimia")
-    || sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")
-    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")))
+    && (sintomas_negativos_afectividad.contains("afectividad-labilidad") 
+    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
+    || sintomas_negativos_afectividad.contains("afectividad-expansivo")
+    || sintomas_negativos_afectividad.contains("afectividad-inapropiado")
+    || sintomas_negativos_afectividad.contains("afectividad-anhedonia")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades de afectividad más frecuentes en otros diagnósticos (labilidad, irritabilidad, expansivo, inapropiado, anhedonia)",1)   
@@ -778,7 +778,7 @@ end
 
 rule "PUNTAJE: Afectividad - normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad=="afectividad-eutimia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-eutimia"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Afectividad normal",1)   
