@@ -847,7 +847,8 @@ when
     && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
     && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
     && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
-    && (sintomas_negativos_afectividad.contains("afectividad-labilidad") 
+    && (sintomas_negativos_afectividad.contains("afectividad-hipertimia-placentera") 
+    || sintomas_negativos_afectividad.contains("afectividad-labilidad") 
     || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
     || sintomas_negativos_afectividad.contains("afectividad-expansivo")
     || sintomas_negativos_afectividad.contains("afectividad-inapropiado")
