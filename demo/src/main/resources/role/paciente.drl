@@ -297,7 +297,7 @@ end
 
 rule "Causa organica - No"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-no")
+    $pacienteRequest: PacienteRequest(estudios!="No" && estudio_causa_natural=="estudio-causa-natural-no")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Los síntomas no se deben a una causa orgánica",1)   
@@ -306,7 +306,7 @@ end
 
 rule "Causa organica - Si"
 when
-    $pacienteRequest: PacienteRequest(estudio_causa_natural=="estudio-causa-natural-si")
+    $pacienteRequest: PacienteRequest(estudios!="No" && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuir a una causa orgánica",1)   
