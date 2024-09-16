@@ -486,6 +486,7 @@ then
 end
 
 rule "PUNTAJE: Edad - Edad de mayor riesgo sin sexo"
+//agregar a regla de mujer
 when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && (sexo=="-1" || sexo=="No-especifica"))
 then
