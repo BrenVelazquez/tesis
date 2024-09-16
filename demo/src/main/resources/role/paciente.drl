@@ -91,7 +91,7 @@ when
     || sintomas_negativos_duracion == "Menos de un mes") 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("La duración de síntomas positivos o negativos menor a un mes",1)   
+    pacienteResponse.actualizarJustificacion("La duración de los síntomas positivos o negativos son menores a un mes",1)   
     pacienteResponse.actualizarReglasEjecutadas("Tiempo - Menor 1 mes"); 
 end
 
