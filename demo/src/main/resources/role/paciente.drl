@@ -418,6 +418,7 @@ then
 end
 
 
+
 rule "PUNTAJE: Abulia - Si"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-abulia")
@@ -433,7 +434,7 @@ rule "PUNTAJE: Edad - Menor"
 when
     $pacienteRequest: PacienteRequest( edad < 12 )
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Es infante",1)
     pacienteResponse.actualizarReglasEjecutadas("Edad - Menor"); 
 end
