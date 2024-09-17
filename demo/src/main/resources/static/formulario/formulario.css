@@ -2,13 +2,6 @@ body {
     background-color: #f0f0f0;
 }
 
-.page-title {
-    background-color: #009587;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-}
-
 .image-container {
     max-width: 100%;
     /* para evitar que se desborde en pantallas pequeñas */
