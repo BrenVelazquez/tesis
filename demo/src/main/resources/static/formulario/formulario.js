@@ -220,6 +220,10 @@ function initializePositiveButtons() {
     }
   }*/
 
+function volver() {
+    window.location.href = "/";
+}
+
 // region validar campos
 function validar_campos(datosFormulario) {
     console.log("INICIO VALIDAR CAMPOS");
@@ -609,7 +613,7 @@ function determinar_diagnostico() {
                         console.log("Opción de posibilidad desconocida");
                 }
                 datosFormulario.posibilidad = response.posibilidad;
-                
+
                 datosFormulario.puntaje = response.puntaje;
 
                 // Actualizar el texto de "Recomendaciones" según la respuesta

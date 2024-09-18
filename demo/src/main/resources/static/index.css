@@ -65,19 +65,18 @@ body {
 }
 
 
-.btn-volver-container {
+.btn-custom-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 50px; */
 }
 
-.btn-volver {
+.btn-custom {
     background-color: #009587;
     color: white;
     border: none;
     padding: 15px 30px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border-radius: 6px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -85,13 +84,37 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.btn-volver:hover {
+.btn-custom:hover {
     background-color: #038073;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.btn-volver:active {
+.btn-custom:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back {
+    background-color: #ffffffee;
+    color: #009587;
+    border: 2px solid #009587;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.btn-back:hover {
+    background-color: #0095870d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-back:active {
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

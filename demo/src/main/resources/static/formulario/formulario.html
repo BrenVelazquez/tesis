@@ -99,13 +99,17 @@
         </div>
         <div class="row" style="margin-top: -20px; margin-bottom: 50px;">
             <div class="btn-consultar-formulario">
-                <div class="d-flex justify-content-center">
-                    <button class="btn-consultar" id="consultar" onclick="determinar_diagnostico()">
+                <div class="d-flex" style="justify-content: space-between; max-width: 300px; margin: 0 auto;">
+                    <button class="btn-back" id="volver" onclick="volver()">
+                        Volver
+                    </button>
+                    <button class="btn-custom" id="consultar" onclick="determinar_diagnostico()">
                         <i class="fas fa-paper-plane"></i> Consultar
                     </button>
                 </div>
             </div>
         </div>
+
 
         <!-- region Popup -->
         <div id="diagnostico-popup"></div>
