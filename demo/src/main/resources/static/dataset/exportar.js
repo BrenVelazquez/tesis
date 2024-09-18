@@ -26,3 +26,7 @@ window.addEventListener('click', function (event) {
         closeModal();
     }
 });
+
+function volver() {
+    window.location.href = "/";
+}

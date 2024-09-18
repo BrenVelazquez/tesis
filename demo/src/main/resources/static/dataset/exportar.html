@@ -19,7 +19,7 @@
         <h1>Exportar Datos</h1>
         <p class="centered-text">Al hacer clic en el botón de descarga, se exportarán todos los casos cargados en un archivo Excel. Este
             proceso puede tardar unos momentos dependiendo de la cantidad de datos.</p>
-        <button id="btnDownload" class="btn-download">
+        <button id="btnDownload" class="btn-volver">
             <i class="fas fa-solid fa-download"></i> Descargar Excel
         </button>
     </div>
@@ -28,10 +28,16 @@
         <div class="modal-content">
             <div class="modal-icon">📊</div>
             <p id="modalMessage" class="modal-message"></p>
-            <button id="btnClose" class="btn-download" onclick="closeModal()" style="margin: 20px;">
+            <button id="btnClose" class="btn-close" onclick="closeModal()" style="margin: 20px;">
                 Cerrar
             </button>
         </div>
+    </div>
+    
+    <div class="btn-volver-container">
+        <button class="btn-volver" id="volver" onclick="volver()">
+            Volver
+        </button>
     </div>
 
     <script src="exportar.js"></script>

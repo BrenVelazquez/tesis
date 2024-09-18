@@ -11,32 +11,6 @@ p {
     font-size: 1.1rem;
 }
 
-.btn-download {
-    background-color: #009587;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.btn-download:hover {
-    background-color: #007a6e;
-}
-
-.btn-download:active {
-    transform: scale(0.98);
-}
-
-.btn-download:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
 .centered-text {
     max-width: 800px;
     margin: 3% auto;
@@ -45,8 +19,38 @@ p {
     line-height: 1.6;
 }
 
+.btn-close {
+    background-color: #009587;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
 
-.btn-download:disabled:hover {
+.btn-close:hover {
+    background-color: #007a6e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-close:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-close:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.btn-close:disabled:hover {
     background-color: #cccccc;
 }
 

@@ -69,21 +69,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .btn-volver {
     background-color: #009587;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 15px 40px;
-    border-radius: 8px;
     border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 6px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    letter-spacing: 1px;
+    font-family: Arial, sans-serif;
 }
 
 .btn-volver:hover {
