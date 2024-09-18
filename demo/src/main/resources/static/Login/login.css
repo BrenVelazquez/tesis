@@ -12,14 +12,6 @@ body {
 
 
 
-.data-columns {
-    margin-top: 2rem;
-}
-
-
-.margin-filas {
-    margin: 20px 0px 20px 0px;
-}
 
 
 
@@ -46,12 +38,12 @@ body {
 }
 
 .color-box {
-    width: 60%;
+    width: 50%;
     border: 2px solid #038073;
     /* Borde gris */
     border-radius: 8px;
     /* Bordes redondeados */
-    padding: 60px;
+    padding: 7px;
     padding-top: 10%;
     /* Espacio interno */
     background-color: #038073;
@@ -63,14 +55,15 @@ body {
 }
 
 .gray-box {
+    
 
-    width: 60%;
+    width: 50%;
     border: 2px solid #d3d3d3;
     /* Borde gris */
     border-radius: 8px;
     /* Bordes redondeados */
-    padding: 60px;
-    padding-top: 3%;
+    padding: 7px;
+    padding-top: 7%;
     /* Espacio interno */
     background-color: #f8f8f8;
     
@@ -86,15 +79,17 @@ body {
     float: left;
     padding: 0px;
     left: 50%; /* centers #box in its containing element */
-    margin-left: 0%;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    flex-wrap: wrap;
     display: flex;
-    width: 50%;
-    margin: auto;
+    position: fixed; 
+    padding: 5px;
+    background-color: #038073;
+    
 }
+
+
+
 
 .inicio{
     font-size: 20px;
