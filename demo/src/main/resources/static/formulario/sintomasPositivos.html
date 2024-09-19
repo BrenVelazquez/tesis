@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="formulario.css">
+    <link rel="stylesheet" href="../index.css">
     
 </head>
 
@@ -51,8 +52,62 @@
                 </select>
             </div>
 
-
-            <div id="tipo-lenguaje-id" class="form-group margin-filas">
+            <details>
+                <summary>Lenguaje</summary>
+                <form>
+                  <fieldset>
+                    <ul>
+                      <li>
+                        <label for="lenguaje-sin-particularidades">Sin particularidades <input type="checkbox" id="lenguaje-sin-particularidades" name="tipo-lenguaje-id[]" class="lenguaje-sin-particularidades" value="lenguaje-sin-particularidades" onclick="unselectLenguaje(value)"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-taquilalia">Taquilalia<input type="checkbox" id="lenguaje-taquilalia" name="lenguaje[]" value="lenguaje-taquilalia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-verborragia">Verborragia<input type="checkbox" id="lenguaje-verborragia"  name="lenguaje[]" value="lenguaje-verborragia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-bradilalia">Bradilalia <input type="checkbox" id="lenguaje-bradilalia"  name="lenguaje[]" value="lenguaje-bradilalia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-latencia">Latencia de respuesta<input type="checkbox" id="lenguaje-latencia"  name="lenguaje[]" value="lenguaje-latencia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-mutismo">Mutismmo<input type="checkbox" id="lenguaje-mutismo"  name="lenguaje[]" value="lenguaje-mutismo"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-musitaciones">Musitaciones<input type="checkbox" id="lenguaje-musitaciones"  name="lenguaje[]" value="lenguaje-musitaciones"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-soliloquio">Soliloquio <input type="checkbox" id="lenguaje-soliloquio"  name="lenguaje[]" value="lenguaje-soliloquio"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-noelogismo">Neologismo<input type="checkbox" id="lenguaje-noelogismo"  name="lenguaje[]" value="lenguaje-noelogismo"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-jergafasia">Jergafasia<input type="checkbox" id="lenguaje-jergafasia"  name="lenguaje[]" value="lenguaje-jergafasia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-ecolalia">Ecolalia<input type="checkbox" id="lenguaje-ecolalia"  name="lenguaje[]" value="lenguaje-ecolalia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-pararrespuesta">Pararrespuesta <input type="checkbox" id="lenguaje-pararrespuesta"  name="lenguaje[]" value="lenguaje-pararrespuesta"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-estereotipia">Estereotipia verbal<input type="checkbox" id="lenguaje-estereotipia"  name="lenguaje[]" value="lenguaje-estereotipia"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-verbigeracion">Verbigeración<input type="checkbox" id="lenguaje-verbigeracion"  name="lenguaje[]" value="lenguaje-verbigeracion"></label>
+                      </li>
+                      <li>
+                        <label for="lenguaje-homofonia">Asociación por homofonía<input type="checkbox" id="lenguaje-homofonia"  name="lenguaje[]" value="lenguaje-homofonia"></label>
+                      </li>
+                    </ul>
+                  </fieldset>
+                </form>
+              
+              </details>
+            <!-- <div id="tipo-lenguaje-id" class="form-group margin-filas">
                 <h6 for="tipo-lenguaje">Lenguaje</h6>
                 <div id="selected-options" class="selected-options"></div>
                 <select class="form-control" id="lenguaje" name="lenguaje" multiple required>
@@ -65,15 +120,15 @@
                     <option value="lenguaje-musitaciones">Musitaciones</option>
                     <option value="lenguaje-soliloquio">Soliloquio</option>
                     <option value="lenguaje-noelogismo">Noelogísmo</option>
-                    <option value="lenguaje-jergafasia">Jergafasia</option>
+                    <option value="lenguaje-jergafasia">Jergafasia</option> HICE HASTA ACA
                     <option value="lenguaje-ecolalia">Ecolalia</option>
                     <option value="lenguaje-pararrespuesta">Pararrespuesta</option>
                     <option value="lenguaje-estereotipia-verbal">Estereotipia verbal</option>
                     <option value="lenguaje-verbigeracion">Verbigeración</option>
                     <option value="lenguaje-homofonia">Asociación por homofonía</option>
-                    <!-- <option value="-1" selected>Seleccioná una opción</option> -->
+                    <option value="-1" selected>Seleccioná una opción</option> 
                 </select>
-            </div>
+            </div>-->
 
             <div id="tipo-pensamiento-id" class="form-group margin-filas">
                 <h6 for="tipo-pensamiento">Pensamiento</h6>

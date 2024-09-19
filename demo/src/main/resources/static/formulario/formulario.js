@@ -372,6 +372,7 @@ function validar_campos(datosFormulario) {
 
     console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
     return esValido;
+    
 }
 // endregion validar campos
 
@@ -436,13 +437,21 @@ function obtenerDatosFormulario() {
     }
     const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
     console.log(sintomasPositivosTipoAlucinaciones);
-    select1 = document.getElementById("lenguaje");
+    /*select1 = document.getElementById("lenguaje");
     const lenguaje = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) lenguaje.push(select1.options[i].value);
     }
     const sintomasPositivosTipoLenguaje = lenguaje.toString();
-    console.log(sintomasPositivosTipoLenguaje);
+    console.log(sintomasPositivosTipoLenguaje);*/
+    //esto funciona
+    var cboxes = document.getElementsByName('lenguaje[]'); 
+    var len = cboxes.length;
+    const lenguaje = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) lenguaje.push(cboxes[i].value);
+    }
+    const sintomasPositivosTipoLenguaje = lenguaje.toString();
 
     select1 = document.getElementById("pensamiento");
     const pensamiento = [];
@@ -680,4 +689,13 @@ function guardarRegistro(estado) {
 
 }
 
+function unselectLenguaje(valor ){
+    console.log("ENTRA A DESELECCIONAR");
+    var cboxes = document.getElementsByName('lenguaje[]'); 
+    var len = cboxes.length;
+    const lenguaje = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].value!=valor) cboxes[i].checked=false;
+    }
+}
 // endregion guardarRegistro
