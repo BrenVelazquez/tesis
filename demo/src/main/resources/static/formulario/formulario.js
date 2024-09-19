@@ -17,7 +17,6 @@ $(document).ready(function () {
     });
 
     $("#diagnostico-popup").load("diagnostico.html", function () {
-        // Inicializa el botón de close una vez cargado el contenido del popup
         $('#close-popup').on('click', function () {
             cerrarPopup();
         });
@@ -212,14 +211,6 @@ function initializePositiveButtons() {
 
 }
 
-/*function clearSelectedLenguaje(){
-    var elements = document.getElementById("lenguaje").selectedOptions;
-
-    for(var i = 1; i < elements.length; i++){
-      elements[i].selected = false;
-    }
-  }*/
-
 function volver() {
     window.location.href = "/";
 }
@@ -228,7 +219,7 @@ function volver() {
 function validar_campos(datosFormulario) {
     console.log("INICIO VALIDAR CAMPOS");
 
-    resetearErrores(); // Resetear mensajes de error y estilos previos
+    resetearErrores();
     let esValido = true;
     const errorText = "Por favor, seleccione una opción.";
 
@@ -405,11 +396,8 @@ function resetearErrores() {
     });
 }
 
-// region determinar_diagnostico
-
-function determinar_diagnostico() {
-    console.log("INICIO FUNCION DIAGNOSTICO()");
-
+// region obtenerDatosFormulario
+function obtenerDatosFormulario() {
     const edad = document.getElementById("edad").value;
     const sexo = document.getElementById("sexo").value;
     const nombre = document.getElementById("nombre").value;
@@ -441,7 +429,6 @@ function determinar_diagnostico() {
             document.querySelector("#sintomas-positivos-alucinaciones-no.selected") ? "No" :
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
-    //const sintomasPositivosTipoAlucinaciones = document.getElementById("alucinaciones").value;
     var select1 = document.getElementById("alucinaciones");
     const alucinaciones = [];
     for (var i = 0; i < select1.length; i++) {
@@ -449,9 +436,6 @@ function determinar_diagnostico() {
     }
     const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
     console.log(sintomasPositivosTipoAlucinaciones);
-    //const sintomasPositivosTipoAlucinaciones = select1.map( s => Object.values(s)[0] );
-
-    //const sintomasPositivosTipoLenguaje = document.getElementById("lenguaje").value;
     select1 = document.getElementById("lenguaje");
     const lenguaje = [];
     for (var i = 0; i < select1.length; i++) {
@@ -459,8 +443,6 @@ function determinar_diagnostico() {
     }
     const sintomasPositivosTipoLenguaje = lenguaje.toString();
     console.log(sintomasPositivosTipoLenguaje);
-
-    //const sintomasPositivosTipoPensamiento = document.getElementById("pensamiento").value;
 
     select1 = document.getElementById("pensamiento");
     const pensamiento = [];
@@ -472,8 +454,6 @@ function determinar_diagnostico() {
 
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
 
-
-
     select1 = document.getElementById("contenido-pensamiento");
     const contenido = [];
     for (var i = 0; i < select1.length; i++) {
@@ -481,13 +461,10 @@ function determinar_diagnostico() {
     }
     const sintomasPositivosTipoContenidoPensamiento = contenido.toString();
     console.log(sintomasPositivosTipoContenidoPensamiento);
-    //const sintomasPositivosTipoContenidoPensamiento = document.getElementById("contenido-pensamiento").value;
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
-    //const sintomasNegativosAspecto = document.getElementById("aspecto").value;
-
 
     var select2 = document.getElementById("aspecto");
     const aspecto = [];
@@ -499,8 +476,6 @@ function determinar_diagnostico() {
 
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
-    //const sintomasNegativosAfectividad = document.getElementById("afectividad").value;
-
 
     select2 = null;
 
@@ -557,6 +532,16 @@ function determinar_diagnostico() {
         // justificacion,
     };
 
+    return datosFormulario
+}
+// endregion obtenerDatosFormulario
+
+// region determinar_diagnostico
+function determinar_diagnostico() {
+    console.log("INICIO FUNCION DIAGNOSTICO()");
+
+    const datosFormulario = obtenerDatosFormulario();
+
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
     if (validar_campos(datosFormulario)) {
@@ -586,7 +571,7 @@ function determinar_diagnostico() {
 
         $.ajax({
             type: "POST",
-            url: "/diagnosticar", // La URL del Controller
+            url: "/diagnosticar",
             contentType: "application/json",
             data: jsonString,
             success: function (response) {
@@ -594,11 +579,7 @@ function determinar_diagnostico() {
                 document.getElementById("nombre-paciente").textContent = datosFormulario.nombre;
 
                 let posibilidad = response.posibilidad;
-                // Mostrar el elemento correspondiente según el valor de "posibilidad"
-                // Ocultar todas las secciones primero
                 $(".posibilidad-seccion").css("display", "none");
-
-                // Mostrar el elemento correspondiente según el valor de "posibilidad"
                 switch (posibilidad) {
                     case "Posible esquizofrenia":
                         $("#posible-esquizofrenia").css("display", "block");
@@ -616,7 +597,6 @@ function determinar_diagnostico() {
 
                 datosFormulario.puntaje = response.puntaje;
 
-                // Actualizar el texto de "Recomendaciones" según la respuesta
                 let recomendacion = response.recomendacion;
                 if (recomendacion != null) {
                     $("#recomendacion-title").css("display", "block");
@@ -625,12 +605,9 @@ function determinar_diagnostico() {
                 }
                 datosFormulario.recomendacion = recomendacion;
 
-                // Actualizar el texto de "Justificacion" según la respuesta
                 let justificacion = response.justificacion;
                 if (justificacion != null) {
                     $("#justificacion").css("display", "block");
-                    // $("#justificacion").text(response.justificacion ? response.justificacion : "No disponible");
-                    // Convertir el texto en una lista
                     let justificacionArray = justificacion.split('\n');
                     let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
                     $("#justificacion").html(`<ul>${listItems}</ul>`);
@@ -640,7 +617,6 @@ function determinar_diagnostico() {
                 }
                 datosFormulario.justificacion = response.justificacion;
 
-                // datosFormulario.codigo_paciente = response.codigo_paciente;
                 console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
                 mostrarPopup();
             },
