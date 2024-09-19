@@ -520,8 +520,8 @@ function obtenerDatosFormulario() {
         // sintomas positivos,
         sintomas_positivos_duracion: sintomasPositivosDuracion,
         sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
-        sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
         sintomas_positivos_tipo_alucinaciones: sintomasPositivosTipoAlucinaciones,
+        sintomas_positivos_tipo_lenguaje: sintomasPositivosTipoLenguaje,
         sintomas_positivos_tipo_pensamiento: sintomasPositivosTipoPensamiento,
         sintomas_positivos_tipo_ritmo_pensamiento: sintomasPositivosTipoRitmoPensamiento,
         sintomas_positivos_tipo_contenido_pensamiento: sintomasPositivosTipoContenidoPensamiento,
@@ -535,8 +535,9 @@ function obtenerDatosFormulario() {
         sustancias: sustancias,
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
+        estudio_comentario: estudioComentario,
         //respuestas del diagnostico
-        // posibilidad,
+        // diagnostico,
         recomendacion,
         // justificacion,
     };
