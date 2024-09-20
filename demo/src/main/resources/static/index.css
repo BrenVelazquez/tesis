@@ -131,6 +131,8 @@ body {
     color: #fff;
     text-align:center;
 }
+
+/*
 details {
   border: 1px solid #767676;
   border-radius: 3px;
@@ -294,23 +296,13 @@ ul li label {
     flex-grow: 1;
     justify-content: space-between;
   }
-
+*/
 .multiselect {
-  width: 300px;
+  width: 100%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
 }
-.selectBox {
-    position: relative;
-}
-.selectBox select {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #009587;
-    background-color: #fff;
-    cursor: pointer;
-}
+
 .overSelect {
     position: absolute;
     left: 0;
@@ -318,19 +310,19 @@ ul li label {
     top: 0;
     bottom: 0;
 }
-#checkboxes {
-    display: none;
+.checkboxes{
     border: 1px solid #009587;
     max-height: 150px;
-    overflow-y: auto;
+    overflow: auto;
 }
-#checkboxes label {
+
+#check{
     display: flex;
     align-items: center;
     padding: 4px 8px;
     font-size: 14px;
 }
-#checkboxes label:hover {
+#check:hover {
     background-color: #e9f5f4;
 }
 input[type="checkbox"] {
