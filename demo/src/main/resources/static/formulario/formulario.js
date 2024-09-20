@@ -302,13 +302,31 @@ function validar_campos(datosFormulario) {
             esValido = false;
         }
     }
+    
+    var cboxes = document.getElementsByName('lenguaje[]'); 
+    var len = cboxes.length;
+    const lenguaje = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) lenguaje.push(cboxes[i].value);
+    }
+    const sintomasPositivosTipoLenguaje = lenguaje.toString();
+    
+    
+    if (sintomasPositivosTipoLenguaje=='') {
 
-    if (datosFormulario.sintomas_positivos_tipo_lenguaje === "-1") {
         mostrarError(document.getElementById("lenguaje"), errorText);
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_positivos_tipo_pensamiento === "-1") {
+    var cboxes = document.getElementsByName('pensamiento[]'); 
+    var len = cboxes.length;
+    const pensamiento = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
+    }
+    const sintomas_positivos_tipo_pensamiento = pensamiento.toString();
+
+    if (sintomas_positivos_tipo_pensamiento=='') {
         mostrarError(document.getElementById("pensamiento"), errorText);
         esValido = false;
     }
@@ -454,13 +472,21 @@ function obtenerDatosFormulario() {
     }
     const sintomasPositivosTipoLenguaje = lenguaje.toString();
 
-    select1 = document.getElementById("pensamiento");
+    cboxes = document.getElementsByName('pensamiento[]'); 
+    len = cboxes.length;
+    const pensamiento = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
+    }
+    const sintomasPositivosTipoPensamiento = pensamiento.toString();
+
+    /*select1 = document.getElementById("pensamiento");
     const pensamiento = [];
     for (var i = 0; i < select1.length; i++) {
         if (select1.options[i].selected) pensamiento.push(select1.options[i].value);
     }
     const sintomasPositivosTipoPensamiento = pensamiento.toString();
-    console.log(sintomasPositivosTipoPensamiento);
+    console.log(sintomasPositivosTipoPensamiento);*/
 
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
 
@@ -696,7 +722,7 @@ function guardarRegistro(estado) {
 
 
 
-function unselectLenguaje(valor, name){
+function unselect(valor, name){
     var cboxes = document.getElementsByName(name); 
     var len = cboxes.length;
     const lenguaje = [];
