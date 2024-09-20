@@ -51,14 +51,40 @@
                     <!-- <option value="-1" selected>Seleccioná una opción</option> -->
                 </select>
             </div>
+            <div class="multiselect">
+              <div class="selectBox" onclick="showCheckboxes()">
+                  <select>
+                      <option>Seleccione las opciones</option>
+                  </select>
+                  <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes">
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-sin-particularidades" onclick="unselectLenguaje(value, name)"/>sin particularidades</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-taquilalia"/>taquilalia</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-verborragia"/>verborragia</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-bradilalia"/>bradilalia</label>
+                  <label><input type="checkbox" name="lenguaje[]"value="lenguaje-latencia"/>latencia de respuesta</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-mutismo"/>mutismo</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-musitaciones"/>musitaciones</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-soliloquio"/>soliloquio</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-neologismo"/>neologismo</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-jergafasia"/>jergafasia</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-ecolalia"/>ecolalia</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-pararrespuesta"/>pararrespuesta</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-estereotipia"/>estereotipia verbal</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-verbigeracion"/>verbigeracion</label>
+                  <label><input type="checkbox" name="lenguaje[]" value="lenguaje-homofonia"/>asociación por homofonía</label>
+              </div>
+ 
 
+          <!-- 
             <details>
                 <summary>Lenguaje</summary>
                 <form>
                   <fieldset>
                     <ul>
                       <li>
-                        <label for="lenguaje-sin-particularidades">Sin particularidades <input type="checkbox" id="lenguaje-sin-particularidades" name="tipo-lenguaje-id[]" class="lenguaje-sin-particularidades" value="lenguaje-sin-particularidades" onclick="unselectLenguaje(value)"></label>
+                        <label for="lenguaje-sin-particularidades">Sin particularidades <input type="checkbox" id="lenguaje-sin-particularidades" name="tipo-lenguaje-id[]" class="lenguaje-sin-particularidades" value="lenguaje-sin-particularidades" onclick="unselectLenguaje(value, name)"></label>
                       </li>
                       <li>
                         <label for="lenguaje-taquilalia">Taquilalia<input type="checkbox" id="lenguaje-taquilalia" name="lenguaje[]" value="lenguaje-taquilalia"></label>
@@ -106,7 +132,7 @@
                   </fieldset>
                 </form>
               
-              </details>
+              </details>-->
             <!-- <div id="tipo-lenguaje-id" class="form-group margin-filas">
                 <h6 for="tipo-lenguaje">Lenguaje</h6>
                 <div id="selected-options" class="selected-options"></div>
@@ -182,5 +208,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
+<script>
+  var expanded = false;
 
+  function showCheckboxes() {
+      var checkboxes = document.getElementById("checkboxes");
+      if (!expanded) {
+          checkboxes.style.display = "block";
+          expanded = true;
+      } else {
+          checkboxes.style.display = "none";
+          expanded = false;
+      }
+  }
+
+  document.querySelectorAll('#checkboxes input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+          this.parentElement.classList.toggle('selected', this.checked);
+      });
+  });
+</script>
 </html>

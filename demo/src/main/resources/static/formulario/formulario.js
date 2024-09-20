@@ -370,6 +370,7 @@ function validar_campos(datosFormulario) {
         }
     }
 
+
     console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
     return esValido;
     
@@ -690,13 +691,19 @@ function guardarRegistro(estado) {
 
 }
 
-function unselectLenguaje(valor ){
-    console.log("ENTRA A DESELECCIONAR");
-    var cboxes = document.getElementsByName('lenguaje[]'); 
+
+
+
+
+
+function unselectLenguaje(valor, name){
+    var cboxes = document.getElementsByName(name); 
     var len = cboxes.length;
     const lenguaje = [];
     for (var i=0; i<len; i++) {
         if (cboxes[i].value!=valor) cboxes[i].checked=false;
     }
 }
+
+
 // endregion guardarRegistro
