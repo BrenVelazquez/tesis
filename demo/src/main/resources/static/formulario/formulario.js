@@ -732,4 +732,15 @@ function unselect(valor, name){
 }
 
 
+function unselectUnicos(valor, name){
+    var cboxes = document.getElementsByName(name); 
+    var len = cboxes.length;
+    const lenguaje = [];
+    console.log(valor);
+    for (var i=0; i<len; i++) {
+        if (valor.includes(cboxes[i].value)) cboxes[i].checked=false;
+    }    
+
+}
+
 // endregion guardarRegistro
