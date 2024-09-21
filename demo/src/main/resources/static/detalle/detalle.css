@@ -85,111 +85,15 @@ body {
     color: #fff;
 }
 
-
-#justificacion-title {
-    display: flex;
-    align-items: center;
-}
-
-#justificacion-icon {
-    margin-right: 10px;
-    /* Espacio entre el icono y el texto */
-    transition: transform 0.3s ease;
-    /* Transición suave para el cambio del ícono */
-}
-
-#justificacion-title.collapsed #justificacion-icon {
-    transform: rotate(-90deg);
-    /* Girar el icono cuando la sección esté colapsada */
-}
-
-#justificacion {
-    border: 1px solid #009587;
-    /* Bordes en color azul */
-    padding: 10px;
-    border-radius: 5px;
-    /* Bordes redondeados */
-}
-
-.justificacion-text {
-    white-space: pre-wrap;
-    /* Mantiene los saltos de línea del texto */
-    word-wrap: break-word;
-    /* Corta las palabras largas para que no desborden */
-    overflow-wrap: break-word;
-    /* Evita el desbordamiento horizontal */
-    max-width: 100%;
-    /* Se asegura de que el texto no cause scroll horizontal */
-    margin-top: 10px;
-    /* font-family: 'Courier New', Courier, monospace; */
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 15px;
-    text-align: justify;
-}
-
-#justificacion ul {
-    list-style-type: disc;
-    /* Cambia a 'circle' o 'square' si prefieres otro tipo de viñeta */
-    padding-left: 20px;
-    /* Ajusta el espacio según sea necesario */
-}
-
-#justificacion li {
-    margin-bottom: 5px;
-    /* Ajusta el espacio entre ítems de la lista */
-}
-
-#recomendacion-title {
-    display: flex;
-    align-items: center;
-}
-
-#recomendacion-icon {
-    margin-right: 10px;
-    /* Espacio entre el icono y el texto */
-    transition: transform 0.3s ease;
-    /* Transición suave para el cambio del ícono */
-}
-
-#recomendacion-title.collapsed #recomendacion-icon {
-    transform: rotate(-90deg);
-}
-
-#recomendacion {
-    border: 1px solid #009587;
-    /* Bordes en color azul */
-    padding: 10px;
-    border-radius: 5px;
-    /* Bordes redondeados */
-}
-
-.recomendacion-text {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
-    /* margin-top: 10px; */
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 15px;
-    text-align: justify;
-}
-
-
 .diagnostico-text {
-    /* max-width: 95%; */
     margin-top: 10px;
-    /* background-color: #f1f9f8; */
     padding: 10px;
-    border-radius: 15px;
 }
 
-#diagnostico-container {
-    display: inline-block;
-    align-items: center;
+.no-show-seccion {
+    display: none;
+    /* Ocultar todas las secciones inicialmente */
 }
-
 
 .posible-esquizofrenia {
     color: red;
@@ -343,6 +247,10 @@ h2 {
     margin-bottom: 10px;
 }
 
+.textarea {
+    border: 1px solid #009587;
+}
+
 .form-group {
     flex: 1 1 30%;
     /* Cada campo ocupará aproximadamente el 30% del contenedor */
@@ -355,9 +263,7 @@ h2 {
 button,
 input {
     pointer-events: none;
-    /* Evitar que los elementos sean clickeables o editables */
     opacity: 0.5;
-    /* Visualmente deshabilitados */
 }
 
 .btn-back {
@@ -439,12 +345,12 @@ input.form-control {
         font-size: 0.7rem;
     }
 
-    #justificacion {
+    /* #justificacion {
         word-wrap: break-word;
         overflow-x: hidden;
         white-space: pre-wrap;
         width: 100%;
-    }
+    } */
 
     .btn-bool,
     .form-group.opciones {
