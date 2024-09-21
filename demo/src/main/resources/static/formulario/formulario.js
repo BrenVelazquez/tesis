@@ -223,12 +223,12 @@ function validar_campos(datosFormulario) {
     let esValido = true;
     const errorText = "Por favor, seleccione una opción.";
 
-    if (datosFormulario.nombre === "") {
+    if (datosFormulario.nombre == "") {
         mostrarError(document.getElementById("nombre"), "Por favor, ingrese el nombre del paciente.");
         esValido = false;
     }
 
-    if (datosFormulario.edad === "") {
+    if (datosFormulario.edad == "") {
         mostrarError(document.getElementById("edad"), "Por favor, ingrese la edad del paciente.");
         esValido = false;
     }
@@ -286,7 +286,7 @@ function validar_campos(datosFormulario) {
     }
 
     // SINTOMAS POSITIVOS
-    if (datosFormulario.sintomas_positivos_duracion === "Seleccioná una opción") {
+    if (datosFormulario.sintomas_positivos_duracion == "Seleccioná una opción") {
         mostrarError(document.getElementById("sintomas-positivos-duracion"), errorText);
         esValido = false;
     }
@@ -336,7 +336,7 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    cboxes = document.getElementsByName('contenidopensamiento[]'); 
+    cboxes = document.getElementsByName('contenido-pensamiento[]'); 
     console.log(cboxes.length);
     len = cboxes.length;
     const contenido = [];
@@ -352,27 +352,46 @@ function validar_campos(datosFormulario) {
     }
 
     // SINTOMAS NEGATIVOS
-    if (datosFormulario.sintomas_negativos_duracion === "Seleccioná una opción") {
+    if (datosFormulario.sintomas_negativos_duracion == "Seleccioná una opción") {
         mostrarError(document.getElementById("sintomas-negativos-duracion"), errorText);
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_negativos_aspecto === "-1") {
+    cboxes = document.getElementsByName('aspecto[]'); 
+    len = cboxes.length;
+    const aspecto = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) aspecto.push(cboxes[i].value);
+    }
+    const sintomas_negativos_aspecto = aspecto.toString();
+    
+    if (sintomas_negativos_aspecto=='') {
         mostrarError(document.getElementById("aspecto"), errorText);
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_negativos_atencion === "-1") {
+    if (datosFormulario.sintomas_negativos_atencion == "-1") {
         mostrarError(document.getElementById("atencion"), errorText);
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_negativos_actividad === "-1") {
+
+    
+    if (datosFormulario.sintomas_negativos_actividad == "-1") {
         mostrarError(document.getElementById("actividad"), errorText);
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_negativos_afectividad === "-1") {
+
+    cboxes = document.getElementsByName('afectividad[]'); 
+    len = cboxes.length;
+    const afectividad = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) afectividad.push(cboxes[i].value);
+    }
+    const sintomas_negativos_afectividad = aspecto.toString();
+    
+    if (datosFormulario.sintomas_negativos_afectividad =='') {
         mostrarError(document.getElementById("afectividad"), errorText);
         esValido = false;
     }
@@ -508,26 +527,28 @@ function obtenerDatosFormulario() {
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
 
-    var select2 = document.getElementById("aspecto");
+
+    cboxes = document.getElementsByName('aspecto[]'); 
+    len = cboxes.length;
     const aspecto = [];
-    for (var i = 0; i < select2.length; i++) {
-        if (select2.options[i].selected) aspecto.push(select2.options[i].value);
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) aspecto.push(cboxes[i].value);
     }
     const sintomasNegativosAspecto = aspecto.toString();
-    console.log(sintomasNegativosAspecto);
+
 
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
 
-    select2 = null;
-
-    select2 = document.getElementById("afectividad");
+    cboxes = document.getElementsByName('afectividad[]'); 
+    len = cboxes.length;
     const afectividad = [];
-    for (var i = 0; i < select2.length; i++) {
-        if (select2.options[i].selected) afectividad.push(select2.options[i].value);
+    for (var i=0; i<len; i++) {
+        console.log(cboxes[i]);
+        if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
     const sintomasNegativosAfectividad = afectividad.toString();
-    console.log(sintomasNegativosAfectividad);
+
 
     //complementarios
     const sustancias =
@@ -742,11 +763,13 @@ function unselectUnicos(valor, name){
     var cboxes = document.getElementsByName(name); 
     var len = cboxes.length;
     const lenguaje = [];
-    console.log(valor);
     for (var i=0; i<len; i++) {
         if (valor.includes(cboxes[i].value)) cboxes[i].checked=false;
     }    
 
 }
+
+
+
 
 // endregion guardarRegistro

@@ -14,20 +14,22 @@
         </div>
 
         <div id="negativo-tipo-aspecto" class="form-group margin-filas">
-            <h6 for="negativo-tipo-aspecto">Aspecto</h6>
-            <div id="selected-options" class="selected-options"></div>
-            <select class="form-control" id="aspecto" name="aspecto" multiple required>
-                <option value="aspecto-facie">Facie</option>
-                <option value="aspecto-alinio">Aliño</option>
-                <option value="aspecto-aseo">Aseo</option>
-                <option value="aspecto-bizarro">Bizarro</option>
-                <option value="aspecto-extravagante">Extravagante</option>
-                <option value="aspecto-inadecuado">Inadecuado</option>
-                <option value="aspecto-adelgazado">Adelgazado</option>
-                <option value="aspecto-hipomimico">Hipomímico</option>
-                <option value="-1" selected>Seleccioná una opción</option>
-            </select>
-        </div>
+            <h6><b>Aspecto</b></h6>
+            <div  id="aspecto" class="checkboxes">
+              <div class="form-control">
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-facie"/>Facie</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-alinio"/>Aliño</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-aseo"/>Aseo</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-bizarro"/>Bizarro</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-extravagante"/>Extravagante</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-inadecuado"/>Inadecuado</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-adelgazado"/>Adelgazado</label>
+                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-hipomimico"/>Hipomímico</label>
+              </div>
+            </div>
+          </div>
+
+
         
         <div id="negativo-tipo-atencion" class="form-group margin-filas">
             <h6 for="negativo-negativo-tipo-atencion">Atención</h6>
@@ -63,25 +65,26 @@
             </select>
         </div>
 
-        
         <div id="negativo-tipo-afectividad" class="form-group margin-filas">
-            <h6 for="negativo-tipo-afectividad">Afectividad</h6>
-            <div id="selected-options" class="selected-options"></div>
-            <select class="form-control" id="afectividad" name="afectividad" multiple required>
-                <option value="afectividad-eutimia">Eutimia</option>
-                <option value="afectividad-timia-displacentera">Timia displacentera</option>
-                <option value="afectividad-hipertimia-placentera">Hipertimia placentera</option>
-                <option value="afectividad-hipertimia-displacentera">Hipertimia displacentera</option>
-                <option value="afectividad-hipotimia">Hipotimia</option>
-                <option value="afectividad-aplanamiento-afectivo">Aplanamiento afectivo</option>
-                <option value="afectividad-labilidad">Labilidad</option>
-                <option value="afectividad-irritabilidad">Irritabilidad</option>
-                <option value="afectividad-expansivo">Expansivo</option>
-                <option value="afectividad-inapropiado">Inapropiado</option>
-                <option value="afectividad-anhedonia">Anhedonia</option>
-                <option value="-1" selected>Seleccioná una opción</option>
-            </select>
-        </div>
+            <h6><b>Afectividad</b></h6>
+            <div  id="afectividad" class="checkboxes">
+              <div class="form-control">
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-eutimia" onclick="unselect(value, name)"/>Eutimia</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-timia-displacentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-hipertimia-placentera,afectividad-hipertimia-displacentera', name)"/>Timia displacentera</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-placentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-displacentera', name)"/>Hipertimia placentera</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-displacentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-placentera', name)"/>Hipertimia displacentera</label>
+                <label id="check"><input type="checkbox" name="afectividad[]"value="afectividad-hipotimia" onclick="unselectUnicos('afectividad-eutimia', name)"/>Hipotimia</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-aplanamiento-afectivo" onclick="unselectUnicos('afectividad-eutimia', name)"/>Aplanamiento afectivo</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-labilidad" onclick="unselectUnicos('afectividad-eutimia', name)"/>Labilidad</label>
+                <label id="check"><input type="checkbox" name="afectividad[]"value="afectividad-irritabilidad" onclick="unselectUnicos('afectividad-eutimia', name)"/>Irritabilidad</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-expansivo" onclick="unselectUnicos('afectividad-eutimia', name)"/>Expansivo</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-inapropiado" onclick="unselectUnicos('afectividad-eutimia', name)"/>Inapropiado</label>
+                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-anhedonia" onclick="unselectUnicos('afectividad-eutimia', name)"/>Anhedonia</label>
+              </div>
+              </div>
+            </div>
+          </div>
+
 
     </div>
 </div>
