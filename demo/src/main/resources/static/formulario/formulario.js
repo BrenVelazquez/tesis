@@ -318,8 +318,8 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    var cboxes = document.getElementsByName('pensamiento[]'); 
-    var len = cboxes.length;
+    cboxes = document.getElementsByName('pensamiento[]'); 
+    len = cboxes.length;
     const pensamiento = [];
     for (var i=0; i<len; i++) {
         if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
@@ -336,7 +336,17 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    if (datosFormulario.sintomas_positivos_tipo_contenido_pensamiento === "-1") {
+    cboxes = document.getElementsByName('contenidopensamiento[]'); 
+    console.log(cboxes.length);
+    len = cboxes.length;
+    const contenido = [];
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) contenido.push(cboxes[i].value);
+    }
+    const sintomas_positivos_tipo_contenido_pensamiento  = contenido.toString();
+
+
+    if (sintomas_positivos_tipo_contenido_pensamiento=='') {
         mostrarError(document.getElementById("contenido-pensamiento"), errorText);
         esValido = false;
     }
@@ -480,23 +490,19 @@ function obtenerDatosFormulario() {
     }
     const sintomasPositivosTipoPensamiento = pensamiento.toString();
 
-    /*select1 = document.getElementById("pensamiento");
-    const pensamiento = [];
-    for (var i = 0; i < select1.length; i++) {
-        if (select1.options[i].selected) pensamiento.push(select1.options[i].value);
-    }
-    const sintomasPositivosTipoPensamiento = pensamiento.toString();
-    console.log(sintomasPositivosTipoPensamiento);*/
+
 
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
 
-    select1 = document.getElementById("contenido-pensamiento");
+    cboxes = document.getElementsByName('contenido-pensamiento[]'); 
+    len = cboxes.length;
     const contenido = [];
-    for (var i = 0; i < select1.length; i++) {
-        if (select1.options[i].selected) contenido.push(select1.options[i].value);
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) contenido.push(cboxes[i].value);
     }
     const sintomasPositivosTipoContenidoPensamiento = contenido.toString();
-    console.log(sintomasPositivosTipoContenidoPensamiento);
+
+    
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");

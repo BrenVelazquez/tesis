@@ -79,38 +79,19 @@
               <h6><b>Pensamiento</b></h6>
               <div  id="pensamiento" class="checkboxes">
                 <div class="form-control">
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="lenguaje-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-tangencial"/>Tangencial</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-circunstancial"/>Circunstancial</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-meticulosidad"/>Meticulosidad</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]"value="pensamiento-viscosidad"/>Viscosidad</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-concreto"/>Pensamiento concreto</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-idea-fija"/>Idea fija</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-interceptacion-pensamiento"/>Interceptación del pensamiento</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-disgregacion"/>Disgregación</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-incoherencia"/>Incoherencia</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-tangencial" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Tangencial</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-circunstancial" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Circunstancial</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-meticulosidad" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Meticulosidad</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]"value="pensamiento-viscosidad" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Viscosidad</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-concreto" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Pensamiento concreto</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-idea-fija" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Idea fija</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-interceptacion-pensamiento" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Interceptación del pensamiento</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-disgregacion" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Disgregación</label>
+                  <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-incoherencia" onclick="unselectUnicos('pensamiento-sin-particularidades', name)"/>Incoherencia</label>
                 </div>
               </div>
             </div>
-            
-<!--
-            <div id="tipo-pensamiento-id" class="form-group margin-filas">
-                <h6 for="tipo-pensamiento">Pensamiento</h6>
-                <div id="selected-options" class="selected-options"></div>
-                <select class="form-control" id="pensamiento" name="pensamiento" multiple required>
-                    <option value="pensamiento-sin-particularidades">Sin particularidades</option>
-                    <option value="pensamiento-tangencial">Tangencial</option>
-                    <option value="pensamiento-circunstancial">Circunstancial</option>
-                    <option value="pensamiento-meticulosidad">Meticulosidad</option>
-                    <option value="pensamiento-viscosidad">Viscosidad</option>
-                    <option value="pensamiento-concreto">Pensamiento concreto</option>
-                    <option value="pensamiento-idea-fija">Idea fija</option>
-                    <option value="pensamiento-interceptacion-pensamiento">Interceptación del pensamiento</option>
-                    <option value="pensamiento-disgregacion">Disgregación</option>
-                    <option value="pensamiento-incoherencia">Incoherencia</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
-                </select>
-            </div>-->
 
             <div id="tipo-ritmo-pensamiento-id" class="form-group margin-filas">
                 <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento</h6>
@@ -123,21 +104,22 @@
             </div>
 
             <div id="tipo-contenido-pensamiento-id" class="form-group margin-filas">
-                <h6 for="tipo-contenido-pensamiento">Contenido del pensamiento</h6>
-                <div id="selected-options" class="selected-options"></div>
-                <select class="form-control" id="contenido-pensamiento" name="contenido-pensamiento" multiple required>
-                    <option value="contenido-pensamiento-sin-particularidades">Sin particularidades</option>
-                    <option value="contenido-pensamiento-idea-obsesiva">Idea obsesiva</option>
-                    <option value="contenido-pensamiento-idea-fija">Idea fija</option>
-                    <option value="contenido-pensamiento-ideacion-delirante-sistematizada">Ideación delirante
-                        sistematizada</option>
-                    <option value="contenido-pensamiento-ideacion-delirante-no-sistematizada">Ideación delirante no
-                        sistematizada</option>
-                    <option value="contenido-pensamiento-ideas-muerte">Ideas de muerte</option>
-                    <option value="contenido-pensamiento-ideas-suicidas">Ideas suicidas</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
-                </select>
+              <h6><b>Contenido del pensamiento</b></h6>
+              <div  id="contenido-pensamiento" class="checkboxes">
+                <div class="form-control">
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-idea-obsesiva" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Idea obsesiva</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-idea-fija" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Idea fija</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-ideacion-delirante-sistematizada" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Ideación delirante
+                    sistematizada</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]"value="contenido-pensamiento-ideacion-delirante-no-sistematizada" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Ideación delirante no
+                    sistematizada</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-ideas-muerte" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Ideas de muerte</label>
+                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-ideas-suicidas" onclick="unselectUnicos('contenido-pensamiento-sin-particularidades', name)"/>Ideas suicidas</label>
+                </div>
+              </div>
             </div>
+
 
         </div>
     </div>
