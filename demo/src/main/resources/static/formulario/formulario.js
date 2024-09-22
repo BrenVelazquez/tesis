@@ -306,7 +306,16 @@ function validar_campos(datosFormulario) {
         esValido = false;
     } else {
         document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "none";
-        if (datosFormulario.sintomas_positivos_alucinaciones == "Si" && datosFormulario.sintomas_positivos_tipo_alucinaciones === "") {
+        var cboxes = document.getElementsByName('alucinaciones[]'); 
+        var len = cboxes.length;
+        const alucinaciones = [];
+        for (var i=0; i<len; i++) {
+            if (cboxes[i].checked) alucinaciones.push(cboxes[i].value);
+        }
+        const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
+        
+        
+        if (datosFormulario.sintomas_positivos_alucinaciones == "Si" && sintomasPositivosTipoAlucinaciones == '') {
             mostrarError(document.getElementById("alucinaciones"), errorText);
             esValido = false;
         }
@@ -400,7 +409,7 @@ function validar_campos(datosFormulario) {
     }
     const sintomas_negativos_afectividad = aspecto.toString();
     
-    if (datosFormulario.sintomas_negativos_afectividad =='') {
+    if (sintomas_negativos_afectividad =='') {
         mostrarError(document.getElementById("afectividad"), errorText);
         esValido = false;
     }
@@ -490,13 +499,16 @@ function obtenerDatosFormulario() {
             document.querySelector("#sintomas-positivos-alucinaciones-no.selected") ? "No" :
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
-    var select1 = document.getElementById("alucinaciones");
+
+
+    var cboxes = document.getElementsByName('alucinaciones[]'); 
+    var len = cboxes.length;
     const alucinaciones = [];
-    for (var i = 0; i < select1.length; i++) {
-        if (select1.options[i].selected) alucinaciones.push(select1.options[i].value);
+    for (var i=0; i<len; i++) {
+        if (cboxes[i].checked) alucinaciones.push(cboxes[i].value);
     }
     const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
-    console.log(sintomasPositivosTipoAlucinaciones);
+
     /*select1 = document.getElementById("lenguaje");
     const lenguaje = [];
     for (var i = 0; i < select1.length; i++) {

@@ -35,22 +35,24 @@
                 <div id="error-sintomas-positivos-alucinaciones" class="error-message-text"></div>
             </div>
 
-            <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;">
-                <h6 for="tipo-alucinaciones">Alucinaciones</h6>
-                <div id="selected-options" class="selected-options"></div>
-                <select class="form-control" id="alucinaciones" name="alucinaciones" multiple required>
-                    <option value="alucinaciones-auditivas-simples">Auditivas Simples</option>
-                    <option value="alucinaciones-auditivas-complejas">Auditivas Complejas</option>
-                    <option value="alucinaciones-visuales">Visuales</option>
-                    <option value="alucinaciones-olfativas">Olfativas</option>
-                    <option value="alucinaciones-gustativas">Gustativas</option>
-                    <option value="alucinaciones-cenestesicas">Cenestésicas</option>
-                    <option value="alucinaciones-quinestesicas">Quinestésicas</option>
-                    <option value="alucinaciones-extracampinas">Extracampinas</option>
-                    <option value="alucinaciones-intrapsiquicas">Intrapsiquicas</option>
-                    <!-- <option value="-1" selected>Seleccioná una opción</option> -->
-                </select>
+            <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;"  >
+              <h6><b>Alucinaciones</b></h6>
+              <div  id="alucinaciones" class="checkboxes" >
+                <div class="form-control">
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-auditivas-simples" onclick="unselectUnicos('alucinaciones-auditivas-complejas', name)"/>Auditivas Simples</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-auditivas-complejas"  onclick="unselectUnicos('alucinaciones-auditivas-simples', name)"/>Auditivas Complejas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-visuales" />Visuales</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-olfativas"/>Olfativas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]"value="alucinaciones-gustativas"/>Gustativas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-cenestesicas" />Cenestésicas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-quinestesicas">Quinestésicas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-extracampinas"/>Extracampinas</label>
+                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-intrapsiquicas"/>Intrapsiquicas</label>
+                </div>
+              </div>
             </div>
+
+            
 
             <div id="tipo-pensamiento-id" class="form-group margin-filas">
               <h6><b>Lenguaje</b></h6>
