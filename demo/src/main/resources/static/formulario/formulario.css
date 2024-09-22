@@ -2,6 +2,8 @@ body {
     background-color: #f0f0f0;
 }
 
+.container{ width: 90% !important; }
+
 .image-container {
     max-width: 100%;
     /* para evitar que se desborde en pantallas pequeñas */
@@ -442,6 +444,9 @@ body {
 
 /* Estilos para dispositivos de escritorio */
 @media (min-width: 768px) {
+    .container{
+        max-width:  90%;
+    }
     .button-container {
         display: flex;
         justify-content: space-between;

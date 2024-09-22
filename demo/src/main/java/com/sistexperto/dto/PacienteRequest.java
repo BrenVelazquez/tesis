@@ -79,5 +79,7 @@ public class PacienteRequest {
     @JsonProperty("estudio_causa_natural")
     private String estudio_causa_natural;
 
+    @JsonProperty("bajo_funcionamiento")
+    private String bajo_funcionamiento;
 
 } 

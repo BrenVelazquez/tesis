@@ -106,8 +106,24 @@ then
 end
 
 
+rule "Ambitos principales"
+when
+    $pacienteRequest: PacienteRequest(bajo_funcionamiento == "Si" )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)   
+    pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
+    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales"); 
+end    
 
-
+rule "Ambitos principales - Normal"
+when
+    $pacienteRequest: PacienteRequest(bajo_funcionamiento == "No" )
+then
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
+    pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
+    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales - Normal"); 
+end
+/*
 rule "Ambitos principales"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro") 
@@ -186,7 +202,7 @@ then
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
     pacienteResponse.actualizarReglasEjecutadas("Ambitos principales - Normal"); 
 end
-
+*/
 
 
 

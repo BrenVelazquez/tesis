@@ -87,6 +87,7 @@ function initializeButtons() {
         { yes: 'trastorno-depresivo-si', no: 'trastorno-depresivo-no' },
         { yes: 'trastorno-bipolar-si', no: 'trastorno-bipolar-no' },
         { yes: 'antecedentes-familiares-si', no: 'antecedentes-familiares-no' },
+        { yes: 'bajo-funcionamiento-si', no: 'bajo-funcionamiento-no' },
     ];
 
     buttonPairs.forEach(pair => {
@@ -285,6 +286,14 @@ function validar_campos(datosFormulario) {
         document.getElementById("error-antecedentes-familiares").style.display = "none";
     }
 
+    if (!datosFormulario.bajo_funcionamiento) {
+        document.getElementById("error-bajo-funcionamiento").textContent = errorText;
+        document.getElementById("error-bajo-funcionamiento").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-bajo-funcionamiento").style.display = "none";
+    }
+
     // SINTOMAS POSITIVOS
     if (datosFormulario.sintomas_positivos_duracion == "Seleccioná una opción") {
         mostrarError(document.getElementById("sintomas-positivos-duracion"), errorText);
@@ -469,6 +478,9 @@ function obtenerDatosFormulario() {
     const antecedentesFamiliares =
         document.querySelector("#antecedentes-familiares-si.selected") ? "Si" :
             document.querySelector("#antecedentes-familiares-no.selected") ? "No" : "";
+    const bajoFuncionamiento =
+        document.querySelector("#bajo-funcionamiento-si.selected") ? "Si" :
+            document.querySelector("#bajo-funcionamiento-no.selected") ? "No" : "";
 
     // sintomas positivos            
     const selectedSPDuracion = document.getElementById("sintomas-positivos-duracion");
@@ -571,6 +583,7 @@ function obtenerDatosFormulario() {
         trastorno_depresivo: trastornoDepresivo,
         trastorno_bipolar: trastornoBipolar,
         antecedentes_familiares: antecedentesFamiliares,
+        bajo_funcionamiento: bajoFuncionamiento,
         // sintomas positivos,
         sintomas_positivos_duracion: sintomasPositivosDuracion,
         sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
