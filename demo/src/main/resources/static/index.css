@@ -3,6 +3,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .page-title {
@@ -120,18 +124,24 @@ body {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+  margin-top: auto;
   width: 100%;
-  float: left;
-  font-size: 15px;
+  height: 100px;
+  position: relative; 
+  bottom: 0;
+  left: 0;
+  font-size: 17px;
   font-family: verdana;
-  height: 50px;
   background-color: #009587;
   color: #fff;
   text-align: center;
+  
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
 /*
 details {
   border: 1px solid #767676;

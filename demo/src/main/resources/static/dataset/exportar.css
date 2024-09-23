@@ -3,6 +3,10 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 p {
