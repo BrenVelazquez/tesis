@@ -279,6 +279,14 @@ h2 {
 
 .textarea {
     border: 1px solid #009587;
+    pointer-events: auto;
+    /* Permite interacciones de scroll */
+    opacity: 0.5;
+    overflow-y: auto;
+    /* Agrega scroll vertical si es necesario */
+    resize: none;
+    /* Opcional: evitar que el usuario cambie el tamaño del textarea */
+    cursor: default;
 }
 
 .form-group {
