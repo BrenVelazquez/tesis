@@ -13,11 +13,8 @@
     <h2>Diagnóstico</h2>
     <div class="col-md-12">
         <div class="gray-box">
-            <div class="diagnostico-text">
-                <!-- <h3 id="diagnostico-esquizofrenia" class="no-show-seccion posible-esquizofrenia">
-                        Diagnóstico: <strong>Esquizofrenia Posible</strong>
-                    </h3> -->
-                <h3 id="diagnostico-esquizofrenia" class="posible-esquizofrenia">
+            <div class="diagnostico-container">
+                <h3 id="diagnostico-esquizofrenia" class="no-show-seccion posible-esquizofrenia">
                     <strong>Esquizofrenia Posible</strong>
                 </h3>
                 <h3 id="diagnostico-esquizofrenia-temporal" class="no-show-seccion evaluar-temporal">
@@ -34,33 +31,31 @@
                 </h5>
             </div>
 
-            <div id="recomendacion-container" class="margin-filas">
+            <div id="justificacion-rechazo-container" class="justificacion-rechazo-container no-show-seccion">
+                <h6 for="justificacion-rechazo-title">Justificación de rechazo del diagnóstico</h6>
+                <textarea id="justificacion-rechazo" name="justificacion-rechazo" class="form-control textarea" rows="3"
+                    style="pointer-events: none; opacity: 0.5;"></textarea>
+            </div>
+
+            <div id="recomendacion-container" class="recomendacion-container">
                 <h6 for="recomendacion-title">Recomendación</h6>
-                <textarea id="recomendacion" name="recomendacion" class="form-control textarea" rows="4"
+                <textarea id="recomendacion" name="recomendacion" class="form-control textarea" rows="3"
                     style="pointer-events: none; opacity: 0.5;"></textarea>
             </div>
-
-            <div id="comentarios-medicos-container" class="margin-filas">
+            <div id="comentarios-medicos-container" class="comentarios no-show-seccion">
                 <h6 for="comentarios-medicos-title">Comentarios adicionales sobre el paciente</h6>
-                <textarea id="comentarios-medicos" name="comentarios-medicos" class="form-control textarea" rows="4"
+                <textarea id="comentarios-medicos" name="comentarios-medicos" class="form-control textarea" rows="3"
                     style="pointer-events: none; opacity: 0.5;"></textarea>
             </div>
 
-            <div id="justificacion-rechazo-container" class="margin-filas">
-                <h6 for="justificacion-rechazo-title">Justificacion de rechazo del diagnóstico</h6>
-                <textarea id="justificacion-rechazo" name="justificacion-rechazo" class="form-control textarea" rows="4"
-                    style="pointer-events: none; opacity: 0.5;"></textarea>
-            </div>
-
-            <div id="justificacion-container" class="margin-filas">
+            <div id="justificacion-container" class="justificacion-container">
                 <h6 for="justificacion-title">Justificación</h6>
                 <textarea id="justificacion" name="justificacion" class="form-control textarea" rows="10"
                     style="pointer-events: none; opacity: 0.5;"></textarea>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
+
 
 </html>

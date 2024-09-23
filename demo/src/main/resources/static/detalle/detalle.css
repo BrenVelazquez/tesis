@@ -2,6 +2,38 @@ body {
     background-color: #f0f0f0;
 }
 
+.content-container {
+    flex: 1;
+    /* Toma el resto del espacio disponible */
+}
+
+.diagnostico-container {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+.recomendacion-container {
+    /* display: flex; */
+    flex-grow: 1;
+    /* margin-bottom: 10px; */
+}
+
+.justificacion-container,
+.comentarios {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.comentarios-medicos-container {
+    font-size: 0.85rem;
+}
+
+.justificacion-rechazo-container {
+    margin-bottom: 10px;
+}
+
 .image-container {
     position: relative;
     display: flex;
@@ -23,9 +55,10 @@ body {
 
 .image-preview {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: none;
+    max-width: 100%;
 }
 
 .insert-photo-message {
@@ -71,6 +104,7 @@ body {
     transition: background-color 0.3s, border-color 0.3s;
     border-radius: 10px;
     padding: 10px 20px;
+    text-align: center;
 }
 
 .btn-choice:not(.selected) {
@@ -227,16 +261,12 @@ body {
 
 .gray-box {
     border: 2px solid #d3d3d3;
-    /* Borde gris */
     border-radius: 8px;
-    /* Bordes redondeados */
     padding: 15px;
     background-color: #f8f8f8;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    /* Espacio entre los elementos */
-    /* justify-content: space-between; */
     margin-bottom: 15px;
 }
 
@@ -339,18 +369,22 @@ input.form-control {
 /* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
 
+    #recomendacion-container,
+    #justificacion-rechazo-container,
+    #comentarios,
+    #justificacion-container {
+        width: 100%;
+    }
+
+    .textarea {
+        width: 100%;
+    }
+
     .button-container .btn {
         width: 100%;
         margin-bottom: 10px;
         font-size: 0.7rem;
     }
-
-    /* #justificacion {
-        word-wrap: break-word;
-        overflow-x: hidden;
-        white-space: pre-wrap;
-        width: 100%;
-    } */
 
     .btn-bool,
     .form-group.opciones {
@@ -366,9 +400,6 @@ input.form-control {
     }
 
     .gray-box {
-        /* width: 100%;
-        padding: 15px;
-        box-sizing: border-box; */
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -383,10 +414,16 @@ input.form-control {
         float: none;
         margin-bottom: 15px;
     }
+
+    .diagnostico-container {
+        width: 100%;
+        align-items: center;
+    }
 }
 
 /* Estilos para dispositivos de escritorio */
 @media (min-width: 768px) {
+
     .button-container {
         display: flex;
         justify-content: space-between;

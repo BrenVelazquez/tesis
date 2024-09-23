@@ -50,43 +50,58 @@ function completarYDeshabilitarCampos(pacienteData) {
     $("#atencion").val(pacienteData.sintomas_negativos_atencion);
     $("#actividad").val(pacienteData.sintomas_negativos_actividad);
     $("#afectividad").val(pacienteData.sintomas_negativos_afectividad);
+    $("#bajo-funcionamiento-si").toggleClass("selected", pacienteData.bajo_funcionamiento === "Si");
+    $("#bajo-funcionamiento-no").toggleClass("selected", pacienteData.bajo_funcionamiento === "No");
+
+    if (pacienteData.bajo_funcionamiento_comentario !== "" && pacienteData.bajo_funcionamiento_comentario != undefined) {
+        $("#bajo-funcionamiento-comentario").removeClass("no-show-seccion");
+        $("#bajo-funcionamiento-comentario-text").val(pacienteData.bajo_funcionamiento_comentario);
+    }
+
 
     //complementarios
     $("#sustancias-si").toggleClass("selected", pacienteData.sustancias === "Si");
     $("#sustancias-no").toggleClass("selected", pacienteData.sustancias === "No");
     $("#estudios-si").toggleClass("selected", pacienteData.estudios === "Si");
     $("#estudios-no").toggleClass("selected", pacienteData.estudios === "No");
-    $("#estudios-causa-organica-si").toggleClass("selected", pacienteData.estudio_causa_natural === "Si");
-    $("#estudios-causa-organica-no").toggleClass("selected", pacienteData.estudio_causa_natural === "No");
-    $("#estudios-causa-organica-inconcluso").toggleClass("selected", pacienteData.estudio_causa_natural === "Inconcluso");
-    $("#estudio-comentario-text").val(pacienteData.estudio_comentario);
-    $("#imagen-preview").attr("src", pacienteData.id_imagen);
+    if (pacienteData.estudio_causa_natural != "" && pacienteData.estudio_causa_natural != undefined) {
+        $("#estudio-causa-natural-id").removeClass("no-show-seccion");
+        $("#estudios-causa-organica-si").toggleClass("selected", pacienteData.estudio_causa_natural === "Si");
+        $("#estudios-causa-organica-no").toggleClass("selected", pacienteData.estudio_causa_natural === "No");
+        $("#estudios-causa-organica-inconcluso").toggleClass("selected", pacienteData.estudio_causa_natural === "Inconcluso");
+    }
+    if (pacienteData.estudio_comentario != "" && pacienteData.estudio_comentario != undefined) {
+        $("#estudio-comentario-id").removeClass("no-show-seccion");
+        $("#estudio-comentario-text").val(pacienteData.estudio_comentario);
+    }
+    if (pacienteData.id_imagen != "" && pacienteData.id_imagen != undefined) {
+        $("#estudio-imagen-id").removeClass("no-show-seccion");
+        $("#imagen-preview").attr("src", pacienteData.id_imagen);
+    }
 
     //diagnostico
-    console.log("pacienteData.diagnostico: " + pacienteData.diagnostico);
-    $(".no-show-seccion").css("display", "none");
     if (pacienteData.diagnostico === "Posible esquizofrenia") {
-        console.log("diagnostico-esquizofrenia");
-        $("#diagnostico-esquizofrenia").css("display", "block");
+        $("#diagnostico-esquizofrenia").removeClass("no-show-seccion");
     } else if (pacienteData.diagnostico === "Esquizofrenia no posible") {
-        $("#diagnostico-no-esquizofrenia").css("display", "block");
-        console.log("diagnostico-no-esquizofrenia");
+        $("#diagnostico-no-esquizofrenia").removeClass("no-show-seccion");
     } else if (pacienteData.diagnostico === "Evaluar esquizofrenia temporal") {
-        $("#diagnostico-esquizofrenia-temporal").css("display", "block");
-        console.log("diagnostico-esquizofrenia-temporal");
+        $("#diagnostico-esquizofrenia-temporal").removeClass("no-show-seccion");
     }
-    // console.log("justificacion: " + pacienteData.justificacion);
-    // console.log("justificacion: " + pacienteData.recomendacion);
     $("#justificacion").val(pacienteData.justificacion.replace(/\n/g, ' '));
     $("#recomendacion").val(pacienteData.recomendacion.replace(/\n/g, ' '));
-    $("#comentarios-medicos").val(pacienteData.comentarios);
-
-    if (pacienteData.estado === "Aceptado") {
-        $("#estado-aceptado").css("display", "block");
-    } else {
-        $("#estado-rechazado").css("display", "block");
+    if (pacienteData.comentarios != "") {
+        $("#comentarios-medicos-container").removeClass("no-show-seccion");
+        $("#comentarios-medicos").val(pacienteData.comentarios);
     }
-    $("#justificacion-rechazo").val(pacienteData.justificacion_rechazo);
+    if (pacienteData.estado === "Aceptado") {
+        $("#estado-aceptado").removeClass("no-show-seccion");
+    } else {
+        $("#estado-rechazado").removeClass("no-show-seccion");
+        if (pacienteData.justificacion_rechazo != "") {
+            $("#justificacion-rechazo-container").removeClass("no-show-seccion");
+            $("#justificacion-rechazo").val(pacienteData.justificacion_rechazo);
+        }
+    }
 }
 // endregion completarYDeshabilitarCampos
 
@@ -95,7 +110,7 @@ function obtenerPacienteHarcodeado() {
         edad: "25",
         sexo: "Masculino",
         nombre: "Armando Quilo",
-        trastorno_autista: "Si",
+        trastorno_autista: "No",
         trastorno_comunicacion: "No",
         trastorno_esquizoafectivo: "No",
         trastorno_depresivo: "No",
@@ -104,7 +119,7 @@ function obtenerPacienteHarcodeado() {
         sintomas_positivos_duracion: "Mayor o igual a un mes",
         sintomas_positivos_alucinaciones: "Si",
         sintomas_positivos_tipo_alucinaciones: "Alucinaciones auditivas simples, Alucinaciones cenestesicas",
-        sintomas_positivos_tipo_lenguaje: "Sin particularidades",
+        sintomas_positivos_tipo_lenguaje: "Soliloquio",
         sintomas_positivos_tipo_pensamiento: "Sin particularidades",
         sintomas_positivos_tipo_ritmo_pensamiento: "Sin particularidades",
         sintomas_positivos_tipo_contenido_pensamiento: "Ideacion delirante no sistematizada",
@@ -113,6 +128,8 @@ function obtenerPacienteHarcodeado() {
         sintomas_negativos_atencion: "Euprosexia",
         sintomas_negativos_actividad: "Hipobulia",
         sintomas_negativos_afectividad: "Eutimia",
+        bajo_funcionamiento: "Si",
+        bajo_funcionamiento_comentario: "",
         sustancias: "No",
         estudios: "Si",
         estudio_causa_natural: "No",
@@ -120,6 +137,7 @@ function obtenerPacienteHarcodeado() {
         recomendacion: "Se recomienda evaluar esquizofrenia cenestésica,\nSe recomienda iniciar tratamiento.",
         diagnostico: "Posible esquizofrenia",
         estado: "Aceptado",
+        comentarios: "",
         puntaje: 58,
         justificacion: "Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia, \nLa duración de síntomas positivos y negativos es mayor a un mes, \nDurante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio, \nExisten antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones, \nSe han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas, \nEl trastorno no se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica, \nLos síntomas no se deben a una causa orgánica, \nPresenta alucinaciones, \nPresenta delirios, \nSe encuentra en la edad de la media de diagnóstico de esquizofrenia para hombres, \nNo presenta particularidades en el lenguaje, \nNo presenta particularidades en el pensamiento, \nNo presenta particularidades en el ritmo del pensamiento, \nPosee antecedentes familiares psiquiátricos, \nAspecto normal, \nAtención normal, \nPresenta particularidades en la actividad de las más comunes en esquizofrenia (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo), \nAfectividad normal"
     };
@@ -139,7 +157,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#detalle-diagnostico-container").load("detalleDiagnostico.html", function () { 
+    $("#detalle-diagnostico-container").load("detalleDiagnostico.html", function () {
         if (typeof obtenerPacienteHarcodeado === "function") {
             obtenerPacienteHarcodeado();
         }

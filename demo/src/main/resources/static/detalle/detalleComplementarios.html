@@ -13,49 +13,54 @@
     <h2>Complementarios</h2>
     <div class="col-md-12">
         <div class="gray-box">
-            <div class="button-container opciones">
-                <h6 for="sustancias">Bajo sustancias o efectos médicos</h6>
-                <div class="btn-group">
-                    <button id="sustancias-si" class="btn btn-choice">Sí</button>
-                    <button id="sustancias-no" class="btn btn-choice">No</button>
+            <div class="content-container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="button-container">
+                            <h6 for="sustancias" style="text-align: center;">Bajo sustancias o efectos médicos</h6>
+                            <div class="btn-group">
+                                <button id="sustancias-si" class="btn btn-choice">Sí</button>
+                                <button id="sustancias-no" class="btn btn-choice">No</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="button-container">
+                            <h6 for="estudios" style="text-align: center;">Estudios</h6>
+                            <div class="btn-group">
+                                <button id="estudios-si" class="btn btn-choice">Sí</button>
+                                <button id="estudios-no" class="btn btn-choice">No</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="estudio-causa-natural-id" class="col-md-4 no-show-seccion">
+                        <div class="button-container">
+                            <h6 for="estudio-causa-natural" style="text-align: center;">¿Causa orgánica?</h6>
+                            <div class="btn-group">
+                                <button id="estudios-causa-organica-si" class="btn btn-choice">Sí</button>
+                                <button id="estudios-causa-organica-no" class="btn btn-choice">No</button>
+                                <button id="estudios-causa-organica-inconcluso"
+                                    class="btn btn-choice">Inconcluso</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="estudio-comentario-id" class="row mt-3 no-show-seccion">
+                    <div class="col-12">
+                        <h6 for="estudio-comentario">Comentario sobre el estudio</h6>
+                        <textarea id="estudio-comentario-text" class="form-control textarea" rows="3"
+                            style="pointer-events: none; opacity: 0.5;"></textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="button-container opciones">
-                <h6 for="estudios">Estudios</h6>
-                <div class="btn-group">
-                    <button id="estudios-si" class="btn btn-choice">Sí</button>
-                    <button id="estudios-no" class="btn btn-choice">No</button>
-                </div>
-            </div>
-
-
-            <div id="estudio-causa-natural-id" class="button-container opciones">
-                <h6 for="estudio-causa-natural">¿Causa orgánica?</h6>
-                <div class="btn-group">
-                    <button id="estudios-causa-organica-si" class="btn btn-choice">Sí</button>
-                    <button id="estudios-causa-organica-no" class="btn btn-choice">No</button>
-                    <button id="estudios-causa-organica-inconcluso" class="btn btn-choice">Inconcluso</button>
-                </div>
-            </div>
-
-            <!-- <div id="estudio-causa-natural-id" class="form-group margin-filas">
-                <h6 for="estudio-causa-natural">¿Se pueden atribuir los síntomas a una causa orgánica?</h6>
-                <input type="text" class="form-control" id="estudio-causa-natural-opcion"
-                    name="estudio-causa-natural-opcion">
-            </div> -->
-            <div id="estudio-comentario" class="margin-filas">
-                <h6 for="estudio-comentario">Comentario sobre el estudio</h6>
-                <!-- <input type="text" class="form-control" id="estudio-comentario" name="estudio-comentario"> -->
-                <textarea id="estudio-comentario-text" class="form-control textarea" rows="4"
-                    placeholder="Comentarios sobre el estudio" style="pointer-events: none; opacity: 0.5;"></textarea>
-            </div>
-            <div id="image-container" class="image-container">
+            <div id="estudio-imagen-id" class="image-container no-show-seccion">
                 <input type="file" id="imagen" name="imagen" class="image-upload" accept="image/*">
                 <img src="#" alt="Imagen Estudio" class="image-preview" id="imagen-preview">
             </div>
-
-
         </div>
     </div>
 
