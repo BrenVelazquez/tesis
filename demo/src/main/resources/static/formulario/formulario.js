@@ -433,7 +433,7 @@ function validar_campos(datosFormulario) {
     for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
-    const sintomas_negativos_afectividad = aspecto.toString();
+    const sintomas_negativos_afectividad = afectividad.toString();
 
     if (sintomas_negativos_afectividad == '') {
         mostrarError(document.getElementById("afectividad"), errorText);
@@ -489,7 +489,8 @@ function mostrarError(campo, mensaje) {
 function resetearErrores() {
     const errores = document.querySelectorAll(".error-message");
     errores.forEach(error => {
-        const campo = error.parentNode.querySelector("input, select");
+        const campo = error.parentNode.querySelector("input, select, .checkboxes");
+        console.log(campo.id);
         campo.style.borderColor = "";
         
 //        if (errorMessage) {
