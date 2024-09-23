@@ -1,135 +1,135 @@
 body {
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 .page-title {
-    background-color: #009587;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
+  background-color: #009587;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
 .container-page {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 50px;
 }
 
 .contenedor {
-    flex-wrap: wrap;
-    min-width: 250px;
-    max-width: 550px;
-    width: inherit;
+  flex-wrap: wrap;
+  min-width: 250px;
+  max-width: 550px;
+  width: inherit;
 }
 
 .button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    text-decoration: none;
-    height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
+  height: 250px;
 }
 
 .button:hover {
-    background-color: #1da799b2;
-    color: #fff;
+  background-color: #1da799b2;
+  color: #fff;
 }
 
 .button-icon {
-    font-size: 3rem;
-    color: #000000;
-    margin-bottom: 1rem;
+  font-size: 3rem;
+  color: #000000;
+  margin-bottom: 1rem;
 }
 
 .button-title {
-    color: #000000;
-    margin-bottom: 0.5rem;
+  color: #000000;
+  margin-bottom: 0.5rem;
 }
 
 .button-description {
-    color: #000000;
+  color: #000000;
 }
 
 
 .btn-custom-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-custom {
-    background-color: #009587;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
+  background-color: #009587;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
 }
 
 .btn-custom:hover {
-    background-color: #038073;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #038073;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-custom:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-back {
-    background-color: #ffffffee;
-    color: #009587;
-    border: 2px solid #009587;
-    padding: 15px 30px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
+  background-color: #ffffffee;
+  color: #009587;
+  border: 2px solid #009587;
+  padding: 15px 30px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
 }
 
 .btn-back:hover {
-    background-color: #0095870d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #0095870d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-back:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .footer {
-    position:fixed;
-    bottom:0;
-    width: 100%;
-    float:left;
-    font-size: 15px ;
-    font-family: verdana ;
-    height: 50px ;
-    background-color: #009587;
-    color: #fff;
-    text-align:center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  float: left;
+  font-size: 15px;
+  font-family: verdana;
+  height: 50px;
+  background-color: #009587;
+  color: #fff;
+  text-align: center;
 }
 
 /*
@@ -304,53 +304,59 @@ ul li label {
 }
 
 .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-.checkboxes{
-    border: 1px solid #009587;
-    max-height: 150px;
-    overflow: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
-#check{
-    display: flex;
-    align-items: center;
-    padding: 4px 8px;
-    font-size: 14px;
+.checkboxes {
+  border: 1px solid #009587;
+  max-height: 100px;
+  overflow: auto;
 }
+
+#check {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
 #check:hover {
-    background-color: #e9f5f4;
+  background-color: #e9f5f4;
 }
+
 input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #009587;
-    border-radius: 3px;
-    outline: none;
-    transition: all 0.3s;
-    margin-right: 8px;
-    position: relative;
-    cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #009587;
+  border-radius: 3px;
+  outline: none;
+  transition: all 0.3s;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
 }
+
 input[type="checkbox"]:checked {
-    background-color: #009587;
+  background-color: #009587;
 }
+
 input[type="checkbox"]:checked::before {
-    content: '\2714';
-    font-size: 12px;
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  content: '\2714';
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 .selected {
-    background-color: #e9f5f4;
+  background-color: #e9f5f4;
 }

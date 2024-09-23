@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
     $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
-        // initializeNegativeButtons(); 
+        initializeNegativeButtons();
     });
 
     $("#diagnostico-popup").load("diagnostico.html", function () {
@@ -87,7 +87,6 @@ function initializeButtons() {
         { yes: 'trastorno-depresivo-si', no: 'trastorno-depresivo-no' },
         { yes: 'trastorno-bipolar-si', no: 'trastorno-bipolar-no' },
         { yes: 'antecedentes-familiares-si', no: 'antecedentes-familiares-no' },
-        { yes: 'bajo-funcionamiento-si', no: 'bajo-funcionamiento-no' },
     ];
 
     buttonPairs.forEach(pair => {
@@ -112,7 +111,40 @@ function initializeButtons() {
     });
 }
 
+function initializeNegativeButtons() {
+    const buttonPairs = [
+        { yes: 'bajo-funcionamiento-si', no: 'bajo-funcionamiento-no' },
+    ];
 
+    buttonPairs.forEach(pair => {
+        const btnYes = document.getElementById(pair.yes);
+        const btnNo = document.getElementById(pair.no);
+
+        if (btnYes && btnNo) {
+            btnYes.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+
+                if (this.id === 'bajo-funcionamiento-si') {
+                    $("#bajo-funcionamiento-comentario").slideDown();
+                }
+            });
+
+            btnNo.addEventListener('click', function () {
+                btnYes.classList.remove('selected');
+                btnNo.classList.remove('selected');
+                this.classList.add('selected');
+                
+                if (this.id === 'bajo-funcionamiento-no') {
+                    $("#bajo-funcionamiento-comentario").slideUp();
+                }
+            });
+        } else {
+            console.error(`Nagativos - Botones no encontrados: ${pair.yes} o ${pair.no}`);
+        }
+    });
+}
 
 function initializeComplementaryButtons() {
     const buttonPairs = [
@@ -286,14 +318,6 @@ function validar_campos(datosFormulario) {
         document.getElementById("error-antecedentes-familiares").style.display = "none";
     }
 
-    if (!datosFormulario.bajo_funcionamiento) {
-        document.getElementById("error-bajo-funcionamiento").textContent = errorText;
-        document.getElementById("error-bajo-funcionamiento").style.display = "block";
-        esValido = false;
-    } else {
-        document.getElementById("error-bajo-funcionamiento").style.display = "none";
-    }
-
     // SINTOMAS POSITIVOS
     if (datosFormulario.sintomas_positivos_duracion == "Seleccioná una opción") {
         mostrarError(document.getElementById("sintomas-positivos-duracion"), errorText);
@@ -306,45 +330,45 @@ function validar_campos(datosFormulario) {
         esValido = false;
     } else {
         document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "none";
-        var cboxes = document.getElementsByName('alucinaciones[]'); 
+        var cboxes = document.getElementsByName('alucinaciones[]');
         var len = cboxes.length;
         const alucinaciones = [];
-        for (var i=0; i<len; i++) {
+        for (var i = 0; i < len; i++) {
             if (cboxes[i].checked) alucinaciones.push(cboxes[i].value);
         }
         const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
-        
-        
+
+
         if (datosFormulario.sintomas_positivos_alucinaciones == "Si" && sintomasPositivosTipoAlucinaciones == '') {
             mostrarError(document.getElementById("alucinaciones"), errorText);
             esValido = false;
         }
     }
-    
-    var cboxes = document.getElementsByName('lenguaje[]'); 
+
+    var cboxes = document.getElementsByName('lenguaje[]');
     var len = cboxes.length;
     const lenguaje = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) lenguaje.push(cboxes[i].value);
     }
     const sintomasPositivosTipoLenguaje = lenguaje.toString();
-    
-    
-    if (sintomasPositivosTipoLenguaje=='') {
+
+
+    if (sintomasPositivosTipoLenguaje == '') {
 
         mostrarError(document.getElementById("lenguaje"), errorText);
         esValido = false;
     }
 
-    cboxes = document.getElementsByName('pensamiento[]'); 
+    cboxes = document.getElementsByName('pensamiento[]');
     len = cboxes.length;
     const pensamiento = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
     }
     const sintomas_positivos_tipo_pensamiento = pensamiento.toString();
 
-    if (sintomas_positivos_tipo_pensamiento=='') {
+    if (sintomas_positivos_tipo_pensamiento == '') {
         mostrarError(document.getElementById("pensamiento"), errorText);
         esValido = false;
     }
@@ -354,17 +378,17 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    cboxes = document.getElementsByName('contenido-pensamiento[]'); 
+    cboxes = document.getElementsByName('contenido-pensamiento[]');
     console.log(cboxes.length);
     len = cboxes.length;
     const contenido = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) contenido.push(cboxes[i].value);
     }
-    const sintomas_positivos_tipo_contenido_pensamiento  = contenido.toString();
+    const sintomas_positivos_tipo_contenido_pensamiento = contenido.toString();
 
 
-    if (sintomas_positivos_tipo_contenido_pensamiento=='') {
+    if (sintomas_positivos_tipo_contenido_pensamiento == '') {
         mostrarError(document.getElementById("contenido-pensamiento"), errorText);
         esValido = false;
     }
@@ -375,15 +399,15 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    cboxes = document.getElementsByName('aspecto[]'); 
+    cboxes = document.getElementsByName('aspecto[]');
     len = cboxes.length;
     const aspecto = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) aspecto.push(cboxes[i].value);
     }
     const sintomas_negativos_aspecto = aspecto.toString();
-    
-    if (sintomas_negativos_aspecto=='') {
+
+    if (sintomas_negativos_aspecto == '') {
         mostrarError(document.getElementById("aspecto"), errorText);
         esValido = false;
     }
@@ -393,25 +417,30 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-
-    
     if (datosFormulario.sintomas_negativos_actividad == "-1") {
         mostrarError(document.getElementById("actividad"), errorText);
         esValido = false;
     }
 
-
-    cboxes = document.getElementsByName('afectividad[]'); 
+    cboxes = document.getElementsByName('afectividad[]');
     len = cboxes.length;
     const afectividad = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
     const sintomas_negativos_afectividad = aspecto.toString();
-    
-    if (sintomas_negativos_afectividad =='') {
+
+    if (sintomas_negativos_afectividad == '') {
         mostrarError(document.getElementById("afectividad"), errorText);
         esValido = false;
+    }
+
+    if (!datosFormulario.bajo_funcionamiento) {
+        document.getElementById("error-bajo-funcionamiento").textContent = errorText;
+        document.getElementById("error-bajo-funcionamiento").style.display = "block";
+        esValido = false;
+    } else {
+        document.getElementById("error-bajo-funcionamiento").style.display = "none";
     }
 
     // COMPLEMENTARIOS
@@ -438,7 +467,7 @@ function validar_campos(datosFormulario) {
 
     console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
     return esValido;
-    
+
 }
 // endregion validar campos
 
@@ -487,9 +516,6 @@ function obtenerDatosFormulario() {
     const antecedentesFamiliares =
         document.querySelector("#antecedentes-familiares-si.selected") ? "Si" :
             document.querySelector("#antecedentes-familiares-no.selected") ? "No" : "";
-    const bajoFuncionamiento =
-        document.querySelector("#bajo-funcionamiento-si.selected") ? "Si" :
-            document.querySelector("#bajo-funcionamiento-no.selected") ? "No" : "";
 
     // sintomas positivos            
     const selectedSPDuracion = document.getElementById("sintomas-positivos-duracion");
@@ -500,79 +526,70 @@ function obtenerDatosFormulario() {
                 document.querySelector("#sintomas-positivos-alucinaciones-no-descarta.selected") ? "No se descarta" :
                     "";
 
-
-    var cboxes = document.getElementsByName('alucinaciones[]'); 
+    var cboxes = document.getElementsByName('alucinaciones[]');
     var len = cboxes.length;
     const alucinaciones = [];
-    for (var i=0; i<len; i++) {
+
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) alucinaciones.push(cboxes[i].value);
     }
+
     const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
 
-    /*select1 = document.getElementById("lenguaje");
-    const lenguaje = [];
-    for (var i = 0; i < select1.length; i++) {
-        if (select1.options[i].selected) lenguaje.push(select1.options[i].value);
-    }
-    const sintomasPositivosTipoLenguaje = lenguaje.toString();
-    console.log(sintomasPositivosTipoLenguaje);*/
-    //esto funciona
-    var cboxes = document.getElementsByName('lenguaje[]'); 
+    var cboxes = document.getElementsByName('lenguaje[]');
     var len = cboxes.length;
     const lenguaje = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) lenguaje.push(cboxes[i].value);
     }
     const sintomasPositivosTipoLenguaje = lenguaje.toString();
 
-    cboxes = document.getElementsByName('pensamiento[]'); 
+    cboxes = document.getElementsByName('pensamiento[]');
     len = cboxes.length;
     const pensamiento = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
     }
     const sintomasPositivosTipoPensamiento = pensamiento.toString();
-
-
-
     const sintomasPositivosTipoRitmoPensamiento = document.getElementById("ritmo-pensamiento").value;
 
-    cboxes = document.getElementsByName('contenido-pensamiento[]'); 
+    cboxes = document.getElementsByName('contenido-pensamiento[]');
     len = cboxes.length;
     const contenido = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) contenido.push(cboxes[i].value);
     }
     const sintomasPositivosTipoContenidoPensamiento = contenido.toString();
-
-    
 
     // sintomas negativos
     const selectedSNDuracion = document.getElementById("sintomas-negativos-duracion");
     const sintomasNegativosDuracion = selectedSNDuracion.options[selectedSNDuracion.selectedIndex].text;
 
-
-    cboxes = document.getElementsByName('aspecto[]'); 
+    cboxes = document.getElementsByName('aspecto[]');
     len = cboxes.length;
     const aspecto = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) aspecto.push(cboxes[i].value);
     }
     const sintomasNegativosAspecto = aspecto.toString();
 
-
     const sintomasNegativosAtencion = document.getElementById("atencion").value;
     const sintomasNegativosActividad = document.getElementById("actividad").value;
 
-    cboxes = document.getElementsByName('afectividad[]'); 
+    cboxes = document.getElementsByName('afectividad[]');
     len = cboxes.length;
     const afectividad = [];
-    for (var i=0; i<len; i++) {
+    for (var i = 0; i < len; i++) {
         console.log(cboxes[i]);
         if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
     const sintomasNegativosAfectividad = afectividad.toString();
 
+    const bajoFuncionamiento =
+        document.querySelector("#bajo-funcionamiento-si.selected") ? "Si" :
+            document.querySelector("#bajo-funcionamiento-no.selected") ? "No" : "";
+
+    const bajoFuncionamientoComentario = document.getElementById("bajo-funcionamiento-comentario").value;
 
     //complementarios
     const sustancias =
@@ -610,6 +627,7 @@ function obtenerDatosFormulario() {
         sintomas_negativos_atencion: sintomasNegativosAtencion,
         sintomas_negativos_actividad: sintomasNegativosActividad,
         sintomas_negativos_afectividad: sintomasNegativosAfectividad,
+        bajo_funcionamiento_comentario: bajoFuncionamientoComentario,
         // complementarios
         sustancias: sustancias,
         estudios: estudios,
@@ -774,23 +792,23 @@ function guardarRegistro(estado) {
 
 
 
-function unselect(valor, name){
-    var cboxes = document.getElementsByName(name); 
+function unselect(valor, name) {
+    var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
     const lenguaje = [];
-    for (var i=0; i<len; i++) {
-        if (cboxes[i].value!=valor) cboxes[i].checked=false;
+    for (var i = 0; i < len; i++) {
+        if (cboxes[i].value != valor) cboxes[i].checked = false;
     }
 }
 
 
-function unselectUnicos(valor, name){
-    var cboxes = document.getElementsByName(name); 
+function unselectUnicos(valor, name) {
+    var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
     const lenguaje = [];
-    for (var i=0; i<len; i++) {
-        if (valor.includes(cboxes[i].value)) cboxes[i].checked=false;
-    }    
+    for (var i = 0; i < len; i++) {
+        if (valor.includes(cboxes[i].value)) cboxes[i].checked = false;
+    }
 
 }
 

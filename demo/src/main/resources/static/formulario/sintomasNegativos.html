@@ -1,90 +1,120 @@
 <h3>Síntomas Negativos</h3>
 <div class="col-md-12">
-    <div class="gray-box">
+  <div class="gray-box">
 
-        <div id="sintomas-negativos-duracion-id" class="form-group margin-filas">
-            <h6 for="sintomas-negativos-duracion">Duración de los síntomas negativos</h6>
-            <!-- <input type="number" class="form-control" id="negativos-duracion" name="negativos-duracion"
+    <div id="sintomas-negativos-duracion-id" class="form-group margin-filas">
+      <h6 for="sintomas-negativos-duracion">Duración de los síntomas negativos</h6>
+      <!-- <input type="number" class="form-control" id="negativos-duracion" name="negativos-duracion"
                 placeholder="Ingrese la duración"> -->
-                <select class="form-control" id="sintomas-negativos-duracion" name="sintomas-negativos-duracion" required>
-                    <option value="sintomas-negativos-duracion-menor">Menos de un mes</option>
-                    <option value="sintomas-negativos-duracion-mayor">Mayor o igual a un mes</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
-                </select>
-        </div>
-
-        <div id="negativo-tipo-aspecto" class="form-group margin-filas">
-            <h6><b>Aspecto</b></h6>
-            <div  id="aspecto" class="checkboxes">
-              <div class="form-control">
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-facie"/>Facie</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-alinio"/>Aliño</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-aseo"/>Aseo</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-bizarro"/>Bizarro</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-extravagante"/>Extravagante</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-inadecuado"/>Inadecuado</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-adelgazado"/>Adelgazado</label>
-                <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-hipomimico"/>Hipomímico</label>
-              </div>
-            </div>
-          </div>
-
-
-        
-        <div id="negativo-tipo-atencion" class="form-group margin-filas">
-            <h6 for="negativo-negativo-tipo-atencion">Atención</h6>
-            <select class="form-control" id="atencion" name="atencion" required>
-                <option value="atencion-euprosexia">Euprosexia</option>
-                <option value="atencion-hipoprosexia">Hipoprosexia</option>
-                <option value="atencion-hiperprosexia">Hiperprosexia</option>
-                <option value="atencion-paraprosexia">Paraprosexia</option>
-                <option value="-1" selected>Seleccioná una opción</option>
-            </select>
-        </div>
-        
-        <div id="negativo-tipo-actividad" class="form-group margin-filas">
-            <h6 for="negativo-tipo-actividad">Actividad</h6>
-            <select class="form-control" id="actividad" name="actividad" required>
-                <option value="actividad-normobulico">Normobúlico</option>
-                <option value="actividad-abulia">Abulia</option>
-                <option value="actividad-hipobulia">Hipobulia</option>
-                <option value="actividad-hiperbulia-productiva">Hiperbulia productiva</option>
-                <option value="actividad-hiperbulia-improductiva">Hiperbulia improductiva</option>
-                <option value="actividad-impulsiones">Impulsiones</option>
-                <option value="actividad-compulsiones">Compulsiones</option>
-                <option value="actividad-apraxia">Apraxia</option>
-                <option value="actividad-ataxia">Ataxia</option>
-                <option value="actividad-ecopraxia">Ecopraxia</option>
-                <option value="actividad-manierismo">Manierismo</option>
-                <option value="actividad-estereotipia-motora">Estereotipia Motora</option>
-                <option value="actividad-interceptacion-cinetica">Interceptación cinética</option>
-                <option value="actividad-negativismo">Negativismo</option>
-                <option value="actividad-obediencia-automatica">Obediencia automática</option>
-                <option value="actividad-flexibilidad-cerea">Flexibilidad cérea</option>
-                <option value="-1" selected>Seleccioná una opción</option>
-            </select>
-        </div>
-
-        <div id="negativo-tipo-afectividad" class="form-group margin-filas">
-            <h6><b>Afectividad</b></h6>
-            <div  id="afectividad" class="checkboxes">
-              <div class="form-control">
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-eutimia" onclick="unselect(value, name)"/>Eutimia</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-timia-displacentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-hipertimia-placentera,afectividad-hipertimia-displacentera', name)"/>Timia displacentera</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-placentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-displacentera', name)"/>Hipertimia placentera</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-displacentera" onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-placentera', name)"/>Hipertimia displacentera</label>
-                <label id="check"><input type="checkbox" name="afectividad[]"value="afectividad-hipotimia" onclick="unselectUnicos('afectividad-eutimia', name)"/>Hipotimia</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-aplanamiento-afectivo" onclick="unselectUnicos('afectividad-eutimia', name)"/>Aplanamiento afectivo</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-labilidad" onclick="unselectUnicos('afectividad-eutimia', name)"/>Labilidad</label>
-                <label id="check"><input type="checkbox" name="afectividad[]"value="afectividad-irritabilidad" onclick="unselectUnicos('afectividad-eutimia', name)"/>Irritabilidad</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-expansivo" onclick="unselectUnicos('afectividad-eutimia', name)"/>Expansivo</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-inapropiado" onclick="unselectUnicos('afectividad-eutimia', name)"/>Inapropiado</label>
-                <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-anhedonia" onclick="unselectUnicos('afectividad-eutimia', name)"/>Anhedonia</label>
-              </div>
-              </div>
-            </div>
-          </div>
-
-
+      <select class="form-control" id="sintomas-negativos-duracion" name="sintomas-negativos-duracion" required>
+        <option value="sintomas-negativos-duracion-menor">Menos de un mes</option>
+        <option value="sintomas-negativos-duracion-mayor">Mayor o igual a un mes</option>
+        <option value="-1" selected>Seleccioná una opción</option>
+      </select>
     </div>
+
+    <div id="negativo-tipo-aspecto" class="form-group margin-filas">
+      <h6><b>Aspecto</b></h6>
+      <div id="aspecto" class="checkboxes">
+        <div class="form-control">
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-facie" />Facie</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-alinio" />Aliño</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-aseo" />Aseo</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-bizarro" />Bizarro</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-extravagante" />Extravagante</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-inadecuado" />Inadecuado</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-adelgazado" />Adelgazado</label>
+          <label id="check"><input type="checkbox" name="aspecto[]" value="aspecto-hipomimico" />Hipomímico</label>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="negativo-tipo-atencion" class="form-group margin-filas">
+      <h6 for="negativo-negativo-tipo-atencion">Atención</h6>
+      <select class="form-control" id="atencion" name="atencion" required>
+        <option value="atencion-euprosexia">Euprosexia</option>
+        <option value="atencion-hipoprosexia">Hipoprosexia</option>
+        <option value="atencion-hiperprosexia">Hiperprosexia</option>
+        <option value="atencion-paraprosexia">Paraprosexia</option>
+        <option value="-1" selected>Seleccioná una opción</option>
+      </select>
+    </div>
+
+    <div id="negativo-tipo-actividad" class="form-group margin-filas">
+      <h6 for="negativo-tipo-actividad">Actividad</h6>
+      <select class="form-control" id="actividad" name="actividad" required>
+        <option value="actividad-normobulico">Normobúlico</option>
+        <option value="actividad-abulia">Abulia</option>
+        <option value="actividad-hipobulia">Hipobulia</option>
+        <option value="actividad-hiperbulia-productiva">Hiperbulia productiva</option>
+        <option value="actividad-hiperbulia-improductiva">Hiperbulia improductiva</option>
+        <option value="actividad-impulsiones">Impulsiones</option>
+        <option value="actividad-compulsiones">Compulsiones</option>
+        <option value="actividad-apraxia">Apraxia</option>
+        <option value="actividad-ataxia">Ataxia</option>
+        <option value="actividad-ecopraxia">Ecopraxia</option>
+        <option value="actividad-manierismo">Manierismo</option>
+        <option value="actividad-estereotipia-motora">Estereotipia Motora</option>
+        <option value="actividad-interceptacion-cinetica">Interceptación cinética</option>
+        <option value="actividad-negativismo">Negativismo</option>
+        <option value="actividad-obediencia-automatica">Obediencia automática</option>
+        <option value="actividad-flexibilidad-cerea">Flexibilidad cérea</option>
+        <option value="-1" selected>Seleccioná una opción</option>
+      </select>
+    </div>
+
+    <div id="negativo-tipo-afectividad" class="form-group margin-filas">
+      <h6><b>Afectividad</b></h6>
+      <div id="afectividad" class="checkboxes">
+        <div class="form-control">
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-eutimia"
+              onclick="unselect(value, name)" />Eutimia</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-timia-displacentera"
+              onclick="unselectUnicos('afectividad-eutimia,afectividad-hipertimia-placentera,afectividad-hipertimia-displacentera', name)" />Timia
+            displacentera</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-placentera"
+              onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-displacentera', name)" />Hipertimia
+            placentera</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-displacentera"
+              onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-placentera', name)" />Hipertimia
+            displacentera</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipotimia"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Hipotimia</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-aplanamiento-afectivo"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Aplanamiento afectivo</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-labilidad"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Labilidad</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-irritabilidad"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Irritabilidad</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-expansivo"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Expansivo</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-inapropiado"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Inapropiado</label>
+          <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-anhedonia"
+              onclick="unselectUnicos('afectividad-eutimia', name)" />Anhedonia</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-container opciones">
+      <h6 for="bajo-funcionamiento">Bajo Funcionamiento en Ámbitos Principales</h6>
+      <div class="btn-group">
+        <button id="bajo-funcionamiento-si" class="btn btn-choice">Sí</button>
+        <button id="bajo-funcionamiento-no" class="btn btn-choice">No</button>
+      </div>
+      <div id="error-bajo-funcionamiento" class="error-message-text"></div>
+    </div>
+
+    <div id="bajo-funcionamiento-comentario" class="margin-filas" style="display: none;">
+      <h6 for="bajo-funcionamiento-comentario">Comentario sobre los ámbitos principales</h6>
+      <textarea id="bajo-funcionamiento-comentario" class="form-control" rows="3"
+        placeholder="Comentarios sobre el bajo funcionamiento en los ámbitos principales"></textarea>
+    </div>
+
+
+  </div>
+
+</div>
 </div>

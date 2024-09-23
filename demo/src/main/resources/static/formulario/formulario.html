@@ -14,10 +14,10 @@
     <div class="page-title">
         <h1>Sistema Experto - Diagnóstico de Esquizofrenia</h1>
     </div>
-    <div class=container id="formulario" style="overflow-x: hidden;">
+    <div class="container" id="formulario" style="overflow-x: hidden;">
         <div class="row data-columns">
             <h2>Datos del Paciente</h2>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="gray-box">
                     <div class="form-group margin-filas">
                         <label for="nombre">Nombre</label>
@@ -59,16 +59,15 @@
                     <div id="error-trastorno-comunicacion" class="error-message-text"></div>
                 </div>
                 <div class="form-group margin-filas opciones">
-                    <h6 for="trastorno-bipolar">Trastorno Bipolar con Características Psicóticas</h6>
+                    <h6 for="trastorno-esquizoafectivo">Trastorno Esquizoafectivo</h6>
                     <div class="btn-group">
-                        <button id="trastorno-bipolar-si" class="btn btn-choice mb-2">Sí</button>
-                        <button id="trastorno-bipolar-no" class="btn btn-choice mb-2">No</button>
+                        <button id="trastorno-esquizoafectivo-si" class="btn btn-choice mb-2">Sí</button>
+                        <button id="trastorno-esquizoafectivo-no" class="btn btn-choice mb-2">No</button>
                     </div>
-                    <div id="error-trastorno-bipolar" class="error-message-text"></div>
+                    <div id="error-trastorno-esquizoafectivo" class="error-message-text"></div>
                 </div>
-                
             </div>
-            <div class="col-md-2 btn-bool">
+            <div class="col-md-3 btn-bool">
                 <div class="form-group margin-filas opciones">
                     <h6 for="trastorno-depresivo">Trastorno Depresivo</h6>
                     <div class="btn-group">
@@ -78,12 +77,12 @@
                     <div id="error-trastorno-depresivo" class="error-message-text"></div>
                 </div>
                 <div class="form-group margin-filas opciones">
-                    <h6 for="trastorno-esquizoafectivo">Trastorno Esquizoafectivo</h6>
+                    <h6 for="trastorno-bipolar">Trastorno Bipolar con Características Psicóticas</h6>
                     <div class="btn-group">
-                        <button id="trastorno-esquizoafectivo-si" class="btn btn-choice mb-2">Sí</button>
-                        <button id="trastorno-esquizoafectivo-no" class="btn btn-choice mb-2">No</button>
+                        <button id="trastorno-bipolar-si" class="btn btn-choice mb-2">Sí</button>
+                        <button id="trastorno-bipolar-no" class="btn btn-choice mb-2">No</button>
                     </div>
-                    <div id="error-trastorno-esquizoafectivo" class="error-message-text"></div>
+                    <div id="error-trastorno-bipolar" class="error-message-text"></div>
                 </div>
                 <div class="form-group margin-filas opciones">
                     <h6 for="antecedentes-familiares">Antecedentes Familiares Psiquiátricos</h6>
@@ -92,16 +91,6 @@
                         <button id="antecedentes-familiares-no" class="btn btn-choice mb-2">No</button>
                     </div>
                     <div id="error-antecedentes-familiares" class="error-message-text"></div>
-                </div>
-            </div>
-            <div class="col-md-3 btn-bool">
-                <div class="form-group margin-filas opciones">
-                    <h6 for="bajo-funcionamiento">Bajo funcionamiento en ámbitos principales</h6>
-                    <div class="btn-group">
-                        <button id="bajo-funcionamiento-si" class="btn btn-choice mb-2">Sí</button>
-                        <button id="bajo-funcionamiento-no" class="btn btn-choice mb-2">No</button>
-                    </div>
-                    <div id="error-bajo-funcionamiento" class="error-message-text"></div>
                 </div>
             </div>
             <div id="sintomas-positivos-container"></div>
@@ -120,7 +109,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- region Popup -->
         <div id="diagnostico-popup"></div>
