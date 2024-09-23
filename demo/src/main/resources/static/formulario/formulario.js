@@ -487,12 +487,13 @@ function mostrarError(campo, mensaje) {
 }
 
 function resetearErrores() {
-    const campos = document.querySelectorAll(".error-message");
-    campos.forEach(campo => {
+    const errores = document.querySelectorAll(".error-message");
+    errores.forEach(error => {
+        const campo = error.parentNode.querySelector("input, select");
         campo.style.borderColor = "";
-        //const errorMessage = campo.parentNode.querySelector(".error-message");
+        
 //        if (errorMessage) {
-            campo.parentNode.removeChild(errorMessage);
+        error.parentNode.removeChild(error);
 //        }
     });
 }
