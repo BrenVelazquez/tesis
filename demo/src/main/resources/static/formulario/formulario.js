@@ -270,6 +270,11 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
+    if (datosFormulario.sexo == "-1") {
+        mostrarError(document.getElementById("sexo"), "Por favor, ingrese el sexo del paciente.");
+        esValido = false;
+    }
+
     if (!datosFormulario.trastorno_autista) {
         document.getElementById("error-trastorno-autista").textContent = errorText;
         document.getElementById("error-trastorno-autista").style.display = "block";
@@ -482,13 +487,13 @@ function mostrarError(campo, mensaje) {
 }
 
 function resetearErrores() {
-    const campos = document.querySelectorAll("input, select");
+    const campos = document.querySelectorAll(".error-message");
     campos.forEach(campo => {
         campo.style.borderColor = "";
-        const errorMessage = campo.parentNode.querySelector(".error-message");
-        if (errorMessage) {
+        //const errorMessage = campo.parentNode.querySelector(".error-message");
+//        if (errorMessage) {
             campo.parentNode.removeChild(errorMessage);
-        }
+//        }
     });
 }
 
