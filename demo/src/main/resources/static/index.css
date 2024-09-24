@@ -138,175 +138,6 @@ body {
   
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-/*
-details {
-  border: 1px solid #767676;
-  border-radius: 3px;
-  display: inline-flex;
-  flex-direction: column;
-  padding: 3px 6px;
-}
-
-details summary::marker {
-  display: none;
-  font-size: 0;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-  font-size: 0;
-}
-
-details summary::after {
-  content: "\25BC" / "";
-  display: inline-block;
-  font-size: 0.6rem;
-  height: 1rem;
-  line-height: 1rem;
-  margin-left: 0.5rem;
-  position: relative;
-  transition: transform 0.25s;
-}
-
-details[open] summary {
-  margin-bottom: 1rem;
-}
-
-details[open] summary::after {
-  top: -0.15rem;
-  transform: rotate(180deg);
-}
-
-form {
-  display: flex;
-}
-
-fieldset {
-  border: 0;
-  padding: 0;
-  width: 100%;
-}
-
-fieldset legend {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul li {
-  border-radius: 3px;
-  margin: 0;
-  padding: 4px 2px;
-}
-
-ul li:hover {
-  background: #eee;
-}
-
-ul li label {
-  display: flex;
-  flex-grow: 1;
-  justify-content: space-between;
-}
-
-details {
-    border: 1px solid #767676;
-    border-radius: 3px;
-    display: inline-flex;
-    flex-direction: column;
-    padding: 3px 6px;
-  }
-  
-details summary::marker {
-    display: none;
-    font-size: 0;
-  }
-  
-details summary::-webkit-details-marker {
-    display: none;
-    font-size: 0;
-  }
-  
-details summary::after {
-    content: "\25BC" / "";
-    display: inline-block;
-    font-size: 0.6rem;
-    height: 1rem;
-    line-height: 1rem;
-    margin-left: 0.5rem;
-    position: relative;
-    transition: transform 0.25s;
-  }
-  
-details[open] summary {
-    margin-bottom: 1rem;
-  }
-  
-details[open] summary::after {
-    top: -0.15rem;
-    transform: rotate(180deg);
-  }
-  
-form {
-    display: flex;
-  }
-  
- fieldset {
-    border: 0;
-    padding: 0;
-    width: 100%;
-  }
-  
-fieldset legend {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
-  
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-ul li {
-    border-radius: 3px;
-    margin: 0;
-    padding: 4px 2px;
-  }
-  
-ul li:hover {
-    background: #eee;
-  }
-  
-ul li label {
-    display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-  }
-*/
 .multiselect {
   width: 100%;
   margin: 20px auto;
@@ -325,6 +156,7 @@ ul li label {
   border: 1px solid #009587;
   max-height: 100px;
   overflow: auto;
+  border-radius: 8px;
 }
 
 #check {
@@ -369,4 +201,47 @@ input[type="checkbox"]:checked::before {
 
 .selected {
   background-color: #e9f5f4;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 300px;
+  background-color: #deebe9f0;
+  color: black;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  right: 10%;
+  /* margin-left: -150px; */
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 2px solid #009587;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #009587 transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.icon-tooltip {
+  color: #009587;
 }
