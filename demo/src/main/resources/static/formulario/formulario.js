@@ -135,7 +135,7 @@ function initializeNegativeButtons() {
                 btnYes.classList.remove('selected');
                 btnNo.classList.remove('selected');
                 this.classList.add('selected');
-                
+
                 if (this.id === 'bajo-funcionamiento-no') {
                     $("#bajo-funcionamiento-comentario").slideUp();
                 }
@@ -492,10 +492,10 @@ function resetearErrores() {
         const campo = error.parentNode.querySelector("input, select, .checkboxes");
         console.log(campo.id);
         campo.style.borderColor = "";
-        
-//        if (errorMessage) {
+
+        //        if (errorMessage) {
         error.parentNode.removeChild(error);
-//        }
+        //        }
     });
 }
 
@@ -692,11 +692,11 @@ function determinar_diagnostico() {
                 console.log("Respuesta: ", JSON.stringify(response));
                 document.getElementById("nombre-paciente").textContent = datosFormulario.nombre;
 
-                let posibilidad = response.posibilidad;
-                $(".posibilidad-seccion").css("display", "none");
-                switch (posibilidad) {
-                    case "Posible esquizofrenia":
-                        $("#posible-esquizofrenia").css("display", "block");
+                let diagnostico = response.diagnostico;
+                $(".diagnostico-seccion").css("display", "none");
+                switch (diagnostico) {
+                    case "Esquizofrenia":
+                        $("#esquizofrenia").css("display", "block");
                         break;
                     case "Posible esquizofrenia temporal":
                         $("#evaluar-temporal").css("display", "block");
@@ -705,9 +705,9 @@ function determinar_diagnostico() {
                         $("#no-posible-esquizofrenia").css("display", "block");
                         break;
                     default:
-                        console.log("Opción de posibilidad desconocida");
+                        console.log("Opción de diagnostico desconocida");
                 }
-                datosFormulario.posibilidad = response.posibilidad;
+                datosFormulario.diagnostico = response.diagnostico;
 
                 datosFormulario.puntaje = response.puntaje;
 

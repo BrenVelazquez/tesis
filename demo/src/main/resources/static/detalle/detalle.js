@@ -80,7 +80,7 @@ function completarYDeshabilitarCampos(pacienteData) {
     }
 
     //diagnostico
-    if (pacienteData.diagnostico === "Posible esquizofrenia") {
+    if (pacienteData.diagnostico === "Esquizofrenia") {
         $("#diagnostico-esquizofrenia").removeClass("no-show-seccion");
     } else if (pacienteData.diagnostico === "Esquizofrenia no posible") {
         $("#diagnostico-no-esquizofrenia").removeClass("no-show-seccion");
@@ -135,7 +135,7 @@ function obtenerPacienteHarcodeado() {
         estudio_causa_natural: "No",
         estudio_comentario: "Se realiza interconsulta con Traumatología y Reumatología quienes descartan causa orgánica de sus dolores musculares.",
         recomendacion: "Se recomienda evaluar esquizofrenia cenestésica,\nSe recomienda iniciar tratamiento.",
-        diagnostico: "Posible esquizofrenia",
+        diagnostico: "Esquizofrenia",
         estado: "Aceptado",
         comentarios: "",
         puntaje: 58,

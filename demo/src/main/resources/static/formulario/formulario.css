@@ -218,7 +218,7 @@ body {
     align-items: center;
 }
 
-.posibilidad-seccion {
+.diagnostico-seccion {
     display: none;
     /* Ocultar todas las secciones inicialmente */
 }
@@ -243,7 +243,7 @@ body {
     color: #000;
 }
 
-.posible-esquizofrenia {
+.esquizofrenia {
     color: red;
 }
 
@@ -451,4 +451,3 @@ body {
         display: none;
     }
 }
-

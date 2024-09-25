@@ -3,7 +3,9 @@ import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 
 global com.sistexperto.dto.PacienteResponse pacienteResponse;
-global Boolean posibleEsquizofrenia;
+
+// creo que esto no se usa
+global Boolean esquizofrenia;
 global Boolean noPosibleEsquizofrenia;
 global Boolean posibleTemporal;
 
@@ -902,7 +904,7 @@ then
     pacienteResponse.calcularDiagnostico(true);
 end
 
-rule "Posible esquizofrenia"
+rule "Esquizofrenia"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_duracion == "Mayor o igual a un mes"  
     && sintomas_negativos_duracion== "Mayor o igual a un mes")

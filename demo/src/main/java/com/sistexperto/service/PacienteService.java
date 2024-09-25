@@ -36,11 +36,11 @@ public class PacienteService {
 
         // Estos son los resultados que vamos a obtener
         Boolean noPosibleEsquizofrenia = Boolean.FALSE;
-        Boolean posibleEsquizofrenia = Boolean.FALSE;
+        Boolean esquizofrenia = Boolean.FALSE;
         Boolean posibleTemporal = Boolean.FALSE;
 
         kieSession.setGlobal("noPosibleEsquizofrenia", noPosibleEsquizofrenia);
-        kieSession.setGlobal("posibleEsquizofrenia", posibleEsquizofrenia);
+        kieSession.setGlobal("esquizofrenia", esquizofrenia);
         kieSession.setGlobal("posibleTemporal", posibleTemporal);
         kieSession.setGlobal("pacienteResponse", pacienteResponse);
 

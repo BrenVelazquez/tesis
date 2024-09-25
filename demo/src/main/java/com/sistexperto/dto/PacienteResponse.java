@@ -12,8 +12,8 @@ public class PacienteResponse {
     // Esto es lo que nos va a devolver de las reglas y lo que vamos a mostrar como
     // resultado por pantalla
 
-    @JsonProperty("posibilidad")
-    private String posibilidad;
+    @JsonProperty("diagnostico")
+    private String diagnostico;
 
     @JsonProperty("reglas")
     private int reglas;
@@ -35,14 +35,14 @@ public class PacienteResponse {
     public void calcularDiagnostico(Boolean temporal) {
         String recomendacion = "";
         if (puntaje < 36) {
-            this.setPosibilidad("Esquizofrenia no posible");
+            this.setDiagnostico("Esquizofrenia no posible");
             recomendacion = "Se recomienda evaluar otros diagnósticos como Depresión y Trastorno Bipolar.";
         } else {
             if (puntaje >= 36 && temporal) {
-                this.setPosibilidad("Posible esquizofrenia temporal");
+                this.setDiagnostico("Posible esquizofrenia temporal");
                 recomendacion = "Se recomienda evaluar esquizofrenia temporal.";
             } else {
-                this.setPosibilidad("Posible esquizofrenia");
+                this.setDiagnostico("Esquizofrenia");
                 recomendacion = "Se recomienda iniciar tratamiento.";
             }
         }
