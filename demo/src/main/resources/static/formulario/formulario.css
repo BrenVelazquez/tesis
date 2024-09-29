@@ -258,6 +258,12 @@ body {
     width: 30%;
 }
 
+#snackbar i {
+    margin-right: 10px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
 #snackbar.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;

@@ -744,12 +744,19 @@ function determinar_diagnostico() {
 
 
 // region snackbar
-function mostrarSnackbar(mensaje, tipo) {
+function mostrarSnackbar(message, success) {
     const snackbar = document.getElementById("snackbar");
-    snackbar.textContent = mensaje;
-    snackbar.className = "show " + (tipo === "success" ? "snackbar-success" : "snackbar-error");
+
+    if (success) {
+        snackbar.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+        snackbar.className = "show snackbar-success";
+    } else {
+        snackbar.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+        snackbar.className = "show snackbar-error";
+    }
 
     setTimeout(function () {
+        volver();
         snackbar.className = snackbar.className.replace("show", "");
     }, 3000);
 }
@@ -818,17 +825,11 @@ function guardarRegistro(estado) {
         success: function (response) {
             // console.log('Paciente ingresado con éxito:', data);
             console.log('Paciente ingresado con éxito');
-            mostrarSnackbar("Paciente ingresado con éxito", "success");
-            setTimeout(function () {
-                volver();
-            }, 3000);
+            mostrarSnackbar("Paciente ingresado con éxito", true);
         },
         error: function (xhr, status, error) {
             console.error('Error al registrar al paciente:', error);
-            mostrarSnackbar("Error al registrar al paciente", "error");
-            setTimeout(function () {
-                volver();
-            }, 3000);
+            mostrarSnackbar("Ocurrió un error al registrar al paciente", false);
         }
     });
 }
