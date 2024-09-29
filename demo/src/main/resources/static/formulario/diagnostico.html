@@ -2,11 +2,6 @@
 <div class="popup" id="popup">
     <div class="popup-inner">
         <button class="close-popup" id="close-popup">&times;</button>
-        <!-- <div class="row">
-            <div class="col-md-12 text-right">
-                <p>Código de Paciente: <span id="codigo-paciente"></span></p>
-            </div>
-        </div> -->
         <div id="diagnostico-container" style="margin-top: 3%;">
             <h3>Diagnóstico para <span id="nombre-paciente"></span>:</h3>
             <div class="diagnostico-texto">
@@ -91,13 +86,14 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <button id="rechazar-diagnostico" class="btn-custom btn-rounded"
+                    <button id="confirmar-rechazar-diagnostico" class="btn-custom btn-rounded"
                         onclick="guardarRegistro('Rechazado')" style="margin-top: 10px; background-color: #dc3545;">
                         <i class="fas fa-solid fa-check-double"></i> Confirmar rechazo
                     </button>
                 </div>
             </div>
         </div>
+        <div id="snackbar"></div>
     </div>
 </div>
 <!-- End Popup -->

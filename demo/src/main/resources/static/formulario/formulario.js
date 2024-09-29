@@ -474,7 +474,6 @@ function validar_campos(datosFormulario) {
     return esValido;
 
 }
-// endregion validar campos
 
 
 function mostrarError(campo, mensaje) {
@@ -490,14 +489,12 @@ function resetearErrores() {
     const errores = document.querySelectorAll(".error-message");
     errores.forEach(error => {
         const campo = error.parentNode.querySelector("input, select, .checkboxes");
-        console.log(campo.id);
+        // console.log(campo.id);
         campo.style.borderColor = "";
-
-        //        if (errorMessage) {
         error.parentNode.removeChild(error);
-        //        }
     });
 }
+// endregion validar campos
 
 // region obtenerDatosFormulario
 function obtenerDatosFormulario() {
@@ -587,7 +584,7 @@ function obtenerDatosFormulario() {
     len = cboxes.length;
     const afectividad = [];
     for (var i = 0; i < len; i++) {
-        console.log(cboxes[i]);
+        // console.log(cboxes[i]);
         if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
     const sintomasNegativosAfectividad = afectividad.toString();
@@ -746,16 +743,51 @@ function determinar_diagnostico() {
 // endregion determinar_diagnostico
 
 
+// region snackbar
+function mostrarSnackbar(mensaje, tipo) {
+    const snackbar = document.getElementById("snackbar");
+    snackbar.textContent = mensaje;
+    snackbar.className = "show " + (tipo === "success" ? "snackbar-success" : "snackbar-error");
+
+    setTimeout(function () {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
+}
+
+function bloquearBotones() {
+    document.getElementById('confirmar-diagnostico').disabled = true;
+    document.getElementById('rechazar-diagnostico').disabled = true;
+}
+
+function mostrarLoaderBoton(boton) {
+    boton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    boton.disabled = true;
+}
+// endregion snackbar
+
 // region guardarRegistro
 function guardarRegistro(estado) {
+    console.log("### guardarRegistro ###");
+    console.log("estado: " + estado);
+
+    const datosFormulario = obtenerDatosFormulario();
+    const jsonString = JSON.stringify(datosFormulario);
+    console.log("Datos del formulario en formato JSON: ", jsonString);
+
+    bloquearBotones();
+    const botonClickeado = estado === 'Confirmado'
+        ? document.getElementById('confirmar-diagnostico')
+        : document.getElementById('confirmar-rechazar-diagnostico');
+
+    mostrarLoaderBoton(botonClickeado);
 
     // Obtener el archivo seleccionado
-    let fileInput = document.getElementById('imagen');
-    let file = fileInput.files[0];
+    // let fileInput = document.getElementById('imagen');
+    // let file = fileInput.files[0];
 
-    // Crear un objeto FormData
-    let formData = new FormData();
-    formData.append('file', file);
+    // // Crear un objeto FormData
+    // let formData = new FormData();
+    // formData.append('file', file);
 
     //Metodo de Subir Imagen
     // console.error('file:', file);
@@ -777,28 +809,32 @@ function guardarRegistro(estado) {
     //     });
     // }
 
-    // // Metodo de Cargar Paciente
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/ingresarPaciente", // La URL del controlador
-    //     contentType: "application/json",
-    //     data: jsonString,
-    //     success: function (response) {
-    //         console.log('Paciente ingresado con éxito:', data);
-    //         cerrarPopup();
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.error('Error al registrar al paciente:', error);
-    //     }
-    // });
-
+    //Metodo de Cargar Paciente
+    $.ajax({
+        type: "POST",
+        url: "/ingresarPaciente", // La URL del controlador
+        contentType: "application/json",
+        data: jsonString,
+        success: function (response) {
+            // console.log('Paciente ingresado con éxito:', data);
+            console.log('Paciente ingresado con éxito');
+            mostrarSnackbar("Paciente ingresado con éxito", "success");
+            setTimeout(function () {
+                volver();
+            }, 3000);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al registrar al paciente:', error);
+            mostrarSnackbar("Error al registrar al paciente", "error");
+            setTimeout(function () {
+                volver();
+            }, 3000);
+        }
+    });
 }
+// endregion guardarRegistro
 
-
-
-
-
-
+// region checkBoxes
 function unselect(valor, name) {
     var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
@@ -808,7 +844,6 @@ function unselect(valor, name) {
     }
 }
 
-
 function unselectUnicos(valor, name) {
     var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
@@ -816,10 +851,5 @@ function unselectUnicos(valor, name) {
     for (var i = 0; i < len; i++) {
         if (valor.includes(cboxes[i].value)) cboxes[i].checked = false;
     }
-
 }
-
-
-
-
-// endregion guardarRegistro
+// endregion checkBoxes
