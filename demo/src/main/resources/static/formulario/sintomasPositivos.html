@@ -16,7 +16,7 @@
     <div class="col-md-12">
         <div class="gray-box">
             <div id="sintomas-positivos-duracion-id" class="form-group margin-filas">
-                <h6 for="sintomas-positivos-duracion">Duración de los síntomas positivos</h6>
+                <h6 for="sintomas-positivos-duracion">Duración de los síntomas positivos *</h6>
                 <select class="form-control" id="sintomas-positivos-duracion" name="sintomas-positivos-duracion" required>
                     <option value="sintomas-positivos-duracion-menor">Menos de un mes</option>
                     <option value="sintomas-positivos-duracion-mayor">Mayor o igual a un mes</option>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="button-container opciones">
-                <h6 for="sintomas-positivos-alucinaciones">Alucinaciones</h6>
+                <h6 for="sintomas-positivos-alucinaciones">Alucinaciones *</h6>
                 <div class="btn-group">
                     <button id="sintomas-positivos-alucinaciones-si" class="btn btn-choice">Sí</button>
                     <button id="sintomas-positivos-alucinaciones-no" class="btn btn-choice">No</button>
@@ -36,7 +36,7 @@
             </div>
 
             <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;"  >
-              <h6>Alucinaciones</h6>
+              <h6>Alucinaciones *</h6>
               <div  id="alucinaciones" class="checkboxes" >
                 <div class="form-control">
                   <label id="check"><input type="checkbox" name="alucinaciones[]" value="alucinaciones-auditivas-simples" onclick="unselectUnicos('alucinaciones-auditivas-complejas', name)"/>Auditivas Simples</label>
@@ -55,7 +55,7 @@
             
 
             <div id="tipo-pensamiento-id" class="form-group margin-filas">
-              <h6>Lenguaje</h6>
+              <h6>Lenguaje *</h6>
               <div  id="lenguaje" class="checkboxes">
                 <div class="form-control">
                   <label id="check"><input type="checkbox" name="lenguaje[]" value="lenguaje-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
@@ -78,7 +78,7 @@
             </div>
 
             <div id="tipo-pensamiento-id" class="form-group margin-filas">
-              <h6>Pensamiento</h6>
+              <h6>Pensamiento *</h6>
               <div  id="pensamiento" class="checkboxes">
                 <div class="form-control">
                   <label id="check"><input type="checkbox" name="pensamiento[]" value="pensamiento-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
@@ -96,7 +96,7 @@
             </div>
 
             <div id="tipo-ritmo-pensamiento-id" class="form-group margin-filas">
-                <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento</h6>
+                <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento *</h6>
                 <select class="form-control" id="ritmo-pensamiento" name="ritmo-pensamiento" required>
                     <option value="ritmo-pensamiento-sin-particularidades">Sin particularidades</option>
                     <option value="ritmo-pensamiento-bradipsiquia">Bradipsiquia</option>
@@ -106,7 +106,7 @@
             </div>
 
             <div id="tipo-contenido-pensamiento-id" class="form-group margin-filas">
-              <h6>Contenido del pensamiento</h6>
+              <h6>Contenido del pensamiento *</h6>
               <div  id="contenido-pensamiento" class="checkboxes">
                 <div class="form-control">
                   <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="contenido-pensamiento-sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
