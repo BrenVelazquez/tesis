@@ -37,18 +37,22 @@ public class PacienteResponse {
         if (puntaje < 36) {
             this.setDiagnostico("Esquizofrenia no posible");
             recomendacion = "Se recomienda evaluar otros diagnósticos como Depresión y Trastorno Bipolar.";
+            this.actualizarReglasEjecutadas("R60");
         } else {
             if (puntaje >= 36 && temporal) {
                 this.setDiagnostico("Posible esquizofrenia temporal");
                 recomendacion = "Se recomienda evaluar esquizofrenia temporal.";
+                
             } else {
                 this.setDiagnostico("Esquizofrenia");
                 recomendacion = "Se recomienda iniciar tratamiento.";
+                this.actualizarReglasEjecutadas("R59");
             }
         }
 
         if (recomendacion == "") {
             this.actualizarRecomendacion(recomendacion, 1);
+            
         } else {
             this.actualizarRecomendacion(recomendacion, 1);
         }
@@ -103,7 +107,7 @@ public class PacienteResponse {
             reglas++;
 
         } else {
-            reglasEjecutadas += ", \n" + utf8Texto;
+            reglasEjecutadas += ", " + utf8Texto;
             reglas++;
         }
         System.out.println("- reglas: " + reglas);

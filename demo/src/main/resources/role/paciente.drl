@@ -25,7 +25,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sintomas obligatorios - Delirios"); 
+    pacienteResponse.actualizarReglasEjecutadas("R1"); 
 end
 
 rule "Sintomas obligatorios - Alucinaciones "
@@ -41,7 +41,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sintomas obligatorios - Alucinaciones"); 
+    pacienteResponse.actualizarReglasEjecutadas("R2"); 
 end
 
 rule "Sintomas obligatorios - Disgregacion"
@@ -55,7 +55,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sintomas obligatorios - Disgregacion"); 
+    pacienteResponse.actualizarReglasEjecutadas("R3"); 
 end
 
 rule "Sintomas obligatorios - Incoherencia"
@@ -69,7 +69,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sintomas obligatorios - Incoherencia"); 
+    pacienteResponse.actualizarReglasEjecutadas("R4"); 
 end
 
 rule "Sintomas obligatorios - Ninguno"
@@ -82,7 +82,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)   
     pacienteResponse.actualizarJustificacion("No presenta alucinaciones, delirios, disgregación o incoherencia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sintomas obligatorios - Ninguno"); 
+    pacienteResponse.actualizarReglasEjecutadas("R5"); 
 end
 
 
@@ -94,7 +94,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("La duración de los síntomas positivos o negativos son menores a un mes",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tiempo - Menor 1 mes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R6"); 
 end
 
 rule "Tiempo - Mayor 1 mes"
@@ -104,7 +104,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("La duración de síntomas positivos y negativos es mayor a un mes",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tiempo - Mayor 1 mes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R7"); 
 end
 
 
@@ -114,7 +114,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)   
     pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales"); 
+    pacienteResponse.actualizarReglasEjecutadas("R8"); 
 end    
 
 rule "Ambitos principales - Normal"
@@ -123,7 +123,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales - Normal"); 
+    pacienteResponse.actualizarReglasEjecutadas("R9"); 
 end
 /*
 rule "Ambitos principales"
@@ -221,7 +221,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia y presenta delirios o alucinaciones",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Antecedentes - Síntomas requeridos"); 
+    pacienteResponse.actualizarReglasEjecutadas("R10"); 
 end
 
 rule "Antecedentes - Sin síntomas requeridos"
@@ -236,7 +236,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia pero no posee delirios o alucinaciones",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Antecedentes - Sin síntomas requeridos"); 
+    pacienteResponse.actualizarReglasEjecutadas("R11"); 
 end
 
 rule "Sin antecedente de autismo y trastorno de la comunicacion en la infancia"
@@ -246,7 +246,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No existen antecedentes de un trastorno del espectro autista o de un trastorno de la comunicación de inicio en la infancia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Sin antecedente de autismo y trastorno de la comunicacion en la infancia"); 
+    pacienteResponse.actualizarReglasEjecutadas("R12"); 
 end
 
 
@@ -259,7 +259,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se han descartado el trastorno esquizoafectivo y el trastorno depresivo o bipolar con características psicóticas",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Diagnosticos descartados"); 
+    pacienteResponse.actualizarReglasEjecutadas("R13"); 
 end
 
 rule "Diagnostico trastorno esquizoafectivo no descartado"
@@ -268,7 +268,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno esquizoafectivo",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Diagnostico trastorno esquizoafectivo no descartado"); 
+    pacienteResponse.actualizarReglasEjecutadas("R14"); 
 end
 
 rule "Diagnostico trastorno bipolar no descartado"
@@ -277,7 +277,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno bipolar con características psicóticas",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Diagnostico trastorno bipolar no descartado"); 
+    pacienteResponse.actualizarReglasEjecutadas("R14"); 
 end
 
 rule "Diagnostico depresivo no descartado"
@@ -286,7 +286,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Presenta o no se ha descartado el trastorno depresivo",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Diagnostico depresivo no descartado"); 
+    pacienteResponse.actualizarReglasEjecutadas("R14"); 
 end
 
 
@@ -297,7 +297,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("El trastorno no se puede atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Efectos fisiologicos - No"); 
+    pacienteResponse.actualizarReglasEjecutadas("R16"); 
 end
 
 rule "Efectos fisiologicos - Si"
@@ -307,7 +307,7 @@ then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0)
     pacienteResponse.actualizarJustificacion("El trastorno se podría atribuir a los efectos fisiológicos de una sustancia u otra afección médica",1)   
     pacienteResponse.actualizarRecomendacion("Se recomienda descartar que los síntomas se deban a efectos secundarios de otras medicaciones o al consumo de sustancias",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Efectos fisiologicos - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R15"); 
 end
 
 
@@ -319,7 +319,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Los síntomas no se deben a una causa orgánica",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Causa organica - No"); 
+    pacienteResponse.actualizarReglasEjecutadas("R18"); 
 end
 
 rule "Causa organica - Si"
@@ -328,7 +328,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Los síntomas se pueden atribuir a una causa orgánica",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Causa organica - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R17"); 
 end
 
 rule "Causa organica - No evalua"
@@ -337,7 +337,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No se evalúa causa orgánica",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Causa organica - No evalua"); 
+    pacienteResponse.actualizarReglasEjecutadas("R19"); 
 end
 
 
@@ -349,7 +349,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta alucinaciones",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R20"); 
 end
 
 
@@ -359,7 +359,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("No se descartan alucinaciones",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - No se descarta"); 
+    pacienteResponse.actualizarReglasEjecutadas("R21"); 
 end
 
 rule "PUNTAJE: Alucinaciones - No"
@@ -368,7 +368,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta alucinaciones",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - No"); 
+    pacienteResponse.actualizarReglasEjecutadas("R22"); 
 end
 
 rule "RECOMENDACION: Alucinaciones - Cenestésicas"
@@ -407,7 +407,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda derivar o relaizar consulta a neurología",1)   
-    pacienteResponse.actualizarReglasEjecutadas("AfectivAlucinaciones - Olfativas con estudiosidad"); 
+    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas con estudiosidad"); 
 end
 
 
@@ -421,7 +421,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta delirios",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Delirios - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R23"); 
 end
 
 rule "PUNTAJE: Delirios - No" 
@@ -432,7 +432,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta delirios",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Delirios - No"); 
+    pacienteResponse.actualizarReglasEjecutadas("R23"); 
 end
 
 
@@ -443,7 +443,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta abulia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Abulia - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R24"); 
 end
 
 
@@ -454,7 +454,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Es infante",1)
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Menor"); 
+    pacienteResponse.actualizarReglasEjecutadas("R26"); 
 end
 
 rule "PUNTAJE: Edad - Adolescente hombre"
@@ -463,7 +463,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para hombres",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Adolescente hombre"); 
+    pacienteResponse.actualizarReglasEjecutadas("R25"); 
 end
 
 rule "PUNTAJE: Edad - Adulto masculino menor de 60"
@@ -472,7 +472,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("Es un adulto menor de 60",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Adulto masculino menor de 60"); 
+    pacienteResponse.actualizarReglasEjecutadas("R27"); 
 end
 
 rule "PUNTAJE: Edad - Adolescente mujer"
@@ -481,7 +481,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para mujeres",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Adolescente mujer"); 
+    pacienteResponse.actualizarReglasEjecutadas("R28"); 
 end
 
 rule "PUNTAJE: Edad - Adulto femenino menor de 60"
@@ -491,7 +491,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 2)
     pacienteResponse.actualizarJustificacion("Es adulto menor de 60",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Adulto femenino menor de 60"); 
+    pacienteResponse.actualizarReglasEjecutadas("R29"); 
 end
 
 rule "PUNTAJE: Edad - Mayor"
@@ -500,7 +500,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("Es un adulto mayor",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Mayor"); 
+    pacienteResponse.actualizarReglasEjecutadas("R30"); 
 end
 
 rule "PUNTAJE: Edad - Edad de mayor riesgo sin sexo"
@@ -510,7 +510,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Se encuentra en la de edad de la media de diagnóstico de esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Edad - Edad de mayor riesgo sin sexo"); 
+    pacienteResponse.actualizarReglasEjecutadas("R28"); 
 end
 
 
@@ -524,7 +524,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tipo de lenguaje - Más común"); 
+    pacienteResponse.actualizarReglasEjecutadas("R31"); 
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
@@ -542,7 +542,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tipo de lenguaje - Frecuentes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R32"); 
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
@@ -560,7 +560,7 @@ when
     && (sintomas_positivos_tipo_lenguaje.contains("lenguaje-taquilalia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("lenguaje-bradilalia")
-    || sintomas_positivos_tipo_lenguaje.contains("lenguaje-mutismo")))
+    || sintomas_positivos_tipo_lenguaje.contains("R33")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
@@ -573,7 +573,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el lenguaje",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tipo de lenguaje - Sin particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R34"); 
 end
 
 
@@ -586,7 +586,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades del pensamiento características de esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Pensamiento - Principales"); 
+    pacienteResponse.actualizarReglasEjecutadas("R35"); 
 end
 
 rule "PUNTAJE: Pensamiento - Particularidades"
@@ -604,7 +604,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )  
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el pensamiento comunes en esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Pensamiento - Particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R36"); 
 end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
@@ -613,7 +613,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el pensamiento",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Pensamiento - Sin particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R37"); 
 end
 
 
@@ -626,7 +626,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el ritmo del pensamiento (bradipsiquia o taquipsiquia)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ritmo pensamiento - Particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R38"); 
 end
 
 rule "PUNTAJE: Ritmo pensamiento - Sin particularidades"
@@ -635,7 +635,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el ritmo del pensamiento",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ritmo pensamiento - Sin particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R39"); 
 end
 
 
@@ -651,7 +651,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
     pacienteResponse.actualizarJustificacion("Presenta contenido del pensamiento con particularidades (idea fija u obsesiva)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Contenido pensamiento - Particularidades menos comunes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R40"); 
 end
 
 rule "PUNTAJE: Contenido pensamiento - Sin particularidades"
@@ -660,7 +660,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el contenido del pensamiento",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Contenido pensamiento - Sin particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R41"); 
 end
 
 rule "RECOMENDACION: Contenido pensamiento - Ideas de muerte o suicidas"
@@ -681,7 +681,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +3 )
     pacienteResponse.actualizarJustificacion("Posee antecedentes familiares psiquiátricos",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Antecedentes familiares - Si"); 
+    pacienteResponse.actualizarReglasEjecutadas("R42"); 
 end
 
 rule "PUNTAJE: Antecedentes familiares - No"
@@ -691,7 +691,7 @@ then
     
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Sin antecedentes familiares psiquiátricos",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Antecedentes familiares - No"); 
+    pacienteResponse.actualizarReglasEjecutadas("R43"); 
 end
 
 
@@ -706,7 +706,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (bizarro, extravagante, inadecuado, adelgazado)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Aspecto - Particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R44"); 
 end
 
 rule "PUNTAJE: Aspecto - Particularidades menos comunes"
@@ -719,7 +719,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (hipomimia)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Aspecto - Particularidades menos comunes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R45"); 
 end
 
 rule "PUNTAJE: Aspecto - Normal"
@@ -735,7 +735,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Aspecto normal",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Aspecto - Normal"); 
+    pacienteResponse.actualizarReglasEjecutadas("R46"); 
 end
 
 
@@ -746,7 +746,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Atención normal",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Atencion - Normal"); 
+    pacienteResponse.actualizarReglasEjecutadas("R47"); 
 end
 
 rule "PUNTAJE: Atención con particularidades"
@@ -755,7 +755,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención (hipoprosexia)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Atención con particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R48"); 
 end
 
 rule "PUNTAJE: Atención con particularidades más comunes"
@@ -765,7 +765,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención comunes en esquizofrenia (hiperprosexia y/o paraprosexia)",1)   
-    pacienteResponse.actualizarReglasEjecutadas(" Atención con particularidades más comunes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R49"); 
 end
 
 
@@ -775,7 +775,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Actividad normal",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad - Normal"); 
+    pacienteResponse.actualizarReglasEjecutadas("R50"); 
 end
 
 rule "PUNTAJE: Actividad con particularidades frecuentes"
@@ -785,7 +785,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la actividad frecuentes en esquizofrenia (interceptación cinética, hiperbulia improductiva)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad con particularidades frecuentes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R51"); 
 end
 
 rule "PUNTAJE: Actividad con particularidades más comunes"
@@ -800,7 +800,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la actividad de las más comunes en esquizofrenia (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad con particularidades más comunes"); 
+    pacienteResponse.actualizarReglasEjecutadas("R52"); 
 end
 
 rule "PUNTAJE: Actividad con part. - Otros diagnosticos"
@@ -810,7 +810,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos (impulsiones, flexibilidad cérea)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad con part. - Otros diagnosticos"); 
+    pacienteResponse.actualizarReglasEjecutadas("R53"); 
 end
 
 rule "RECOMENDACION: Actividad - Manierismo y sin estudios"
@@ -847,7 +847,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta hipotimia, una particularidad de afectividad muy frecuente en esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Afectividad - Frecuente"); 
+    pacienteResponse.actualizarReglasEjecutadas("R55"); 
 end
 
 rule "PUNTAJE: Afectividad - Menos frecuente"
@@ -859,7 +859,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en afectividad no tan frecuentes en esquizofrenia (timia displacentera, hipertimia displacentera)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Afectividad - Menos frecuente"); 
+    pacienteResponse.actualizarReglasEjecutadas("R56"); 
 end
 
 rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
@@ -877,7 +877,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades de afectividad más frecuentes en otros diagnósticos (labilidad, irritabilidad, expansivo, inapropiado, anhedonia)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Afectividad - Frecuentes otros diagnosticos"); 
+    pacienteResponse.actualizarReglasEjecutadas("R57"); 
 end
 
 rule "PUNTAJE: Afectividad - Normal"
@@ -886,7 +886,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Afectividad normal",1) 
-    pacienteResponse.actualizarReglasEjecutadas("Afectividad - Normal");   
+    pacienteResponse.actualizarReglasEjecutadas("R58");   
 end
 
 
@@ -902,6 +902,7 @@ when
     || sintomas_negativos_duracion== "Menos de un mes")
 then
     pacienteResponse.calcularDiagnostico(true);
+    pacienteResponse.actualizarReglasEjecutadas("R61");   
 end
 
 rule "Esquizofrenia"
