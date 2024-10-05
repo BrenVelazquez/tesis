@@ -127,7 +127,7 @@ function initializeNegativeButtons() {
                 this.classList.add('selected');
 
                 if (this.id === 'bajo-funcionamiento-si') {
-                    $("#bajo-funcionamiento-comentario").slideDown();
+                    $("#bajo-funcionamiento-comentario-id").slideDown();
                 }
             });
 
@@ -137,7 +137,7 @@ function initializeNegativeButtons() {
                 this.classList.add('selected');
 
                 if (this.id === 'bajo-funcionamiento-no') {
-                    $("#bajo-funcionamiento-comentario").slideUp();
+                    $("#bajo-funcionamiento-comentario-id").slideUp();
                 }
             });
         } else {
@@ -604,7 +604,9 @@ function obtenerDatosFormulario() {
             document.querySelector("#estudios-no.selected") ? "No" : "";
     const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
-    const estudioComentario = document.getElementById("estudio-comentario").value;
+    const estudioComentario = document.getElementById("estudio-comentario-text").value;
+
+    //FALTA IMAGEN
 
     datosFormulario = {
         edad: edad,
@@ -613,10 +615,9 @@ function obtenerDatosFormulario() {
         trastorno_autista: trastornoAutista,
         trastorno_comunicacion: trastornoComunicacion,
         trastorno_esquizoafectivo: trastornoEsquizoafectivo,
-        trastorno_depresivo: trastornoDepresivo,
         trastorno_bipolar: trastornoBipolar,
+        trastorno_depresivo: trastornoDepresivo,
         antecedentes_familiares: antecedentesFamiliares,
-        bajo_funcionamiento: bajoFuncionamiento,
         // sintomas positivos,
         sintomas_positivos_duracion: sintomasPositivosDuracion,
         sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
@@ -631,12 +632,15 @@ function obtenerDatosFormulario() {
         sintomas_negativos_atencion: sintomasNegativosAtencion,
         sintomas_negativos_actividad: sintomasNegativosActividad,
         sintomas_negativos_afectividad: sintomasNegativosAfectividad,
+        bajo_funcionamiento: bajoFuncionamiento,
         bajo_funcionamiento_comentario: bajoFuncionamientoComentario,
         // complementarios
         sustancias: sustancias,
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
         estudio_comentario: estudioComentario,
+        // FALTA IMAGEN
+
         //respuestas del diagnostico
         // diagnostico,
         recomendacion,
@@ -652,10 +656,16 @@ function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
     const datosFormulario = obtenerDatosFormulario();
+    // AGREGAR COMENTARIOS Y COMENTARIO-RECHAZO
+    const comentarioMedico = document.getElementById("comentarios-medicos").value;
+    const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
 
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
     if (validar_campos(datosFormulario)) {
+
+        datosFormulario.comentario_medico = comentarioMedico || '';
+        datosFormulario.justificacion_rechazo = justificacionRechazo || null;
 
         $("#justificacion-title").click(function () {
             $("#justificacion").toggle();
@@ -704,9 +714,6 @@ function determinar_diagnostico() {
                     default:
                         console.log("Opción de diagnostico desconocida");
                 }
-                datosFormulario.diagnostico = response.diagnostico;
-
-                datosFormulario.puntaje = response.puntaje;
 
                 let recomendacion = response.recomendacion;
                 if (recomendacion != null) {
@@ -714,7 +721,6 @@ function determinar_diagnostico() {
                     $("#recomendacion").css("display", "block");
                     $("#recomendacion").text(recomendacion ? recomendacion : "-");
                 }
-                datosFormulario.recomendacion = recomendacion;
 
                 let justificacion = response.justificacion;
                 if (justificacion != null) {
@@ -726,9 +732,15 @@ function determinar_diagnostico() {
                 else {
                     $("#justificacion").text("No disponible");
                 }
-                datosFormulario.justificacion = response.justificacion;
+                // Actualizar los campos del formulario con la respuesta del diagnóstico
+                datosFormulario.diagnostico = response.diagnostico;
+                datosFormulario.puntaje = response.puntaje;
+                datosFormulario.recomendacion = response.recomendacion || "-";
+                datosFormulario.justificacion = response.justificacion || "No disponible";
 
                 console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
+                // actualizar datosFormulario
+                window.datosFormulario = datosFormulario;
                 mostrarPopup();
             },
             error: function (error) {
@@ -777,7 +789,8 @@ function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
     console.log("estado: " + estado);
 
-    const datosFormulario = obtenerDatosFormulario();
+    const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
+    datosFormulario.estado = estado;
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
 
@@ -817,9 +830,11 @@ function guardarRegistro(estado) {
     // }
 
     //Metodo de Cargar Paciente
+    console.log('###### Metodo de Cargar Paciente #####');
+    console.log('jsonString: ' + jsonString);
     $.ajax({
         type: "POST",
-        url: "/ingresarPaciente", // La URL del controlador
+        url: "/ingresarPaciente", // La URL del Controller
         contentType: "application/json",
         data: jsonString,
         success: function (response) {
