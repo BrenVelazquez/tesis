@@ -373,7 +373,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Cenestésicas"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-cenestesicas"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("cenestesicas"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda evaluar esquizofrenia cenestésica",1)   
@@ -382,7 +382,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Visuales"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-visuales")
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("visuales")
     && sustancias=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -392,7 +392,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas sin estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas") 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("olfativas") 
     && estudios=="No")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
@@ -402,7 +402,7 @@ end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas con estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("alucinaciones-olfativas" )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_alucinaciones.contains("olfativas" )
     && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)

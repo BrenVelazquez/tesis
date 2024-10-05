@@ -593,7 +593,7 @@ function obtenerDatosFormulario() {
         document.querySelector("#bajo-funcionamiento-si.selected") ? "Si" :
             document.querySelector("#bajo-funcionamiento-no.selected") ? "No" : "";
 
-    const bajoFuncionamientoComentario = document.getElementById("bajo-funcionamiento-comentario").value;
+    const bajoFuncionamientoComentario = document.getElementById("bajo-funcionamiento-comentario-id").value;
 
     //complementarios
     const sustancias =
