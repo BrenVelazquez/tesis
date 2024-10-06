@@ -440,7 +440,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Más común"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia") )
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia-de-respuesta") )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 4)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje características de esquizofrenia (latencia de respuesta)",1)   
@@ -449,7 +449,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia")==false 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia-de-respuesta")==false 
     && (sintomas_positivos_tipo_lenguaje.contains("musitaciones") 
     || sintomas_positivos_tipo_lenguaje.contains("soliloquio") 
     || sintomas_positivos_tipo_lenguaje.contains("neologismo")
@@ -458,7 +458,7 @@ when
     || sintomas_positivos_tipo_lenguaje.contains("pararrespuesta")
     || sintomas_positivos_tipo_lenguaje.contains("estereotipia-verbal")
     || sintomas_positivos_tipo_lenguaje.contains("verbigeracion") 
-    || sintomas_positivos_tipo_lenguaje.contains("homofonia")))
+    || sintomas_positivos_tipo_lenguaje.contains("asociacion-por-homofonia")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 3)
     pacienteResponse.actualizarJustificacion("Presenta particularidades del lenguaje frecuentes de esquizofrenia",1)   
@@ -467,7 +467,7 @@ end
 
 rule "PUNTAJE: Tipo de lenguaje - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia")==false 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("latencia-de-respuesta")==false 
     && sintomas_positivos_tipo_lenguaje.contains("musitaciones")==false
     && sintomas_positivos_tipo_lenguaje.contains("soliloquio")==false
     && sintomas_positivos_tipo_lenguaje.contains("neologismo")==false
@@ -476,7 +476,7 @@ when
     && sintomas_positivos_tipo_lenguaje.contains("pararrespuesta")==false
     && sintomas_positivos_tipo_lenguaje.contains("estereotipia-verbal")==false 
     && sintomas_positivos_tipo_lenguaje.contains("verbigeracion")==false
-    && sintomas_positivos_tipo_lenguaje.contains("homofonia")==false
+    && sintomas_positivos_tipo_lenguaje.contains("asociacion-por-homofonia")==false
     && (sintomas_positivos_tipo_lenguaje.contains("taquilalia")
     || sintomas_positivos_tipo_lenguaje.contains("verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("bradilalia")
