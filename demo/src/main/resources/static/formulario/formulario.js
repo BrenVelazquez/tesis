@@ -845,7 +845,6 @@ function guardarRegistro(estado) {
 function unselect(valor, name) {
     var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
-    const lenguaje = [];
     for (var i = 0; i < len; i++) {
         if (cboxes[i].value != valor) cboxes[i].checked = false;
     }
@@ -854,7 +853,6 @@ function unselect(valor, name) {
 function unselectUnicos(valor, name) {
     var cboxes = document.getElementsByName(name);
     var len = cboxes.length;
-    const lenguaje = [];
     for (var i = 0; i < len; i++) {
         if (valor.includes(cboxes[i].value)) cboxes[i].checked = false;
     }

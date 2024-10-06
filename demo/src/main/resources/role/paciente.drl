@@ -774,7 +774,7 @@ rule "PUNTAJE: Afectividad - Menos frecuente"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo")==false 
     && sintomas_negativos_afectividad.contains("hipotimia")==false 
-    && (sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")
+    && (sintomas_negativos_afectividad.contains("timia-displacentera")
     || sintomas_negativos_afectividad.contains("hipertimia-displacentera")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
@@ -786,7 +786,7 @@ rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
 when
     $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo")==false 
     && sintomas_negativos_afectividad.contains("hipotimia")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
+    && sintomas_negativos_afectividad.contains("timia-displacentera")==false 
     && sintomas_negativos_afectividad.contains("hipertimia-displacentera")==false 
     && (sintomas_negativos_afectividad.contains("hipertimia-placentera") 
     || sintomas_negativos_afectividad.contains("labilidad") 

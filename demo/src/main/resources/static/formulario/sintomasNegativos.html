@@ -76,31 +76,58 @@
         <h6>Afectividad *</h6>
         <div id="afectividad" class="checkboxes">
           <div class="form-control">
-            <label id="check" ><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><input type="checkbox" name="afectividad[]" value="eutimia"
-                onclick="unselect(value, name)" />Eutimia</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-timia-displacentera"
-                  onclick="unselectUnicos('eutimia,hipertimia-placentera,hipertimia-displacentera', name)" />Timia
-                displacentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="hipertimia-placentera"
-                onclick="unselectUnicos('eutimia,afectividad-timia-displacentera,hipertimia-displacentera', name)" />Hipertimia
-              placentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="hipertimia-displacentera"
-                onclick="unselectUnicos('eutimia,afectividad-timia-displacentera,hipertimia-placentera', name)" />Hipertimia
-              displacentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="hipotimia"
-                onclick="unselectUnicos('eutimia', name)" />Hipotimia</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="aplanamiento-afectivo"
-                onclick="unselectUnicos('eutimia', name)" />Aplanamiento afectivo</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="labilidad"
-                onclick="unselectUnicos('eutimia', name)" />Labilidad</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="irritabilidad"
-                onclick="unselectUnicos('eutimia', name)" />Irritabilidad</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="expansivo"
-                onclick="unselectUnicos('eutimia', name)" />Expansivo</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="inapropiado"
-                onclick="unselectUnicos('eutimia', name)" />Inapropiado</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="anhedonia"
-                onclick="unselectUnicos('eutimia', name)" />Anhedonia</label>
+            <label id="check">
+              <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                rel="stylesheet"><input type="checkbox" name="afectividad[]" value="eutimia"
+                onclick="unselect(value, name)" />
+              Eutimia
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="timia-displacentera"
+                onclick="unselectUnicos(['eutimia', 'hipertimia-placentera', 'hipertimia-displacentera'], name)" />
+              Timia displacentera
+            </label>
+
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="hipertimia-placentera"
+                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-displacentera', name)" />
+              Hipertimia placentera
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="hipertimia-displacentera"
+                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-placentera', name)" />
+              Hipertimia displacentera
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="hipotimia" onclick="unselectUnicos('eutimia', name)" />
+              Hipotimia
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="aplanamiento-afectivo"
+                onclick="unselectUnicos('eutimia', name)" />
+              Aplanamiento afectivo
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="labilidad" onclick="unselectUnicos('eutimia', name)" />
+              Labilidad
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="irritabilidad"
+                onclick="unselectUnicos('eutimia', name)" />Irritabilidad
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="expansivo" onclick="unselectUnicos('eutimia', name)" />
+              Expansivo
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="inapropiado"
+                onclick="unselectUnicos('eutimia', name)" />
+              Inapropiado
+            </label>
+            <label id="check">
+              <input type="checkbox" name="afectividad[]" value="anhedonia" onclick="unselectUnicos('eutimia', name)" />
+              Anhedonia
+            </label>
           </div>
         </div>
       </div>
