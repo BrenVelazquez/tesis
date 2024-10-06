@@ -529,7 +529,7 @@ end
 
 rule "PUNTAJE: Pensamiento - Sin particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-sin-particularidades"))
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("sin-particularidades"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el pensamiento",1)   
