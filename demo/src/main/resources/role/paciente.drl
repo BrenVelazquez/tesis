@@ -619,10 +619,10 @@ end
 
 rule "PUNTAJE: Aspecto - Particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")
-    || sintomas_negativos_aspecto.contains("aspecto-extravagante")
-    || sintomas_negativos_aspecto.contains("aspecto-inadecuado") 
-    || sintomas_negativos_aspecto.contains("aspecto-adelgazado"))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("bizarro")
+    || sintomas_negativos_aspecto.contains("extravagante")
+    || sintomas_negativos_aspecto.contains("inadecuado") 
+    || sintomas_negativos_aspecto.contains("adelgazado"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (bizarro, extravagante, inadecuado, adelgazado)",1)   
@@ -631,11 +631,11 @@ end
 
 rule "PUNTAJE: Aspecto - Particularidades menos comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")==false
-    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false
-    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false
-    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-hipomimico"))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("bizarro")==false
+    && sintomas_negativos_aspecto.contains("extravagante")==false
+    && sintomas_negativos_aspecto.contains("inadecuado")==false
+    && sintomas_negativos_aspecto.contains("adelgazado")==false 
+    && sintomas_negativos_aspecto.contains("hipomimico"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el aspecto (hipomimia)",1)   
@@ -644,14 +644,14 @@ end
 
 rule "PUNTAJE: Aspecto - Normal"
 when
-    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("aspecto-bizarro")==false
-    && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false
-    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false
-    && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-hipomimico")== false) 
-    && sintomas_negativos_aspecto.contains("aspecto-facie")
-    || sintomas_negativos_aspecto.contains("aspecto-alinio")
-    || sintomas_negativos_aspecto.contains("aspecto-aseo"))
+    $pacienteRequest: PacienteRequest((sintomas_negativos_aspecto.contains("bizarro")==false
+    && sintomas_negativos_aspecto.contains("extravagante")==false
+    && sintomas_negativos_aspecto.contains("inadecuado")==false
+    && sintomas_negativos_aspecto.contains("adelgazado")==false 
+    && sintomas_negativos_aspecto.contains("hipomimico")== false) 
+    && sintomas_negativos_aspecto.contains("facie")
+    || sintomas_negativos_aspecto.contains("alinio")
+    || sintomas_negativos_aspecto.contains("aseo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Aspecto normal",1)   
