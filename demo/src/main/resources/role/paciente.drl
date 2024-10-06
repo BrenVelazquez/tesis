@@ -20,8 +20,8 @@ when
     || sintomas_positivos_alucinaciones=="Si" 
     || sintomas_positivos_tipo_pensamiento.contains("disgregacion") 
     || sintomas_positivos_tipo_pensamiento.contains("incoherencia" )
-    || sintomas_negativos_actividad=="actividad-abulia"
-    || sintomas_negativos_actividad=="actividad-hipobulia"))
+    || sintomas_negativos_actividad=="abulia"
+    || sintomas_negativos_actividad=="hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
@@ -36,8 +36,8 @@ when
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sist")==false
     && (sintomas_positivos_tipo_pensamiento.contains("disgregacion") 
     || sintomas_positivos_tipo_pensamiento.contains("incoherencia" )
-    || sintomas_negativos_actividad=="actividad-abulia"
-    || sintomas_negativos_actividad=="actividad-hipobulia"))
+    || sintomas_negativos_actividad=="abulia"
+    || sintomas_negativos_actividad=="hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
@@ -50,8 +50,8 @@ when
     && sintomas_positivos_alucinaciones=="No" 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-sist")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sist")==false
-    && (sintomas_negativos_actividad=="actividad-abulia"  //no evaluo incoherencia porque son los dos discurso desorganizado
-    || sintomas_negativos_actividad=="actividad-hipobulia"))
+    && (sintomas_negativos_actividad=="abulia"  //no evaluo incoherencia porque son los dos discurso desorganizado
+    || sintomas_negativos_actividad=="hipobulia"))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
@@ -64,8 +64,8 @@ when
     && sintomas_positivos_alucinaciones=="No" 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-sist")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sist")==false
-    && ( sintomas_negativos_actividad=="actividad-abulia"   //no cuento disgregacion porque tambien es discurso desorganizado
-    || sintomas_negativos_actividad=="actividad-hipobulia")) 
+    && ( sintomas_negativos_actividad=="abulia"   //no cuento disgregacion porque tambien es discurso desorganizado
+    || sintomas_negativos_actividad=="hipobulia")) 
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Dos (o más) de los síntomas principales, cada uno de ellos presente durante una parte significativa de tiempo durante un período de un mes. Al menos uno de ellos ha de ser delirios, alucinaciones, disgregación o incoherencia",1)   
@@ -125,86 +125,6 @@ then
     pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
     pacienteResponse.actualizarReglasEjecutadas("R9"); 
 end
-/*
-rule "Ambitos principales"
-when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro") 
-    // || sintomas_negativos_aspecto.contains("aspecto-extravagante") 
-    || sintomas_negativos_aspecto.contains("aspecto-inadecuado") 
-    // || sintomas_negativos_aspecto.contains("aspecto-adelgazado") 
-    || sintomas_negativos_aspecto.contains("aspecto-hipomimico")
-    || sintomas_negativos_atencion=="atencion-hipoprosexia" 
-    || sintomas_negativos_atencion=="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion=="atencion-paraprosexia" 
-    || sintomas_negativos_actividad=="actividad-abulia" 
-    || sintomas_negativos_actividad=="actividad-hipobulia" 
-    || sintomas_negativos_actividad=="actividad-hiperbulia-improductiva" 
-    || sintomas_negativos_actividad=="actividad-impulsiones" 
-    || sintomas_negativos_actividad=="actividad-compulsiones" 
-    || sintomas_negativos_actividad=="actividad-apraxia" 
-    || sintomas_negativos_actividad=="actividad-ataxia" 
-    || sintomas_negativos_actividad=="actividad-ecopraxia" 
-    || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad=="actividad-interceptacion-cinetica" 
-    || sintomas_negativos_actividad=="actividad-negativismo" 
-    || sintomas_negativos_actividad=="actividad-obediencia-automatica" 
-    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" 
-    || sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo") 
-    || sintomas_negativos_afectividad.contains("afectividad-timia-displacentera") 
-    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera") 
-    || sintomas_negativos_afectividad.contains("afectividad-hipotimia") 
-    || sintomas_negativos_afectividad.contains("afectividad-labilidad") 
-    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
-    || sintomas_negativos_afectividad.contains("afectividad-expansivo") 
-    || sintomas_negativos_afectividad.contains("afectividad-inapropiado") 
-    || sintomas_negativos_afectividad.contains("afectividad-anhedonia"))
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales"); 
-end
-
-rule "Ambitos principales - Normal"
-when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_aspecto.contains("aspecto-bizarro")==false 
-    // && sintomas_negativos_aspecto.contains("aspecto-extravagante")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-inadecuado")==false 
-    // && sintomas_negativos_aspecto.contains("aspecto-adelgazado")==false 
-    && sintomas_negativos_aspecto.contains("aspecto-hipomimico")==false
-    && sintomas_negativos_atencion!="atencion-hipoprosexia" 
-    && sintomas_negativos_atencion!="atencion-hiperprosexia" 
-    && sintomas_negativos_atencion!="atencion-paraprosexia" 
-    && sintomas_negativos_actividad!="actividad-abulia" 
-    && sintomas_negativos_actividad!="actividad-hipobulia" 
-    && sintomas_negativos_actividad!="actividad-hiperbulia-improductiva" 
-    && sintomas_negativos_actividad!="actividad-impulsiones" 
-    && sintomas_negativos_actividad!="actividad-compulsiones" 
-    && sintomas_negativos_actividad!="actividad-apraxia" 
-    && sintomas_negativos_actividad!="actividad-ataxia" 
-    && sintomas_negativos_actividad!="actividad-ecopraxia" 
-    && sintomas_negativos_actividad!="actividad-manierismo" 
-    && sintomas_negativos_actividad!="actividad-estereotipia-motora" 
-    && sintomas_negativos_actividad!="actividad-interceptacion-cinetica" 
-    && sintomas_negativos_actividad!="actividad-negativismo" 
-    && sintomas_negativos_actividad!="actividad-obediencia-automatica" 
-    && sintomas_negativos_actividad!="actividad-flexibilidad-cerea"  
-    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-labilidad")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-irritabilidad")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-expansivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-inapropiado")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-anhedonia")==false)
-then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarJustificacion("No presenta un bajo nivel de funcionamiento en ámbitos principales",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Ambitos principales - Normal"); 
-end
-*/
 
 
 
@@ -439,7 +359,7 @@ end
 
 rule "PUNTAJE: Abulia - Si"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-abulia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="abulia")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
     pacienteResponse.actualizarJustificacion("Presenta abulia",1)   
@@ -742,7 +662,7 @@ end
 
 rule "PUNTAJE: Atencion - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-euprosexia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="euprosexia")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Atención normal",1)   
@@ -751,7 +671,7 @@ end
 
 rule "PUNTAJE: Atención con particularidades"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-hipoprosexia" )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="hipoprosexia" )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención (hipoprosexia)",1)   
@@ -760,8 +680,8 @@ end
 
 rule "PUNTAJE: Atención con particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="atencion-hiperprosexia" 
-    || sintomas_negativos_atencion=="atencion-paraprosexia")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_atencion=="hiperprosexia" 
+    || sintomas_negativos_atencion=="paraprosexia")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la atención comunes en esquizofrenia (hiperprosexia y/o paraprosexia)",1)   
@@ -771,7 +691,7 @@ end
 
 rule "PUNTAJE: Actividad - Normal" 
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-normobulico")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="normobulico")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Actividad normal",1)   
@@ -780,8 +700,8 @@ end
 
 rule "PUNTAJE: Actividad con particularidades frecuentes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-hiperbulia-improductiva" 
-    || sintomas_negativos_actividad=="actividad-interceptacion-cinetica")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="hiperbulia-improductiva" 
+    || sintomas_negativos_actividad=="interceptacion-cinetica")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la actividad frecuentes en esquizofrenia (interceptación cinética, hiperbulia improductiva)",1)   
@@ -790,13 +710,13 @@ end
 
 rule "PUNTAJE: Actividad con particularidades más comunes"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-hipobulia" 
-    || sintomas_negativos_actividad=="actividad-abulia" 
-    || sintomas_negativos_actividad=="actividad-compulsiones" 
-    || sintomas_negativos_actividad=="actividad-ecopraxia"
-    || sintomas_negativos_actividad=="actividad-manierismo" 
-    || sintomas_negativos_actividad=="actividad-estereotipia-motora" 
-    || sintomas_negativos_actividad=="actividad-negativismo")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="hipobulia" 
+    || sintomas_negativos_actividad=="abulia" 
+    || sintomas_negativos_actividad=="compulsiones" 
+    || sintomas_negativos_actividad=="ecopraxia"
+    || sintomas_negativos_actividad=="manierismo" 
+    || sintomas_negativos_actividad=="estereotipia-motora" 
+    || sintomas_negativos_actividad=="negativismo")
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades en la actividad de las más comunes en esquizofrenia (abulia, hipobulia, compulsiones, ecopraxia, manierismo, estereotipia motora o negativismo)",1)   
@@ -805,8 +725,8 @@ end
 
 rule "PUNTAJE: Actividad con part. - Otros diagnosticos"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-impulsiones" 
-    || sintomas_negativos_actividad=="actividad-flexibilidad-cerea" )
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="impulsiones" 
+    || sintomas_negativos_actividad=="flexibilidad-cerea" )
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Particularidades de la actividad más frecuentes en otros diagnósticos (impulsiones, flexibilidad cérea)",1)   
@@ -815,7 +735,7 @@ end
 
 rule "RECOMENDACION: Actividad - Manierismo y sin estudios"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="No")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="manierismo" && estudios=="No")
 then 
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
     pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y sin estudios"); 
@@ -823,7 +743,7 @@ end
 
 rule "RECOMENDACION: Actividad - Manierismo y estudios SI"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="actividad-manierismo" && estudios=="Si")
+    $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="manierismo" && estudios=="Si")
 then 
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
     pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y estudios SI"); 
@@ -833,7 +753,7 @@ end
 
 rule "PUNTAJE: Afectividad - Más comun"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo"))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta aplanamiento afectivo, una particularidad de afectividad muy común es esquizofrenia",1)   
@@ -842,8 +762,8 @@ end
 
 rule "PUNTAJE: Afectividad - Frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipotimia"))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("hipotimia"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +4 )
     pacienteResponse.actualizarJustificacion("Presenta hipotimia, una particularidad de afectividad muy frecuente en esquizofrenia",1)   
@@ -852,10 +772,10 @@ end
 
 rule "PUNTAJE: Afectividad - Menos frecuente"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("hipotimia")==false 
     && (sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")
-    || sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")))
+    || sintomas_negativos_afectividad.contains("hipertimia-displacentera")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +2)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en afectividad no tan frecuentes en esquizofrenia (timia displacentera, hipertimia displacentera)",1)   
@@ -864,16 +784,16 @@ end
 
 rule "PUNTAJE: Afectividad - Frecuentes otros diagnosticos"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-aplanamiento-afectivo")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipotimia")==false 
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("aplanamiento-afectivo")==false 
+    && sintomas_negativos_afectividad.contains("hipotimia")==false 
     && sintomas_negativos_afectividad.contains("afectividad-timia-displacentera")==false 
-    && sintomas_negativos_afectividad.contains("afectividad-hipertimia-displacentera")==false 
-    && (sintomas_negativos_afectividad.contains("afectividad-hipertimia-placentera") 
-    || sintomas_negativos_afectividad.contains("afectividad-labilidad") 
-    || sintomas_negativos_afectividad.contains("afectividad-irritabilidad") 
-    || sintomas_negativos_afectividad.contains("afectividad-expansivo")
-    || sintomas_negativos_afectividad.contains("afectividad-inapropiado")
-    || sintomas_negativos_afectividad.contains("afectividad-anhedonia")))
+    && sintomas_negativos_afectividad.contains("hipertimia-displacentera")==false 
+    && (sintomas_negativos_afectividad.contains("hipertimia-placentera") 
+    || sintomas_negativos_afectividad.contains("labilidad") 
+    || sintomas_negativos_afectividad.contains("irritabilidad") 
+    || sintomas_negativos_afectividad.contains("expansivo")
+    || sintomas_negativos_afectividad.contains("inapropiado")
+    || sintomas_negativos_afectividad.contains("anhedonia")))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +1 )
     pacienteResponse.actualizarJustificacion("Presenta particularidades de afectividad más frecuentes en otros diagnósticos (labilidad, irritabilidad, expansivo, inapropiado, anhedonia)",1)   
@@ -882,7 +802,7 @@ end
 
 rule "PUNTAJE: Afectividad - Normal"
 when
-    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("afectividad-eutimia"))
+    $pacienteRequest: PacienteRequest(sintomas_negativos_afectividad.contains("eutimia"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
     pacienteResponse.actualizarJustificacion("Afectividad normal",1) 

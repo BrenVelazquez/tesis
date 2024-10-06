@@ -41,10 +41,10 @@
       <div id="negativo-tipo-atencion" class="form-group margin-filas">
         <h6 for="negativo-negativo-tipo-atencion">Atención *</h6>
         <select class="form-control" id="atencion" name="atencion" required>
-          <option value="atencion-euprosexia">Euprosexia</option>
-          <option value="atencion-hipoprosexia">Hipoprosexia</option>
-          <option value="atencion-hiperprosexia">Hiperprosexia</option>
-          <option value="atencion-paraprosexia">Paraprosexia</option>
+          <option value="euprosexia">Euprosexia</option>
+          <option value="hipoprosexia">Hipoprosexia</option>
+          <option value="hiperprosexia">Hiperprosexia</option>
+          <option value="paraprosexia">Paraprosexia</option>
           <option value="-1" selected>Seleccioná una opción</option>
         </select>
       </div>
@@ -52,22 +52,22 @@
       <div id="negativo-tipo-actividad" class="form-group margin-filas">
         <h6 for="negativo-tipo-actividad">Actividad *</h6>
         <select class="form-control" id="actividad" name="actividad" required>
-          <option value="actividad-normobulico">Normobúlico</option>
-          <option value="actividad-abulia">Abulia</option>
-          <option value="actividad-hipobulia">Hipobulia</option>
-          <option value="actividad-hiperbulia-productiva">Hiperbulia productiva</option>
-          <option value="actividad-hiperbulia-improductiva">Hiperbulia improductiva</option>
-          <option value="actividad-impulsiones">Impulsiones</option>
-          <option value="actividad-compulsiones">Compulsiones</option>
-          <option value="actividad-apraxia">Apraxia</option>
-          <option value="actividad-ataxia">Ataxia</option>
-          <option value="actividad-ecopraxia">Ecopraxia</option>
-          <option value="actividad-manierismo">Manierismo</option>
-          <option value="actividad-estereotipia-motora">Estereotipia Motora</option>
-          <option value="actividad-interceptacion-cinetica">Interceptación cinética</option>
-          <option value="actividad-negativismo">Negativismo</option>
-          <option value="actividad-obediencia-automatica">Obediencia automática</option>
-          <option value="actividad-flexibilidad-cerea">Flexibilidad cérea</option>
+          <option value="normobulico">Normobúlico</option>
+          <option value="abulia">Abulia</option>
+          <option value="hipobulia">Hipobulia</option>
+          <option value="hiperbulia-productiva">Hiperbulia productiva</option>
+          <option value="hiperbulia-improductiva">Hiperbulia improductiva</option>
+          <option value="impulsiones">Impulsiones</option>
+          <option value="compulsiones">Compulsiones</option>
+          <option value="apraxia">Apraxia</option>
+          <option value="ataxia">Ataxia</option>
+          <option value="ecopraxia">Ecopraxia</option>
+          <option value="manierismo">Manierismo</option>
+          <option value="estereotipia-motora">Estereotipia Motora</option>
+          <option value="interceptacion-cinetica">Interceptación cinética</option>
+          <option value="negativismo">Negativismo</option>
+          <option value="obediencia-automatica">Obediencia automática</option>
+          <option value="flexibilidad-cerea">Flexibilidad cérea</option>
           <option value="-1" selected>Seleccioná una opción</option>
         </select>
       </div>
@@ -76,31 +76,31 @@
         <h6>Afectividad *</h6>
         <div id="afectividad" class="checkboxes">
           <div class="form-control">
-            <label id="check" ><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><input type="checkbox" name="afectividad[]" value="afectividad-eutimia"
+            <label id="check" ><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><input type="checkbox" name="afectividad[]" value="eutimia"
                 onclick="unselect(value, name)" />Eutimia</label>
             <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-timia-displacentera"
-                onclick="unselectUnicos('afectividad-eutimia,afectividad-hipertimia-placentera,afectividad-hipertimia-displacentera', name)" />Timia
-              displacentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-placentera"
-                onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-displacentera', name)" />Hipertimia
+                  onclick="unselectUnicos('eutimia,hipertimia-placentera,hipertimia-displacentera', name)" />Timia
+                displacentera</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="hipertimia-placentera"
+                onclick="unselectUnicos('eutimia,afectividad-timia-displacentera,hipertimia-displacentera', name)" />Hipertimia
               placentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipertimia-displacentera"
-                onclick="unselectUnicos('afectividad-eutimia,afectividad-timia-displacentera,afectividad-hipertimia-placentera', name)" />Hipertimia
+            <label id="check"><input type="checkbox" name="afectividad[]" value="hipertimia-displacentera"
+                onclick="unselectUnicos('eutimia,afectividad-timia-displacentera,hipertimia-placentera', name)" />Hipertimia
               displacentera</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-hipotimia"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Hipotimia</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-aplanamiento-afectivo"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Aplanamiento afectivo</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-labilidad"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Labilidad</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-irritabilidad"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Irritabilidad</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-expansivo"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Expansivo</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-inapropiado"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Inapropiado</label>
-            <label id="check"><input type="checkbox" name="afectividad[]" value="afectividad-anhedonia"
-                onclick="unselectUnicos('afectividad-eutimia', name)" />Anhedonia</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="hipotimia"
+                onclick="unselectUnicos('eutimia', name)" />Hipotimia</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="aplanamiento-afectivo"
+                onclick="unselectUnicos('eutimia', name)" />Aplanamiento afectivo</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="labilidad"
+                onclick="unselectUnicos('eutimia', name)" />Labilidad</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="irritabilidad"
+                onclick="unselectUnicos('eutimia', name)" />Irritabilidad</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="expansivo"
+                onclick="unselectUnicos('eutimia', name)" />Expansivo</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="inapropiado"
+                onclick="unselectUnicos('eutimia', name)" />Inapropiado</label>
+            <label id="check"><input type="checkbox" name="afectividad[]" value="anhedonia"
+                onclick="unselectUnicos('eutimia', name)" />Anhedonia</label>
           </div>
         </div>
       </div>
