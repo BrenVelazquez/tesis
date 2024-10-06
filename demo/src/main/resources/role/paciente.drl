@@ -480,11 +480,11 @@ when
     && (sintomas_positivos_tipo_lenguaje.contains("taquilalia")
     || sintomas_positivos_tipo_lenguaje.contains("verborragia")
     || sintomas_positivos_tipo_lenguaje.contains("bradilalia")
-    || sintomas_positivos_tipo_lenguaje.contains("R33")))
+    || sintomas_positivos_tipo_lenguaje.contains("mutismo")))
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 1)
     pacienteResponse.actualizarJustificacion("Presenta particularidades en el lenguaje que no son características de esquizofrenia (taquilalia, verborragia, bradilalia, mutismo)",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Tipo de lenguaje - Particularidades"); 
+    pacienteResponse.actualizarReglasEjecutadas("R33"); 
 end
 
 rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
