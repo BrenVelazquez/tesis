@@ -250,8 +250,6 @@ function volver() {
 
 // region validar campos
 function validar_campos(datosFormulario) {
-    console.log("INICIO VALIDAR CAMPOS");
-
     resetearErrores();
     let esValido = true;
     const errorText = "Por favor, seleccione una opción.";
@@ -384,7 +382,6 @@ function validar_campos(datosFormulario) {
     }
 
     cboxes = document.getElementsByName('contenido-pensamiento[]');
-    console.log(cboxes.length);
     len = cboxes.length;
     const contenido = [];
     for (var i = 0; i < len; i++) {
@@ -468,11 +465,7 @@ function validar_campos(datosFormulario) {
             esValido = false;
         }
     }
-
-
-    console.log("FIN VALIDAR CAMPOS - esValido? = " + esValido);
     return esValido;
-
 }
 
 
@@ -489,7 +482,6 @@ function resetearErrores() {
     const errores = document.querySelectorAll(".error-message");
     errores.forEach(error => {
         const campo = error.parentNode.querySelector("input, select, .checkboxes");
-        // console.log(campo.id);
         campo.style.borderColor = "";
         error.parentNode.removeChild(error);
     });
@@ -584,7 +576,6 @@ function obtenerDatosFormulario() {
     len = cboxes.length;
     const afectividad = [];
     for (var i = 0; i < len; i++) {
-        // console.log(cboxes[i]);
         if (cboxes[i].checked) afectividad.push(cboxes[i].value);
     }
     const sintomasNegativosAfectividad = afectividad.toString();
@@ -787,7 +778,7 @@ function mostrarLoaderBoton(boton) {
 // region guardarRegistro
 function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
-    console.log("estado: " + estado);
+    // console.log("estado: " + estado);
 
     const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
     datosFormulario.estado = estado;
@@ -838,8 +829,8 @@ function guardarRegistro(estado) {
         contentType: "application/json",
         data: jsonString,
         success: function (response) {
-            // console.log('Paciente ingresado con éxito:', data);
-            console.log('Paciente ingresado con éxito');
+            console.log('Paciente ingresado con éxito:', response);
+            // console.log('Paciente ingresado con éxito');
             mostrarSnackbar("Paciente ingresado con éxito", true);
         },
         error: function (xhr, status, error) {
