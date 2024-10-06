@@ -46,7 +46,7 @@ end
 
 rule "Sintomas obligatorios - Disgregacion"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-disgregacion") 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("disgregacion") 
     && sintomas_positivos_alucinaciones=="No" 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-sist")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sist")==false
@@ -60,7 +60,7 @@ end
 
 rule "Sintomas obligatorios - Incoherencia"
 when
-    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("pensamiento-incoherencia") 
+    $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_pensamiento.contains("incoherencia") 
     && sintomas_positivos_alucinaciones=="No" 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-sist")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sist")==false
