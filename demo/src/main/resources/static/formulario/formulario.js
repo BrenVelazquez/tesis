@@ -630,12 +630,8 @@ function obtenerDatosFormulario() {
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
         estudio_comentario: estudioComentario,
-        // FALTA IMAGEN
 
-        //respuestas del diagnostico
-        // diagnostico,
-        recomendacion,
-        // justificacion,
+        // FALTA IMAGEN
     };
 
     return datosFormulario
@@ -721,6 +717,7 @@ function determinar_diagnostico() {
                 datosFormulario.puntaje = response.puntaje;
                 datosFormulario.recomendacion = response.recomendacion || "No disponible";
                 datosFormulario.justificacion = response.justificacion || "No disponible";
+                datosFormulario.reglas = response.reglas_ejecutadas || "No disponible";
 
                 console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
                 // actualizar datosFormulario
