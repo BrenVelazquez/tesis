@@ -647,17 +647,10 @@ function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
     const datosFormulario = obtenerDatosFormulario();
-    // AGREGAR COMENTARIOS Y COMENTARIO-RECHAZO
-    const comentarioMedico = document.getElementById("comentarios-medicos").value;
-    const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
 
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
     if (validar_campos(datosFormulario)) {
-
-        datosFormulario.comentario_medico = comentarioMedico || '';
-        datosFormulario.justificacion_rechazo = justificacionRechazo || null;
-
         $("#justificacion-title").click(function () {
             $("#justificacion").toggle();
 
@@ -696,7 +689,7 @@ function determinar_diagnostico() {
                     case "Esquizofrenia":
                         $("#esquizofrenia").css("display", "block");
                         break;
-                    case "Posible esquizofrenia temporal":
+                    case "Evaluar esquizofrenia temporal":
                         $("#evaluar-temporal").css("display", "block");
                         break;
                     case "Esquizofrenia no posible":
@@ -726,7 +719,7 @@ function determinar_diagnostico() {
                 // Actualizar los campos del formulario con la respuesta del diagnóstico
                 datosFormulario.diagnostico = response.diagnostico;
                 datosFormulario.puntaje = response.puntaje;
-                datosFormulario.recomendacion = response.recomendacion || "-";
+                datosFormulario.recomendacion = response.recomendacion || "No disponible";
                 datosFormulario.justificacion = response.justificacion || "No disponible";
 
                 console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
@@ -776,12 +769,18 @@ function mostrarLoaderBoton(boton) {
 // endregion snackbar
 
 // region guardarRegistro
-function guardarRegistro(estado) {
+async function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
     // console.log("estado: " + estado);
 
     const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
     datosFormulario.estado = estado;
+
+    const comentarioMedico = document.getElementById("comentarios-medicos").value;
+    const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
+    datosFormulario.comentario_medico = comentarioMedico || "";
+    datosFormulario.justificacion_rechazo = justificacionRechazo || "";
+
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
 
@@ -823,21 +822,43 @@ function guardarRegistro(estado) {
     //Metodo de Cargar Paciente
     console.log('###### Metodo de Cargar Paciente #####');
     console.log('jsonString: ' + jsonString);
-    $.ajax({
-        type: "POST",
-        url: "/ingresarPaciente", // La URL del Controller
-        contentType: "application/json",
-        data: jsonString,
-        success: function (response) {
+    try {
+        const response = await $.ajax({
+            type: "POST",
+            url: "/ingresarPaciente",
+            contentType: "application/json",
+            data: jsonString,
+        });
+        if (response.exito) {
             console.log('Paciente ingresado con éxito:', response);
-            // console.log('Paciente ingresado con éxito');
-            mostrarSnackbar("Paciente ingresado con éxito", true);
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al registrar al paciente:', error);
-            mostrarSnackbar("Ocurrió un error al registrar al paciente", false);
+            mostrarSnackbar(response.mensaje, true);
+            return true;
+        } else {
+            console.error('Error al registrar al paciente:', response);
+            mostrarSnackbar(response.mensaje, false);
+            return false;
         }
-    });
+    } catch (error) {
+        console.error('Error al registrar al paciente:', response);
+        mostrarSnackbar(response.mensaje, false);
+        return false;
+    }
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/ingresarPaciente", // La URL del Controller
+    //     contentType: "application/json",
+    //     data: jsonString,
+    //     success: function (response) {
+    //         console.log('Paciente ingresado con éxito:', response);
+    //         // console.log('Paciente ingresado con éxito');
+    //         mostrarSnackbar("Paciente ingresado con éxito", true);
+    //     },
+    //     error: function (xhr, status, error) {
+    //         console.error('Error al registrar al paciente:', error);
+    //         mostrarSnackbar("Ocurrió un error al registrar al paciente", false);
+    //     }
+    // });
 }
 // endregion guardarRegistro
 

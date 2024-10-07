@@ -13,7 +13,9 @@ import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 import com.sistexperto.service.PacienteService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.IIOException;
 
@@ -65,8 +67,8 @@ public class PacienteController {
     }
 
     public String cleanFileName(String fileName) {
-        // Remover caracteres especiales 
-        // mantener solo letras, números, guiones y puntos
+        // Remover caracteres especiales
+        // mantener solo letras, numeros, guiones y puntos
         String cleanedFileName = fileName.replaceAll("[^a-zA-Z0-9.-]", "_");
 
         // Asegurarse de que el nombre de archivo no comience con un guion o un punto
@@ -76,12 +78,20 @@ public class PacienteController {
     }
 
     @PostMapping("/ingresarPaciente")
-    public ResponseEntity<Object> ingresarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Paciente paciente) {
 
         logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}", paciente);
 
-        pacienteService.guardarPaciente(paciente);
-        return ResponseEntity.ok("Paciente ingresado con éxito.");
+        Boolean exito = pacienteService.ingresarNuevoPaciente(paciente);
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("exito", exito);
+        if (exito) {
+            respuesta.put("mensaje", "Paciente ingresado con éxito.");
+        } else {
+            respuesta.put("mensaje", "Ocurrió un error al ingresar al paciente.");
+        }
+
+        return ResponseEntity.ok(respuesta);
     }
 
 }

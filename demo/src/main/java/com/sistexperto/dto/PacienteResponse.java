@@ -32,6 +32,9 @@ public class PacienteResponse {
     @JsonProperty("justificacion")
     private String justificacion;
 
+    @JsonProperty("exito")
+    private Boolean exito;
+
     public void calcularDiagnostico(Boolean temporal) {
         String recomendacion = "";
         if (puntaje < 36) {
@@ -40,7 +43,7 @@ public class PacienteResponse {
             this.actualizarReglasEjecutadas("R60");
         } else {
             if (puntaje >= 36 && temporal) {
-                this.setDiagnostico("Posible esquizofrenia temporal");
+                this.setDiagnostico("Evaluar esquizofrenia temporal");
                 recomendacion = "Se recomienda evaluar esquizofrenia temporal.";
                 
             } else {
