@@ -297,7 +297,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda evaluar esquizofrenia cenestésica",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Cenestésicas"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Cenestésicas"); 
 end
 
 rule "RECOMENDACION: Alucinaciones - Visuales"
@@ -307,7 +307,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda descartar efectos secundarios de otras medicaciones y consumo de sustancias",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Visuales"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Visuales"); 
 end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas sin estudios"
@@ -317,7 +317,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios para evaluar causas orgánicas para alucinaciones olfativas",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas sin estudios"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas sin estudios"); 
 end
 
 rule "RECOMENDACION: Alucinaciones - Olfativas con estudios"
@@ -327,7 +327,7 @@ when
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarRecomendacion("Se recomienda derivar o relaizar consulta a neurología",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas con estudiosidad"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas con estudiosidad"); 
 end
 
 
@@ -589,7 +589,7 @@ when
     || sintomas_positivos_tipo_contenido_pensamiento.contains("deas-suicidas")))
 then
     pacienteResponse.actualizarRecomendacion("Requiere evaluación por guardia ya que presenta ideas de muerte o suicidas",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Contenido pensamiento - Ideas de muerte o suicidas"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Contenido pensamiento - Ideas de muerte o suicidas"); 
 end
 
 
@@ -738,7 +738,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="manierismo" && estudios=="No")
 then 
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y sin estudios"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y sin estudios"); 
 end
 
 rule "RECOMENDACION: Actividad - Manierismo y estudios SI"
@@ -746,7 +746,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_actividad=="manierismo" && estudios=="Si")
 then 
     pacienteResponse.actualizarRecomendacion("Se recomienda realizar estudios complementarios o derivar a neurología para encontrar la causa del Manierismo",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y estudios SI"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Actividad - Manierismo y estudios SI"); 
 end
 
 
@@ -757,7 +757,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta aplanamiento afectivo, una particularidad de afectividad muy común es esquizofrenia",1)   
-    pacienteResponse.actualizarReglasEjecutadas("Afectividad - Más comun"); 
+    // pacienteResponse.actualizarReglasEjecutadas("Afectividad - Más comun"); 
 end
 
 rule "PUNTAJE: Afectividad - Frecuente"
