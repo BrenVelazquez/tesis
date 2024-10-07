@@ -15,9 +15,9 @@ public class Paciente {
 
     @JsonProperty("sexo")
     private String sexo;
-
-
-
+    
+    @JsonProperty("nombre")
+    private String nombre;
     
     @JsonProperty("id_imagen")
     private String id_imagen;

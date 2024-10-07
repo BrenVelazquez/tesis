@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sistexperto.database.database;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
@@ -48,7 +49,7 @@ public class PacienteService {
         // del front)
         kieSession.insert(pacienteRequest);
         // kieSession.insert(pacienteResponse);
-        
+
         // Corre todas las reglas al mismo tiempo. (se puede hacer que se ejecuten
         // reglas especificas y no todo junto pero hay que ver como y si sirve de algo)
         kieSession.fireAllRules();
@@ -98,77 +99,73 @@ public class PacienteService {
         return "";
     }
 
-
     public void guardarImagen(String codigoPaciente, String originalFileName, MultipartFile file, String estado,
             String riesgo) throws IOException {
-    //     // Directorio donde se guardarán las imágenes dentro del proyecto (en este caso,
-    //     // dentro de src/img)
-    //     String uploadDir = "src/main/resources/static";
-    //     String uploadDirPath = "";
+        // // Directorio donde se guardarán las imágenes dentro del proyecto (en este
+        // caso,
+        // // dentro de src/img)
+        // String uploadDir = "src/main/resources/static";
+        // String uploadDirPath = "";
 
-    //     if (estado.equals("Confirmado")) {
-    //         if (riesgo.equals("Riesgo Bajo")) {
-    //             uploadDirPath = "/imagenes/benignos";
-    //             uploadDir += uploadDirPath;
+        // if (estado.equals("Confirmado")) {
+        // if (riesgo.equals("Riesgo Bajo")) {
+        // uploadDirPath = "/imagenes/benignos";
+        // uploadDir += uploadDirPath;
 
-    //         } else {
-    //             uploadDirPath = "/imagenes/malignos";
-    //             uploadDir += uploadDirPath;
+        // } else {
+        // uploadDirPath = "/imagenes/malignos";
+        // uploadDir += uploadDirPath;
 
-    //         }
-    //     } else if (estado.equals("Rechazado")) {
-    //         uploadDirPath = "/imagenes/rechazdos";
-    //         uploadDir += uploadDirPath;
-    //     }
+        // }
+        // } else if (estado.equals("Rechazado")) {
+        // uploadDirPath = "/imagenes/rechazdos";
+        // uploadDir += uploadDirPath;
+        // }
 
-    //     // Crear el directorio si no existe
-    //     Path uploadPath = Path.of(uploadDir);
-    //     if (!Files.exists(uploadPath)) {
-    //         Files.createDirectories(uploadPath);
-    //     }
+        // // Crear el directorio si no existe
+        // Path uploadPath = Path.of(uploadDir);
+        // if (!Files.exists(uploadPath)) {
+        // Files.createDirectories(uploadPath);
+        // }
 
-    //     // Construir el nombre del archivo completo (código del paciente + extensión del
-    //     // archivo original)
-    //     String fileName = codigoPaciente + '.' + getFileExtension(originalFileName);
-    //     logger.info("String:", fileName);
-    //     // Ruta completa del archivo en el servidor (dentro del proyecto)
-    //     Path filePath = uploadPath.resolve(fileName);
-    //     logger.info("filePath:", filePath);
+        // // Construir el nombre del archivo completo (código del paciente + extensión
+        // del
+        // // archivo original)
+        // String fileName = codigoPaciente + '.' + getFileExtension(originalFileName);
+        // logger.info("String:", fileName);
+        // // Ruta completa del archivo en el servidor (dentro del proyecto)
+        // Path filePath = uploadPath.resolve(fileName);
+        // logger.info("filePath:", filePath);
 
-    //     // Copiar el archivo al servidor
-    //     try {
-    //         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-    //         ImagenesEntity imagen = new ImagenesEntity();
-    //         imagen.setNombre_imagen(fileName);
-    //         imagen.setRuta_imagen(uploadDirPath + '/' + fileName);
+        // // Copiar el archivo al servidor
+        // try {
+        // Files.copy(file.getInputStream(), filePath,
+        // StandardCopyOption.REPLACE_EXISTING);
+        // ImagenesEntity imagen = new ImagenesEntity();
+        // imagen.setNombre_imagen(fileName);
+        // imagen.setRuta_imagen(uploadDirPath + '/' + fileName);
 
-    //         database.guardarImagen(imagen);
-    //     } catch (IOException e) {
-    //         throw new IOException("No se pudo guardar el archivo: " + e.getMessage());
-    //     }
+        // database.guardarImagen(imagen);
+        // } catch (IOException e) {
+        // throw new IOException("No se pudo guardar el archivo: " + e.getMessage());
+        // }
     }
 
     // endregion Subir imagen
 
     // region guardar paciente
-    // TODO: guardar datos del paciente en la base
-    public void guardarPaciente(Paciente pacienteCompleto) {
+    public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
         // Crear un paciente completo con datos de ejemplo
         Paciente paciente = new Paciente();
+        paciente.setNombre(pacienteCompleto.getNombre());
         paciente.setSexo(pacienteCompleto.getSexo());
         paciente.setEdad(pacienteCompleto.getEdad());
-        // paciente.setNivelRiesgo(pacienteCompleto.getNivelRiesgo());
-        // paciente.setJustificacion(pacienteCompleto.getJustificacion());
-        // paciente.setRecomendacion(pacienteCompleto.getRecomendacion());
-        // paciente.setComentariosMedicos(pacienteCompleto.getComentariosMedicos());
-        // paciente.setEstado(pacienteCompleto.getEstado());
-        // paciente.setCodigoPaciente(pacienteCompleto.getCodigoPaciente());
-        // paciente.setJustificacion_rechazo(pacienteCompleto.getJustificacion_rechazo());
-
-        // database.guardarPaciente(paciente);
+        Boolean exito = database.ingresarNuevoPaciente(paciente);
+        return exito;
     }
 
     // endregion guardar paciente
 
-    // guardar diagnostico
+    // region guardar diagnostico
+    // endregion guardar diagnostico
 }
