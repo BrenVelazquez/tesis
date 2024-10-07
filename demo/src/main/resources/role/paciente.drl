@@ -517,7 +517,7 @@ when
     || sintomas_positivos_tipo_pensamiento.contains("circunstancial") 
     || sintomas_positivos_tipo_pensamiento.contains("minuciosidad") 
     || sintomas_positivos_tipo_pensamiento.contains("viscosidad") 
-    || sintomas_positivos_tipo_pensamiento.contains("concreto") 
+    || sintomas_positivos_tipo_pensamiento.contains("pensamiento-concreto") 
     || sintomas_positivos_tipo_pensamiento.contains("idea-fija") 
     || sintomas_positivos_tipo_pensamiento.contains("interceptacion-del-pensamiento") 
     || sintomas_positivos_tipo_pensamiento.contains("circunstancial")))
