@@ -757,7 +757,7 @@ when
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +5 )
     pacienteResponse.actualizarJustificacion("Presenta aplanamiento afectivo, una particularidad de afectividad muy común es esquizofrenia",1)   
-    // pacienteResponse.actualizarReglasEjecutadas("Afectividad - Más comun"); 
+    pacienteResponse.actualizarReglasEjecutadas("R54"); 
 end
 
 rule "PUNTAJE: Afectividad - Frecuente"
