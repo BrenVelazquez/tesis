@@ -2,132 +2,187 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="formulario.css">
-    <link rel="stylesheet" href="../index.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="formulario.css">
+  <link rel="stylesheet" href="../index.css">
+
 </head>
 
 <body>
-    <h3 style="color: #009587">Síntomas Positivos</h3>
-    <div class="col-md-12">
-        <div class="gray-box">
-            <div id="sintomas-positivos-duracion-id" class="form-group margin-filas">
-                <h6 for="sintomas-positivos-duracion">Duración de los síntomas positivos *</h6>
-                <select class="form-control" id="sintomas-positivos-duracion" name="sintomas-positivos-duracion" required>
-                    <option value="sintomas-positivos-duracion-menor">Menos de un mes</option>
-                    <option value="sintomas-positivos-duracion-mayor">Mayor o igual a un mes</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
-                </select>
-            </div>
+  <h3 style="color: #009587">Síntomas Positivos</h3>
+  <div class="col-md-12">
+    <div class="gray-box">
+      <div id="sintomas-positivos-duracion-id" class="form-group margin-filas">
+        <h6 for="sintomas-positivos-duracion">Duración de los síntomas positivos *</h6>
+        <select class="form-control" id="sintomas-positivos-duracion" name="sintomas-positivos-duracion" required>
+          <option value="sintomas-positivos-duracion-menor">Menos de un mes</option>
+          <option value="sintomas-positivos-duracion-mayor">Mayor o igual a un mes</option>
+          <option value="-1" selected>Seleccioná una opción</option>
+        </select>
+      </div>
 
-            <div class="button-container opciones">
-                <h6 for="sintomas-positivos-alucinaciones">Alucinaciones *</h6>
-                <div class="btn-group">
-                    <button id="sintomas-positivos-alucinaciones-si" class="btn btn-choice">Sí</button>
-                    <button id="sintomas-positivos-alucinaciones-no" class="btn btn-choice">No</button>
-                    <button id="sintomas-positivos-alucinaciones-no-descarta" class="btn btn-choice">No se
-                        descarta</button>
-                </div>
-                <div id="error-sintomas-positivos-alucinaciones" class="error-message-text"></div>
-            </div>
-
-            <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;"  >
-              <h6>Alucinaciones *</h6>
-              <div  id="alucinaciones" class="checkboxes" >
-                <div class="form-control">
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="auditivas-simples" onclick="unselectUnicos('auditivas-complejas', name)"/>Auditivas Simples</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="auditivas-complejas"  onclick="unselectUnicos('auditivas-simples', name)"/>Auditivas Complejas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="visuales" />Visuales</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="olfativas"/>Olfativas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]"value="gustativas"/>Gustativas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="cenestesicas" />Cenestésicas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="quinestesicas">Quinestésicas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="extracampinas"/>Extracampinas</label>
-                  <label id="check"><input type="checkbox" name="alucinaciones[]" value="intrapsiquicas"/>Intrapsiquicas</label>
-                </div>
-              </div>
-            </div>
-
-            
-
-            <div id="tipo-pensamiento-id" class="form-group margin-filas">
-              <h6>Lenguaje *</h6>
-              <div  id="lenguaje" class="checkboxes">
-                <div class="form-control">
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="taquilalia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Taquilalia</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="verborragia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Verborragia</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="bradilalia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Bradilalia</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]"value="latencia-de-respuesta" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Latencia de respuesta</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="mutismo" onclick="unselect(value, name)"/>Mutismo</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="musitaciones" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Musitaciones</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="soliloquio" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Soliloquio</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="neologismo" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Neologismo</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="jergafasia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Jergafasia</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="ecolalia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Ecolalia</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="pararrespuesta" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Pararrespuesta</label>
-                  <label id="check"><input type="checkbox"  name="lenguaje[]" value="estereotipia-verbal" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Estereotipia verbal</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="verbigeracion" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Verbigeracion</label>
-                  <label id="check"><input type="checkbox" name="lenguaje[]" value="asociacion-por-homofonia" onclick="unselectUnicos('sin-particularidades,mutismo', name)"/>Asociación por homofonía</label>
-                </div>
-              </div>
-            </div>
-
-            <div id="tipo-pensamiento-id" class="form-group margin-filas">
-              <h6>Pensamiento *</h6>
-              <div  id="pensamiento" class="checkboxes">
-                <div class="form-control">
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="tangencial" onclick="unselectUnicos('sin-particularidades', name)"/>Tangencial</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="circunstancial" onclick="unselectUnicos('sin-particularidades', name)"/>Circunstancial</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="meticulosidad" onclick="unselectUnicos('sin-particularidades', name)"/>Meticulosidad</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]"value="viscosidad" onclick="unselectUnicos('sin-particularidades', name)"/>Viscosidad</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="concreto" onclick="unselectUnicos('sin-particularidades', name)"/>Pensamiento concreto</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="idea-fija" onclick="unselectUnicos('sin-particularidades', name)"/>Idea fija</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="interceptacion-del-pensamiento" onclick="unselectUnicos('sin-particularidades', name)"/>Interceptación del pensamiento</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="disgregacion" onclick="unselectUnicos('sin-particularidades', name)"/>Disgregación</label>
-                  <label id="check"><input type="checkbox" name="pensamiento[]" value="incoherencia" onclick="unselectUnicos('sin-particularidades', name)"/>Incoherencia</label>
-                </div>
-              </div>
-            </div>
-
-            <div id="tipo-ritmo-pensamiento-id" class="form-group margin-filas">
-                <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento *</h6>
-                <select class="form-control" id="ritmo-pensamiento" name="ritmo-pensamiento" required>
-                    <option value="sin-particularidades">Sin particularidades</option>
-                    <option value="bradipsiquia">Bradipsiquia</option>
-                    <option value="taquipsiquia">Taquipsiquia</option>
-                    <option value="-1" selected>Seleccioná una opción</option>
-                </select>
-            </div>
-
-            <div id="tipo-contenido-pensamiento-id" class="form-group margin-filas">
-              <h6>Contenido del pensamiento *</h6>
-              <div  id="contenido-pensamiento" class="checkboxes">
-                <div class="form-control">
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="sin-particularidades" onclick="unselect(value, name)"/>Sin particularidades</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="idea-obsesiva" onclick="unselectUnicos('sin-particularidades', name)"/>Idea obsesiva</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="idea-fija" onclick="unselectUnicos('sin-particularidades', name)"/>Idea fija</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="ideacion-delirante-sistematizada" onclick="unselectUnicos('sin-particularidades,ideacion-delirante-no-sist', name)"/>Ideación delirante
-                    sistematizada</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]"value="ideacion-delirante-no-sistematizada" onclick="unselectUnicos('sin-particularidades,ideacion-delirante-sist', name)"/>Ideación delirante no
-                    sistematizada</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="ideas-muerte" onclick="unselectUnicos('sin-particularidades', name)"/>Ideas de muerte</label>
-                  <label id="check"><input type="checkbox" name="contenido-pensamiento[]" value="ideas-suicidas" onclick="unselectUnicos('sin-particularidades', name)"/>Ideas suicidas</label>
-                </div>
-              </div>
-            </div>
-
-
+      <div class="button-container opciones">
+        <h6 for="sintomas-positivos-alucinaciones">Alucinaciones *</h6>
+        <div class="btn-group">
+          <button id="sintomas-positivos-alucinaciones-si" class="btn btn-choice">Sí</button>
+          <button id="sintomas-positivos-alucinaciones-no" class="btn btn-choice">No</button>
+          <button id="sintomas-positivos-alucinaciones-no-descarta" class="btn btn-choice">No se
+            descarta</button>
         </div>
-    </div>
+        <div id="error-sintomas-positivos-alucinaciones" class="error-message-text"></div>
+      </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+      <div id="tipo-alucinaciones-id" class="form-group margin-filas" style="display: none;">
+        <h6>Alucinaciones *</h6>
+        <div id="alucinaciones" class="checkboxes">
+          <div class="form-control">
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="auditivas-simples"
+                onclick="unselectUnicos('auditivas-complejas', name)" />Auditivas Simples</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="auditivas-complejas"
+                onclick="unselectUnicos('auditivas-simples', name)" />Auditivas Complejas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="visuales" />Visuales</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="olfativas" />Olfativas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="gustativas" />Gustativas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="cenestesicas" />Cenestésicas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]" value="quinestesicas">Quinestésicas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]"
+                value="extracampinas" />Extracampinas</label>
+            <label id="check"><input type="checkbox" name="alucinaciones[]"
+                value="intrapsiquicas" />Intrapsiquicas</label>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div id="tipo-pensamiento-id" class="form-group margin-filas">
+        <h6>Lenguaje *</h6>
+        <div id="lenguaje" class="checkboxes">
+          <div class="form-control">
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="sin-particularidades"
+                onclick="unselect(value, name)" />Sin particularidades</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="taquilalia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Taquilalia</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="verborragia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Verborragia</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="bradilalia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Bradilalia</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="latencia-de-respuesta"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Latencia de respuesta</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="mutismo"
+                onclick="unselect(value, name)" />Mutismo</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="musitaciones"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Musitaciones</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="soliloquio"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Soliloquio</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="neologismo"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Neologismo</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="jergafasia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Jergafasia</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="ecolalia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Ecolalia</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="pararrespuesta"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Pararrespuesta</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="estereotipia-verbal"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Estereotipia verbal</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="verbigeracion"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Verbigeracion</label>
+            <label id="check"><input type="checkbox" name="lenguaje[]" value="asociacion-por-homofonia"
+                onclick="unselectUnicos('sin-particularidades,mutismo', name)" />Asociación por homofonía</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="tipo-pensamiento-id" class="form-group margin-filas">
+        <h6>Pensamiento *</h6>
+        <div id="pensamiento" class="checkboxes">
+          <div class="form-control">
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="sin-particularidades"
+                onclick="unselect(value, name)" />Sin particularidades</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="tangencial"
+                onclick="unselectUnicos('sin-particularidades', name)" />Tangencial</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="circunstancial"
+                onclick="unselectUnicos('sin-particularidades', name)" />Circunstancial</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="meticulosidad"
+                onclick="unselectUnicos('sin-particularidades', name)" />Meticulosidad</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="viscosidad"
+                onclick="unselectUnicos('sin-particularidades', name)" />Viscosidad</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="concreto"
+                onclick="unselectUnicos('sin-particularidades', name)" />Pensamiento concreto</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="idea-fija"
+                onclick="unselectUnicos('sin-particularidades', name)" />Idea fija</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="interceptacion-del-pensamiento"
+                onclick="unselectUnicos('sin-particularidades', name)" />Interceptación del pensamiento</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="disgregacion"
+                onclick="unselectUnicos('sin-particularidades', name)" />Disgregación</label>
+            <label id="check"><input type="checkbox" name="pensamiento[]" value="incoherencia"
+                onclick="unselectUnicos('sin-particularidades', name)" />Incoherencia</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="tipo-ritmo-pensamiento-id" class="form-group margin-filas">
+        <h6 for="tipo-ritmo-pensamiento">Ritmo del pensamiento *</h6>
+        <select class="form-control" id="ritmo-pensamiento" name="ritmo-pensamiento" required>
+          <option value="sin-particularidades">Sin particularidades</option>
+          <option value="bradipsiquia">Bradipsiquia</option>
+          <option value="taquipsiquia">Taquipsiquia</option>
+          <option value="-1" selected>Seleccioná una opción</option>
+        </select>
+      </div>
+
+      <div id="tipo-contenido-pensamiento-id" class="form-group margin-filas">
+        <h6>Contenido del pensamiento *</h6>
+        <div id="contenido-pensamiento" class="checkboxes">
+          <div class="form-control">
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="sin-particularidades"
+                onclick="unselect(value, name)" />
+              Sin particularidades
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="idea-obsesiva"
+                onclick="unselectUnicos('sin-particularidades', name)" />
+              Idea obsesiva
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="idea-fija"
+                onclick="unselectUnicos('sin-particularidades', name)" />
+              Idea fija
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="ideacion-delirante-sistematizada"
+                onclick="unselectUnicos('sin-particularidades, ideacion-delirante-no-sistematizada', name)" />
+              Ideación delirante sistematizada
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="ideacion-delirante-no-sistematizada"
+                onclick="unselectUnicos('sin-particularidades, ideacion-delirante-sistematizada', name)" />
+              Ideación delirante no sistematizada
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="ideas-muerte"
+                onclick="unselectUnicos('sin-particularidades', name)" />
+              Ideas de muerte
+            </label>
+            <label id="check">
+              <input type="checkbox" name="contenido-pensamiento[]" value="ideas-suicidas"
+                onclick="unselectUnicos('sin-particularidades', name)" />I
+              deas suicidas
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
