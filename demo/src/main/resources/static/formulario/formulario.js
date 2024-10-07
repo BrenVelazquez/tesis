@@ -437,7 +437,7 @@ function validar_campos(datosFormulario) {
         esValido = false;
     }
 
-    if (!datosFormulario.bajo_funcionamiento) {
+    if (!datosFormulario.sintomas_negativos_bajo_funcionamiento) {
         document.getElementById("error-bajo-funcionamiento").textContent = errorText;
         document.getElementById("error-bajo-funcionamiento").style.display = "block";
         esValido = false;
@@ -623,8 +623,8 @@ function obtenerDatosFormulario() {
         sintomas_negativos_atencion: sintomasNegativosAtencion,
         sintomas_negativos_actividad: sintomasNegativosActividad,
         sintomas_negativos_afectividad: sintomasNegativosAfectividad,
-        bajo_funcionamiento: bajoFuncionamiento,
-        bajo_funcionamiento_comentario: bajoFuncionamientoComentario,
+        sintomas_negativos_bajo_funcionamiento: bajoFuncionamiento,
+        sintomas_negativos_bajo_funcionamiento_comentario: bajoFuncionamientoComentario,
         // complementarios
         sustancias: sustancias,
         estudios: estudios,
