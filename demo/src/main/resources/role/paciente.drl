@@ -650,7 +650,7 @@ when
     && sintomas_negativos_aspecto.contains("adelgazado")==false 
     && sintomas_negativos_aspecto.contains("hipomimico")== false) 
     && sintomas_negativos_aspecto.contains("facie")
-    || sintomas_negativos_aspecto.contains("alinio")
+    || sintomas_negativos_aspecto.contains("aliño")
     || sintomas_negativos_aspecto.contains("aseo"))
 then 
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
