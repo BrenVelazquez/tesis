@@ -19,7 +19,106 @@ public class Paciente {
     @JsonProperty("nombre")
     private String nombre;
     
-    @JsonProperty("id_imagen")
-    private String id_imagen;
+    @JsonProperty("trastorno_autista")
+    private String trastornoAutista;
+    
+    @JsonProperty("trastorno_comunicacion")
+    private String trastornoComunicacion;
+    
+    @JsonProperty("trastorno_esquizoafectivo")
+    private String trastornoEsquizoafectivo;
+    
+    @JsonProperty("trastorno_depresivo")
+    private String trastornoDepresivo;
+    
+    @JsonProperty("trastorno_bipolar")
+    private String trastornoBipolar;
+    
+    @JsonProperty("antecedentes_familiares")
+    private String antecedentesFamiliares;
+    
+    @JsonProperty("sintomas_positivos_duracion")
+    private String sintomasPositivosDuracion;
+    
+    @JsonProperty("sintomas_positivos_alucinaciones")
+    private String sintomasPositivosAlucinaciones;
+
+    @JsonProperty("sintomas_positivos_tipo_alucinaciones")
+    private String sintomasPositivosTipoAlucinaciones;
+    
+    @JsonProperty("sintomas_positivos_tipo_lenguaje")
+    private String sintomasPositivosTipoLenguaje;
+    
+    @JsonProperty("sintomas_positivos_tipo_pensamiento")
+    private String sintomasPositivosTipoPensamiento;
+    
+    @JsonProperty("sintomas_positivos_tipo_ritmo_pensamiento")
+    private String sintomasPositivosTipoRitmoPensamiento;
+    
+    @JsonProperty("sintomas_positivos_tipo_contenido_pensamiento")
+    private String sintomasPositivosTipoContenidoPensamiento;
+    
+    @JsonProperty("sintomas_negativos_duracion")
+    private String sintomasNegativosDuracion;
+    
+    @JsonProperty("sintomas_negativos_aspecto")
+    private String sintomasNegativosAspecto;
+    
+    @JsonProperty("sintomas_negativos_atencion")
+    private String sintomasNegativosAtencion;
+    
+    @JsonProperty("sintomas_negativos_actividad")
+    private String sintomasNegativosActividad;
+    
+    @JsonProperty("sintomas_negativos_afectividad")
+    private String sintomasNegativosAfectividad;
+
+    @JsonProperty("sintomas_negativos_bajo_funcionamiento")
+    private String sintomasNegativosBajoFuncionamiento;
+
+    @JsonProperty("sintomas_negativos_bajo_funcionamiento_comentario")
+    private String sintomasNegativosBajoFuncionamientoComentario;
+    
+    @JsonProperty("sustancias")
+    private String sustancias;
+    
+    @JsonProperty("estudios")
+    private String estudios;
+    
+    @JsonProperty("estudio_causa_natural")
+    private String estudioCausaNatural;
+    
+    @JsonProperty("estudio_comentario")
+    private String estudioComentario;
+    
+    // @JsonProperty("id_imagen")
+    // private String idImagen;
+    
+    // @JsonProperty("codigoPaciente")
+    // private String codigoPaciente;
+    
+    @JsonProperty("diagnostico")
+    private String diagnostico;
+    
+    @JsonProperty("justificacion")
+    private String justificacion;
+    
+    @JsonProperty("reglas")
+    private String reglas;
+    
+    @JsonProperty("recomendacion")
+    private String recomendacion;
+    
+    @JsonProperty("comentario_medico")
+    private String comentarioMedico;
+    
+    @JsonProperty("justificacion_rechazo")
+    private String justificacionRechazo;
+    
+    @JsonProperty("estado")
+    private String estado;
+
+    @JsonProperty("puntaje")
+    private int puntaje;
     
 }
