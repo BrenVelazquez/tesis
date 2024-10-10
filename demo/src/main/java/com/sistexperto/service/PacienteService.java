@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.database.database;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
@@ -157,22 +160,87 @@ public class PacienteService {
     public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
         // Crear un paciente completo con datos de ejemplo
         Paciente paciente = new Paciente();
+        
+        // PACIENTE
         paciente.setNombre(pacienteCompleto.getNombre());
         paciente.setSexo(pacienteCompleto.getSexo());
         paciente.setEdad(pacienteCompleto.getEdad());
+
+        // ESTUDIOS
+        paciente.setEstudios(pacienteCompleto.getEstudios());
+        paciente.setEstudioCausaNatural(pacienteCompleto.getEstudioCausaNatural());
+        paciente.setEstudioComentario(pacienteCompleto.getEstudioComentario());
+        // paciente.setIdImagen(pacienteCompleto.getIdImagen());
+
+        // HISTORIAS_CLINICAS
+        paciente.setTrastornoAutista(pacienteCompleto.getTrastornoAutista());
+        paciente.setTrastornoComunicacion(pacienteCompleto.getTrastornoComunicacion());
+        paciente.setTrastornoEsquizoafectivo(pacienteCompleto.getTrastornoEsquizoafectivo());
+        paciente.setTrastornoDepresivo(pacienteCompleto.getTrastornoDepresivo());
+        paciente.setTrastornoBipolar(pacienteCompleto.getTrastornoBipolar());
+        paciente.setAntecedentesFamiliares(pacienteCompleto.getAntecedentesFamiliares());
+        paciente.setSintomasPositivosDuracion(pacienteCompleto.getSintomasPositivosDuracion());
+        paciente.setSustancias(pacienteCompleto.getSustancias());
+
+        // SINTOMAS_POSITIVOS
+        paciente.setSintomasPositivosTipoRitmoPensamiento(pacienteCompleto.getSintomasPositivosTipoRitmoPensamiento());
+
+        // SINTOMA_ALUCINACIONES
+        paciente.setSintomasPositivosTipoAlucinaciones(pacienteCompleto.getSintomasPositivosTipoAlucinaciones());
+        paciente.setSintomasPositivosAlucinaciones(pacienteCompleto.getSintomasPositivosAlucinaciones());
+
+        // SINTOMA_LENGUAJES
+        paciente.setSintomasPositivosTipoLenguaje(pacienteCompleto.getSintomasPositivosTipoLenguaje());
+
+        // SINTOMA_PENSAMIENTOS
+        paciente.setSintomasPositivosTipoPensamiento(pacienteCompleto.getSintomasPositivosTipoPensamiento());
+
+        // SINTOMA_CONTENIDOS_PENSAMIENTOS
+        paciente.setSintomasPositivosTipoContenidoPensamiento(
+                pacienteCompleto.getSintomasPositivosTipoContenidoPensamiento());
+        
+        //SINTOMAS_NEGATIVOS
+        paciente.setSintomasNegativosDuracion(pacienteCompleto.getSintomasNegativosDuracion());
+        paciente.setSintomasNegativosAtencion(pacienteCompleto.getSintomasNegativosAtencion());
+        paciente.setSintomasNegativosActividad(pacienteCompleto.getSintomasNegativosActividad());
+        paciente.setSintomasNegativosBajoFuncionamiento(pacienteCompleto.getSintomasNegativosBajoFuncionamiento());
+        paciente.setSintomasNegativosBajoFuncionamientoComentario(pacienteCompleto.getSintomasNegativosBajoFuncionamientoComentario());
+        
+        // SINTOMA_ASPECTOS
+        paciente.setSintomasNegativosAspecto(pacienteCompleto.getSintomasNegativosAspecto());
+
+        // SINTOMA_AFECTIVIDADES
+        paciente.setSintomasNegativosAfectividad(pacienteCompleto.getSintomasNegativosAfectividad());
+
+        // paciente.setCodigoPaciente(pacienteCompleto.getCodigoPaciente());
+        paciente.setDiagnostico(pacienteCompleto.getDiagnostico());
+        paciente.setJustificacion(pacienteCompleto.getJustificacion());
+        paciente.setReglas(pacienteCompleto.getReglas());
+        paciente.setRecomendacion(pacienteCompleto.getRecomendacion());
+        paciente.setComentarioMedico(pacienteCompleto.getComentarioMedico());
+        paciente.setJustificacionRechazo(pacienteCompleto.getJustificacionRechazo());
+        paciente.setEstado(pacienteCompleto.getEstado());
+        paciente.setPuntaje(pacienteCompleto.getPuntaje());
+
+        // logger.info("##### PACIENTE: ", paciente, " #####");
+
         Boolean exito = database.ingresarNuevoPaciente(paciente);
         return exito;
     }
-
     // endregion guardar paciente
 
     // region guardar diagnostico
     // endregion guardar diagnostico
 
+<<<<<<< HEAD
     public boolean login(String mail, String password) {
         System.err.println("service");
         Boolean exito = database.login(mail, password);
         return exito;
     }
 
+=======
+
+    
+>>>>>>> d764eb9c33fea130fa8783caa2b55073c96a26f1
 }
