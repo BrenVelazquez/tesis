@@ -80,7 +80,9 @@ public class database {
     }
     // endregion insert PACIENTES
 
-<<<<<<< HEAD
+
+
+    // region login
     // region login
     public static Boolean login(String mail, String password) {
         System.out.println("------");
@@ -110,7 +112,17 @@ public class database {
                     System.out.println("asdrgh");
                     return false;
                 }
-=======
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+                // endregion login
+
     // region insert ESTUDIOS
     public static Boolean insertEstudios(Paciente paciente) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
@@ -239,7 +251,7 @@ public class database {
 
                 }
                 return true;
->>>>>>> d764eb9c33fea130fa8783caa2b55073c96a26f1
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;
@@ -249,9 +261,9 @@ public class database {
             return false;
         }
     }
-<<<<<<< HEAD
+
     // endregion insert PACIENTES
-=======
+
     // endregion insert SINTOMA_ALUCINACIONES
 
     // region insert SINTOMA_LENGUAJES
@@ -517,6 +529,6 @@ public class database {
         return valor.equalsIgnoreCase("Si") ? 1 : 0;
     }
     // endregion convertirABit
->>>>>>> d764eb9c33fea130fa8783caa2b55073c96a26f1
+
 
 }
