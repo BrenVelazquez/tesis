@@ -31,6 +31,8 @@ BEGIN
 		[MEDICOS] (DNI, EMAIL, CONTRASEÑA, NOMBRE, APELLIDO)
 	VALUES
 		(12345678,'admin@admin.com', 'admin', 'User', 'Admin'),
+		(41765890,'natalia.cossovich@gmail.com', '123456', 'Natalia', 'Cossovich'),
+		(41765890,'brendavelazquez1121@gmail.com', '123456', 'Brenda', 'Velazquez'),
 		(41137418,'cande@cande.com', 'cande', 'cande', 'cande')
 END
 
