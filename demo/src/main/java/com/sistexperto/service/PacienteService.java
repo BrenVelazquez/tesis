@@ -242,6 +242,47 @@ public class PacienteService {
     }
     // endregion obtenerTodosLosPacientes
 
+    // region obtenerPacientePorId
+    public Paciente obtenerPacientePorId(int idPaciente) {
+        // return database.obtenerPacientePorId(idPaciente);
+        Paciente paciente = database.obtenerPacientePorId(idPaciente);
+
+        String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
+        if (ritmoPensamiento != null) {
+            paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
+        }
+        String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
+        paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
+        String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+        String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
+        String contenidosPensamientos = convertirSintomasAString(
+                database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
+
+        String atenciones = paciente.getSintomasNegativosAtencion();
+        if (atenciones != null) {
+            paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
+        }
+        String actividades = paciente.getSintomasNegativosActividad();
+        if (actividades != null) {
+            paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
+        }
+        String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
+        paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
+        String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
+        paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
+
+        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+        if (paciente != null && paciente.getFechaConsulta() != null) {
+            String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
+            paciente.setFechaConsulta(fechaFormateada);
+        }
+        return paciente;
+    }
+    // endregion obtenerPacientePorId
+
     // region login
     public boolean login(String mail, String password) {
         System.err.println("service");
@@ -249,5 +290,39 @@ public class PacienteService {
         return exito;
     }
     // endregion login
+
+    // region formateo
+    private String formatearFecha(String fechaConsulta) {
+        LocalDate fecha = LocalDate.parse(fechaConsulta);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return fecha.format(formatter);
+    }
+
+    public String formatearTextoSintomas(String sintomas) {
+        String[] sintomasArray = sintomas.split(", ");
+        StringBuilder resultado = new StringBuilder();
+        for (String sintoma : sintomasArray) {
+            String sintomaFormateado = sintoma.replace("_", " ");
+            sintomaFormateado = sintomaFormateado.toLowerCase();
+            sintomaFormateado = sintomaFormateado.substring(0, 1).toUpperCase() + sintomaFormateado.substring(1);
+            if (resultado.length() > 0) {
+                resultado.append(", ");
+            }
+            resultado.append(sintomaFormateado);
+        }
+        return resultado.toString();
+    }
+
+    public String convertirSintomasAString(List<String> sintomas) {
+        if (sintomas == null || sintomas.isEmpty()) {
+            return "";
+        }
+        StringJoiner sintomasString = new StringJoiner(", ");
+        for (String sintoma : sintomas) {
+            sintomasString.add(sintoma);
+        }
+        return sintomasString.toString();
+    }
+    // endregion formateo
 
 }

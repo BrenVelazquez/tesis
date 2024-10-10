@@ -129,4 +129,11 @@ public class Paciente {
 
     @JsonProperty("puntaje")
     private int puntaje;
+    
+    // MEDICO
+    @JsonProperty("nombre_medico")
+    private String nombreMedico;
+
+    @JsonProperty("apellido_medico")
+    private String apellidoMedico;
 }

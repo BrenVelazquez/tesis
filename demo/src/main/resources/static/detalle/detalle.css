@@ -68,9 +68,13 @@ input {
     flex-grow: 1;
 }
 
-.justificacion-container,
-.comentarios {
+.justificacion-container {
     width: 100%;
+    margin-top: 10px;
+}
+.justificacion-rechazo-container,
+.comentarios {
+    width: 49%;
     margin-top: 10px;
 }
 

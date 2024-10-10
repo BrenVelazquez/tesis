@@ -52,14 +52,7 @@ function limpiarTabla() {
 }
 
 function verDetalle(id) {
-    const paciente = pacientes.find(p => p.id === id);
-    if (paciente) {
-        alert(`Detalles del paciente:
-        Nombre: ${paciente.nombre}
-        Diagnóstico: ${paciente.diagnostico}
-        Estado: ${paciente.estado}
-        Fecha de Ingreso: ${paciente.fecha}`);
-    }
+    window.location.href = `/detalle/detalle.html?idPaciente=${id}`;
 }
 
 function buscarPacientes() {

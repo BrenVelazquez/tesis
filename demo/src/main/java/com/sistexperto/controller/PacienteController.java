@@ -117,6 +117,71 @@ public class PacienteController {
         }
     }
 
+    @GetMapping("/obtenerDetallesPaciente/{idPaciente}")
+    public ResponseEntity<Map<String, Object>> obtenerDetallesPaciente(@PathVariable Integer idPaciente) {
+        try {
+            System.out.println("idPaciente: " + idPaciente);
+            Paciente paciente = pacienteService.obtenerPacientePorId(idPaciente);
+            System.out.println("paciente: " + paciente);
+
+            // Si no se encuentra el paciente, devolver un 404
+            if (paciente == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            // Crear el mapa con los datos del paciente
+            Map<String, Object> datosPaciente = new HashMap<>();
+            datosPaciente.put("idPaciente", paciente.getIdPaciente());
+            datosPaciente.put("nombre", paciente.getNombre());
+            datosPaciente.put("edad", paciente.getEdad());
+            datosPaciente.put("sexo", paciente.getSexo());
+            datosPaciente.put("trastornoAutista", paciente.getTrastornoAutista());
+            datosPaciente.put("trastornoComunicacion", paciente.getTrastornoComunicacion());
+            datosPaciente.put("trastornoEsquizoafectivo", paciente.getTrastornoEsquizoafectivo());
+            datosPaciente.put("trastornoDepresivo", paciente.getTrastornoDepresivo());
+            datosPaciente.put("trastornoBipolar", paciente.getTrastornoBipolar());
+            datosPaciente.put("antecedentesFamiliares", paciente.getAntecedentesFamiliares());
+            datosPaciente.put("sustancias", paciente.getSustancias());
+            datosPaciente.put("estudioCausaNatural", paciente.getEstudioCausaNatural());
+            datosPaciente.put("estudioComentario", paciente.getEstudioComentario());
+            // datosPaciente.put("idImagen", paciente.getIdImagen());
+
+            datosPaciente.put("sintomasPositivosDuracion", paciente.getSintomasPositivosDuracion());
+            datosPaciente.put("sintomasPositivosTipoRitmoPensamiento",
+                    paciente.getSintomasPositivosTipoRitmoPensamiento());
+            datosPaciente.put("sintomasPositivosTipoAlucinaciones", paciente.getSintomasPositivosTipoAlucinaciones());
+            datosPaciente.put("sintomasPositivosTipoLenguaje", paciente.getSintomasPositivosTipoLenguaje());
+            datosPaciente.put("sintomasPositivosTipoPensamiento", paciente.getSintomasPositivosTipoPensamiento());
+            datosPaciente.put("sintomasPositivosTipoContenidoPensamiento",
+                    paciente.getSintomasPositivosTipoContenidoPensamiento());
+
+            datosPaciente.put("sintomasNegativosDuracion", paciente.getSintomasNegativosDuracion());
+            datosPaciente.put("sintomasNegativosBajoFuncionamiento", paciente.getSintomasNegativosBajoFuncionamiento());
+            datosPaciente.put("sintomasNegativosBajoFuncionamientoComentario",
+                    paciente.getSintomasNegativosBajoFuncionamientoComentario());
+            datosPaciente.put("sintomasNegativosAspecto", paciente.getSintomasNegativosAspecto());
+            datosPaciente.put("sintomasNegativosAtencion", paciente.getSintomasNegativosAtencion());
+            datosPaciente.put("sintomasNegativosActividad", paciente.getSintomasNegativosActividad());
+            datosPaciente.put("sintomasNegativosAfectividad", paciente.getSintomasNegativosAfectividad());
+
+            datosPaciente.put("diagnostico", paciente.getDiagnostico());
+            datosPaciente.put("justificacion", paciente.getJustificacion());
+            // datosPaciente.put("reglas", paciente.getReglas());
+            datosPaciente.put("recomendacion", paciente.getRecomendacion());
+            datosPaciente.put("comentarioMedico", paciente.getComentarioMedico());
+            datosPaciente.put("justificacionRechazo", paciente.getJustificacionRechazo());
+            datosPaciente.put("estado", paciente.getEstado());
+            datosPaciente.put("fechaConsulta", paciente.getFechaConsulta());
+            // datosPaciente.put("puntaje", paciente.getPuntaje());
+            datosPaciente.put("nombreMedico", paciente.getNombreMedico());
+            datosPaciente.put("apellidoMedico", paciente.getApellidoMedico());
+
+            return ResponseEntity.ok(datosPaciente);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     @PostMapping("/login")
     // public ResponseEntity<Map<String, Object>> login(@RequestBody String mail,
     // String contraseña) {
