@@ -94,4 +94,23 @@ public class PacienteController {
         return ResponseEntity.ok(respuesta);
     }
 
+    @PostMapping("/login")
+    //public ResponseEntity<Map<String, Object>> login(@RequestBody String mail, String contraseña) {
+    public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
+        String mail = loginRequest.get("mail");
+        String contraseña = loginRequest.get("contraseña");
+        System.out.println("hola");
+        Boolean exito = pacienteService.login(mail, contraseña);
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("exito", exito);
+        if (exito) {
+            respuesta.put("mensaje", "Usuario y contraseña correcto.");
+        } else {
+            respuesta.put("mensaje", "Médico no encontrado.");
+        }
+
+        return ResponseEntity.ok(respuesta);
+
+    }
+
 }

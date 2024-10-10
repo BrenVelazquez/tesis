@@ -168,4 +168,11 @@ public class PacienteService {
 
     // region guardar diagnostico
     // endregion guardar diagnostico
+
+    public boolean login(String mail, String password) {
+        System.err.println("service");
+        Boolean exito = database.login(mail, password);
+        return exito;
+    }
+
 }

@@ -30,7 +30,8 @@ BEGIN
 	INSERT INTO
 		[MEDICOS] (DNI, EMAIL, CONTRASEÑA, NOMBRE, APELLIDO)
 	VALUES
-		(12345678,'admin@admin.com', 'admin', 'User', 'Admin')
+		(12345678,'admin@admin.com', 'admin', 'User', 'Admin'),
+		(41137418,'cande@cande.com', 'cande', 'cande', 'cande')
 END
 
 IF NOT EXISTS (

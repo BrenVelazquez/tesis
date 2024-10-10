@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.sistexperto.model.ImagenesEntity;
+import com.sistexperto.model.Medico;
 import com.sistexperto.model.Paciente;
 
 public class database {
@@ -35,6 +36,46 @@ public class database {
                 preparedStatement.setInt(3, paciente.getEdad());
                 preparedStatement.executeUpdate();
                 return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // endregion insert PACIENTES
+
+    // region login
+    public static Boolean login(String mail, String password) {
+        System.out.println("------");
+        System.out.println(mail);
+        System.out.println("------");
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+            String sql = "SELECT * FROM MEDICOS WHERE EMAIL= ? AND CONTRASEÑA = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1,"admin@admin.com");
+                preparedStatement.setString(2,password);
+                //preparedStatement.executeUpdate();
+                ResultSet resultSet=preparedStatement.executeQuery();
+                //ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                System.out.println("After Change:" + preparedStatement);
+                System.out.println(resultSet);
+                System.out.println(mail);
+                System.out.println(password);
+                if(resultSet.next()){
+                    Medico medico = new Medico();
+                    medico.setEmail(mail);
+                    medico.setContraseña(password);
+                    medico.setDni(resultSet.getInt("DNI"));
+                    medico.setNombre(resultSet.getString("NOMBRE"));
+                    medico.setApellido(resultSet.getString("APELLIDO"));
+                    return true;
+                }else{
+                    System.out.println("asdrgh");
+                    return false;
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;

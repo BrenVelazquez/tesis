@@ -1,4 +1,5 @@
-body{
+
+body {
     display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,21 +19,11 @@ body{
     
 }
 
-.bottom{
-    padding:10%
+.bottom {
+    padding:10%;
     
 }
 
-/*
-.footer {
-    position: relative; 
-    width: 100%;
-    bottom: 0;
-    color: white;
-    background-color: #202020;
-    font-size: 12px; 
-    }
-*/
 
 .btn-iniciar {
     background-color: #009587;
@@ -58,14 +49,14 @@ body{
 
 .color-box {
     width: 50%;
-    border: 2px solid #038073;
+    border: 2px solid #009587;
     /* Borde gris */
     border-radius: 8px;
     /* Bordes redondeados */
     padding: 7px;
     padding-top: 10%;
     /* Espacio interno */
-    background-color: #038073;
+    background-color: #009587;
     /* Fondo ligeramente gris */
     /*left: 50%; 
     /*position: fixed; /* or absolute */
@@ -74,9 +65,6 @@ body{
 }
 
 .gray-box {
-    
-
-    
     width: 50%;
     border: 2px solid #d3d3d3;
     /* Borde gris */
@@ -85,53 +73,38 @@ body{
     padding: 7px;
     padding-top: 7%;
     /* Espacio interno */
-    background-color: #f8f8f8;
-    
-    /* Fondo ligeramente gris */
-    /*position: fixed; /* or absolute */
-    /*left: 50%; /* centers #box in its containing element */
-    /*margin-left: -11.5%; /* half the element's width (30%) */
+    background-color: #fff;
 }
 
-.box{
+.box {
     align-items: center;
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    /*width: 50%;
-    float: left;
-    padding: 0px;
-    left: 50%; /* centers #box in its containing element */
-
-   
-    
-
     padding: 5px;
-    background-color: #038073;
-    
+    background-color: #009587;
 }
 
 
-
-
-.inicio{
+.inicio {
     font-size: 20px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.placeholder{
+.placeholder {
     position: fixed;
     font-style: italic;
 }
 
-.sist{
+.sist {
     color:#fff;
 }
 
 .error-message-text {
     color: red;
-    font-size: 0.8rem;
+    font-size: 15px;
     display: none;
+    align-items: center;
 }
