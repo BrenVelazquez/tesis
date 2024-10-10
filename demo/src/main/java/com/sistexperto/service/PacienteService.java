@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -14,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-//import com.sistexperto.controller.PacienteDTO;
+import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.database.database;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
@@ -160,7 +163,7 @@ public class PacienteService {
     public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
         // Crear un paciente completo con datos de ejemplo
         Paciente paciente = new Paciente();
-        
+
         // PACIENTE
         paciente.setNombre(pacienteCompleto.getNombre());
         paciente.setSexo(pacienteCompleto.getSexo());
@@ -198,14 +201,15 @@ public class PacienteService {
         // SINTOMA_CONTENIDOS_PENSAMIENTOS
         paciente.setSintomasPositivosTipoContenidoPensamiento(
                 pacienteCompleto.getSintomasPositivosTipoContenidoPensamiento());
-        
-        //SINTOMAS_NEGATIVOS
+
+        // SINTOMAS_NEGATIVOS
         paciente.setSintomasNegativosDuracion(pacienteCompleto.getSintomasNegativosDuracion());
         paciente.setSintomasNegativosAtencion(pacienteCompleto.getSintomasNegativosAtencion());
         paciente.setSintomasNegativosActividad(pacienteCompleto.getSintomasNegativosActividad());
         paciente.setSintomasNegativosBajoFuncionamiento(pacienteCompleto.getSintomasNegativosBajoFuncionamiento());
-        paciente.setSintomasNegativosBajoFuncionamientoComentario(pacienteCompleto.getSintomasNegativosBajoFuncionamientoComentario());
-        
+        paciente.setSintomasNegativosBajoFuncionamientoComentario(
+                pacienteCompleto.getSintomasNegativosBajoFuncionamientoComentario());
+
         // SINTOMA_ASPECTOS
         paciente.setSintomasNegativosAspecto(pacienteCompleto.getSintomasNegativosAspecto());
 
@@ -232,10 +236,18 @@ public class PacienteService {
     // region guardar diagnostico
     // endregion guardar diagnostico
 
+    // region obtenerTodosLosPacientes
+    public List<PacienteDTO> obtenerTodosLosPacientes() {
+        return database.obtenerPacientes();
+    }
+    // endregion obtenerTodosLosPacientes
+
+    // region login
     public boolean login(String mail, String password) {
         System.err.println("service");
         Boolean exito = database.login(mail, password);
         return exito;
     }
+    // endregion login
 
 }

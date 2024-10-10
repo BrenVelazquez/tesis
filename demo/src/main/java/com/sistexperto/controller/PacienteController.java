@@ -13,10 +13,12 @@ import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 import com.sistexperto.service.PacienteService;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.imageio.IIOException;
 
 @RestController
@@ -94,8 +96,30 @@ public class PacienteController {
         return ResponseEntity.ok(respuesta);
     }
 
+    @GetMapping("/obtenerPacientes")
+    public ResponseEntity<List<Map<String, Object>>> obtenerPacientes() {
+        try {
+            List<PacienteDTO> listaPacientes = pacienteService.obtenerTodosLosPacientes();
+            List<Map<String, Object>> respuesta = new ArrayList<>();
+
+            for (PacienteDTO paciente : listaPacientes) {
+                Map<String, Object> datosPaciente = new HashMap<>();
+                datosPaciente.put("idPaciente", paciente.getIdPaciente());
+                datosPaciente.put("nombre", paciente.getNombre());
+                datosPaciente.put("diagnostico", paciente.getDiagnostico());
+                datosPaciente.put("estado", paciente.getEstado());
+                datosPaciente.put("fecha", paciente.getFecha());
+                respuesta.add(datosPaciente);
+            }
+            return ResponseEntity.ok(respuesta);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     @PostMapping("/login")
-    //public ResponseEntity<Map<String, Object>> login(@RequestBody String mail, String contraseña) {
+    // public ResponseEntity<Map<String, Object>> login(@RequestBody String mail,
+    // String contraseña) {
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
         String mail = loginRequest.get("mail");
         String contraseña = loginRequest.get("contraseña");
@@ -108,9 +132,7 @@ public class PacienteController {
         } else {
             respuesta.put("mensaje", "Médico no encontrado.");
         }
-
         return ResponseEntity.ok(respuesta);
-
     }
 
 }

@@ -8,10 +8,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.sistexperto.controller.PacienteDTO;
+import com.sistexperto.model.Estudio;
+import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.ImagenesEntity;
 import com.sistexperto.model.Medico;
 import com.sistexperto.model.Paciente;
+import com.sistexperto.model.SintomaAlucinacion;
+import com.sistexperto.model.SintomaPositivo;
 
 public class database {
 
@@ -57,14 +65,13 @@ public class database {
         return true;
     }
 
-
     // region insert PACIENTES
     public static Boolean insertPaciente(Paciente paciente) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "INSERT INTO PACIENTES (NOMBRE, SEXO, EDAD) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, paciente.getNombre());
-                preparedStatement.setString(2, paciente.getSexo());
+                preparedStatement.setString(2, convertirGuiones(paciente.getSexo()));
                 preparedStatement.setInt(3, paciente.getEdad());
                 preparedStatement.executeUpdate();
                 idPaciente = obtenerUltimoId("PACIENTES", "ID_PACIENTE");
@@ -80,27 +87,15 @@ public class database {
     }
     // endregion insert PACIENTES
 
-
-
-    // region login
-    // region login
+    // region LOGIN
     public static Boolean login(String mail, String password) {
-        System.out.println("------");
-        System.out.println(mail);
-        System.out.println("------");
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "SELECT * FROM MEDICOS WHERE EMAIL= ? AND CONTRASEÑA = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1,"admin@admin.com");
-                preparedStatement.setString(2,password);
-                //preparedStatement.executeUpdate();
-                ResultSet resultSet=preparedStatement.executeQuery();
-                //ResultSet resultSet = preparedStatement.getGeneratedKeys();
-                System.out.println("After Change:" + preparedStatement);
-                System.out.println(resultSet);
-                System.out.println(mail);
-                System.out.println(password);
-                if(resultSet.next()){
+                preparedStatement.setString(1, "admin@admin.com");
+                preparedStatement.setString(2, password);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
                     Medico medico = new Medico();
                     medico.setEmail(mail);
                     medico.setContraseña(password);
@@ -108,8 +103,7 @@ public class database {
                     medico.setNombre(resultSet.getString("NOMBRE"));
                     medico.setApellido(resultSet.getString("APELLIDO"));
                     return true;
-                }else{
-                    System.out.println("asdrgh");
+                } else {
                     return false;
                 }
             } catch (SQLException e) {
@@ -121,7 +115,7 @@ public class database {
             return false;
         }
     }
-                // endregion login
+    // endregion LOGIN
 
     // region insert ESTUDIOS
     public static Boolean insertEstudios(Paciente paciente) {
@@ -479,6 +473,160 @@ public class database {
     }
     // endregion insert CONSULTAS
 
+    // region select ESTUDIOS
+    public static Estudio getEstudios(Integer idEstudio) {
+        Estudio estudios = new Estudio();
+        String sql = "SELECT * FROM ESTUDIOS";
+        if (idEstudio != null) {
+            sql += " WHERE ID_ESTUDIO = ?";
+        }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            if (idEstudio != null) {
+                preparedStatement.setInt(1, idEstudio);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Estudio estudio = new Estudio();
+            estudio.setIdEstudio(resultSet.getInt("ID_ESTUDIO"));
+            estudio.setEstudioCausaNatural(resultSet.getString("CAUSA_ORGANICA"));
+            estudio.setEstudioComentario(resultSet.getString("COMENTARIO"));
+            // FALTA LA IMAGEN
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return estudios;
+    }
+    // endregion select ESTUDIOS
+
+    // region select HISTORIAS_CLINICAS
+    public static List<HistoriaClinica> getHistoriasClinicas(Integer idPaciente) {
+        List<HistoriaClinica> historias = new ArrayList<>();
+        String sql = "SELECT * FROM HISTORIAS_CLINICAS";
+        if (idPaciente != null) {
+            sql += " WHERE ID_PACIENTE = ?";
+        }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            if (idPaciente != null) {
+                preparedStatement.setInt(1, idPaciente);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                HistoriaClinica historia = new HistoriaClinica();
+                historia.setIdHistoriaClinica(resultSet.getInt("ID_HISTORIA_CLINICA"));
+                historia.setTrastornoAutista(convertBooleanToString(resultSet.getBoolean("TRASTORNO_AUTISTA")));
+                historia.setTrastornoComunicacion(
+                        convertBooleanToString(resultSet.getBoolean("TRASTORNO_COMUNICACION")));
+                historia.setTrastornoEsquizoafectivo(
+                        convertBooleanToString(resultSet.getBoolean("TRASTORNO_ESQUIZOAFECTIVO")));
+                historia.setTrastornoBipolar(convertBooleanToString(resultSet.getBoolean("BIPOLAR_CARAC_PSICOTICAS")));
+                historia.setTrastornoDepresivo(convertBooleanToString(resultSet.getBoolean("TRASTORNO_DEPRESIVO")));
+                historia.setAntecedentesFamiliares(
+                        convertBooleanToString(resultSet.getBoolean("ANTECEDENTES_FAMILIARES")));
+                historia.setSustancias(convertBooleanToString(resultSet.getBoolean("SUSTANCIAS")));
+                int idEstudio = resultSet.getInt("ID_ESTUDIO");
+                Estudio estudio = getEstudios(idEstudio);
+                historia.setEstudio(estudio);
+                historias.add(historia);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return historias;
+    }
+    // endregion select HISTORIAS_CLINICAS
+
+    // region select SINTOMAS_POSITIVOS
+    public static List<SintomaPositivo> getSintomasPositivos(Integer idPaciente) {
+        List<SintomaPositivo> sintomasPositivos = new ArrayList<>();
+        String sql = "SELECT * FROM SINTOMAS_POSITIVOS";
+        if (idPaciente != null) {
+            sql += " WHERE ID_PACIENTE = ?";
+        }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            if (idPaciente != null) {
+                preparedStatement.setInt(1, idPaciente);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                SintomaPositivo sintoma = new SintomaPositivo();
+                sintoma.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
+                sintoma.setSintomasPositivosTipoRitmoPensamiento(
+                        obtenerNombrePorId("RITMOS_PENSAMIENTOS", resultSet.getInt("ID_RITMO_PENSAMIENTO")));
+                sintoma.setSintomasPositivosDuracion(resultSet.getString("DURACION_POSITIVOS"));
+                sintomasPositivos.add(sintoma);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sintomasPositivos;
+    }
+    // endregion select SINTOMAS_POSITIVOS
+
+    // region select SINTOMA_ALUCINACIONES
+    public static List<SintomaAlucinacion> getSintomaAlucinaciones(Integer idSintomaPositivo) {
+        List<SintomaAlucinacion> alucinaciones = new ArrayList<>();
+        String sql = "SELECT * FROM SINTOMA_ALUCINACIONES";
+        if (idSintomaPositivo != null) {
+            sql += " WHERE ID_SINTOMA_POSITIVO = ?";
+        }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            if (idSintomaPositivo != null) {
+                preparedStatement.setInt(1, idSintomaPositivo);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Map<Integer, List<String>> sintomasAlucinacionesMap = new HashMap<>();
+            while (resultSet.next()) {
+                SintomaAlucinacion alucinacion = new SintomaAlucinacion();
+                int idAlucinacion = resultSet.getInt("ID_ALUCINACION");
+                alucinacion.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
+                alucinacion.setIdAlucinacion(idAlucinacion);
+                // Obtenemos el nombre de la alucinación usando la función obtenerNombrePorId
+                String nombreAlucinacion = obtenerNombrePorId("ALUCINACIONES", idAlucinacion);
+                // Agregamos el nombre de la alucinación a la lista correspondiente
+                sintomasAlucinacionesMap.get(idSintomaPositivo).add(nombreAlucinacion);
+            }
+            for (Map.Entry<Integer, List<String>> entry : sintomasAlucinacionesMap.entrySet()) {
+                SintomaAlucinacion alucinacion = new SintomaAlucinacion();
+                alucinacion.setIdSintomaPositivo(entry.getKey());
+                alucinacion.setTipoAlucinaciones(entry.getValue()); // Asignamos la lista de nombres
+                alucinaciones.add(alucinacion);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return alucinaciones;
+    }
+    // endregion select SINTOMA_ALUCINACIONES
+
+    // region select SINTOMA_LENGUAJES
+    // endregion select SINTOMA_LENGUAJES
+
+    // region select SINTOMA_PENSAMIENTOS
+    // endregion select SINTOMA_PENSAMIENTOS
+
+    // region select SINTOMA_CONTENIDOS_PENSAMIENTOS
+    // endregion select SINTOMA_CONTENIDOS_PENSAMIENTOS
+
+    // region select SINTOMAS_NEGATIVOS
+    // endregion select SINTOMAS_NEGATIVOS
+
+    // region select SINTOMA_ASPECTOS
+    // endregion select SINTOMA_ASPECTOS
+
+    // region select SINTOMA_ACTIVIDADES
+    // endregion select SINTOMA_ACTIVIDADES
+
+    // region select DIAGNOSTICOS
+    // endregion select DIAGNOSTICOS
+
+    // region select CONSULTAS
+    // endregion select CONSULTAS
+
     // region obtenerIdPorNombre
     private static int obtenerIdPorNombre(String tabla, String nombre, String columnaID) {
         int id = -1;
@@ -498,6 +646,26 @@ public class database {
     }
     // endregion obtenerIdPorNombre
 
+    // region obtenerNombrePorId
+    private static String obtenerNombrePorId(String tabla, int columnaID) {
+        String nombre = null;
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+            String columnaIDString = String.valueOf(columnaID);
+            String sql = "SELECT NOMBRE FROM " + tabla + " WHERE " + columnaIDString + " = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, columnaID);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    nombre = resultSet.getString("NOMBRE");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombre;
+    }
+    // endregion obtenerNombrePorId
+
     // region obtenerUltimoId
     public static int obtenerUltimoId(String nombreTabla, String nombreCampoId) {
         int ultimoId = -1;
@@ -515,20 +683,45 @@ public class database {
     }
     // endregion obtenerUltimoId
 
-    // region convertirGuiones
+    // region converciones
     public static String convertirGuiones(String texto) {
         if (texto == null) {
             return null;
         }
         return texto.replace("-", "_").replace(" ", "_").toUpperCase();
     }
-    // endregion convertirGuiones
 
-    // region convertirABit
     private static int convertirABit(String valor) {
         return valor.equalsIgnoreCase("Si") ? 1 : 0;
     }
-    // endregion convertirABit
 
+    public static String convertBooleanToString(Boolean yesNo) {
+        return yesNo ? "Sí" : "No";
+    }
+    // endregion converciones
+
+    public static List<PacienteDTO> obtenerPacientes() {
+        List<PacienteDTO> listaPacientes = new ArrayList<>();
+        String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, d.DIAGNOSTICO, d.ESTADO, c.FECHA " +
+                "FROM PACIENTES p " +
+                "JOIN CONSULTAS c ON p.ID_PACIENTE = c.ID_PACIENTE " +
+                "JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO;";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                PacienteDTO paciente = new PacienteDTO();
+                paciente.setIdPaciente(resultSet.getInt("ID_PACIENTE"));
+                paciente.setNombre(resultSet.getString("nombre"));
+                paciente.setDiagnostico(resultSet.getString("diagnostico"));
+                paciente.setEstado(resultSet.getString("estado"));
+                paciente.setFecha(resultSet.getDate("fecha").toString());
+                listaPacientes.add(paciente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaPacientes;
+    }
 
 }
