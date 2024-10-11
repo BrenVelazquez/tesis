@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let nombreMedico;
 
 
@@ -11,21 +10,9 @@ $(document).ready(function () {
     }
 });
 
-const pacientes = [
-    { nombre: "Armando Quilo", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },
-    { nombre: "Norma Caries", diagnostico: "No Posible Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },
-    { nombre: "María Ana Martínez", diagnostico: "Evaluar Esquizofrenia Temporal", estado: "Aprobado", fecha: "03/09/24" },
-    { nombre: "Victor Gonzalez", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "11/09/24" },
-    { nombre: "Fabricio Sanchez", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "11/09/24" },
-    { nombre: "Analía Chavez", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "11/09/24" },
-    { nombre: "Romina Cordón", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "12/09/24" }
-];
-=======
-document.addEventListener('DOMContentLoaded', function () {
-    obtenerPacientes();
-});
+
 let pacientes = [];
->>>>>>> 1168b328f742551a8e2ce14a3fe8614c860716d3
+
 
 async function obtenerPacientes() {
     try {
