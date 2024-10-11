@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+<<<<<<< HEAD
 import com.sistexperto.model.Medico;
+=======
+import java.util.StringJoiner;
+>>>>>>> 1168b328f742551a8e2ce14a3fe8614c860716d3
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -15,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-//import com.sistexperto.controller.PacienteDTO;
+import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.database.database;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
@@ -161,7 +167,7 @@ public class PacienteService {
     public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
         // Crear un paciente completo con datos de ejemplo
         Paciente paciente = new Paciente();
-        
+
         // PACIENTE
         paciente.setNombre(pacienteCompleto.getNombre());
         paciente.setSexo(pacienteCompleto.getSexo());
@@ -199,14 +205,15 @@ public class PacienteService {
         // SINTOMA_CONTENIDOS_PENSAMIENTOS
         paciente.setSintomasPositivosTipoContenidoPensamiento(
                 pacienteCompleto.getSintomasPositivosTipoContenidoPensamiento());
-        
-        //SINTOMAS_NEGATIVOS
+
+        // SINTOMAS_NEGATIVOS
         paciente.setSintomasNegativosDuracion(pacienteCompleto.getSintomasNegativosDuracion());
         paciente.setSintomasNegativosAtencion(pacienteCompleto.getSintomasNegativosAtencion());
         paciente.setSintomasNegativosActividad(pacienteCompleto.getSintomasNegativosActividad());
         paciente.setSintomasNegativosBajoFuncionamiento(pacienteCompleto.getSintomasNegativosBajoFuncionamiento());
-        paciente.setSintomasNegativosBajoFuncionamientoComentario(pacienteCompleto.getSintomasNegativosBajoFuncionamientoComentario());
-        
+        paciente.setSintomasNegativosBajoFuncionamientoComentario(
+                pacienteCompleto.getSintomasNegativosBajoFuncionamientoComentario());
+
         // SINTOMA_ASPECTOS
         paciente.setSintomasNegativosAspecto(pacienteCompleto.getSintomasNegativosAspecto());
 
@@ -233,10 +240,102 @@ public class PacienteService {
     // region guardar diagnostico
     // endregion guardar diagnostico
 
+<<<<<<< HEAD
     public String login(String mail, String password) {
+=======
+    // region obtenerTodosLosPacientes
+    public List<PacienteDTO> obtenerTodosLosPacientes() {
+        return database.obtenerPacientes();
+    }
+    // endregion obtenerTodosLosPacientes
+
+    // region obtenerPacientePorId
+    public Paciente obtenerPacientePorId(int idPaciente) {
+        Paciente paciente = database.obtenerPacientePorId(idPaciente);
+
+        if(paciente != null){
+            String sexo = paciente.getSexo();
+            if (sexo != null) {
+                paciente.setSexo(formatearTextoSintomas(sexo));
+            }
+            String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
+            if (ritmoPensamiento != null) {
+                paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
+            }
+            String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
+            paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
+            String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+            String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
+            String contenidosPensamientos = convertirSintomasAString(
+                    database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
+    
+            String atenciones = paciente.getSintomasNegativosAtencion();
+            if (atenciones != null) {
+                paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
+            }
+            String actividades = paciente.getSintomasNegativosActividad();
+            if (actividades != null) {
+                paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
+            }
+            String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
+            paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
+            String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
+            paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
+    
+            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+            if (paciente != null && paciente.getFechaConsulta() != null) {
+                String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
+                paciente.setFechaConsulta(fechaFormateada);
+            }
+        }
+        return paciente;
+    }
+    // endregion obtenerPacientePorId
+
+    // region login
+    public boolean login(String mail, String password) {
+>>>>>>> 1168b328f742551a8e2ce14a3fe8614c860716d3
         System.err.println("service");
         String medico = database.login(mail, password);
         return medico;
     }
+    // endregion login
+
+    // region formateo
+    private String formatearFecha(String fechaConsulta) {
+        LocalDate fecha = LocalDate.parse(fechaConsulta);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return fecha.format(formatter);
+    }
+
+    public String formatearTextoSintomas(String sintomas) {
+        String[] sintomasArray = sintomas.split(", ");
+        StringBuilder resultado = new StringBuilder();
+        for (String sintoma : sintomasArray) {
+            String sintomaFormateado = sintoma.replace("_", " ");
+            sintomaFormateado = sintomaFormateado.toLowerCase();
+            sintomaFormateado = sintomaFormateado.substring(0, 1).toUpperCase() + sintomaFormateado.substring(1);
+            if (resultado.length() > 0) {
+                resultado.append(", ");
+            }
+            resultado.append(sintomaFormateado);
+        }
+        return resultado.toString();
+    }
+
+    public String convertirSintomasAString(List<String> sintomas) {
+        if (sintomas == null || sintomas.isEmpty()) {
+            return "";
+        }
+        StringJoiner sintomasString = new StringJoiner(", ");
+        for (String sintoma : sintomas) {
+            sintomasString.add(sintoma);
+        }
+        return sintomasString.toString();
+    }
+    // endregion formateo
 
 }

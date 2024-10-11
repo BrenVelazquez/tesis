@@ -1,5 +1,5 @@
 .container-casos {
-    max-width: 75%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -96,7 +96,7 @@
     overflow-x: auto;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 75%;
+    max-width: 95%;
     margin: 0 auto;
     margin-bottom: 2rem;
 }
