@@ -244,40 +244,45 @@ public class PacienteService {
 
     // region obtenerPacientePorId
     public Paciente obtenerPacientePorId(int idPaciente) {
-        // return database.obtenerPacientePorId(idPaciente);
         Paciente paciente = database.obtenerPacientePorId(idPaciente);
 
-        String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
-        if (ritmoPensamiento != null) {
-            paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
-        }
-        String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
-        paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
-        String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
-        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
-        String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
-        paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
-        String contenidosPensamientos = convertirSintomasAString(
-                database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
-        paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
-
-        String atenciones = paciente.getSintomasNegativosAtencion();
-        if (atenciones != null) {
-            paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
-        }
-        String actividades = paciente.getSintomasNegativosActividad();
-        if (actividades != null) {
-            paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
-        }
-        String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
-        paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
-        String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
-        paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
-
-        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
-        if (paciente != null && paciente.getFechaConsulta() != null) {
-            String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
-            paciente.setFechaConsulta(fechaFormateada);
+        if(paciente != null){
+            String sexo = paciente.getSexo();
+            if (sexo != null) {
+                paciente.setSexo(formatearTextoSintomas(sexo));
+            }
+            String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
+            if (ritmoPensamiento != null) {
+                paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
+            }
+            String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
+            paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
+            String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+            String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
+            String contenidosPensamientos = convertirSintomasAString(
+                    database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
+            paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
+    
+            String atenciones = paciente.getSintomasNegativosAtencion();
+            if (atenciones != null) {
+                paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
+            }
+            String actividades = paciente.getSintomasNegativosActividad();
+            if (actividades != null) {
+                paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
+            }
+            String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
+            paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
+            String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
+            paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
+    
+            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+            if (paciente != null && paciente.getFechaConsulta() != null) {
+                String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
+                paciente.setFechaConsulta(fechaFormateada);
+            }
         }
         return paciente;
     }

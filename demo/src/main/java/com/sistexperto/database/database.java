@@ -361,8 +361,7 @@ public class database {
             return false;
         }
     }
-
-    // endregion insert PACIENTES
+    // endregion insert SINTOMA_ALUCINACIONES
 
     // region insert SINTOMA_LENGUAJES
     public static Boolean insertSintomaLenguajes(Paciente paciente) {

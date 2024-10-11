@@ -120,16 +120,12 @@ public class PacienteController {
     @GetMapping("/obtenerDetallesPaciente/{idPaciente}")
     public ResponseEntity<Map<String, Object>> obtenerDetallesPaciente(@PathVariable Integer idPaciente) {
         try {
-            System.out.println("idPaciente: " + idPaciente);
             Paciente paciente = pacienteService.obtenerPacientePorId(idPaciente);
-            System.out.println("paciente: " + paciente);
 
-            // Si no se encuentra el paciente, devolver un 404
             if (paciente == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
-            // Crear el mapa con los datos del paciente
             Map<String, Object> datosPaciente = new HashMap<>();
             datosPaciente.put("idPaciente", paciente.getIdPaciente());
             datosPaciente.put("nombre", paciente.getNombre());
@@ -145,6 +141,7 @@ public class PacienteController {
             datosPaciente.put("estudioCausaNatural", paciente.getEstudioCausaNatural());
             datosPaciente.put("estudioComentario", paciente.getEstudioComentario());
             // datosPaciente.put("idImagen", paciente.getIdImagen());
+            // TODO: AGREGAR IMAGEN
 
             datosPaciente.put("sintomasPositivosDuracion", paciente.getSintomasPositivosDuracion());
             datosPaciente.put("sintomasPositivosTipoRitmoPensamiento",
