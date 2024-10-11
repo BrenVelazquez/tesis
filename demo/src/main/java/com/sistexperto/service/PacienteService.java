@@ -7,6 +7,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.sistexperto.model.Medico;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -232,10 +233,10 @@ public class PacienteService {
     // region guardar diagnostico
     // endregion guardar diagnostico
 
-    public boolean login(String mail, String password) {
+    public String login(String mail, String password) {
         System.err.println("service");
-        Boolean exito = database.login(mail, password);
-        return exito;
+        String medico = database.login(mail, password);
+        return medico;
     }
 
 }

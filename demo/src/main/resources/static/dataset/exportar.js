@@ -2,6 +2,15 @@ const modal = document.getElementById('modal');
 const modalMessage = document.getElementById('modalMessage');
 const btnClose = document.getElementById('btnClose'); 
 const btnDownload = document.getElementById('btnDownload');
+let nombreMedico;
+$(document).ready(function () {
+    console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
+    nombreMedico = localStorage.getItem("nombreMedico"); 
+    
+    if (nombreMedico) {
+        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
+    }
+});
 
 function showModal(message) {
     modalMessage.textContent = message;

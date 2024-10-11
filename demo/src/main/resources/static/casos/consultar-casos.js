@@ -1,3 +1,15 @@
+let nombreMedico;
+
+
+$(document).ready(function () {
+    console.log("nombreMedico guardado3:", localStorage.getItem('nombreMedico'));
+    nombreMedico = localStorage.getItem("nombreMedico"); 
+    
+    if (nombreMedico) {
+        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
+    }
+});
+
 const pacientes = [
     { nombre: "Armando Quilo", diagnostico: "Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },
     { nombre: "Norma Caries", diagnostico: "No Posible Esquizofrenia", estado: "Aprobado", fecha: "02/09/24" },

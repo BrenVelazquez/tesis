@@ -82,24 +82,20 @@ public class database {
 
 
 
+    
     // region login
-    // region login
-    public static Boolean login(String mail, String password) {
-        System.out.println("------");
-        System.out.println(mail);
-        System.out.println("------");
+    public static String login(String mail, String password) {
+        
+        System.out.println("database");
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "SELECT * FROM MEDICOS WHERE EMAIL= ? AND CONTRASEÑA = ?";
+            System.out.println(mail);
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1,"admin@admin.com");
+                preparedStatement.setString(1,mail);
                 preparedStatement.setString(2,password);
                 //preparedStatement.executeUpdate();
                 ResultSet resultSet=preparedStatement.executeQuery();
                 //ResultSet resultSet = preparedStatement.getGeneratedKeys();
-                System.out.println("After Change:" + preparedStatement);
-                System.out.println(resultSet);
-                System.out.println(mail);
-                System.out.println(password);
                 if(resultSet.next()){
                     Medico medico = new Medico();
                     medico.setEmail(mail);
@@ -107,18 +103,18 @@ public class database {
                     medico.setDni(resultSet.getInt("DNI"));
                     medico.setNombre(resultSet.getString("NOMBRE"));
                     medico.setApellido(resultSet.getString("APELLIDO"));
-                    return true;
+                    System.out.println("devuelve medico");
+                    return medico.getNombre()+" "+medico.getApellido();
                 }else{
-                    System.out.println("asdrgh");
-                    return false;
+                    return "";
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return "";
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return "";
         }
     }
                 // endregion login
