@@ -1,5 +1,6 @@
-let nombreMedico;
-
+document.addEventListener('DOMContentLoaded', function () {
+    obtenerPacientes();
+});
 
 $(document).ready(function () {
     console.log("nombreMedico guardado3:", localStorage.getItem('nombreMedico'));
@@ -10,9 +11,7 @@ $(document).ready(function () {
     }
 });
 
-
 let pacientes = [];
-
 
 async function obtenerPacientes() {
     try {
