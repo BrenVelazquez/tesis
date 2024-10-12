@@ -1,28 +1,36 @@
 package com.sistexperto.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
-
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.database.database;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
 import org.slf4j.Logger;
+import java.io.ByteArrayOutputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import java.awt.Color;
 
 @Service
 public class PacienteService {
@@ -161,7 +169,6 @@ public class PacienteService {
 
     // region guardar paciente
     public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
-        // Crear un paciente completo con datos de ejemplo
         Paciente paciente = new Paciente();
 
         // PACIENTE
@@ -226,15 +233,13 @@ public class PacienteService {
         paciente.setEstado(pacienteCompleto.getEstado());
         paciente.setPuntaje(pacienteCompleto.getPuntaje());
 
-        // logger.info("##### PACIENTE: ", paciente, " #####");
-
         Boolean exito = database.ingresarNuevoPaciente(paciente);
         return exito;
     }
     // endregion guardar paciente
 
-    // region guardar diagnostico
-    // endregion guardar diagnostico
+    // // region guardar diagnostico
+    // // endregion guardar diagnostico
 
     // region obtenerTodosLosPacientes
     public List<PacienteDTO> obtenerTodosLosPacientes() {
@@ -242,47 +247,26 @@ public class PacienteService {
     }
     // endregion obtenerTodosLosPacientes
 
+    // region obtenerTodosLosPacientesConDetalles
+    public List<Paciente> obtenerTodosLosPacientesConDetalles() {
+        List<Paciente> pacientes = database.obtenerTodosLosPacientesConDetalles();
+
+        for (Paciente paciente : pacientes) {
+            if (paciente != null) {
+                paciente = formatAndGetSintomas(paciente, paciente.getIdPaciente());
+            }
+        }
+
+        return pacientes;
+    }
+    // endregion obtenerTodosLosPacientesConDetalles
+
     // region obtenerPacientePorId
     public Paciente obtenerPacientePorId(int idPaciente) {
         Paciente paciente = database.obtenerPacientePorId(idPaciente);
 
-        if(paciente != null){
-            String sexo = paciente.getSexo();
-            if (sexo != null) {
-                paciente.setSexo(formatearTextoSintomas(sexo));
-            }
-            String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
-            if (ritmoPensamiento != null) {
-                paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
-            }
-            String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
-            paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
-            String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
-            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
-            String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
-            paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
-            String contenidosPensamientos = convertirSintomasAString(
-                    database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
-            paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
-    
-            String atenciones = paciente.getSintomasNegativosAtencion();
-            if (atenciones != null) {
-                paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
-            }
-            String actividades = paciente.getSintomasNegativosActividad();
-            if (actividades != null) {
-                paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
-            }
-            String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
-            paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
-            String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
-            paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
-    
-            paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
-            if (paciente != null && paciente.getFechaConsulta() != null) {
-                String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
-                paciente.setFechaConsulta(fechaFormateada);
-            }
+        if (paciente != null) {
+            paciente = formatAndGetSintomas(paciente, idPaciente);
         }
         return paciente;
     }
@@ -295,6 +279,167 @@ public class PacienteService {
         return exito;
     }
     // endregion login
+
+    // region descargarExcel
+    public byte[] descargarExcel() {
+        try {
+            // 1. Obtener los datos de la base de datos
+            List<Paciente> pacientes = obtenerTodosLosPacientesConDetalles();
+
+            // 2. Procesar los datos y generar un archivo Excel o CSV
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            writeToExcelOrCSVFile(pacientes, outputStream);
+
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void writeToExcelOrCSVFile(List<Paciente> pacientes, OutputStream outputStream) {
+        try {
+            // Crear un nuevo libro de Excel o archivo CSV
+            try (Workbook workbook = new XSSFWorkbook()) {
+                // Crear una hoja dentro del libro
+                Sheet sheet = workbook.createSheet("Datos");
+
+                CellStyle headerStyle = workbook.createCellStyle();
+                byte[] rgbColor = new byte[] { (byte) 0x00, (byte) 0x95, (byte) 0x87 };
+                XSSFColor myColor = new XSSFColor(rgbColor, null);
+                ((XSSFCellStyle) headerStyle).setFillForegroundColor(myColor);
+                headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                Font headerFont = workbook.createFont();
+                headerFont.setBold(true);
+                headerFont.setColor(IndexedColors.WHITE.getIndex());
+                headerStyle.setFont(headerFont);
+
+                // Crear una fila para los encabezados
+                Row headerRow = sheet.createRow(0);
+
+                String[] columnHeaders = { "NOMBRE DEL PACIENTE", "EDAD", "SEXO", "DIAGNOSTICO", "ESTADO",
+                        "FECHA DE CONSULTA", "JUSTIFICACION", "RECOMENDACION", "COMENTARIOS ADICIONALES DEL MÉDICO",
+                        "JUSTIFICACIÓN DE RECHAZO", "TRASTORNO AUTISTA", "TRASTORNO DE LA COMUNICACIÓN EN LA INFANCIA",
+                        "TRASTORNO ESQUIZOAFECTIVO", "TRASTORNO DEPRESIVO",
+                        "TRASTORNO BIPOLAR CON CARACTERÍSTICAS PSICÓTICAS", "ANTECEDENTES FAMILIARES",
+                        "BAJO SUSTANCIAS", "DURACIÓN DE LOS SINTOMAS POSITIVOS", "ALUCINACIONES", "LENGUAJE",
+                        "PENSAMIENTO", "CONTENIDO DEL PENSAMIENTO", "RITMO DEL PENSAMIENTO",
+                        "DURACIÓN DE LOS SINTOMAS NEGATIVOS", "ASPECTO", "ATENCIÓN", "ACTIVIDAD", "AFECTIVIDAD",
+                        "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
+                        "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
+                        "SE DESCARTA CAUSA ORGANICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS" };
+                for (int i = 0; i < columnHeaders.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(columnHeaders[i]);
+                    cell.setCellStyle(headerStyle);
+                }
+
+                int rowNum = 1; // Comienza desde la segunda fila después de los encabezados
+
+                for (Paciente paciente : pacientes) {
+                    Row row = sheet.createRow(rowNum++);
+                    // Llena las celdas con los datos de pacientes
+                    // row.createCell(0).setCellValue(paciente.getIdPaciente());
+                    row.createCell(0).setCellValue(paciente.getNombre());
+                    row.createCell(1).setCellValue(paciente.getEdad());
+                    row.createCell(2).setCellValue(paciente.getSexo());
+                    row.createCell(3).setCellValue(paciente.getDiagnostico());
+                    row.createCell(4).setCellValue("1".equals(paciente.getEstado()) ? "Confirmado" : "Rechazado");
+                    row.createCell(5).setCellValue(paciente.getFechaConsulta());
+                    row.createCell(6).setCellValue(paciente.getJustificacion());
+                    // row.createCell(0).setCellValue(paciente.getReglas());
+                    row.createCell(7).setCellValue(paciente.getRecomendacion());
+                    row.createCell(8)
+                            .setCellValue(
+                                    !paciente.getComentarioMedico().isEmpty() ? paciente.getComentarioMedico() : "-");
+                    row.createCell(9).setCellValue(
+                            !paciente.getJustificacionRechazo().isEmpty() ? paciente.getJustificacionRechazo() : "-");
+                    row.createCell(10).setCellValue(convertirSiNo(paciente.getTrastornoAutista()));
+                    row.createCell(11).setCellValue(convertirSiNo(paciente.getTrastornoComunicacion()));
+                    row.createCell(12).setCellValue(convertirSiNo(paciente.getTrastornoEsquizoafectivo()));
+                    row.createCell(13).setCellValue(convertirSiNo(paciente.getTrastornoDepresivo()));
+                    row.createCell(14).setCellValue(convertirSiNo(paciente.getTrastornoBipolar()));
+                    row.createCell(15).setCellValue(convertirSiNo(paciente.getAntecedentesFamiliares()));
+                    row.createCell(16).setCellValue(convertirSiNo(paciente.getSustancias()));
+                    row.createCell(17).setCellValue(paciente.getSintomasPositivosDuracion());
+                    row.createCell(18).setCellValue(paciente.getSintomasPositivosTipoAlucinaciones());
+                    row.createCell(19).setCellValue(paciente.getSintomasPositivosTipoLenguaje());
+                    row.createCell(20).setCellValue(paciente.getSintomasPositivosTipoPensamiento());
+                    row.createCell(21).setCellValue(paciente.getSintomasPositivosTipoContenidoPensamiento());
+                    row.createCell(22).setCellValue(paciente.getSintomasPositivosTipoRitmoPensamiento());
+                    row.createCell(23).setCellValue(paciente.getSintomasNegativosDuracion());
+                    row.createCell(24).setCellValue(paciente.getSintomasNegativosAspecto());
+                    row.createCell(25).setCellValue(paciente.getSintomasNegativosAtencion());
+                    row.createCell(26).setCellValue(paciente.getSintomasNegativosActividad());
+                    row.createCell(27).setCellValue(paciente.getSintomasNegativosAfectividad());
+                    row.createCell(28).setCellValue(convertirSiNo(paciente.getSintomasNegativosBajoFuncionamiento()));
+                    row.createCell(29)
+                            .setCellValue(!paciente.getSintomasNegativosBajoFuncionamientoComentario().isEmpty()
+                                    ? paciente.getSintomasNegativosBajoFuncionamientoComentario()
+                                    : "-");
+
+                    String estudioCausaOrganica = paciente.getEstudioCausaNatural();
+                    row.createCell(30).setCellValue(estudioCausaOrganica != null ? "No" : "Sí");
+                    estudioCausaOrganica = "estudio-causa-natural-no".equals(estudioCausaOrganica) ? "No"
+                            : "estudio-causa-natural-si".equals(estudioCausaOrganica) ? "Si" : "Inconcluso";
+                    row.createCell(31).setCellValue(estudioCausaOrganica);
+                    row.createCell(32).setCellValue(
+                            paciente.getEstudioComentario() != null ? paciente.getEstudioComentario() : "-");
+                    // TODO: FALTA IMAGEN
+                }
+
+                // Escribir el libro en el flujo de salida
+                workbook.write(outputStream);
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    // endregion descargarExcel
+
+    // region formatAndGetSintomas
+    public Paciente formatAndGetSintomas(Paciente paciente, int idPaciente) {
+        String sexo = paciente.getSexo();
+        if (sexo != null) {
+            paciente.setSexo(formatearTextoSintomas(sexo));
+        }
+        String ritmoPensamiento = paciente.getSintomasPositivosTipoRitmoPensamiento();
+        if (ritmoPensamiento != null) {
+            paciente.setSintomasPositivosTipoRitmoPensamiento(formatearTextoSintomas(ritmoPensamiento));
+        }
+        String alucinaciones = convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
+        paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
+        String lenguajes = convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+        String pensamientos = convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
+        String contenidosPensamientos = convertirSintomasAString(
+                database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
+        paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
+
+        String atenciones = paciente.getSintomasNegativosAtencion();
+        if (atenciones != null) {
+            paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
+        }
+        String actividades = paciente.getSintomasNegativosActividad();
+        if (actividades != null) {
+            paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
+        }
+        String aspectos = convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
+        paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
+        String afectividades = convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
+        paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
+
+        paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+        if (paciente != null && paciente.getFechaConsulta() != null) {
+            String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
+            paciente.setFechaConsulta(fechaFormateada);
+        }
+        return paciente;
+    }
+    // endregion formatAndGetSintomas
 
     // region formateo
     private String formatearFecha(String fechaConsulta) {
@@ -327,6 +472,10 @@ public class PacienteService {
             sintomasString.add(sintoma);
         }
         return sintomasString.toString();
+    }
+
+    public static String convertirSiNo(String estado) {
+        return "1".equals(estado) ? "Sí" : "No";
     }
     // endregion formateo
 

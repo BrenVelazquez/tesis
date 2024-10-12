@@ -222,6 +222,86 @@ public class database {
     }
     // endregion obtenerPacientePorId
 
+    // region obtenerTodosLosPacientesConDetalles
+    public static List<Paciente> obtenerTodosLosPacientesConDetalles() {
+        List<Paciente> listaPacientes = new ArrayList<>();
+
+        String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, p.EDAD, p.SEXO, " +
+                "h.TRASTORNO_AUTISTA, h.TRASTORNO_COMUNICACION, h.TRASTORNO_ESQUIZOAFECTIVO, " +
+                "h.TRASTORNO_DEPRESIVO, h.BIPOLAR_CARAC_PSICOTICAS, h.ANTECEDENTES_FAMILIARES, h.SUSTANCIAS, " +
+                "e.CAUSA_ORGANICA AS ESTUDIO_CAUSA_NATURAL, " +
+                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " +
+                "sp.DURACION_POSITIVOS AS SINTOMAS_POSITIVOS_DURACION, " +
+                "spr.NOMBRE AS RITMO_PENSAMIENTO, " +
+                "sn.DURACION_NEGATIVOS AS SINTOMAS_NEGATIVOS_DURACION, " +
+                "sn.BAJO_FUNCIONAMIENTO AS SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO,  " +
+                "sn.COMENTARIO_FUNCIONAMIENTO AS SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO_COMENTARIO, " +
+                "snac.NOMBRE AS ACTIVIDAD, " +
+                "snat.NOMBRE AS ATENCION, " +
+                "c.FECHA AS FECHA_CONSULTA, " +
+                "d.DIAGNOSTICO, d.JUSTIFICACION, d.REGLAS, d.RECOMENDACION, " +
+                "d.COMENTARIOS_MEDICOS, d.COMENTARIOS_RECHAZO, d.ESTADO, d.PUNTAJE, " +
+                "m.NOMBRE AS NOMBRE_MEDICO, m.APELLIDO AS APELLIDO_MEDICO " +
+                "FROM PACIENTES p  " +
+                "LEFT JOIN HISTORIAS_CLINICAS h ON p.ID_PACIENTE = h.ID_PACIENTE " +
+                "LEFT JOIN ESTUDIOS e ON h.ID_ESTUDIO = e.ID_ESTUDIO " +
+                "LEFT JOIN SINTOMAS_POSITIVOS sp ON p.ID_PACIENTE = sp.ID_PACIENTE " +
+                "LEFT JOIN RITMOS_PENSAMIENTOS spr ON sp.ID_RITMO_PENSAMIENTO = spr.ID_RITMO_PENSAMIENTO " +
+                "LEFT JOIN SINTOMAS_NEGATIVOS sn ON p.ID_PACIENTE = sn.ID_PACIENTE " +
+                "LEFT JOIN ACTIVIDADES snac ON sn.ID_ACTIVIDAD = snac.ID_ACTIVIDAD " +
+                "LEFT JOIN ATENCIONES snat ON sN.ID_ATENCION = snat.ID_ATENCION " +
+                "LEFT JOIN CONSULTAS c ON p.ID_PACIENTE = c.ID_PACIENTE " +
+                "LEFT JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO " +
+                "LEFT JOIN MEDICOS m ON c.ID_MEDICO = m.ID_MEDICO";
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(resultSet.getInt("ID_PACIENTE"));
+                paciente.setNombre(resultSet.getString("NOMBRE"));
+                paciente.setEdad(resultSet.getInt("EDAD"));
+                paciente.setSexo(resultSet.getString("SEXO"));
+                paciente.setTrastornoAutista(resultSet.getString("TRASTORNO_AUTISTA"));
+                paciente.setTrastornoComunicacion(resultSet.getString("TRASTORNO_COMUNICACION"));
+                paciente.setTrastornoEsquizoafectivo(resultSet.getString("TRASTORNO_ESQUIZOAFECTIVO"));
+                paciente.setTrastornoDepresivo(resultSet.getString("TRASTORNO_DEPRESIVO"));
+                paciente.setTrastornoBipolar(resultSet.getString("BIPOLAR_CARAC_PSICOTICAS"));
+                paciente.setAntecedentesFamiliares(resultSet.getString("ANTECEDENTES_FAMILIARES"));
+                paciente.setSustancias(resultSet.getString("SUSTANCIAS"));
+                paciente.setEstudioCausaNatural(resultSet.getString("ESTUDIO_CAUSA_NATURAL"));
+                paciente.setEstudioComentario(resultSet.getString("ESTUDIO_COMENTARIO"));
+                paciente.setSintomasPositivosDuracion(resultSet.getString("SINTOMAS_POSITIVOS_DURACION"));
+                paciente.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
+                paciente.setSintomasNegativosDuracion(resultSet.getString("SINTOMAS_NEGATIVOS_DURACION"));
+                paciente.setSintomasNegativosAtencion(resultSet.getString("ATENCION"));
+                paciente.setSintomasNegativosActividad(resultSet.getString("ACTIVIDAD"));
+                paciente.setSintomasNegativosBajoFuncionamiento(
+                        resultSet.getString("SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO"));
+                paciente.setSintomasNegativosBajoFuncionamientoComentario(
+                        resultSet.getString("SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO_COMENTARIO"));
+                paciente.setDiagnostico(resultSet.getString("DIAGNOSTICO"));
+                paciente.setJustificacion(resultSet.getString("JUSTIFICACION"));
+                paciente.setReglas(resultSet.getString("REGLAS"));
+                paciente.setRecomendacion(resultSet.getString("RECOMENDACION"));
+                paciente.setComentarioMedico(resultSet.getString("COMENTARIOS_MEDICOS"));
+                paciente.setJustificacionRechazo(resultSet.getString("COMENTARIOS_RECHAZO"));
+                paciente.setEstado(resultSet.getString("ESTADO"));
+                paciente.setPuntaje(resultSet.getInt("PUNTAJE"));
+                paciente.setFechaConsulta(resultSet.getDate("FECHA_CONSULTA").toString());
+                paciente.setNombreMedico(resultSet.getString("NOMBRE_MEDICO"));
+                paciente.setApellidoMedico(resultSet.getString("APELLIDO_MEDICO"));
+
+                listaPacientes.add(paciente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaPacientes;
+    }
+    // endregion obtenerTodosLosPacientesConDetalles
+
     // region insert ESTUDIOS
     public static Boolean insertEstudios(Paciente paciente) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {

@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.IIOException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 @RestController
 public class PacienteController {
@@ -32,6 +34,7 @@ public class PacienteController {
 
     private static final Logger logger = LoggerFactory.getLogger(PacienteController.class);
 
+    // region diagnosticar
     @PostMapping("/diagnosticar")
     public ResponseEntity<Object> getPaciente(@RequestBody PacienteRequest pacienteRequest) {
         try {
@@ -45,7 +48,9 @@ public class PacienteController {
             return new ResponseEntity<>("Ocurrió un error al procesar la solicitud.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    // endregion diagnosticar
 
+    //region subirImagen
     @PostMapping("/subirImagen")
     public ResponseEntity<Object> subirImagen(
             @RequestParam("codigoPaciente") String codigoPaciente,
@@ -78,7 +83,9 @@ public class PacienteController {
 
         return cleanedFileName;
     }
+    //endregion subitImagen
 
+    // region ingresarPaciente
     @PostMapping("/ingresarPaciente")
     public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Paciente paciente) {
 
@@ -95,7 +102,9 @@ public class PacienteController {
 
         return ResponseEntity.ok(respuesta);
     }
+    //endregion ingresarPaciente
 
+    //region obtenerPacientes
     @GetMapping("/obtenerPacientes")
     public ResponseEntity<List<Map<String, Object>>> obtenerPacientes() {
         try {
@@ -116,7 +125,9 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    //endregion obtenerPacientes
 
+    // region obtenerDetallesPAciente
     @GetMapping("/obtenerDetallesPaciente/{idPaciente}")
     public ResponseEntity<Map<String, Object>> obtenerDetallesPaciente(@PathVariable Integer idPaciente) {
         try {
@@ -178,7 +189,9 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    //endregion obtenerDetallesPaciente
 
+    //region login
     @PostMapping("/login")
     // public ResponseEntity<Map<String, Object>> login(@RequestBody String mail,
     // String contraseña) {
@@ -196,5 +209,33 @@ public class PacienteController {
         }
         return ResponseEntity.ok(respuesta);
     }
+    // endregion login
+
+    //region descargarExcel
+    @GetMapping("/descargarExcel")
+    public ResponseEntity<byte[]> descargarExcel() {
+        try {
+            // 1. Llama al método del servicio para exportar los datos a Excel o CSV
+            byte[] excelOrCsvData = pacienteService.descargarExcel();
+
+            if (excelOrCsvData != null) {
+                // 2. Configura el encabezado HTTP para la descarga del archivo
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+                headers.setContentDispositionFormData("attachment", "dataset.xlsx");
+
+                // 3. Devuelve el archivo como respuesta HTTP
+                return new ResponseEntity<>(excelOrCsvData, headers, HttpStatus.OK);
+            } else {
+                // Manejar el caso de error o datos no disponibles
+                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            // Manejar excepciones en caso de error
+            e.printStackTrace();
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    //endregion decargarExcel
 
 }
