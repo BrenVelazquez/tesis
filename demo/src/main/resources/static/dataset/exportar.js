@@ -6,11 +6,16 @@ const loader = document.querySelector('.loader');
 const modalIcon = document.querySelector('.modal-icon');
 let nombreMedico;
 $(document).ready(function () {
-    console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
+    /*console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
     nombreMedico = localStorage.getItem("nombreMedico"); 
     
     if (nombreMedico) {
         document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
+    }*/
+
+    const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre+" "+medicoData.apellido}`;
     }
 });
 
@@ -61,5 +66,12 @@ window.addEventListener('click', function (event) {
 });
 
 function volver() {
-    window.location.href = "/";
+    window.location.href = "../index.html";
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnCerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('medico'); // Eliminar información del médico
+        window.location.href = '../Login/login.html'; // Redirigir a la página de login
+    });
+});

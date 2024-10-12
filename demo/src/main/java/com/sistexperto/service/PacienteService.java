@@ -274,9 +274,9 @@ public class PacienteService {
     // endregion obtenerPacientePorId
 
     // region login
-    public String login(String mail, String password) {
+    public Medico login(String mail, String password) {
         System.err.println("service");
-        String medico = database.login(mail, password);
+        Medico medico = database.login(mail, password);
         return medico;
     }
     // endregion login

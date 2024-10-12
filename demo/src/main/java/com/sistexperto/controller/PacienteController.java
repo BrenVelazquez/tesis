@@ -198,11 +198,11 @@ public class PacienteController {
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
         String mail = loginRequest.get("mail");
         String contraseña = loginRequest.get("contraseña");
-        System.out.println(mail);
-        String medico = pacienteService.login(mail, contraseña);
+        Medico medico = pacienteService.login(mail, contraseña);
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("medico", medico);
-        if (medico!="") {
+        
+        if (medico!=null) {
+            respuesta.put("medico", medico);
             respuesta.put("mensaje", "Usuario y contraseña correcto.");
         } else {
             respuesta.put("mensaje", "Médico no encontrado.");

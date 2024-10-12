@@ -1,6 +1,14 @@
 function volver() {
-    window.location.href = "/";
+    window.location.href = "../casos/consultar-casos.html";
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnCerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('medico'); // Eliminar información del médico
+        window.location.href = '../Login/login.html'; // Redirigir a la página de login
+    });
+});
+
 
 function obtenerIdPacienteDeUrl() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -16,6 +24,11 @@ $(document).ready(function () {
     $("#detalle-sintomas-negativos-container").load("detalleSintomasNegativos.html", function () { });
 
     $("#detalle-diagnostico-container").load("detalleDiagnostico.html", function () { });
+
+    const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre+" "+medicoData.apellido}`;
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function () {

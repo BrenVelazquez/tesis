@@ -289,3 +289,8 @@ input.form-control {
         width: 48%;
     }
 }
+
+.logout-button{
+    pointer-events: auto !important;
+    opacity: 1 !important;
+}

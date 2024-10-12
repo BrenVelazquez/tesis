@@ -88,7 +88,7 @@ public class database {
     // endregion insert PACIENTES
 
     // region LOGIN
-    public static String login(String mail, String password) {
+    public static Medico login(String mail, String password) {
 
         System.out.println("database");
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
@@ -108,17 +108,17 @@ public class database {
                     medico.setNombre(resultSet.getString("NOMBRE"));
                     medico.setApellido(resultSet.getString("APELLIDO"));
                     System.out.println("devuelve medico");
-                    return medico.getNombre() + " " + medico.getApellido();
+                    return medico;
                 } else {
-                    return "";
+                    return null;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                return "";
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
     // endregion LOGIN
