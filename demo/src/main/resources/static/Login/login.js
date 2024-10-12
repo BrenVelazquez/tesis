@@ -55,15 +55,25 @@ async function iniciar_sesion() {
         console.log("Datos del formulario en formato JSON: ", jsonString);
     
         console.log('jsonString: ' + jsonString);
-        try {
+
+        try{
             const response = await $.ajax({
                 type: "POST",
                 url: "/login",
                 contentType: "application/json",
                 data: jsonString,
             });
-            if (response.exito) {
-                window.open("index.html", "_self");
+            if (response.mensaje === "Usuario y contraseña correcto.") {
+                const medico = response.medico; // Obtén el objeto Medico
+            
+                /*let newWindow=window.open("index.html", "_self");
+                newWindow.addEventListener('load', function(){
+                    newWindow.dniMedico = medico.dni;
+                  }, false);*/
+                console.log(response);
+                localStorage.setItem("nombreMedico", medico); // Guarda el valor
+                //console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
+                window.location.href = "index.html"; // Redirige a la nueva página
                 return true;
             } else {
                 document.getElementById("error-login").style.display='block';
@@ -74,5 +84,4 @@ async function iniciar_sesion() {
             return false;
         }
     } 
-    
 }

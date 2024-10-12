@@ -88,13 +88,18 @@ public class database {
     // endregion insert PACIENTES
 
     // region LOGIN
-    public static Boolean login(String mail, String password) {
+    public static String login(String mail, String password) {
+
+        System.out.println("database");
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "SELECT * FROM MEDICOS WHERE EMAIL= ? AND CONTRASEÑA = ?";
+            System.out.println(mail);
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, "admin@admin.com");
+                preparedStatement.setString(1, mail);
                 preparedStatement.setString(2, password);
+                // preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.executeQuery();
+                // ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if (resultSet.next()) {
                     Medico medico = new Medico();
                     medico.setEmail(mail);
@@ -102,17 +107,18 @@ public class database {
                     medico.setDni(resultSet.getInt("DNI"));
                     medico.setNombre(resultSet.getString("NOMBRE"));
                     medico.setApellido(resultSet.getString("APELLIDO"));
-                    return true;
+                    System.out.println("devuelve medico");
+                    return medico.getNombre() + " " + medico.getApellido();
                 } else {
-                    return false;
+                    return "";
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return "";
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return "";
         }
     }
     // endregion LOGIN

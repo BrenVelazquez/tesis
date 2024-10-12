@@ -12,9 +12,17 @@ body {
 .page-title {
   background-color: #009587;
   color: #fff;
-  padding: 1rem;
+  /*padding: 1rem;*/
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+
 }
+
+
 
 .container-page {
   display: flex;
@@ -246,4 +254,48 @@ input[type="checkbox"]:checked::before {
 
 .icon-tooltip {
   color: #009587;
+}
+
+
+.user-info {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+  align-items: flex-end; /* Alinea a la derecha */
+  text-align: right;
+  margin-left: auto; /* Empuja el bloque al extremo derecho */
+  margin-top: -25px;
+}
+
+.username {
+  font-size: 16px;
+}
+
+.logout-button {
+  border-radius: 10px; /* Mantiene el borde redondeado */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #1da799b2;
+  color: #fff;
+}
+
+header {
+  display: flex;
+  justify-content: space-between; /* Distribuye el contenido */
+  align-items: center; /* Alinea verticalmente al centro */
+  padding: 10px 20px;
+  background-color: #009587;
+  color: white;
+}
+
+.title{
+  flex: 1; /* Permite que el título ocupe el espacio disponible */
+  text-align: center; /* Centra el texto del título */
+  margin-top: 20px; 
 }

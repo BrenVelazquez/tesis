@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import com.sistexperto.model.Medico;
 import java.util.StringJoiner;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -273,10 +274,10 @@ public class PacienteService {
     // endregion obtenerPacientePorId
 
     // region login
-    public boolean login(String mail, String password) {
+    public String login(String mail, String password) {
         System.err.println("service");
-        Boolean exito = database.login(mail, password);
-        return exito;
+        String medico = database.login(mail, password);
+        return medico;
     }
     // endregion login
 

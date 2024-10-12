@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.sistexperto.model.Medico;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.model.Paciente;
@@ -198,11 +198,11 @@ public class PacienteController {
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
         String mail = loginRequest.get("mail");
         String contraseña = loginRequest.get("contraseña");
-        System.out.println("hola");
-        Boolean exito = pacienteService.login(mail, contraseña);
+        System.out.println(mail);
+        String medico = pacienteService.login(mail, contraseña);
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("exito", exito);
-        if (exito) {
+        respuesta.put("medico", medico);
+        if (medico!="") {
             respuesta.put("mensaje", "Usuario y contraseña correcto.");
         } else {
             respuesta.put("mensaje", "Médico no encontrado.");

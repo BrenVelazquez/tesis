@@ -1,7 +1,18 @@
-document.addEventListener('DOMContentLoaded', function () {
-    obtenerPacientes();
+let nombreMedico;
+
+
+$(document).ready(function () {
+    console.log("nombreMedico guardado3:", localStorage.getItem('nombreMedico'));
+    nombreMedico = localStorage.getItem("nombreMedico"); 
+    
+    if (nombreMedico) {
+        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
+    }
 });
+
+
 let pacientes = [];
+
 
 async function obtenerPacientes() {
     try {

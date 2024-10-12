@@ -1,5 +1,5 @@
 let datosFormulario = {};
-
+let nombreMedico;
 $(document).ready(function () {
     initializeButtons();
 
@@ -21,6 +21,13 @@ $(document).ready(function () {
             cerrarPopup();
         });
     });
+
+    console.log("nombreMedico guardado2:", localStorage.getItem('nombreMedico'));
+    nombreMedico = localStorage.getItem("nombreMedico"); 
+    
+    if (nombreMedico) {
+        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function () { });
