@@ -72,6 +72,7 @@ input {
     width: 100%;
     margin-top: 10px;
 }
+
 .justificacion-rechazo-container,
 .comentarios {
     width: 49%;
@@ -211,7 +212,6 @@ input.form-control {
     border: 1px solid #ced4da;
 }
 
-/* Estilos para pantallas medianas (tablets) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .gray-box {
         display: flex;
@@ -229,7 +229,6 @@ input.form-control {
     }
 }
 
-/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
 
     h6 {
@@ -278,7 +277,6 @@ input.form-control {
     }
 }
 
-/* Estilos para dispositivos de escritorio */
 @media (min-width: 768px) {
     .button-container {
         display: flex;
@@ -290,7 +288,7 @@ input.form-control {
     }
 }
 
-.logout-button{
+.logout-button {
     pointer-events: auto !important;
     opacity: 1 !important;
 }

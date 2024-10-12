@@ -4,15 +4,9 @@ const btnClose = document.getElementById('btnClose');
 const btnDownload = document.getElementById('btnDownload');
 const loader = document.querySelector('.loader');
 const modalIcon = document.querySelector('.modal-icon');
+
 let nombreMedico;
 $(document).ready(function () {
-    /*console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
-    nombreMedico = localStorage.getItem("nombreMedico"); 
-    
-    if (nombreMedico) {
-        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
-    }*/
-
     const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
     if (medicoData) {
         document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre+" "+medicoData.apellido}`;

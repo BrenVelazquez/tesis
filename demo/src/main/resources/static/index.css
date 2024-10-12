@@ -9,20 +9,62 @@ body {
   justify-content: flex-start;
 }
 
-.page-title {
-  background-color: #009587;
-  color: #fff;
-  /*padding: 1rem;*/
-  text-align: center;
+header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 10px 20px;
-
-
+  background-color: #009587;
+  padding: 1rem 2rem;
+  color: white;
+  position: relative;
+  font-family: Arial, sans-serif !important;
 }
 
+.page-title {
+  flex-grow: 1;
+  text-align: center;
+}
 
+.page-title h1 {
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  margin-top: auto;
+}
+
+.username {
+  margin-right: 1rem;
+  font-size: 1rem;
+  color: white;
+}
+
+.logout-button {
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.logout-button:hover {
+  background-color: #cac9c9;
+  color: black;
+}
+
+.title {
+  color: #009587;
+  text-align: center;
+}
 
 .container-page {
   display: flex;
@@ -136,8 +178,8 @@ body {
   margin-top: auto;
   width: 100%;
   height: 90px;
-  position: relative; 
-  bottom:0;
+  position: relative;
+  bottom: 0;
   left: 0;
   font-size: 17px;
   font-family: verdana;
@@ -165,7 +207,7 @@ body {
   max-height: 100px;
   overflow: auto;
   border-radius: 8px;
-  
+
 }
 
 #check {
@@ -202,7 +244,7 @@ input[type="checkbox"]:checked::before {
   content: '\f00c';
   font-family: FontAwesome;
   font-size: 12px;
-  color: white ;
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -230,7 +272,6 @@ input[type="checkbox"]:checked::before {
   z-index: 1;
   bottom: 125%;
   right: 10%;
-  /* margin-left: -150px; */
   opacity: 0;
   transition: opacity 0.3s;
   border: 2px solid #009587;
@@ -254,52 +295,4 @@ input[type="checkbox"]:checked::before {
 
 .icon-tooltip {
   color: #009587;
-}
-
-
-.user-info {
-  display: flex;
-  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
-  align-items: flex-end; /* Alinea a la derecha */
-  text-align: right;
-  margin-left: auto; /* Empuja el bloque al extremo derecho */
-  margin-top: -25px;
-}
-
-.username {
-  font-size: 16px;
-}
-
-.logout-button {
-  border-radius: 10px; /* Mantiene el borde redondeado */
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.logout-button:hover {
-  background-color: #1da799b2;
-  color: #fff;
-}
-
-header {
-  display: flex;
-  justify-content: space-between; /* Distribuye el contenido */
-  align-items: center; /* Alinea verticalmente al centro */
-  padding: 10px 20px;
-  background-color: #009587;
-  color: white;
-}
-
-.title{
-  flex: 1; /* Permite que el título ocupe el espacio disponible */
-  text-align: center; /* Centra el texto del título */
-  margin-top: 20px; 
-}
-
-header{
-  font-family: Arial, sans-serif !important; 
 }

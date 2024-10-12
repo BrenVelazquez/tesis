@@ -4,17 +4,14 @@ body {
 
 .image-container {
     max-width: 100%;
-    /* para evitar que se desborde en pantallas pequeñas */
     width: 100%;
     height: 225px;
-    /* Altura del espacio de carga de imagen para mantener una relación de aspecto 4:3 */
     margin: 2rem auto;
     text-align: center;
     border: 2px solid #009587;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
-    /* Prevent image from overflowing the container */
     display: none;
 }
 
@@ -109,9 +106,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 70%;
-    /* Ancho del popup para pantallas grandes */
     margin: auto;
-    /* Centra horizontalmente */
 }
 
 #justificacion-title {
@@ -121,35 +116,25 @@ body {
 
 #justificacion-icon {
     margin-right: 10px;
-    /* Espacio entre el icono y el texto */
     transition: transform 0.3s ease;
-    /* Transición suave para el cambio del ícono */
 }
 
 #justificacion-title.collapsed #justificacion-icon {
     transform: rotate(-90deg);
-    /* Girar el icono cuando la sección esté colapsada */
 }
 
 #justificacion {
     border: 1px solid #009587;
-    /* Bordes en color azul */
     padding: 10px;
     border-radius: 5px;
-    /* Bordes redondeados */
 }
 
 .justificacion-text {
     white-space: pre-wrap;
-    /* Mantiene los saltos de línea del texto */
     word-wrap: break-word;
-    /* Corta las palabras largas para que no desborden */
     overflow-wrap: break-word;
-    /* Evita el desbordamiento horizontal */
     max-width: 100%;
-    /* Se asegura de que el texto no cause scroll horizontal */
     margin-top: 10px;
-    /* font-family: 'Courier New', Courier, monospace; */
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 15px;
@@ -158,14 +143,11 @@ body {
 
 #justificacion ul {
     list-style-type: disc;
-    /* Cambia a 'circle' o 'square' si prefieres otro tipo de viñeta */
     padding-left: 20px;
-    /* Ajusta el espacio según sea necesario */
 }
 
 #justificacion li {
     margin-bottom: 5px;
-    /* Ajusta el espacio entre ítems de la lista */
 }
 
 #recomendacion-title {
@@ -175,9 +157,7 @@ body {
 
 #recomendacion-icon {
     margin-right: 10px;
-    /* Espacio entre el icono y el texto */
     transition: transform 0.3s ease;
-    /* Transición suave para el cambio del ícono */
 }
 
 #recomendacion-title.collapsed #recomendacion-icon {
@@ -186,10 +166,8 @@ body {
 
 #recomendacion {
     border: 1px solid #009587;
-    /* Bordes en color azul */
     padding: 10px;
     border-radius: 5px;
-    /* Bordes redondeados */
 }
 
 .recomendacion-text {
@@ -197,18 +175,14 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
-    /* margin-top: 10px; */
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 15px;
     text-align: justify;
 }
 
-
 .diagnostico-text {
-    /* max-width: 95%; */
     margin-top: 10px;
-    /* background-color: #f1f9f8; */
     padding: 10px;
     border-radius: 15px;
 }
@@ -220,7 +194,6 @@ body {
 
 .diagnostico-seccion {
     display: none;
-    /* Ocultar todas las secciones inicialmente */
 }
 
 .close-popup {
@@ -350,7 +323,6 @@ body {
 }
 
 .btn-bool {
-    /* display: flex; */
     flex-direction: column;
     justify-content: space-between;
 }
@@ -387,23 +359,17 @@ body {
 .button-container {
     display: flex;
     justify-content: space-between;
-    /* Alinea los botones con espacio entre ellos */
     margin: 10px 0;
-    /* Añade un margen superior e inferior para separación */
     flex-direction: column;
-    /* Alinea los botones en columna */
 }
 
 .button-container .btn {
     width: 48%;
-    /* Ajusta el ancho de los botones para que no se desborden */
     margin-bottom: 0;
-    /* Asegura de que no haya margen inferior en los botones */
 }
 
 .btn-rounded {
     margin-bottom: 10px;
-    /* Espacio entre botones en dispositivos móviles */
 }
 
 .button-container-popup {
@@ -415,16 +381,11 @@ body {
 
 .gray-box {
     border: 2px solid #d3d3d3;
-    /* Borde gris */
     border-radius: 8px;
-    /* Bordes redondeados */
     padding: 15px;
-    /* Espacio interno */
     background-color: #f8f8f8;
-    /* Fondo ligeramente gris */
 }
 
-/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
     h2 {
         font-size: 1.5rem;
@@ -484,7 +445,6 @@ body {
     }
 }
 
-/* Estilos para dispositivos de escritorio */
 @media (min-width: 768px) {
     .button-container {
         display: flex;
@@ -493,7 +453,6 @@ body {
 
     .button-container .btn {
         width: 48%;
-        /* Ajustar el ancho según tus preferencias */
     }
 
     #sintomas-positivos-container,
@@ -501,7 +460,6 @@ body {
     #complementarios-container {
         width: 33%;
         float: left;
-        /* Permite que los contenedores se alineen horizontalmente */
     }
 
     .error-message-text {
