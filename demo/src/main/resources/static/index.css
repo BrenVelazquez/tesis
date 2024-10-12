@@ -299,3 +299,7 @@ header {
   text-align: center; /* Centra el texto del título */
   margin-top: 20px; 
 }
+
+header{
+  font-family: Arial, sans-serif !important; 
+}

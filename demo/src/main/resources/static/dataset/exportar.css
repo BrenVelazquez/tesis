@@ -11,7 +11,7 @@ p {
     font-size: 1.1rem;
 }
 
-.title {
+.exportar {
     color: #009587;
     text-align: center;
 }
@@ -24,7 +24,7 @@ p {
     line-height: 1.6;
 }
 
-.btn-close {
+.close {
     background-color: #009587;
     color: white;
     border: none;
@@ -37,25 +37,25 @@ p {
     font-family: Arial, sans-serif;
 }
 
-.btn-close:hover {
+.close:hover {
     background-color: #007a6e;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.btn-close:active {
+.close:active {
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.btn-close:disabled {
+.close:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.5;
 }
 
-.btn-close:disabled:hover {
+.close:disabled:hover {
     background-color: #cccccc;
 }
 

@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.sistexperto.controller.PacienteDTO;
-import com.sistexperto.model.Estudio;
-import com.sistexperto.model.HistoriaClinica;
+//import com.sistexperto.model.Estudio;
+//import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.ImagenesEntity;
 import com.sistexperto.model.Medico;
 import com.sistexperto.model.Paciente;
-import com.sistexperto.model.SintomaAlucinacion;
-import com.sistexperto.model.SintomaPositivo;
+//import com.sistexperto.model.SintomaAlucinacion;
+//import com.sistexperto.model.SintomaPositivo;
 
 public class database {
 
@@ -661,7 +661,7 @@ public class database {
         }
     }
     // endregion insert CONSULTAS
-
+/* 
     // region select ESTUDIOS
     public static Estudio getEstudios(Integer idEstudio) {
         Estudio estudios = new Estudio();
@@ -789,7 +789,7 @@ public class database {
         return alucinaciones;
     }
     // endregion select SINTOMA_ALUCINACIONES
-
+*/
     // region select ALUCINACIONES
     public static List<String> obtenerAlucinacionesPorSintoma(int idPaciente) {
         String sql = "SELECT a.NOMBRE AS TIPOS_ALUCINACIONES " +
