@@ -1,0 +1,20 @@
+package com.sistexperto.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Consulta {
+
+    @JsonProperty("paciente")
+    private Paciente paciente;
+
+    @JsonProperty("idMedico")
+    private int idMedico;
+
+
+}

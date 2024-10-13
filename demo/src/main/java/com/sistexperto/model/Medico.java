@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Medico {
 
+    @JsonProperty("id")
+    private int id;
+
     @JsonProperty("dni")
     private int dni;
 

@@ -837,12 +837,24 @@ async function guardarRegistro(estado) {
     //Metodo de Cargar Paciente
     console.log('###### Metodo de Cargar Paciente #####');
     console.log('jsonString: ' + jsonString);
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
+    let datosCombinados=null;
+    if (medicoData) {
+        // Combina los datos del formulario y el ID del médico
+        datosCombinados = {
+            paciente: { 
+                ...datosFormulario, 
+            },
+            idMedico: medicoData.id
+        };
+    }
+    console.log('datosCombinados: ' + datosCombinados);
     try {
         const response = await $.ajax({
             type: "POST",
             url: "/ingresarPaciente",
             contentType: "application/json",
-            data: jsonString,
+            data: JSON.stringify(datosCombinados),
         });
         if (response.exito) {
             console.log('Paciente ingresado con éxito:', response);

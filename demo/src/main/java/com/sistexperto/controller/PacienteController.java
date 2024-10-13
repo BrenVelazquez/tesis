@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.sistexperto.model.Consulta;
 import com.sistexperto.model.Medico;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
@@ -87,11 +89,12 @@ public class PacienteController {
 
     // region ingresarPaciente
     @PostMapping("/ingresarPaciente")
-    public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Paciente paciente) {
-
+    public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Consulta request) {
+        Paciente paciente = request.getPaciente();
+        int idMedico = request.getIdMedico();
         logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}", paciente);
 
-        Boolean exito = pacienteService.ingresarNuevoPaciente(paciente);
+        Boolean exito = pacienteService.ingresarNuevoPaciente(paciente, idMedico);
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("exito", exito);
         if (exito) {

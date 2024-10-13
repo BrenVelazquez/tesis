@@ -34,7 +34,7 @@ public class database {
     private static int idSintomaNegativo = -1;
     private static int idDiagnostico = -1;
 
-    public static Boolean ingresarNuevoPaciente(Paciente paciente) {
+    public static Boolean ingresarNuevoPaciente(Paciente paciente, int idMedico) {
         if (!insertPaciente(paciente))
             return false;
         if (!insertEstudios(paciente))
@@ -59,7 +59,7 @@ public class database {
             return false;
         if (!insertDiagnostico(paciente))
             return false;
-        if (!insertConsulta(paciente))
+        if (!insertConsulta(paciente, idMedico))
             return false;
 
         return true;
@@ -102,6 +102,7 @@ public class database {
                 // ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if (resultSet.next()) {
                     Medico medico = new Medico();
+                    medico.setId(resultSet.getInt("ID_MEDICO"));
                     medico.setEmail(mail);
                     medico.setContraseña(password);
                     medico.setDni(resultSet.getInt("DNI"));
@@ -640,12 +641,12 @@ public class database {
     // endregion insert DIAGNOSTICOS
 
     // region insert CONSULTAS
-    public static Boolean insertConsulta(Paciente paciente) {
+    public static Boolean insertConsulta(Paciente paciente, int idMedico) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "INSERT INTO CONSULTAS (ID_MEDICO, ID_PACIENTE, FECHA, ID_DIAGNOSTICO) VALUES (?, ?, ?, ?)";
             Date todayDate = new Date(Calendar.getInstance().getTimeInMillis());
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, 1);
+                preparedStatement.setInt(1, idMedico);
                 preparedStatement.setInt(2, idPaciente);
                 preparedStatement.setDate(3, todayDate);
                 preparedStatement.setInt(4, idDiagnostico);

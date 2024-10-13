@@ -169,7 +169,7 @@ public class PacienteService {
     // endregion Subir imagen
 
     // region guardar paciente
-    public boolean ingresarNuevoPaciente(Paciente pacienteCompleto) {
+    public boolean ingresarNuevoPaciente(Paciente pacienteCompleto, int idMedico) {
         Paciente paciente = new Paciente();
 
         // PACIENTE
@@ -234,7 +234,7 @@ public class PacienteService {
         paciente.setEstado(pacienteCompleto.getEstado());
         paciente.setPuntaje(pacienteCompleto.getPuntaje());
 
-        Boolean exito = database.ingresarNuevoPaciente(paciente);
+        Boolean exito = database.ingresarNuevoPaciente(paciente, idMedico);
         return exito;
     }
     // endregion guardar paciente
