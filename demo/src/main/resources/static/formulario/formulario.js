@@ -845,7 +845,9 @@ async function guardarRegistro(estado) {
             paciente: { 
                 ...datosFormulario, 
             },
-            idMedico: medicoData.id
+            medico: {
+                ...medicoData,
+            }
         };
     }
     console.log('datosCombinados: ' + datosCombinados);

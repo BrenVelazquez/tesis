@@ -13,8 +13,8 @@ public class Consulta {
     @JsonProperty("paciente")
     private Paciente paciente;
 
-    @JsonProperty("idMedico")
-    private int idMedico;
+    @JsonProperty("medico")
+    private Medico medico;
 
 
 }

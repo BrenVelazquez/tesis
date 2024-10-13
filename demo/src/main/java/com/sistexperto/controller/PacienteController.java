@@ -91,7 +91,7 @@ public class PacienteController {
     @PostMapping("/ingresarPaciente")
     public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Consulta request) {
         Paciente paciente = request.getPaciente();
-        int idMedico = request.getIdMedico();
+        int idMedico = request.getMedico().getId();
         logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}", paciente);
 
         Boolean exito = pacienteService.ingresarNuevoPaciente(paciente, idMedico);
