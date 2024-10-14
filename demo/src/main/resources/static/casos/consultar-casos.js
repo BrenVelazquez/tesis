@@ -4,20 +4,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 $(document).ready(function () {
     console.log("nombreMedico guardado3:", localStorage.getItem('nombreMedico'));
-    nombreMedico = localStorage.getItem("nombreMedico"); 
-    
+    nombreMedico = localStorage.getItem("nombreMedico");
+
     if (nombreMedico) {
         document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
     }
     const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre+" "+medicoData.apellido}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre + " " + medicoData.apellido}`;
     }
 });
 
 let pacientes = [];
 
 async function obtenerPacientes() {
+    const tabla = document.getElementById('tabla-pacientes');
+    const noPacientesMsg = document.getElementById('no-pacientes-msg');
+    const thead = tabla.getElementsByTagName('thead')[0];
     try {
         const response = await $.ajax({
             type: "GET",
@@ -30,8 +33,12 @@ async function obtenerPacientes() {
             console.log("response: " + JSON.stringify(response));
             pacientes = response;
             mostrarPacientesEnTabla(response);
+            noPacientesMsg.style.display = 'none';
+            thead.style.display = 'table-header-group';
         } else {
-            console.error('No se encontraron pacientes:', response);
+            noPacientesMsg.style.display = 'block';
+            thead.style.display = 'none';
+            // console.error('No se encontraron pacientes:', response);
         }
     } catch (error) {
         console.error('Error al obtener los pacientes:', error);
@@ -44,7 +51,7 @@ function mostrarPacientesEnTabla(pacientes) {
     const tbody = tabla.getElementsByTagName('tbody')[0];
 
     pacientes.forEach(paciente => {
-        const fila = tbody.insertRow(); 
+        const fila = tbody.insertRow();
         fila.insertCell(0).innerText = paciente.nombre;
         fila.insertCell(1).innerText = paciente.diagnostico;
         fila.insertCell(2).innerText = paciente.estado == 1 ? "Confirmado" : "Rechazado";
@@ -93,8 +100,8 @@ function volver() {
     window.location.href = "../index.html";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('btnCerrarSesion').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('btnCerrarSesion').addEventListener('click', function () {
         localStorage.removeItem('medico'); // Eliminar información del médico
         window.location.href = '../Login/login.html'; // Redirigir a la página de login
     });
