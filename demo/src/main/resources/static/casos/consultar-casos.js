@@ -49,8 +49,9 @@ function mostrarPacientesEnTabla(pacientes) {
         fila.insertCell(1).innerText = paciente.diagnostico;
         fila.insertCell(2).innerText = paciente.estado == 1 ? "Confirmado" : "Rechazado";
         fila.insertCell(3).innerText = paciente.fecha;
+        fila.insertCell(4).innerText = paciente.nombreMedico;
 
-        const cellAcciones = fila.insertCell(4);
+        const cellAcciones = fila.insertCell(5);
         cellAcciones.innerHTML = `<button class="btn-detalle" onclick="verDetalle(${paciente.idPaciente})">Ver detalles</button>`;
     });
 }
