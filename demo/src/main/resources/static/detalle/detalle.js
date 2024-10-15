@@ -2,8 +2,8 @@ function volver() {
     window.location.href = "../casos/consultar-casos.html";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('btnCerrarSesion').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('btnCerrarSesion').addEventListener('click', function () {
         localStorage.removeItem('medico'); // Eliminar información del médico
         window.location.href = '../Login/login.html'; // Redirigir a la página de login
     });
@@ -27,7 +27,7 @@ $(document).ready(function () {
 
     const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre+" "+medicoData.apellido}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre + " " + medicoData.apellido}`;
     }
 });
 
@@ -106,7 +106,8 @@ function mostrarDetallesPaciente(pacienteData) {
     $("#bajo-funcionamiento-si").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 1);
     $("#bajo-funcionamiento-no").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 0);
     if (pacienteData.sintomasNegativosBajoFuncionamiento == 1
-        && pacienteData.sintomasNegativosBajoFuncionamientoComentario != undefined) {
+        && pacienteData.sintomasNegativosBajoFuncionamientoComentario != undefined 
+        && pacienteData.sintomasNegativosBajoFuncionamientoComentario != "") {
         $("#bajo-funcionamiento-comentario-id").removeClass("no-show-seccion");
         $("#bajo-funcionamiento-comentario").val(pacienteData.sintomasNegativosBajoFuncionamientoComentario);
     }
@@ -150,7 +151,7 @@ function mostrarDetallesPaciente(pacienteData) {
         $("#comentarios-medicos").val(pacienteData.comentarioMedico);
     }
     if (pacienteData.estado == 1) {
-        $("#estado-aceptado").removeClass("no-show-seccion");
+        $("#estado-confirmado").removeClass("no-show-seccion");
     } else {
         $("#estado-rechazado").removeClass("no-show-seccion");
         if (pacienteData.justificacionRechazo != "") {
