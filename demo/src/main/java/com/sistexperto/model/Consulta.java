@@ -16,13 +16,13 @@ public class Consulta {
     @JsonProperty("medico")
     private Medico medico;
 
-    /*
+    
     @JsonProperty("diagnostico")
-    private DIAGNOSTICO diagnostico;
+    private Diagnostico diagnostico;
 
-    @JsonProperty("date")
-    private Date date;
-     */
+    /*@JsonProperty("date")
+    private Date date;*/
+     
 
     
 
