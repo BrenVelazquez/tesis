@@ -256,13 +256,13 @@ function initializePositiveButtons() {
 }
 
 function volver() {
-    window.location.href = "../index.html";
+    window.location.href = "/home";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnCerrarSesion').addEventListener('click', function() {
         localStorage.removeItem('medico'); // Eliminar información del médico
-        window.location.href = '../Login/login.html'; // Redirigir a la página de login
+        window.location.href = '/'; // Redirigir a la página de login
     });
 });
 

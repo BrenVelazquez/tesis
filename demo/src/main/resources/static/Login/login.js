@@ -73,7 +73,7 @@ async function iniciar_sesion() {
                 console.log(response);
                 localStorage.setItem("medico",JSON.stringify(medico)); // Guarda el valor
                 //console.log("nombreMedico guardado:", localStorage.getItem('nombreMedico'));
-                window.location.href = "../index.html"; // Redirige a la nueva página
+                window.location.href = "/home"; // Redirige a la nueva página
                 return true;
             } else {
                 document.getElementById("error-login").style.display='block';

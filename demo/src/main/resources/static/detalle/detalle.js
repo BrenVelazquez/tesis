@@ -1,11 +1,12 @@
 function volver() {
-    window.location.href = "../casos/consultar-casos.html";
+    //window.location.href = "/home";
+    window.history.back();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnCerrarSesion').addEventListener('click', function() {
         localStorage.removeItem('medico'); // Eliminar información del médico
-        window.location.href = '../Login/login.html'; // Redirigir a la página de login
+        window.location.href = '/'; // Redirigir a la página de login
     });
 });
 

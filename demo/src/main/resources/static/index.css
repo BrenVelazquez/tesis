@@ -9,7 +9,7 @@ body {
   justify-content: flex-start;
 }
 
-header {
+/*header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +54,61 @@ header {
   transition: background-color 0.3s, color 0.3s;
   font-size: inherit;
   line-height: inherit;
+}*/
+
+header {
+  display: flex;
+  justify-content: space-between; /* Espacio entre el título y la información del usuario */
+  align-items: center;
+  background-color: #009587;
+  padding: 1rem 2rem;
+  color: white;
+  font-family: Arial, sans-serif !important;
+}
+
+.page-title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.page-title h1 {
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column; /* Alinea en columna */
+  align-items: flex-end; /* Alinea a la derecha */
+}
+
+.username {
+  margin-bottom: 0.5rem; /* Espacio entre el nombre y el botón */
+  font-size: 1rem;
+  color: white;
+}
+
+.logout-button {
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Media Query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .page-title {
+      margin-bottom: 0.5rem; /* Espacio entre el título y la información de usuario */
+  }
+
+  .logout-button {
+      font-size: 0.9rem; /* Ajustar tamaño de fuente del botón */
+      padding: 0.5rem; /* Ajustar padding */
+  }
 }
 
 .logout-button:hover {

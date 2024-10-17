@@ -83,22 +83,23 @@
             </label>
             <label id="check">
               <input type="checkbox" name="afectividad[]" value="timia-displacentera"
-                onclick="unselectUnicos(['eutimia', 'hipertimia-placentera', 'hipertimia-displacentera'], name)" />
+                onclick="unselectUnicos(['eutimia', 'hipertimia-placentera', 'hipertimia-displacentera', 'hipotimia'], name)" />
               Timia displacentera
             </label>
 
             <label id="check">
               <input type="checkbox" name="afectividad[]" value="hipertimia-placentera"
-                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-displacentera', name)" />
+                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-displacentera, hipotimia', name)" />
               Hipertimia placentera
             </label>
             <label id="check">
               <input type="checkbox" name="afectividad[]" value="hipertimia-displacentera"
-                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-placentera', name)" />
+                onclick="unselectUnicos('eutimia, timia-displacentera, hipertimia-placentera, hipotimia', name)" />
               Hipertimia displacentera
             </label>
             <label id="check">
-              <input type="checkbox" name="afectividad[]" value="hipotimia" onclick="unselectUnicos('eutimia', name)" />
+              <input type="checkbox" name="afectividad[]" value="hipotimia" 
+              onclick="unselectUnicos(['eutimia', 'timia-displacentera', 'hipertimia-placentera','hipertimia-displacentera'], name)"/>
               Hipotimia
             </label>
             <label id="check">

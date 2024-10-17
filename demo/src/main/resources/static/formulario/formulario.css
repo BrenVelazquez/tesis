@@ -466,5 +466,7 @@ body {
         color: red;
         font-size: 0.8rem;
         display: none;
+        margin-top: 10px; 
+        
     }
 }

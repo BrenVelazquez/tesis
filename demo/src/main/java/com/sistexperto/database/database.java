@@ -266,6 +266,9 @@ public class database {
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 Paciente paciente = new Paciente();
+                System.out.println(resultSet.getString("NOMBRE"));
+                System.out.println(resultSet.getDate("FECHA_CONSULTA"));
+                System.out.println(resultSet.getInt("PUNTAJE"));
                 paciente.setIdPaciente(resultSet.getInt("ID_PACIENTE"));
                 paciente.setNombre(resultSet.getString("NOMBRE"));
                 paciente.setEdad(resultSet.getInt("EDAD"));
