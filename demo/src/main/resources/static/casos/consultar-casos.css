@@ -93,6 +93,38 @@
     stroke-linejoin: round;
 }
 
+.alert-message {
+    background-color: #deebe9f0;
+    border: 2px solid #009587;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-align: center;
+    width: 500px;
+}
+
+.alert-icon {
+    background-color: #009587;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.alert-text {
+    font-size: 16px;
+    flex-grow: 1;
+}
 
 .table-container {
     overflow-x: auto;

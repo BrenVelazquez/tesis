@@ -127,20 +127,23 @@ public class database {
     // region obtenerPacientes
     public static List<PacienteDTO> obtenerPacientes() {
         List<PacienteDTO> listaPacientes = new ArrayList<>();
-        String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, d.DIAGNOSTICO, d.ESTADO, c.FECHA " +
+        String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, d.DIAGNOSTICO, d.ESTADO, c.FECHA, m.NOMBRE AS NOMBRE_MEDICO, " +
+                "m.APELLIDO AS APELLIDO_MEDICO " +
                 "FROM PACIENTES p " +
                 "JOIN CONSULTAS c ON p.ID_PACIENTE = c.ID_PACIENTE " +
-                "JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO;";
+                "JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO " +
+                "JOIN MEDICOS m ON c.ID_MEDICO = m.ID_MEDICO;";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 PacienteDTO paciente = new PacienteDTO();
                 paciente.setIdPaciente(resultSet.getInt("ID_PACIENTE"));
-                paciente.setNombre(resultSet.getString("nombre"));
-                paciente.setDiagnostico(resultSet.getString("diagnostico"));
-                paciente.setEstado(resultSet.getString("estado"));
-                paciente.setFecha(resultSet.getDate("fecha").toString());
+                paciente.setNombre(resultSet.getString("NOMBRE"));
+                paciente.setDiagnostico(resultSet.getString("DIAGNOSTICO"));
+                paciente.setEstado(resultSet.getString("ESTADO"));
+                paciente.setNombreMedico(resultSet.getString("NOMBRE_MEDICO") + " " + resultSet.getString("APELLIDO_MEDICO"));
+                paciente.setFecha(resultSet.getDate("FECHA").toString());
                 listaPacientes.add(paciente);
             }
         } catch (SQLException e) {
@@ -664,136 +667,152 @@ public class database {
             return false;
         }
     }
+
     // endregion insert CONSULTAS
-/* 
-    // region select ESTUDIOS
-    public static Estudio getEstudios(Integer idEstudio) {
-        Estudio estudios = new Estudio();
-        String sql = "SELECT * FROM ESTUDIOS";
-        if (idEstudio != null) {
-            sql += " WHERE ID_ESTUDIO = ?";
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            if (idEstudio != null) {
-                preparedStatement.setInt(1, idEstudio);
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Estudio estudio = new Estudio();
-            estudio.setIdEstudio(resultSet.getInt("ID_ESTUDIO"));
-            estudio.setEstudioCausaNatural(resultSet.getString("CAUSA_ORGANICA"));
-            estudio.setEstudioComentario(resultSet.getString("COMENTARIO"));
-            // TODO: FALTA AGREGAR LA IMAGEN
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return estudios;
-    }
-    // endregion select ESTUDIOS
-
-    // region select HISTORIAS_CLINICAS
-    public static List<HistoriaClinica> getHistoriasClinicas(Integer idPaciente) {
-        List<HistoriaClinica> historias = new ArrayList<>();
-        String sql = "SELECT * FROM HISTORIAS_CLINICAS";
-        if (idPaciente != null) {
-            sql += " WHERE ID_PACIENTE = ?";
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            if (idPaciente != null) {
-                preparedStatement.setInt(1, idPaciente);
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                HistoriaClinica historia = new HistoriaClinica();
-                historia.setIdHistoriaClinica(resultSet.getInt("ID_HISTORIA_CLINICA"));
-                historia.setTrastornoAutista(convertBooleanToString(resultSet.getBoolean("TRASTORNO_AUTISTA")));
-                historia.setTrastornoComunicacion(
-                        convertBooleanToString(resultSet.getBoolean("TRASTORNO_COMUNICACION")));
-                historia.setTrastornoEsquizoafectivo(
-                        convertBooleanToString(resultSet.getBoolean("TRASTORNO_ESQUIZOAFECTIVO")));
-                historia.setTrastornoBipolar(convertBooleanToString(resultSet.getBoolean("BIPOLAR_CARAC_PSICOTICAS")));
-                historia.setTrastornoDepresivo(convertBooleanToString(resultSet.getBoolean("TRASTORNO_DEPRESIVO")));
-                historia.setAntecedentesFamiliares(
-                        convertBooleanToString(resultSet.getBoolean("ANTECEDENTES_FAMILIARES")));
-                historia.setSustancias(convertBooleanToString(resultSet.getBoolean("SUSTANCIAS")));
-                int idEstudio = resultSet.getInt("ID_ESTUDIO");
-                Estudio estudio = getEstudios(idEstudio);
-                historia.setEstudio(estudio);
-                historias.add(historia);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return historias;
-    }
-    // endregion select HISTORIAS_CLINICAS
-
-    // region select SINTOMAS_POSITIVOS
-    public static List<SintomaPositivo> getSintomasPositivos(Integer idPaciente) {
-        List<SintomaPositivo> sintomasPositivos = new ArrayList<>();
-        String sql = "SELECT * FROM SINTOMAS_POSITIVOS";
-        if (idPaciente != null) {
-            sql += " WHERE ID_PACIENTE = ?";
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            if (idPaciente != null) {
-                preparedStatement.setInt(1, idPaciente);
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                SintomaPositivo sintoma = new SintomaPositivo();
-                sintoma.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
-                sintoma.setSintomasPositivosTipoRitmoPensamiento(
-                        obtenerNombrePorId("RITMOS_PENSAMIENTOS", resultSet.getInt("ID_RITMO_PENSAMIENTO")));
-                sintoma.setSintomasPositivosDuracion(resultSet.getString("DURACION_POSITIVOS"));
-                sintomasPositivos.add(sintoma);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sintomasPositivos;
-    }
-    // endregion select SINTOMAS_POSITIVOS
-
-    // region select SINTOMA_ALUCINACIONES
-    public static List<SintomaAlucinacion> getSintomaAlucinaciones(Integer idSintomaPositivo) {
-        List<SintomaAlucinacion> alucinaciones = new ArrayList<>();
-        String sql = "SELECT * FROM SINTOMA_ALUCINACIONES";
-        if (idSintomaPositivo != null) {
-            sql += " WHERE ID_SINTOMA_POSITIVO = ?";
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            if (idSintomaPositivo != null) {
-                preparedStatement.setInt(1, idSintomaPositivo);
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Map<Integer, List<String>> sintomasAlucinacionesMap = new HashMap<>();
-            while (resultSet.next()) {
-                SintomaAlucinacion alucinacion = new SintomaAlucinacion();
-                int idAlucinacion = resultSet.getInt("ID_ALUCINACION");
-                alucinacion.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
-                alucinacion.setIdAlucinacion(idAlucinacion);
-                String nombreAlucinacion = obtenerNombrePorId("ALUCINACIONES", idAlucinacion);
-                sintomasAlucinacionesMap.get(idSintomaPositivo).add(nombreAlucinacion);
-            }
-            for (Map.Entry<Integer, List<String>> entry : sintomasAlucinacionesMap.entrySet()) {
-                SintomaAlucinacion alucinacion = new SintomaAlucinacion();
-                alucinacion.setIdSintomaPositivo(entry.getKey());
-                alucinacion.setTipoAlucinaciones(entry.getValue());
-                alucinaciones.add(alucinacion);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return alucinaciones;
-    }
-    // endregion select SINTOMA_ALUCINACIONES
-*/
+    /*
+     * // region select ESTUDIOS
+     * public static Estudio getEstudios(Integer idEstudio) {
+     * Estudio estudios = new Estudio();
+     * String sql = "SELECT * FROM ESTUDIOS";
+     * if (idEstudio != null) {
+     * sql += " WHERE ID_ESTUDIO = ?";
+     * }
+     * try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER,
+     * JDBC_PASSWORD);
+     * PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+     * 
+     * if (idEstudio != null) {
+     * preparedStatement.setInt(1, idEstudio);
+     * }
+     * ResultSet resultSet = preparedStatement.executeQuery();
+     * Estudio estudio = new Estudio();
+     * estudio.setIdEstudio(resultSet.getInt("ID_ESTUDIO"));
+     * estudio.setEstudioCausaNatural(resultSet.getString("CAUSA_ORGANICA"));
+     * estudio.setEstudioComentario(resultSet.getString("COMENTARIO"));
+     * // TODO: FALTA AGREGAR LA IMAGEN
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * return estudios;
+     * }
+     * // endregion select ESTUDIOS
+     * 
+     * // region select HISTORIAS_CLINICAS
+     * public static List<HistoriaClinica> getHistoriasClinicas(Integer idPaciente)
+     * {
+     * List<HistoriaClinica> historias = new ArrayList<>();
+     * String sql = "SELECT * FROM HISTORIAS_CLINICAS";
+     * if (idPaciente != null) {
+     * sql += " WHERE ID_PACIENTE = ?";
+     * }
+     * try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER,
+     * JDBC_PASSWORD);
+     * PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+     * if (idPaciente != null) {
+     * preparedStatement.setInt(1, idPaciente);
+     * }
+     * ResultSet resultSet = preparedStatement.executeQuery();
+     * while (resultSet.next()) {
+     * HistoriaClinica historia = new HistoriaClinica();
+     * historia.setIdHistoriaClinica(resultSet.getInt("ID_HISTORIA_CLINICA"));
+     * historia.setTrastornoAutista(convertBooleanToString(resultSet.getBoolean(
+     * "TRASTORNO_AUTISTA")));
+     * historia.setTrastornoComunicacion(
+     * convertBooleanToString(resultSet.getBoolean("TRASTORNO_COMUNICACION")));
+     * historia.setTrastornoEsquizoafectivo(
+     * convertBooleanToString(resultSet.getBoolean("TRASTORNO_ESQUIZOAFECTIVO")));
+     * historia.setTrastornoBipolar(convertBooleanToString(resultSet.getBoolean(
+     * "BIPOLAR_CARAC_PSICOTICAS")));
+     * historia.setTrastornoDepresivo(convertBooleanToString(resultSet.getBoolean(
+     * "TRASTORNO_DEPRESIVO")));
+     * historia.setAntecedentesFamiliares(
+     * convertBooleanToString(resultSet.getBoolean("ANTECEDENTES_FAMILIARES")));
+     * historia.setSustancias(convertBooleanToString(resultSet.getBoolean(
+     * "SUSTANCIAS")));
+     * int idEstudio = resultSet.getInt("ID_ESTUDIO");
+     * Estudio estudio = getEstudios(idEstudio);
+     * historia.setEstudio(estudio);
+     * historias.add(historia);
+     * }
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * return historias;
+     * }
+     * // endregion select HISTORIAS_CLINICAS
+     * 
+     * // region select SINTOMAS_POSITIVOS
+     * public static List<SintomaPositivo> getSintomasPositivos(Integer idPaciente)
+     * {
+     * List<SintomaPositivo> sintomasPositivos = new ArrayList<>();
+     * String sql = "SELECT * FROM SINTOMAS_POSITIVOS";
+     * if (idPaciente != null) {
+     * sql += " WHERE ID_PACIENTE = ?";
+     * }
+     * try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER,
+     * JDBC_PASSWORD);
+     * PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+     * if (idPaciente != null) {
+     * preparedStatement.setInt(1, idPaciente);
+     * }
+     * ResultSet resultSet = preparedStatement.executeQuery();
+     * while (resultSet.next()) {
+     * SintomaPositivo sintoma = new SintomaPositivo();
+     * sintoma.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
+     * sintoma.setSintomasPositivosTipoRitmoPensamiento(
+     * obtenerNombrePorId("RITMOS_PENSAMIENTOS",
+     * resultSet.getInt("ID_RITMO_PENSAMIENTO")));
+     * sintoma.setSintomasPositivosDuracion(resultSet.getString("DURACION_POSITIVOS"
+     * ));
+     * sintomasPositivos.add(sintoma);
+     * }
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * return sintomasPositivos;
+     * }
+     * // endregion select SINTOMAS_POSITIVOS
+     * 
+     * // region select SINTOMA_ALUCINACIONES
+     * public static List<SintomaAlucinacion> getSintomaAlucinaciones(Integer
+     * idSintomaPositivo) {
+     * List<SintomaAlucinacion> alucinaciones = new ArrayList<>();
+     * String sql = "SELECT * FROM SINTOMA_ALUCINACIONES";
+     * if (idSintomaPositivo != null) {
+     * sql += " WHERE ID_SINTOMA_POSITIVO = ?";
+     * }
+     * try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER,
+     * JDBC_PASSWORD);
+     * PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+     * 
+     * if (idSintomaPositivo != null) {
+     * preparedStatement.setInt(1, idSintomaPositivo);
+     * }
+     * ResultSet resultSet = preparedStatement.executeQuery();
+     * Map<Integer, List<String>> sintomasAlucinacionesMap = new HashMap<>();
+     * while (resultSet.next()) {
+     * SintomaAlucinacion alucinacion = new SintomaAlucinacion();
+     * int idAlucinacion = resultSet.getInt("ID_ALUCINACION");
+     * alucinacion.setIdSintomaPositivo(resultSet.getInt("ID_SINTOMA_POSITIVO"));
+     * alucinacion.setIdAlucinacion(idAlucinacion);
+     * String nombreAlucinacion = obtenerNombrePorId("ALUCINACIONES",
+     * idAlucinacion);
+     * sintomasAlucinacionesMap.get(idSintomaPositivo).add(nombreAlucinacion);
+     * }
+     * for (Map.Entry<Integer, List<String>> entry :
+     * sintomasAlucinacionesMap.entrySet()) {
+     * SintomaAlucinacion alucinacion = new SintomaAlucinacion();
+     * alucinacion.setIdSintomaPositivo(entry.getKey());
+     * alucinacion.setTipoAlucinaciones(entry.getValue());
+     * alucinaciones.add(alucinacion);
+     * }
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * return alucinaciones;
+     * }
+     * // endregion select SINTOMA_ALUCINACIONES
+     */
     // region select ALUCINACIONES
     public static List<String> obtenerAlucinacionesPorSintoma(int idPaciente) {
         String sql = "SELECT a.NOMBRE AS TIPOS_ALUCINACIONES " +

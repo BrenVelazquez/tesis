@@ -6,6 +6,7 @@ public class PacienteDTO {
     private String diagnostico;
     private String estado;
     private String fecha;
+    private String nombreMedico;
 
     // Getters y Setters    
     public int getIdPaciente() {
@@ -46,5 +47,12 @@ public class PacienteDTO {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getNombreMedico() {
+        return nombreMedico;
+    }
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
     }
 }

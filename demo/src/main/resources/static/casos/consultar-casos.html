@@ -56,13 +56,18 @@
     </div>
 
     <div class="table-container">
+        <div id="no-pacientes-msg" class="alert-message">
+            <!-- <div class="alert-icon">!</div> -->
+            <span class="alert-text">Aún no se ingresó ningún paciente.</span>
+        </div>
         <table id="tabla-pacientes">
-            <thead>
+            <thead style="display: none">
                 <tr>
                     <th>Nombre</th>
                     <th>Diagnóstico</th>
                     <th>Estado</th>
                     <th>Fecha de Ingreso</th>
+                    <th>Médico a Cargo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

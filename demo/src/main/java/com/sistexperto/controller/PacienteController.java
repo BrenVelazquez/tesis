@@ -120,6 +120,7 @@ public class PacienteController {
                 datosPaciente.put("nombre", paciente.getNombre());
                 datosPaciente.put("diagnostico", paciente.getDiagnostico());
                 datosPaciente.put("estado", paciente.getEstado());
+                datosPaciente.put("nombreMedico", paciente.getNombreMedico());
                 datosPaciente.put("fecha", paciente.getFecha());
                 respuesta.add(datosPaciente);
             }
