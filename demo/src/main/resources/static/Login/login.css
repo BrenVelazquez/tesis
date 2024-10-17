@@ -1,8 +1,9 @@
 
 body {
     display: flex;
-  flex-direction: column;
-  align-items: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
 }
 
 .page-title {
@@ -47,19 +48,18 @@ body {
     background-color: #038073;
 }
 
-.color-box {
+/*.color-box {
     width: 50%;
     border: 2px solid #009587;
-    /* Borde gris */
+    
     border-radius: 8px;
-    /* Bordes redondeados */
+
     padding: 7px;
     padding-top: 10%;
-    /* Espacio interno */
+ 
     background-color: #009587;
-    /* Fondo ligeramente gris */
-    /*left: 50%; 
-    /*position: fixed; /* or absolute */
+
+
     color:#fff;
 
 }
@@ -67,16 +67,37 @@ body {
 .gray-box {
     width: 50%;
     border: 2px solid #d3d3d3;
-    /* Borde gris */
+
     border-radius: 8px;
-    /* Bordes redondeados */
+
     padding: 7px;
     padding-top: 7%;
-    /* Espacio interno */
+
+    background-color: #fff;
+}*/
+
+.color-box, .gray-box {
+    flex: 1; /* Permite que las cajas ocupen el mismo espacio */
+    min-width: 300px; /* Ancho mínimo para evitar que se vuelvan demasiado estrechas */
+    margin: 10px; /* Margen entre las cajas */
+    border-radius: 8px;
+    padding: 20px; /* Espacio interno */
+}
+
+.color-box {
+    border: 2px solid #009587;
+    background-color: #009587;
+    color: #fff;
+}
+
+.gray-box {
+    border: 2px solid #d3d3d3;
     background-color: #fff;
 }
 
 .box {
+    display: flex; 
+    justify-content: space-between; 
     align-items: center;
     margin-bottom: 20px;
     margin-left: auto;
@@ -84,6 +105,7 @@ body {
     position: relative;
     padding: 5px;
     background-color: #009587;
+    flex-wrap: wrap;
 }
 
 
@@ -107,4 +129,29 @@ body {
     font-size: 15px;
     display: none;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Reducir el padding en pantallas pequeñas */
+    }
+
+    .color-box, .gray-box {
+        margin: 0 10px; /* Margen lateral */
+    }
+
+    .btn-iniciar {
+        padding: 15px; /* Ajustar padding del botón */
+    }
+}
+
+@media (max-width: 480px) {
+    .inicio {
+        font-size: 18px; /* Ajustar tamaño de fuente */
+    }
+
+    .btn-iniciar {
+        font-size: 14px; /* Reducir tamaño de la fuente del botón */
+        padding: 10px; /* Ajustar el padding */
+    }
 }
