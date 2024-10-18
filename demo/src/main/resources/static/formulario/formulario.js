@@ -1,5 +1,6 @@
 let datosFormulario = {};
 let nombreMedico;
+let imagenPath;
 $(document).ready(function () {
     initializeButtons();
 
@@ -41,7 +42,7 @@ function insertarImagen() {
     const imagenInput = document.getElementById('imagen');
     const imagenPreview = document.getElementById('imagen-preview');
     const insertPhotoMessage = document.getElementById('insert-photo-message');
-
+    
     if (!imagenInput || !imagenPreview || !insertPhotoMessage) {
         console.error("Uno o más elementos no existen en el DOM.");
         return;
@@ -59,6 +60,8 @@ function insertarImagen() {
                 imagenPreview.src = e.target.result;
                 imagenPreview.style.display = 'block';
                 insertPhotoMessage.style.display = 'none';
+                imagenPath = e.target.result;
+                console.log('Path de la imagen:', imagenPath); // Mostrar el path en la consola
             };
             reader.readAsDataURL(file);
         } else {
@@ -614,7 +617,7 @@ function obtenerDatosFormulario() {
     const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
     const estudioComentario = document.getElementById("estudio-comentario-text").value;
-
+    const imagen= imagenPath;
     //FALTA IMAGEN
 
     datosFormulario = {
@@ -648,6 +651,7 @@ function obtenerDatosFormulario() {
         estudios: estudios,
         estudio_causa_natural: estudioCausaNatural,
         estudio_comentario: estudioComentario,
+        imagen: imagen,
 
         // FALTA IMAGEN
     };

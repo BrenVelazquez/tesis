@@ -132,9 +132,13 @@ function mostrarDetallesPaciente(pacienteData) {
         $("#estudio-comentario-id").removeClass("no-show-seccion");
         $("#estudio-comentario-text").val(pacienteData.estudioComentario);
     }
-    if (pacienteData.idImagen != "" && pacienteData.idImagen != undefined) {
+    if (pacienteData.imagen != "" && pacienteData.imagen != undefined) {
         $("#estudio-imagen-id").removeClass("no-show-seccion");
-        $("#imagen-preview").attr("src", pacienteData.idImagen);
+        //$("#imagen-preview").attr("src", pacienteData.idImagen);
+        $("#imagen-preview").attr("src", pacienteData.imagen); 
+        $("#imagen-preview").show();
+    }else {
+        $("#imagen-preview").hide(); // Si no hay imagen, ocultarla
     }
 
     // Diagnostico

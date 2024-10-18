@@ -181,7 +181,7 @@ public class PacienteService {
         paciente.setEstudios(pacienteCompleto.getEstudios());
         paciente.setEstudioCausaNatural(pacienteCompleto.getEstudioCausaNatural());
         paciente.setEstudioComentario(pacienteCompleto.getEstudioComentario());
-        // paciente.setIdImagen(pacienteCompleto.getIdImagen());
+        paciente.setImagen(pacienteCompleto.getImagen());
 
         // HISTORIAS_CLINICAS
         paciente.setTrastornoAutista(pacienteCompleto.getTrastornoAutista());
@@ -329,7 +329,7 @@ public class PacienteService {
                         "DURACIÓN DE LOS SINTOMAS NEGATIVOS", "ASPECTO", "ATENCIÓN", "ACTIVIDAD", "AFECTIVIDAD",
                         "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
                         "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
-                        "SE DESCARTA CAUSA ORGANICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS" };
+                        "SE DESCARTA CAUSA ORGANICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/* , "IMAGEN"*/ };
                 for (int i = 0; i < columnHeaders.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(columnHeaders[i]);
@@ -387,7 +387,8 @@ public class PacienteService {
                     row.createCell(31).setCellValue(estudioCausaOrganica);
                     row.createCell(32).setCellValue(
                             paciente.getEstudioComentario() != null ? paciente.getEstudioComentario() : "-");
-                    // TODO: FALTA IMAGEN
+                    /*row.createCell(33).setCellValue(
+                            paciente.getImagen() != null ? paciente.getImagen() : " ");*/
                 }
 
                 // Escribir el libro en el flujo de salida

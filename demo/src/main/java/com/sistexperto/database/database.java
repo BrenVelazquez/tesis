@@ -159,7 +159,8 @@ public class database {
                 "h.TRASTORNO_AUTISTA, h.TRASTORNO_COMUNICACION, h.TRASTORNO_ESQUIZOAFECTIVO, " +
                 "h.TRASTORNO_DEPRESIVO, h.BIPOLAR_CARAC_PSICOTICAS, h.ANTECEDENTES_FAMILIARES, h.SUSTANCIAS, " +
                 "e.CAUSA_ORGANICA AS ESTUDIO_CAUSA_NATURAL, " +
-                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " +
+                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " + 
+                "e.IMAGEN_PATH AS IMAGEN, " +
                 "sp.DURACION_POSITIVOS AS SINTOMAS_POSITIVOS_DURACION, " +
                 "spr.NOMBRE AS RITMO_PENSAMIENTO, " +
                 "sn.DURACION_NEGATIVOS AS SINTOMAS_NEGATIVOS_DURACION, " +
@@ -203,6 +204,7 @@ public class database {
                 paciente.setSustancias(resultSet.getString("SUSTANCIAS"));
                 paciente.setEstudioCausaNatural(resultSet.getString("ESTUDIO_CAUSA_NATURAL"));
                 paciente.setEstudioComentario(resultSet.getString("ESTUDIO_COMENTARIO"));
+                paciente.setImagen(resultSet.getString("IMAGEN"));
                 paciente.setSintomasPositivosDuracion(resultSet.getString("SINTOMAS_POSITIVOS_DURACION"));
                 paciente.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
                 paciente.setSintomasNegativosDuracion(resultSet.getString("SINTOMAS_NEGATIVOS_DURACION"));
@@ -241,6 +243,7 @@ public class database {
                 "h.TRASTORNO_DEPRESIVO, h.BIPOLAR_CARAC_PSICOTICAS, h.ANTECEDENTES_FAMILIARES, h.SUSTANCIAS, " +
                 "e.CAUSA_ORGANICA AS ESTUDIO_CAUSA_NATURAL, " +
                 "e.COMENTARIO AS ESTUDIO_COMENTARIO, " +
+                //"e.IMAGEN_PATH AS IMAGEN, " +
                 "sp.DURACION_POSITIVOS AS SINTOMAS_POSITIVOS_DURACION, " +
                 "spr.NOMBRE AS RITMO_PENSAMIENTO, " +
                 "sn.DURACION_NEGATIVOS AS SINTOMAS_NEGATIVOS_DURACION, " +
@@ -285,6 +288,7 @@ public class database {
                 paciente.setSustancias(resultSet.getString("SUSTANCIAS"));
                 paciente.setEstudioCausaNatural(resultSet.getString("ESTUDIO_CAUSA_NATURAL"));
                 paciente.setEstudioComentario(resultSet.getString("ESTUDIO_COMENTARIO"));
+                //paciente.setImagen(resultSet.getString("IMAGEN"));
                 paciente.setSintomasPositivosDuracion(resultSet.getString("SINTOMAS_POSITIVOS_DURACION"));
                 paciente.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
                 paciente.setSintomasNegativosDuracion(resultSet.getString("SINTOMAS_NEGATIVOS_DURACION"));
@@ -323,10 +327,11 @@ public class database {
             if (tieneEstudios) {
                 // TODO: AGREGAR IMAGEN
                 // sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO, IMAGEN_PATH)" +
-                String sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO) VALUES (?, ?)";
+                String sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO, IMAGEN_PATH) VALUES (?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setString(1, paciente.getEstudioCausaNatural());
                     preparedStatement.setNString(2, paciente.getEstudioComentario());
+                    preparedStatement.setString(3,paciente.getImagen());
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -91,9 +91,10 @@ public class PacienteController {
     @PostMapping("/ingresarPaciente")
     public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Consulta request) {
         Paciente paciente = request.getPaciente();
+
         int idMedico = request.getMedico().getId();
         logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}", paciente);
-
+        logger.info("IMAGEN PATH", paciente.getImagen());
         Boolean exito = pacienteService.ingresarNuevoPaciente(paciente, idMedico);
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("exito", exito);
@@ -155,8 +156,9 @@ public class PacienteController {
             datosPaciente.put("sustancias", paciente.getSustancias());
             datosPaciente.put("estudioCausaNatural", paciente.getEstudioCausaNatural());
             datosPaciente.put("estudioComentario", paciente.getEstudioComentario());
-            // datosPaciente.put("idImagen", paciente.getIdImagen());
+            datosPaciente.put("imagen", paciente.getImagen());
             // TODO: AGREGAR IMAGEN
+            System.out.println("IMAGEN"+paciente.getImagen());
 
             datosPaciente.put("sintomasPositivosDuracion", paciente.getSintomasPositivosDuracion());
             datosPaciente.put("sintomasPositivosTipoRitmoPensamiento",

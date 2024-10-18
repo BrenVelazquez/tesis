@@ -98,8 +98,8 @@ public class Paciente {
     @JsonProperty("estudio_comentario")
     private String estudioComentario;
 
-    // @JsonProperty("id_imagen")
-    // private String idImagen;
+    @JsonProperty("imagen")
+    private String imagen;
 
     // CONSULTAS
     @JsonProperty("fecha_consulta")
