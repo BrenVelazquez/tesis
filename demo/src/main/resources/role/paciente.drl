@@ -377,12 +377,12 @@ then
     pacienteResponse.actualizarReglasEjecutadas("R26"); 
 end
 
-rule "PUNTAJE: Edad - Adolescente hombre"
+rule "PUNTAJE: Edad - Edad de mayor riesgo para hombres"
 when
-    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo=="Masculino")
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 25 ) && sexo == "Masculino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para hombres",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para hombres", 1)   
     pacienteResponse.actualizarReglasEjecutadas("R25"); 
 end
 
@@ -395,12 +395,12 @@ then
     pacienteResponse.actualizarReglasEjecutadas("R27"); 
 end
 
-rule "PUNTAJE: Edad - Adolescente mujer"
+rule "PUNTAJE: Edad - Edad de mayor riesgo para mujeres"
 when
-    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo=="Femenino")
+    $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && sexo == "Femenino")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)
-    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para mujeres",1)   
+    pacienteResponse.actualizarJustificacion("Se encuentra en la edad de la media de diagnóstico de esquizofrenia para mujeres", 1)   
     pacienteResponse.actualizarReglasEjecutadas("R28"); 
 end
 
@@ -491,7 +491,7 @@ rule "PUNTAJE: Tipo de lenguaje - Sin particularidades"
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_lenguaje.contains("sin-particularidades"))
 then
-    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() +0 )
+    pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
     pacienteResponse.actualizarJustificacion("No presenta particularidades en el lenguaje",1)   
     pacienteResponse.actualizarReglasEjecutadas("R34"); 
 end
