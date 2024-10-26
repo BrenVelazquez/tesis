@@ -33,6 +33,9 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .btn-iniciar i {
@@ -80,6 +83,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+    margin-top: 40px;
 }
 
 .placeholder {
@@ -97,11 +101,36 @@ body {
     display: none;
     align-items: center;
 }
+
 .material-symbols-outlined {
     vertical-align: middle;
     font-size: 24px;
     margin-right: 8px;
 }
+
+.inputs {
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+.toggle-password:hover {
+    color: #000;
+}
+
 
 @media (max-width: 768px) {
     .container {
@@ -121,10 +150,5 @@ body {
 @media (max-width: 480px) {
     .inicio {
         font-size: 18px;
-    }
-
-    .btn-iniciar {
-        font-size: 14px;
-        padding: 10px;
     }
 }
