@@ -455,7 +455,7 @@ when
     || sintomas_positivos_tipo_lenguaje.contains("neologismo")
     || sintomas_positivos_tipo_lenguaje.contains("jergafasia") 
     || sintomas_positivos_tipo_lenguaje.contains("ecolalia") 
-    || sintomas_positivos_tipo_lenguaje.contains("pararrespuesta")
+    || sintomas_positivos_tipo_lenguaje.contains("pararespuesta")
     || sintomas_positivos_tipo_lenguaje.contains("estereotipia-verbal")
     || sintomas_positivos_tipo_lenguaje.contains("verbigeracion") 
     || sintomas_positivos_tipo_lenguaje.contains("asociacion-por-homofonia")))
@@ -473,7 +473,7 @@ when
     && sintomas_positivos_tipo_lenguaje.contains("neologismo")==false
     && sintomas_positivos_tipo_lenguaje.contains("jergafasia")==false
     && sintomas_positivos_tipo_lenguaje.contains("ecolalia")==false
-    && sintomas_positivos_tipo_lenguaje.contains("pararrespuesta")==false
+    && sintomas_positivos_tipo_lenguaje.contains("pararespuesta")==false
     && sintomas_positivos_tipo_lenguaje.contains("estereotipia-verbal")==false 
     && sintomas_positivos_tipo_lenguaje.contains("verbigeracion")==false
     && sintomas_positivos_tipo_lenguaje.contains("asociacion-por-homofonia")==false
