@@ -22,9 +22,9 @@ public class Medico {
     @JsonProperty("contraseña")
     private String contraseña;
     
-    @JsonProperty("nombre")
-    private String nombre;
+    @JsonProperty("nombre_medico")
+    private String nombreMedico;
     
-    @JsonProperty("apellido")
-    private String apellido;
+    @JsonProperty("apellido_medico")
+    private String apellidoMedico;
 }

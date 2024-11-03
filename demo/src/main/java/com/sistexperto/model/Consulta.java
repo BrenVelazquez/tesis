@@ -20,8 +20,8 @@ public class Consulta {
     @JsonProperty("diagnostico")
     private Diagnostico diagnostico;
 
-    /*@JsonProperty("date")
-    private Date date;*/
+    @JsonProperty("fecha_consulta")
+    private String fechaConsulta;
      
 
     

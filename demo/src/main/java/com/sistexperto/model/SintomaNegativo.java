@@ -11,22 +11,25 @@ import java.util.List;
 @AllArgsConstructor
 public class SintomaNegativo {
 
-    @JsonProperty("actividad")
-    private Actividad actividad;
+    @JsonProperty("sintomas_negativos_actividad")
+    private Actividad sintomasNegativosActividad;
 
-    @JsonProperty("aspecto")
-    private List<Aspecto> aspectos;
+    @JsonProperty("sintomas_negativos_aspecto")
+    private Aspecto[] sintomasNegativosAspecto;
 
-    @JsonProperty("atencion")
-    private Atencion atencion;
+    @JsonProperty("sintomas_negativos_atencion")
+    private Atencion sintomasNegativosAtencion;
     
-    @JsonProperty("afectividad")
-    private List<Afectividad> afectividades;
+    @JsonProperty("sintomas_negativos_afectividad")
+    private Afectividad[] sintomasNegativosAfectividad;
 
-    @JsonProperty("bajoF")
-    private BajoFuncionamiento bajoF;
 
-    @JsonProperty("duracionPositivos")
-    private String duracionPositivos;
+    @JsonProperty("sintomas_negativos_bajo_funcionamiento")
+    private String sintomasNegativosBajoFuncionamiento;
 
+    @JsonProperty("sintomas_negativos_bajo_funcionamiento_comentario")
+    private String sintomasNegativosBajoFuncionamientoComentario;
+
+    @JsonProperty("sintomas_negativos_duracion")
+    private String sintomasNegativosDuracion;
 }

@@ -14,6 +14,6 @@ public class Alucinacion {
     private int id;
 
     @JsonProperty("nombre")
-    private int nombre;
+    private String nombre;
 
 }

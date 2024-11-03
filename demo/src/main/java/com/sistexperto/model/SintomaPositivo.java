@@ -11,22 +11,22 @@ import java.util.List;
 @AllArgsConstructor
 public class SintomaPositivo {
 
-    @JsonProperty("alucinaciones")
-    private List<Alucinacion> alucinaciones;
+    @JsonProperty("sintomas_positivos_alucinaciones")
+    private Alucinacion[] sintomasPositivosAlucinaciones;
 
-    @JsonProperty("lenguajes")
-    private List<Lenguaje> lenguajes;
+    @JsonProperty("sintomas_positivos_tipo_lenguaje")
+    private Lenguaje[] sintomasPositivosTipoLenguaje;
 
-    @JsonProperty("pensamientos")
-    private List<Pensamiento> pensamientos;
+    @JsonProperty("sintomas_positivos_tipo_pensamiento")
+    private Pensamiento[] sintomasPositivosTipoPensamiento;
 
-    @JsonProperty("contenidos")
-    private List<ContenidoPensamiento> contenidos;
+    @JsonProperty("sintomas_positivos_tipo_contenido_pensamiento")
+    private  ContenidoPensamiento[] sintomasPositivosTipoContenidoPensamiento;
 
-    @JsonProperty("ritmo")
-    private RitmoPensamiento ritmo;
+    @JsonProperty("sintomas_positivos_tipo_ritmo_pensamiento")
+    private RitmoPensamiento sintomasPositivosTipoRitmoPensamiento;
 
-    @JsonProperty("duracionPositivos")
-    private String duracionPositivos;
+    @JsonProperty("sintomas_positivos_duracion")
+    private String sintomasPositivosDuracion;
 
 }

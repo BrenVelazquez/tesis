@@ -1,5 +1,7 @@
 package com.sistexperto.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +24,19 @@ public class Paciente {
     @JsonProperty("nombre")
     private String nombre;
 
+    @JsonProperty("historia_clinica")
+    private HistoriaClinica historiaClinica;
+
+    @JsonProperty("sintomas_positivos")
+    private SintomaPositivo sintomasPositivos;
+
+    @JsonProperty("sintomas_negativos")
+    private SintomaNegativo sintomasNegativos;
+
+
+    
+  
+/* 
     // HISTORIAS_CLINICAS
     @JsonProperty("trastorno_autista")
     private String trastornoAutista;
@@ -135,5 +150,5 @@ public class Paciente {
     private String nombreMedico;
 
     @JsonProperty("apellido_medico")
-    private String apellidoMedico;
+    private String apellidoMedico;*/
 }

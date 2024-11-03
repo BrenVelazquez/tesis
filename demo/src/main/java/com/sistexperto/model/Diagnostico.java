@@ -17,16 +17,16 @@ public class Diagnostico {
     private String diagnostico;
 
     @JsonProperty("estado")
-    private int estado;
+    private String estado;
 
-    @JsonProperty("comentarios")
-    private String comentarios;
-
-    @JsonProperty("comentariosRechazo")
-    private String comentariosRechazo;
+    @JsonProperty("comentario_medico")
+    private String comentarioMedico;
 
     @JsonProperty("justificacion")
     private String justificacion;
+
+    @JsonProperty("justificacion_rechazo")
+    private String justificacionRechazo;
 
     @JsonProperty("recomendacion")
     private String recomendacion;

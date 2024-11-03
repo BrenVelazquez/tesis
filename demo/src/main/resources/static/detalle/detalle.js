@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre + " " + medicoData.apellido}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico+" "+medicoData.apellido_medico}`;
     }
 });
 
@@ -92,18 +92,24 @@ function mostrarDetallesPaciente(pacienteData) {
     // $("#sintomas-positivos-alucinaciones-no-descarta").toggleClass("selected", pacienteData.sintomas_positivos_alucinaciones === "No se descarta");
 
     //mostrar select y multiselect en un unico texto
-    $("#alucinaciones").val(pacienteData.sintomasPositivosTipoAlucinaciones);
-    $("#lenguaje").val(pacienteData.sintomasPositivosTipoLenguaje);
-    $("#pensamiento").val(pacienteData.sintomasPositivosTipoPensamiento);
-    $("#ritmo-pensamiento").val(pacienteData.sintomasPositivosTipoRitmoPensamiento);
-    $("#contenido-pensamiento").val(pacienteData.sintomasPositivosTipoContenidoPensamiento);
+    const alucinaciones = pacienteData.sintomasPositivosTipoAlucinaciones.map(alucinacion => alucinacion.nombre).join(", ");
+    $("#alucinaciones").val(alucinaciones);
+    const lenguajes = pacienteData.sintomasPositivosTipoLenguaje.map(lenguaje => lenguaje.nombre).join(", ");
+    $("#lenguaje").val(lenguajes);
+    const pensamientos = pacienteData.sintomasPositivosTipoPensamiento.map(pensamiento => pensamiento.nombre).join(", ");
+    $("#pensamiento").val(pensamientos);
+    $("#ritmo-pensamiento").val(pacienteData.sintomasPositivosTipoRitmoPensamiento.nombre);
+    const contenidos = pacienteData.sintomasPositivosTipoContenidoPensamiento.map(contenido => contenido.nombre).join(", ");
+    $("#contenido-pensamiento").val(contenidos);
 
     // sintomas negativos
     $("#sintomas-negativos-duracion").val(pacienteData.sintomasNegativosDuracion);
-    $("#aspecto").val(pacienteData.sintomasNegativosAspecto);
-    $("#atencion").val(pacienteData.sintomasNegativosAtencion);
-    $("#actividad").val(pacienteData.sintomasNegativosActividad);
-    $("#afectividad").val(pacienteData.sintomasNegativosAfectividad);
+    const aspectos = pacienteData.sintomasNegativosAspecto.map(aspecto => aspecto.nombre).join(", ");
+    $("#aspecto").val(aspectos);
+    $("#atencion").val(pacienteData.sintomasNegativosAtencion.nombre);
+    $("#actividad").val(pacienteData.sintomasNegativosActividad.nombre);
+    const afectividades = pacienteData.sintomasNegativosAfectividad.map(afectividad => afectividad.nombre).join(", ");
+    $("#afectividad").val(afectividades);
     $("#bajo-funcionamiento-si").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 1);
     $("#bajo-funcionamiento-no").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 0);
     if (pacienteData.sintomasNegativosBajoFuncionamiento == 1
@@ -116,13 +122,13 @@ function mostrarDetallesPaciente(pacienteData) {
     // complementarios
     $("#sustancias-si").toggleClass("selected", pacienteData.sustancias == 1);
     $("#sustancias-no").toggleClass("selected", pacienteData.sustancias == 0);
-    if (pacienteData.estudioCausaNatural != null) {
+    if (pacienteData.estudioCausaNatural != -1) {
         $("#estudios-si").toggleClass("selected");
     }
     else {
         $("#estudios-no").toggleClass("selected");
     }
-    if (pacienteData.estudioCausaNatural != null && pacienteData.estudioCausaNatural != undefined) {
+    if (pacienteData.estudioCausaNatural != -1 && pacienteData.estudioCausaNatural != undefined) {
         $("#estudio-causa-natural-id").removeClass("no-show-seccion");
         $("#estudios-causa-organica-si").toggleClass("selected", pacienteData.estudioCausaNatural === "estudio-causa-natural-si");
         $("#estudios-causa-organica-no").toggleClass("selected", pacienteData.estudioCausaNatural === "estudio-causa-natural-no");
