@@ -1,10 +1,7 @@
 package com.sistexperto.dto;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 
 @Data
@@ -59,7 +56,7 @@ public class PacienteResponse {
 
     public void actualizarJustificacion(String texto, int opcion) {
         String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
-        System.out.println("Nueva Justificacion: " + utf8Texto);
+        System.out.println("Justificacion: " + utf8Texto);
         if (opcion == 1) {
             if (justificacion == null || justificacion.isEmpty()) {
                 justificacion = utf8Texto;
@@ -77,13 +74,12 @@ public class PacienteResponse {
 
     public void actualizarRecomendacion(String texto, int opcion) {
         String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
-        System.out.println(utf8Texto);
         if (opcion == 1) {
             if (recomendacion == null || recomendacion.isEmpty()) {
                 recomendacion = utf8Texto;
 
             } else {
-                recomendacion += ",\n" + utf8Texto;
+                recomendacion += ", \n" + utf8Texto;
             }
         } else if (opcion == 2) {
             recomendacion = texto;
@@ -94,7 +90,6 @@ public class PacienteResponse {
 
     public void actualizarReglasEjecutadas(String texto) {
         String utf8Texto = new String(texto.getBytes(), StandardCharsets.UTF_8);
-        System.out.println("Nueva Regla: " + utf8Texto);
         if (reglas == 0) {
             reglasEjecutadas = utf8Texto;
             reglas++;
@@ -103,7 +98,7 @@ public class PacienteResponse {
             reglasEjecutadas += ", " + utf8Texto;
             reglas++;
         }
-        System.out.println("- reglas: " + reglas);
+        System.out.println("- Reglas: " + reglas);
         setReglasEjecutadas(reglasEjecutadas);
         setReglas(reglas);
 

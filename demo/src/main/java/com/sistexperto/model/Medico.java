@@ -18,13 +18,17 @@ public class Medico {
 
     @JsonProperty("email")
     private String email;
-    
+
     @JsonProperty("contraseña")
     private String contraseña;
-    
+
     @JsonProperty("nombre_medico")
     private String nombreMedico;
-    
+
     @JsonProperty("apellido_medico")
     private String apellidoMedico;
+
+    public String getNombreCompletoMedico() {
+        return nombreMedico + " " + apellidoMedico;
+    }
 }
