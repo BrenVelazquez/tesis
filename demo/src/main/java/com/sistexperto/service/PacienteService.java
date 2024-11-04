@@ -60,11 +60,8 @@ public class PacienteService {
     public PacienteResponse pacienteResponse(PacienteRequest pacienteRequest) {
         PacienteResponse pacienteResponse = new PacienteResponse();
 
-        // Crear y configurar una nueva sesión de Drools
-        // Es el objeto que contiene las reglas
         KieSession kieSession = kieContainer.newKieSession();
 
-        // Estos son los resultados que vamos a obtener
         Boolean noPosibleEsquizofrenia = Boolean.FALSE;
         Boolean esquizofrenia = Boolean.FALSE;
         Boolean posibleTemporal = Boolean.FALSE;
@@ -73,18 +70,9 @@ public class PacienteService {
         kieSession.setGlobal("esquizofrenia", esquizofrenia);
         kieSession.setGlobal("posibleTemporal", posibleTemporal);
         kieSession.setGlobal("pacienteResponse", pacienteResponse);
-
-        // este es el paciente al que le estoy aplicando a las reglas (los datos vienen
-        // del front)
         kieSession.insert(pacienteRequest);
-        // kieSession.insert(pacienteResponse);
-
-        // Corre todas las reglas al mismo tiempo. (se puede hacer que se ejecuten
-        // reglas especificas y no todo junto pero hay que ver como y si sirve de algo)
         kieSession.fireAllRules();
         kieSession.dispose();
-
-        // Devolver la respuesta
         return pacienteResponse;
     }
 
@@ -115,7 +103,6 @@ public class PacienteService {
     }
 
     private boolean isFileMimeTypeValid(MultipartFile file) {
-        // Tipos MIME válidos: JPG y PNG
         String[] allowedMimeTypes = { "image/jpeg", "image/png" };
         return Arrays.asList(allowedMimeTypes).contains(file.getContentType());
     }
@@ -183,8 +170,7 @@ public class PacienteService {
     // endregion Subir imagen
 
     // region guardar paciente
-    public boolean ingresarNuevoPaciente(/* Paciente pacienteCompleto, int idMedico */ Consulta c) {
-        // Paciente paciente = new Paciente(); COMENTO PARA PROBAR CAMBIOS
+    public boolean ingresarNuevoPaciente(Consulta c) {
         Consulta consulta = new Consulta();
         Paciente paciente = new Paciente();
         Diagnostico diagnostico = new Diagnostico();
@@ -197,13 +183,6 @@ public class PacienteService {
         paciente.setNombre(c.getPaciente().getNombre());
         paciente.setSexo(c.getPaciente().getSexo());
         paciente.setEdad(c.getPaciente().getEdad());
-
-        System.out.println(
-                "ESTUDIO CAUSA NATURAL:" + c.getPaciente().getHistoriaClinica().getEstudio().getEstudioCausaNatural());
-        estudio.setEstudioCausaNatural(c.getPaciente().getHistoriaClinica().getEstudio().getEstudioCausaNatural());
-        estudio.setEstudioComentario(c.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
-        estudio.setImagen(c.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-
         historia.setTrastornoAutista(c.getPaciente().getHistoriaClinica().getTrastornoAutista());
         historia.setTrastornoComunicacion(c.getPaciente().getHistoriaClinica().getTrastornoComunicacion());
         historia.setTrastornoEsquizoafectivo(c.getPaciente().getHistoriaClinica().getTrastornoEsquizoafectivo());
@@ -214,7 +193,6 @@ public class PacienteService {
         historia.setEstudio(estudio);
         positivos.setSintomasPositivosAlucinaciones(
                 c.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones());
-
         positivos.setSintomasPositivosDuracion(c.getPaciente().getSintomasPositivos().getSintomasPositivosDuracion());
         positivos.setSintomasPositivosTipoContenidoPensamiento(
                 c.getPaciente().getSintomasPositivos().getSintomasPositivosTipoContenidoPensamiento());
@@ -224,7 +202,6 @@ public class PacienteService {
                 c.getPaciente().getSintomasPositivos().getSintomasPositivosTipoPensamiento());
         positivos.setSintomasPositivosTipoRitmoPensamiento(
                 c.getPaciente().getSintomasPositivos().getSintomasPositivosTipoRitmoPensamiento());
-
         negativos.setSintomasNegativosBajoFuncionamientoComentario(
                 c.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamiento());
         negativos.setSintomasNegativosBajoFuncionamientoComentario(
@@ -233,25 +210,21 @@ public class PacienteService {
         negativos.setSintomasNegativosAfectividad(
                 c.getPaciente().getSintomasNegativos().getSintomasNegativosAfectividad());
         negativos.setSintomasNegativosAspecto(c.getPaciente().getSintomasNegativos().getSintomasNegativosAspecto());
-        System.out.println("ATENCION" + c.getPaciente().getSintomasNegativos().getSintomasNegativosAtencion());
         negativos.setSintomasNegativosAtencion(c.getPaciente().getSintomasNegativos().getSintomasNegativosAtencion());
         negativos.setSintomasNegativosBajoFuncionamiento(
                 c.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamiento());
         negativos.setSintomasNegativosBajoFuncionamientoComentario(
                 c.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamientoComentario());
         negativos.setSintomasNegativosDuracion(c.getPaciente().getSintomasNegativos().getSintomasNegativosDuracion());
-
         paciente.setHistoriaClinica(historia);
         paciente.setSintomasNegativos(negativos);
         paciente.setSintomasPositivos(positivos);
-
         medico.setApellidoMedico(c.getMedico().getApellidoMedico());
         medico.setContraseña(c.getMedico().getContraseña());
         medico.setNombreMedico(c.getMedico().getNombreMedico());
         medico.setDni(c.getMedico().getDni());
         medico.setEmail(c.getMedico().getEmail());
         medico.setId(medico.getId());
-
         diagnostico.setDiagnostico(c.getDiagnostico().getDiagnostico());
         diagnostico.setComentarioMedico(c.getDiagnostico().getComentarioMedico());
         diagnostico.setEstado(c.getDiagnostico().getEstado());
@@ -260,7 +233,6 @@ public class PacienteService {
         diagnostico.setPuntaje(c.getDiagnostico().getPuntaje());
         diagnostico.setRecomendacion(c.getDiagnostico().getRecomendacion());
         diagnostico.setReglas(c.getDiagnostico().getReglas());
-
         consulta.setDiagnostico(diagnostico);
         consulta.setMedico(medico);
         consulta.setPaciente(paciente);
@@ -275,7 +247,13 @@ public class PacienteService {
 
     // region obtenerTodosLosPacientes
     public List<PacienteDTO> obtenerTodosLosPacientes() {
-        return database.obtenerPacientes();
+        List<PacienteDTO> pacientesDTO = database.obtenerPacientes();
+        for (PacienteDTO pacienteDTO : pacientesDTO) {
+            if (pacienteDTO != null && pacienteDTO.getFecha() != null) {
+                pacienteDTO.setFecha(formatearFecha(pacienteDTO.getFecha()));
+            }
+        }
+        return pacientesDTO;
     }
 
     // region obtenerTodasLasConsultasConDetalles
@@ -284,12 +262,11 @@ public class PacienteService {
 
         for (Consulta consulta : consultas) {
             if (consulta != null) {
-                Paciente p = formatAndGetSintomas(consulta.getPaciente(), consulta.getPaciente().getIdPaciente());
+                Paciente p = formatAndGetSintomas(consulta.getPaciente());
                 consulta.setPaciente(p);
-            }
-            if (consulta != null && consulta.getFechaConsulta() != null) {
-                String fechaFormateada = formatearFecha(consulta.getFechaConsulta());
-                consulta.setFechaConsulta(fechaFormateada);
+                if (consulta.getFechaConsulta() != null) {
+                    consulta.setFechaConsulta(formatearFecha(consulta.getFechaConsulta()));
+                }
             }
         }
         System.out.println("consultas: " + consultas);
@@ -301,11 +278,12 @@ public class PacienteService {
     // region obtenerPacientePorId
     public Consulta obtenerConsultaPorPaciente(int idPaciente) {
         Consulta consulta = database.obtenerConsultaPorPaciente(idPaciente);
-        System.out.println(consulta.getPaciente().getHistoriaClinica().getEstudio());
         if (consulta != null) {
-            Paciente p = formatAndGetSintomas(consulta.getPaciente(), idPaciente);
+            Paciente p = formatAndGetSintomas(consulta.getPaciente());
             consulta.setPaciente(p);
-            System.out.println(consulta.getPaciente().getHistoriaClinica().getEstudio());
+            if (consulta.getFechaConsulta() != null) {
+                consulta.setFechaConsulta(formatearFecha(consulta.getFechaConsulta()));
+            }
         }
         return consulta;
     }
@@ -313,7 +291,6 @@ public class PacienteService {
 
     // region login
     public Medico login(String mail, String password) {
-        System.err.println("service");
         Medico medico = database.login(mail, password);
         return medico;
     }
@@ -322,16 +299,13 @@ public class PacienteService {
     // region descargarExcel
     public byte[] descargarExcel() {
         try {
-            // 1. Obtener los datos de la base de datos
             List<Consulta> consultas = obtenerTodasLasConsultasConDetalles();
 
             if (consultas == null || consultas.isEmpty()) {
                 System.out.println("No hay datos para generar el archivo Excel.");
                 return null;
             }
-            // 2. Procesar los datos y generar un archivo Excel o CSV
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            System.out.println(consultas);
             writeToExcelOrCSVFile(consultas, outputStream);
 
             return outputStream.toByteArray();
@@ -343,9 +317,7 @@ public class PacienteService {
 
     private void writeToExcelOrCSVFile(List<Consulta> consultas, OutputStream outputStream) {
         try {
-            // Crear un nuevo libro de Excel o archivo CSV
             try (Workbook workbook = new XSSFWorkbook()) {
-                // Crear una hoja dentro del libro
                 Sheet sheet = workbook.createSheet("Datos");
 
                 CellStyle headerStyle = workbook.createCellStyle();
@@ -359,7 +331,6 @@ public class PacienteService {
                 headerFont.setColor(IndexedColors.WHITE.getIndex());
                 headerStyle.setFont(headerFont);
 
-                // Crear una fila para los encabezados
                 Row headerRow = sheet.createRow(0);
 
                 String[] columnHeaders = { "NOMBRE DEL PACIENTE", "EDAD", "SEXO", "DIAGNOSTICO", "ESTADO",
@@ -373,18 +344,17 @@ public class PacienteService {
                         "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
                         "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
                         "SE DESCARTA CAUSA ORGANICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/* , "IMAGEN" */ };
+
                 for (int i = 0; i < columnHeaders.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(columnHeaders[i]);
                     cell.setCellStyle(headerStyle);
                 }
 
-                int rowNum = 1; // Comienza desde la segunda fila después de los encabezados
+                int rowNum = 1;
 
                 for (Consulta consulta : consultas) {
                     Row row = sheet.createRow(rowNum++);
-                    // Llena las celdas con los datos de pacientes
-                    // row.createCell(0).setCellValue(paciente.getIdPaciente());
                     row.createCell(0).setCellValue(consulta.getPaciente().getNombre());
                     row.createCell(1).setCellValue(consulta.getPaciente().getEdad());
                     row.createCell(2).setCellValue(consulta.getPaciente().getSexo());
@@ -514,8 +484,6 @@ public class PacienteService {
                      * paciente.getImagen() != null ? paciente.getImagen() : " ");
                      */
                 }
-
-                // Escribir el libro en el flujo de salida
                 workbook.write(outputStream);
             }
             outputStream.close();
@@ -526,96 +494,72 @@ public class PacienteService {
     // endregion descargarExcel
 
     // region formatAndGetSintomas
-    public Paciente formatAndGetSintomas(Paciente paciente, int idPaciente) {
+    public Paciente formatAndGetSintomas(Paciente paciente) {
+        int idPaciente = paciente.getIdPaciente();
+
         String sexo = paciente.getSexo();
         if (sexo != null) {
             paciente.setSexo(formatearTextoSintomas(sexo));
         }
+
         RitmoPensamiento ritmoPensamiento = paciente.getSintomasPositivos().getSintomasPositivosTipoRitmoPensamiento();
         if (ritmoPensamiento != null) {
             paciente.getSintomasPositivos().getSintomasPositivosTipoRitmoPensamiento()
                     .setNombre(formatearTextoSintomas(ritmoPensamiento.getNombre()));
         }
+
         Alucinacion[] alucinaciones = database.obtenerAlucinacionesPorSintoma(idPaciente);
-        // String alucinaciones =
-        // convertirSintomasAString(database.obtenerAlucinacionesPorSintoma(idPaciente));
-        // paciente.setSintomasPositivosTipoAlucinaciones(formatearTextoSintomas(alucinaciones));
         for (Alucinacion alucinacion : alucinaciones) {
             String nombreFormateado = formatearTextoSintomas(alucinacion.getNombre());
             alucinacion.setNombre(nombreFormateado);
         }
         paciente.getSintomasPositivos().setSintomasPositivosAlucinaciones(alucinaciones);
-        // String lenguajes =
-        // convertirSintomasAString(database.obtenerLenguajesPorPacienteId(idPaciente));
-        // paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
+
         Lenguaje[] lenguajes = database.obtenerLenguajesPorPacienteId(idPaciente);
         for (Lenguaje lenguaje : lenguajes) {
             String nombreFormateado = formatearTextoSintomas(lenguaje.getNombre());
             lenguaje.setNombre(nombreFormateado);
         }
         paciente.getSintomasPositivos().setSintomasPositivosTipoLenguaje(lenguajes);
-        // String pensamientos =
-        // convertirSintomasAString(database.obtenerPensamientosPorPacienteId(idPaciente));
-        // paciente.setSintomasPositivosTipoPensamiento(formatearTextoSintomas(pensamientos));
+
         Pensamiento[] pensamientos = database.obtenerPensamientosPorPacienteId(idPaciente);
         for (Pensamiento pensamiento : pensamientos) {
             String nombreFormateado = formatearTextoSintomas(pensamiento.getNombre());
             pensamiento.setNombre(nombreFormateado);
         }
         paciente.getSintomasPositivos().setSintomasPositivosTipoPensamiento(pensamientos);
-        // String contenidosPensamientos = convertirSintomasAString(
-        // database.obtenerContenidosPensamientosPorPacienteId(idPaciente));
-        // paciente.setSintomasPositivosTipoContenidoPensamiento(formatearTextoSintomas(contenidosPensamientos));
+
         ContenidoPensamiento[] contenidos = database.obtenerContenidosPensamientosPorPacienteId(idPaciente);
         for (ContenidoPensamiento contenido : contenidos) {
             String nombreFormateado = formatearTextoSintomas(contenido.getNombre());
             contenido.setNombre(nombreFormateado);
         }
         paciente.getSintomasPositivos().setSintomasPositivosTipoContenidoPensamiento(contenidos);
-        // String atenciones = paciente.getSintomasNegativosAtencion();
-        // if (atenciones != null) {
-        // paciente.setSintomasNegativosAtencion(formatearTextoSintomas(atenciones));
-        // }
         Atencion atencion = paciente.getSintomasNegativos().getSintomasNegativosAtencion();
         if (atencion != null) {
             paciente.getSintomasNegativos().getSintomasNegativosAtencion()
                     .setNombre(formatearTextoSintomas(atencion.getNombre()));
         }
-        // String actividades = paciente.getSintomasNegativosActividad();
-        // if (actividades != null) {
-        // paciente.setSintomasNegativosActividad(formatearTextoSintomas(actividades));
-        // }
         Actividad actividad = paciente.getSintomasNegativos().getSintomasNegativosActividad();
         if (actividad != null) {
             paciente.getSintomasNegativos().getSintomasNegativosActividad()
                     .setNombre(formatearTextoSintomas(actividad.getNombre()));
         }
-        // String aspectos =
-        // convertirSintomasAString(database.obtenerAspectosPorPacienteId(idPaciente));
-        // paciente.setSintomasNegativosAspecto(formatearTextoSintomas(aspectos));
+
         Aspecto[] aspectos = database.obtenerAspectosPorPacienteId(idPaciente);
         for (Aspecto aspecto : aspectos) {
             String nombreFormateado = formatearTextoSintomas(aspecto.getNombre());
             aspecto.setNombre(nombreFormateado);
         }
         paciente.getSintomasNegativos().setSintomasNegativosAspecto(aspectos);
-        // String afectividades =
-        // convertirSintomasAString(database.obtenerAfectividadesPorPacienteId(idPaciente));
-        // paciente.setSintomasNegativosAfectividad(formatearTextoSintomas(afectividades));
+
         Afectividad[] afectividades = database.obtenerAfectividadesPorPacienteId(idPaciente);
         for (Afectividad afectividad : afectividades) {
             String nombreFormateado = formatearTextoSintomas(afectividad.getNombre());
             afectividad.setNombre(nombreFormateado);
         }
         paciente.getSintomasNegativos().setSintomasNegativosAfectividad(afectividades);
-        // paciente.setSintomasPositivosTipoLenguaje(formatearTextoSintomas(lenguajes));
 
-        /*
-         * if (paciente != null && paciente.getFechaConsulta() != null) {
-         * String fechaFormateada = formatearFecha(paciente.getFechaConsulta());
-         * paciente.setFechaConsulta(fechaFormateada);
-         * }
-         */
         return paciente;
     }
     // endregion formatAndGetSintomas

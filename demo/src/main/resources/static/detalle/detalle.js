@@ -33,7 +33,6 @@ $(document).ready(function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const idPaciente = obtenerIdPacienteDeUrl();
-    console.log("idPaciente: " + idPaciente);
 
     if (idPaciente) {
         obtenerDetallesPaciente(idPaciente);
@@ -86,11 +85,6 @@ function mostrarDetallesPaciente(pacienteData) {
 
     // sintomas positivos
     $("#sintomas-positivos-duracion").val(pacienteData.sintomasPositivosDuracion);
-    // $("#sintomas-positivos-alucinaciones-si").toggleClass("selected", pacienteData.sintomasPositivosTipoAlucinaciones != null);
-    // $("#sintomas-positivos-alucinaciones-no").toggleClass("selected", pacienteData.sintomas_positivos_alucinaciones === "No");
-    // $("#sintomas-positivos-alucinaciones-no-descarta").toggleClass("selected", pacienteData.sintomas_positivos_alucinaciones === "No se descarta");
-
-    //mostrar select y multiselect en un unico texto
     const alucinaciones = pacienteData.sintomasPositivosTipoAlucinaciones.map(alucinacion => alucinacion.nombre).join(", ");
     $("#alucinaciones").val(alucinaciones);
     const lenguajes = pacienteData.sintomasPositivosTipoLenguaje.map(lenguaje => lenguaje.nombre).join(", ");
@@ -127,7 +121,7 @@ function mostrarDetallesPaciente(pacienteData) {
     else {
         $("#estudios-no").toggleClass("selected");
     }
-    if (pacienteData.estudioCausaNatural != -1 && pacienteData.estudioCausaNatural != undefined) {
+    if (pacienteData.estudioCausaNatural != null && pacienteData.estudioCausaNatural != undefined && pacienteData.estudioCausaNatural != -1) {
         $("#estudio-causa-natural-id").removeClass("no-show-seccion");
         $("#estudios-causa-organica-si").toggleClass("selected", pacienteData.estudioCausaNatural === "estudio-causa-natural-si");
         $("#estudios-causa-organica-no").toggleClass("selected", pacienteData.estudioCausaNatural === "estudio-causa-natural-no");
@@ -145,7 +139,7 @@ function mostrarDetallesPaciente(pacienteData) {
         $("#imagen-preview").hide();
     }
 
-    // Diagnostico
+    // diagnostico
     if (pacienteData.diagnostico === "Esquizofrenia") {
         $("#diagnostico-esquizofrenia").removeClass("no-show-seccion");
     } else if (pacienteData.diagnostico === "Esquizofrenia no posible") {

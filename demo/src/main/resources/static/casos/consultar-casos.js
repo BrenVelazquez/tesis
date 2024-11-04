@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function () {
-    console.log("nombreMedico guardado3:", localStorage.getItem('nombreMedico'));
     nombreMedico = localStorage.getItem("nombreMedico");
 
     if (nombreMedico) {
@@ -30,7 +29,6 @@ async function obtenerPacientes() {
 
         if (response && response.length > 0) {
             console.log('Pacientes obtenidos con éxito:', response);
-            console.log("response: " + JSON.stringify(response));
             pacientes = response;
             mostrarPacientesEnTabla(response);
             noPacientesMsg.style.display = 'none';
@@ -38,7 +36,6 @@ async function obtenerPacientes() {
         } else {
             noPacientesMsg.style.display = 'block';
             thead.style.display = 'none';
-            // console.error('No se encontraron pacientes:', response);
         }
     } catch (error) {
         console.error('Error al obtener los pacientes:', error);
