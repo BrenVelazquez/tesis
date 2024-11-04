@@ -171,9 +171,6 @@ public class PacienteController {
             datosPaciente.put("estudioComentario",
                     consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
             datosPaciente.put("imagen", consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-            System.out.println("IMAGEN" + consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-            System.out.println(
-                    "COMENTARIO" + consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
             datosPaciente.put("sintomasPositivosDuracion",
                     consulta.getPaciente().getSintomasPositivos().getSintomasPositivosDuracion());
             datosPaciente.put("sintomasPositivosTipoRitmoPensamiento",

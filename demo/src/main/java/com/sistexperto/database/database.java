@@ -143,7 +143,8 @@ public class database {
                 "FROM PACIENTES p " +
                 "JOIN CONSULTAS c ON p.ID_PACIENTE = c.ID_PACIENTE " +
                 "JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO " +
-                "JOIN MEDICOS m ON c.ID_MEDICO = m.ID_MEDICO;";
+                "JOIN MEDICOS m ON c.ID_MEDICO = m.ID_MEDICO " +
+                "ORDER BY p.ID_PACIENTE DESC;";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -772,7 +773,7 @@ public class database {
         List<Alucinacion> alucinaciones = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            System.out.println("ID PACIENTE"+idPaciente);
+
             preparedStatement.setInt(1, idPaciente);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -825,8 +826,8 @@ public class database {
                 " pe.ID_PENSAMIENTO " +
                 "FROM PACIENTES p " +
                 "LEFT JOIN SINTOMAS_POSITIVOS sp ON p.ID_PACIENTE = sp.ID_PACIENTE " +
-                "LEFT JOIN SINTOMA_PENSAMIENTOS sl ON sp.ID_SINTOMA_POSITIVO = sl.ID_SINTOMA_POSITIVO " +
-                "LEFT JOIN PENSAMIENTOS pe ON sl.ID_PENSAMIENTO = pe.ID_PENSAMIENTO " +
+                "LEFT JOIN SINTOMA_PENSAMIENTOS spe ON sp.ID_SINTOMA_POSITIVO = spe.ID_SINTOMA_POSITIVO " +
+                "LEFT JOIN PENSAMIENTOS pe ON spe.ID_PENSAMIENTO = pe.ID_PENSAMIENTO " +
                 "WHERE p.ID_PACIENTE = ?";
         List<Pensamiento> pensamientos = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
@@ -852,8 +853,8 @@ public class database {
                 " cp.ID_CONTENIDO_PENSAMIENTO " +
                 "FROM PACIENTES p " +
                 "LEFT JOIN SINTOMAS_POSITIVOS sp ON p.ID_PACIENTE = sp.ID_PACIENTE " +
-                "LEFT JOIN SINTOMA_CONTENIDO_PENSAMIENTOS sl ON sp.ID_SINTOMA_POSITIVO = sl.ID_SINTOMA_POSITIVO " +
-                "LEFT JOIN CONTENIDO_PENSAMIENTOS cp ON sl.ID_CONTENIDO_PENSAMIENTO = cp.ID_CONTENIDO_PENSAMIENTO " +
+                "LEFT JOIN SINTOMA_CONTENIDO_PENSAMIENTOS scp ON sp.ID_SINTOMA_POSITIVO = scp.ID_SINTOMA_POSITIVO " +
+                "LEFT JOIN CONTENIDO_PENSAMIENTOS cp ON scp.ID_CONTENIDO_PENSAMIENTO = cp.ID_CONTENIDO_PENSAMIENTO " +
                 "WHERE p.ID_PACIENTE = ?";
         List<ContenidoPensamiento> contenidosPensamientos = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
@@ -879,8 +880,8 @@ public class database {
                 " a.ID_ASPECTO " +
                 "FROM PACIENTES p " +
                 "LEFT JOIN SINTOMAS_NEGATIVOS sp ON p.ID_PACIENTE = sp.ID_PACIENTE " +
-                "LEFT JOIN SINTOMA_ASPECTOS sl ON sp.ID_SINTOMA_NEGATIVO = sl.ID_SINTOMA_NEGATIVO " +
-                "LEFT JOIN ASPECTOS a ON sl.ID_ASPECTO = a.ID_ASPECTO " +
+                "LEFT JOIN SINTOMA_ASPECTOS sa ON sp.ID_SINTOMA_NEGATIVO = sa.ID_SINTOMA_NEGATIVO " +
+                "LEFT JOIN ASPECTOS a ON sa.ID_ASPECTO = a.ID_ASPECTO " +
                 "WHERE p.ID_PACIENTE = ?";
         List<Aspecto> aspectos = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
@@ -906,8 +907,8 @@ public class database {
                 " a.ID_AFECTIVIDAD " +
                 "FROM PACIENTES p " +
                 "LEFT JOIN SINTOMAS_NEGATIVOS sp ON p.ID_PACIENTE = sp.ID_PACIENTE  " +
-                "LEFT JOIN SINTOMA_AFECTIVIDADES sl ON sp.ID_SINTOMA_NEGATIVO = sl.ID_SINTOMA_NEGATIVO " +
-                "LEFT JOIN AFECTIVIDADES a ON sl.ID_AFECTIVIDAD = a.ID_AFECTIVIDAD " +
+                "LEFT JOIN SINTOMA_AFECTIVIDADES sa ON sp.ID_SINTOMA_NEGATIVO = sa.ID_SINTOMA_NEGATIVO " +
+                "LEFT JOIN AFECTIVIDADES a ON sa.ID_AFECTIVIDAD = a.ID_AFECTIVIDAD " +
                 "WHERE p.ID_PACIENTE = ?";
         List<Afectividad> afectividades = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
@@ -1018,5 +1019,4 @@ public class database {
         return yesNo ? "Sí" : "No";
     }
     // endregion converciones
-
 }

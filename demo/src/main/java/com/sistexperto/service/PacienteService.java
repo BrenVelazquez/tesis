@@ -269,7 +269,6 @@ public class PacienteService {
                 }
             }
         }
-        System.out.println("consultas: " + consultas);
 
         return consultas;
     }
@@ -514,8 +513,6 @@ public class PacienteService {
             alucinacion.setNombre(nombreFormateado);
         }
         paciente.getSintomasPositivos().setSintomasPositivosAlucinaciones(alucinaciones);
-
-        System.out.println("ALUCINACIONES SERVICE:"+alucinaciones);
 
         Lenguaje[] lenguajes = database.obtenerLenguajesPorPacienteId(idPaciente);
         for (Lenguaje lenguaje : lenguajes) {
