@@ -327,7 +327,7 @@ public class database {
                 Diagnostico diagnostico = new Diagnostico();
                 Consulta consulta = new Consulta();
                 Medico medico = new Medico();
-                paciente.setIdPaciente(idPaciente);
+                paciente.setIdPaciente(resultSet.getInt("ID_PACIENTE"));
                 paciente.setNombre(resultSet.getString("NOMBRE"));
                 paciente.setEdad(resultSet.getInt("EDAD"));
                 paciente.setSexo(resultSet.getString("SEXO"));
@@ -772,7 +772,7 @@ public class database {
         List<Alucinacion> alucinaciones = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
+            System.out.println("ID PACIENTE"+idPaciente);
             preparedStatement.setInt(1, idPaciente);
             ResultSet resultSet = preparedStatement.executeQuery();
 

@@ -515,6 +515,8 @@ public class PacienteService {
         }
         paciente.getSintomasPositivos().setSintomasPositivosAlucinaciones(alucinaciones);
 
+        System.out.println("ALUCINACIONES SERVICE:"+alucinaciones);
+
         Lenguaje[] lenguajes = database.obtenerLenguajesPorPacienteId(idPaciente);
         for (Lenguaje lenguaje : lenguajes) {
             String nombreFormateado = formatearTextoSintomas(lenguaje.getNombre());
