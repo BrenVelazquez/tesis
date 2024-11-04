@@ -84,7 +84,8 @@ p {
     }
 }
 
-.modal-icon {
+.modal-icon,
+.error-icon {
     font-size: 3rem;
     color: #009587;
     margin-bottom: 1rem;

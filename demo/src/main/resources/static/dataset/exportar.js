@@ -4,6 +4,7 @@ const btnClose = document.getElementById('btnClose');
 const btnDownload = document.getElementById('btnDownload');
 const loader = document.querySelector('.loader');
 const modalIcon = document.querySelector('.modal-icon');
+const errorIcon = document.querySelector('.error-icon');
 
 let nombreMedico;
 $(document).ready(function () {
@@ -19,6 +20,7 @@ function showModal(message) {
     btnClose.disabled = true;
     loader.style.display = 'block';
     modalIcon.style.display = 'none';
+    errorIcon.style.display = 'none';
 }
 function closeModal() {
     modal.style.display = 'none';
@@ -50,6 +52,10 @@ btnDownload.addEventListener('click', function () {
         })
         .catch(error => {
             console.error(error);
+            modalMessage.textContent = 'Ocurrió un error al descargar el excel, por favor intente nuevamente más tarde.';
+            btnClose.disabled = false;
+            loader.style.display = 'none';
+            errorIcon.style.display = 'block';
         });
 });
 
