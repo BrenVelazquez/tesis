@@ -1,12 +1,11 @@
 function volver() {
-    //window.location.href = "/home";
     window.history.back();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btnCerrarSesion').addEventListener('click', function () {
-        localStorage.removeItem('medico'); // Eliminar información del médico
-        window.location.href = '/'; // Redirigir a la página de login
+        localStorage.removeItem('medico');
+        window.location.href = '/';
     });
 });
 
@@ -26,9 +25,9 @@ $(document).ready(function () {
 
     $("#detalle-diagnostico-container").load("detalleDiagnostico.html", function () { });
 
-    const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico+" "+medicoData.apellido_medico}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
     }
 });
 
@@ -113,7 +112,7 @@ function mostrarDetallesPaciente(pacienteData) {
     $("#bajo-funcionamiento-si").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 1);
     $("#bajo-funcionamiento-no").toggleClass("selected", pacienteData.sintomasNegativosBajoFuncionamiento == 0);
     if (pacienteData.sintomasNegativosBajoFuncionamiento == 1
-        && pacienteData.sintomasNegativosBajoFuncionamientoComentario != undefined 
+        && pacienteData.sintomasNegativosBajoFuncionamientoComentario != undefined
         && pacienteData.sintomasNegativosBajoFuncionamientoComentario != "") {
         $("#bajo-funcionamiento-comentario-id").removeClass("no-show-seccion");
         $("#bajo-funcionamiento-comentario").val(pacienteData.sintomasNegativosBajoFuncionamientoComentario);
@@ -140,11 +139,10 @@ function mostrarDetallesPaciente(pacienteData) {
     }
     if (pacienteData.imagen != "" && pacienteData.imagen != undefined) {
         $("#estudio-imagen-id").removeClass("no-show-seccion");
-        //$("#imagen-preview").attr("src", pacienteData.idImagen);
-        $("#imagen-preview").attr("src", pacienteData.imagen); 
+        $("#imagen-preview").attr("src", pacienteData.imagen);
         $("#imagen-preview").show();
-    }else {
-        $("#imagen-preview").hide(); // Si no hay imagen, ocultarla
+    } else {
+        $("#imagen-preview").hide();
     }
 
     // Diagnostico

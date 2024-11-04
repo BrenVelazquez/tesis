@@ -28,11 +28,4 @@ public class MedicoService {
     public MedicoService(KieContainer kieContainer) {
         this.kieContainer = kieContainer;
     }
-
-/* 
-    public boolean login(String mail, String password) {
-        Boolean exito = database.login(mail, password);
-        return exito;
-    }
-*/
 }

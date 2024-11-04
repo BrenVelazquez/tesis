@@ -57,7 +57,7 @@ public class PacienteController {
     }
     // endregion diagnosticar
 
-    //region subirImagen
+    // region subirImagen
     @PostMapping("/subirImagen")
     public ResponseEntity<Object> subirImagen(
             @RequestParam("codigoPaciente") String codigoPaciente,
@@ -65,7 +65,6 @@ public class PacienteController {
             @RequestParam("estado") String estado,
             @RequestParam("diagnostico") String diagnostico) {
         try {
-            // armar logica
             pacienteService.validateFile(file);
 
             String originalFileName = cleanFileName(file.getOriginalFilename());
@@ -81,34 +80,35 @@ public class PacienteController {
     }
 
     public String cleanFileName(String fileName) {
-        // Remover caracteres especiales
-        // mantener solo letras, numeros, guiones y puntos
         String cleanedFileName = fileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-
-        // Asegurarse de que el nombre de archivo no comience con un guion o un punto
         cleanedFileName = cleanedFileName.replaceAll("^[.-]", "_");
 
         return cleanedFileName;
     }
-    //endregion subitImagen
+    // endregion subitImagen
 
     // region ingresarPaciente
     @PostMapping("/ingresarPaciente")
     public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Consulta request) {
-        /*Paciente paciente = request.getPaciente();
-        //AGREGO CLASES
-        logger.info("ANTECEDENTES FAMILIARES:",paciente.getHistoriaClinica().getAntecedentesFamiliares());
-        Medico medico=request.getMedico();
-        Diagnostico diagnostico=request.getDiagnostico();
-        Consulta consulta=new Consulta();
-        consulta.setDiagnostico(diagnostico);
-        consulta.setFechaConsulta(null);
-        consulta.setMedico(medico);
-        consulta.setPaciente(paciente);
-        //FIN AGREGO CLASES
-        int idMedico = request.getMedico().getId();
-        logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}", consulta.getPaciente().getNombre());
-        logger.info("IMAGEN PATH", consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());*/
+        /*
+         * Paciente paciente = request.getPaciente();
+         * //AGREGO CLASES
+         * logger.info("ANTECEDENTES FAMILIARES:",paciente.getHistoriaClinica().
+         * getAntecedentesFamiliares());
+         * Medico medico=request.getMedico();
+         * Diagnostico diagnostico=request.getDiagnostico();
+         * Consulta consulta=new Consulta();
+         * consulta.setDiagnostico(diagnostico);
+         * consulta.setFechaConsulta(null);
+         * consulta.setMedico(medico);
+         * consulta.setPaciente(paciente);
+         * //FIN AGREGO CLASES
+         * int idMedico = request.getMedico().getId();
+         * logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}",
+         * consulta.getPaciente().getNombre());
+         * logger.info("IMAGEN PATH",
+         * consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
+         */
 
         Boolean exito = pacienteService.ingresarNuevoPaciente(request);
         Map<String, Object> respuesta = new HashMap<>();
@@ -121,13 +121,12 @@ public class PacienteController {
 
         return ResponseEntity.ok(respuesta);
     }
-    //endregion ingresarPaciente
+    // endregion ingresarPaciente
 
-    //region obtenerPacientes
+    // region obtenerPacientes
     @GetMapping("/obtenerPacientes")
     public ResponseEntity<List<Map<String, Object>>> obtenerPacientes() {
         try {
-            //List<PacienteDTO> listaPacientes = pacienteService.obtenerTodosLosPacientes();
             List<PacienteDTO> listaPacientes = pacienteService.obtenerTodosLosPacientes();
             List<Map<String, Object>> respuesta = new ArrayList<>();
 
@@ -146,8 +145,7 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    //endregion obtenerPacientes
-
+    // endregion obtenerPacientes
 
     // region obtenerDetallesPAciente
     @GetMapping("/obtenerDetallesPaciente/{idPaciente}")
@@ -165,34 +163,51 @@ public class PacienteController {
             datosPaciente.put("edad", consulta.getPaciente().getEdad());
             datosPaciente.put("sexo", consulta.getPaciente().getSexo());
             datosPaciente.put("trastornoAutista", consulta.getPaciente().getHistoriaClinica().getTrastornoAutista());
-            datosPaciente.put("trastornoComunicacion", consulta.getPaciente().getHistoriaClinica().getTrastornoComunicacion());
-            datosPaciente.put("trastornoEsquizoafectivo", consulta.getPaciente().getHistoriaClinica().getTrastornoEsquizoafectivo());
-            datosPaciente.put("trastornoDepresivo", consulta.getPaciente().getHistoriaClinica().getTrastornoDepresivo());
+            datosPaciente.put("trastornoComunicacion",
+                    consulta.getPaciente().getHistoriaClinica().getTrastornoComunicacion());
+            datosPaciente.put("trastornoEsquizoafectivo",
+                    consulta.getPaciente().getHistoriaClinica().getTrastornoEsquizoafectivo());
+            datosPaciente.put("trastornoDepresivo",
+                    consulta.getPaciente().getHistoriaClinica().getTrastornoDepresivo());
             datosPaciente.put("trastornoBipolar", consulta.getPaciente().getHistoriaClinica().getTrastornoBipolar());
-            datosPaciente.put("antecedentesFamiliares", consulta.getPaciente().getHistoriaClinica().getAntecedentesFamiliares());
+            datosPaciente.put("antecedentesFamiliares",
+                    consulta.getPaciente().getHistoriaClinica().getAntecedentesFamiliares());
             datosPaciente.put("sustancias", consulta.getPaciente().getHistoriaClinica().getSustancias());
-            datosPaciente.put("estudioCausaNatural", consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioCausaNatural());
-            datosPaciente.put("estudioComentario", consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
+            datosPaciente.put("estudioCausaNatural",
+                    consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioCausaNatural());
+            datosPaciente.put("estudioComentario",
+                    consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
             datosPaciente.put("imagen", consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-            System.out.println("IMAGEN"+consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-            System.out.println("COMENTARIO"+consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
-            datosPaciente.put("sintomasPositivosDuracion", consulta.getPaciente().getSintomasPositivos().getSintomasPositivosDuracion());
+            System.out.println("IMAGEN" + consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
+            System.out.println(
+                    "COMENTARIO" + consulta.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
+            datosPaciente.put("sintomasPositivosDuracion",
+                    consulta.getPaciente().getSintomasPositivos().getSintomasPositivosDuracion());
             datosPaciente.put("sintomasPositivosTipoRitmoPensamiento",
                     consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoRitmoPensamiento());
-            datosPaciente.put("sintomasPositivosTipoAlucinaciones", consulta.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones());
-            datosPaciente.put("sintomasPositivosTipoLenguaje", consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoLenguaje());
-            datosPaciente.put("sintomasPositivosTipoPensamiento", consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoPensamiento());
+            datosPaciente.put("sintomasPositivosTipoAlucinaciones",
+                    consulta.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones());
+            datosPaciente.put("sintomasPositivosTipoLenguaje",
+                    consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoLenguaje());
+            datosPaciente.put("sintomasPositivosTipoPensamiento",
+                    consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoPensamiento());
             datosPaciente.put("sintomasPositivosTipoContenidoPensamiento",
-            consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoContenidoPensamiento());
+                    consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoContenidoPensamiento());
 
-            datosPaciente.put("sintomasNegativosDuracion", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosDuracion());
-            datosPaciente.put("sintomasNegativosBajoFuncionamiento", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamiento());
+            datosPaciente.put("sintomasNegativosDuracion",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosDuracion());
+            datosPaciente.put("sintomasNegativosBajoFuncionamiento",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamiento());
             datosPaciente.put("sintomasNegativosBajoFuncionamientoComentario",
-            consulta.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamientoComentario());
-            datosPaciente.put("sintomasNegativosAspecto", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAspecto());
-            datosPaciente.put("sintomasNegativosAtencion", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAtencion());
-            datosPaciente.put("sintomasNegativosActividad", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosActividad());
-            datosPaciente.put("sintomasNegativosAfectividad", consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAfectividad());
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosBajoFuncionamientoComentario());
+            datosPaciente.put("sintomasNegativosAspecto",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAspecto());
+            datosPaciente.put("sintomasNegativosAtencion",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAtencion());
+            datosPaciente.put("sintomasNegativosActividad",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosActividad());
+            datosPaciente.put("sintomasNegativosAfectividad",
+                    consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAfectividad());
 
             datosPaciente.put("diagnostico", consulta.getDiagnostico().getDiagnostico());
             datosPaciente.put("justificacion", consulta.getDiagnostico().getJustificacion());
@@ -204,26 +219,24 @@ public class PacienteController {
             datosPaciente.put("fechaConsulta", consulta.getFechaConsulta());
             // datosPaciente.put("puntaje", paciente.getPuntaje());
             datosPaciente.put("nombreMedico", consulta.getMedico().getNombreMedico());
-            datosPaciente.put("apellidoMedico", consulta.getMedico().getApellidoMedico()); 
+            datosPaciente.put("apellidoMedico", consulta.getMedico().getApellidoMedico());
 
             return ResponseEntity.ok(datosPaciente);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    //endregion obtenerDetallesPaciente
+    // endregion obtenerDetallesPaciente
 
-    //region login
+    // region login
     @PostMapping("/login")
-    // public ResponseEntity<Map<String, Object>> login(@RequestBody String mail,
-    // String contraseña) {
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
         String mail = loginRequest.get("mail");
         String contraseña = loginRequest.get("contraseña");
         Medico medico = pacienteService.login(mail, contraseña);
         Map<String, Object> respuesta = new HashMap<>();
-        
-        if (medico!=null) {
+
+        if (medico != null) {
             respuesta.put("medico", medico);
             respuesta.put("mensaje", "Usuario y contraseña correcto.");
         } else {
@@ -233,31 +246,26 @@ public class PacienteController {
     }
     // endregion login
 
-    //region descargarExcel
+    // region descargarExcel
     @GetMapping("/descargarExcel")
     public ResponseEntity<byte[]> descargarExcel() {
         try {
-            // 1. Llama al método del servicio para exportar los datos a Excel o CSV
             byte[] excelOrCsvData = pacienteService.descargarExcel();
 
             if (excelOrCsvData != null) {
-                // 2. Configura el encabezado HTTP para la descarga del archivo
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
                 headers.setContentDispositionFormData("attachment", "dataset.xlsx");
 
-                // 3. Devuelve el archivo como respuesta HTTP
                 return new ResponseEntity<>(excelOrCsvData, headers, HttpStatus.OK);
             } else {
-                // Manejar el caso de error o datos no disponibles
-                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            // Manejar excepciones en caso de error
             e.printStackTrace();
-             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    //endregion decargarExcel
+    // endregion decargarExcel
 
 }

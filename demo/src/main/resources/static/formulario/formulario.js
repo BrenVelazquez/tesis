@@ -23,15 +23,9 @@ $(document).ready(function () {
         });
     });
 
-   /*console.log("nombreMedico guardado2:", localStorage.getItem('nombreMedico'));
-    nombreMedico = localStorage.getItem("nombreMedico"); 
-    
-    if (nombreMedico) {
-        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
-    }*/
-    const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico+" "+medicoData.apellido_medico}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
     }
 });
 
@@ -42,7 +36,7 @@ function insertarImagen() {
     const imagenInput = document.getElementById('imagen');
     const imagenPreview = document.getElementById('imagen-preview');
     const insertPhotoMessage = document.getElementById('insert-photo-message');
-    
+
     if (!imagenInput || !imagenPreview || !insertPhotoMessage) {
         console.error("Uno o más elementos no existen en el DOM.");
         return;
@@ -61,7 +55,7 @@ function insertarImagen() {
                 imagenPreview.style.display = 'block';
                 insertPhotoMessage.style.display = 'none';
                 imagenPath = e.target.result;
-                console.log('Path de la imagen:', imagenPath); // Mostrar el path en la consola
+                console.log('Path de la imagen:', imagenPath);
             };
             reader.readAsDataURL(file);
         } else {
@@ -86,10 +80,7 @@ function cerrarPopup() {
     setTimeout(function () {
         $("#message-container").fadeOut();
         $("#popup").fadeOut();
-        // Redirige al inicio
-        // window.location.href = "/";
-        // window.location.href = "http://127.0.0.1:8080/formulario/formulario.html";
-    }, 1000); // Muestra el mensaje durante 1 segundo
+    }, 1000);
 }
 // endregion popup
 
@@ -262,10 +253,10 @@ function volver() {
     window.location.href = "/home";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('btnCerrarSesion').addEventListener('click', function() {
-        localStorage.removeItem('medico'); // Eliminar información del médico
-        window.location.href = '/'; // Redirigir a la página de login
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('btnCerrarSesion').addEventListener('click', function () {
+        localStorage.removeItem('medico');
+        window.location.href = '/';
     });
 });
 
@@ -617,7 +608,7 @@ function obtenerDatosFormulario() {
     const estudioCausaNatural = document.getElementById("estudio-causa-natural-opcion").value;
 
     const estudioComentario = document.getElementById("estudio-comentario-text").value;
-    const imagen= imagenPath;
+    const imagen = imagenPath;
     //FALTA IMAGEN
 
     //ARRAYS
@@ -631,25 +622,25 @@ function obtenerDatosFormulario() {
     const lAlucinaciones = listaAlucinaciones.map(alucinacion => `new Alucionacion("${alucinacion}")`);*/
 
     let listaAlucinaciones = [];
-    if (sintomasPositivosAlucinaciones== "Si" ) {
+    if (sintomasPositivosAlucinaciones == "Si") {
         listaAlucinaciones = sintomasPositivosTipoAlucinaciones.split(',').map((alucinacion, index) => ({
             id: 0,
             nombre: alucinacion.trim()
         }));
     } else {
-        if(sintomasPositivosAlucinaciones== "No")
+        if (sintomasPositivosAlucinaciones == "No")
             listaAlucinaciones.push({
-                id: 0, // O cualquier lógica para asignar un ID
+                id: 0,
                 nombre: "NO_PRESENTA"
             });
-        else{
+        else {
             listaAlucinaciones.push({
-                id: 0, // O cualquier lógica para asignar un ID
+                id: 0,
                 nombre: "NO_SE_DESCARTA"
             });
         }
     }
-    console.log("ALUCINACIONES",JSON.stringify(listaAlucinaciones, null, 2));
+    console.log("ALUCINACIONES", JSON.stringify(listaAlucinaciones, null, 2));
     console.log(sintomasPositivosAlucinaciones);
     /*
     const listaLenguaje = sintomasPositivosTipoLenguaje.split(',');
@@ -667,7 +658,7 @@ function obtenerDatosFormulario() {
         id: 0,
         nombre: pensamiento.trim()
     }));
-    
+
     /*const listaContenido = sintomasPositivosTipoContenidoPensamiento.split(',');
     const lContenidos= listaContenido.map(contenido => `new Contenido("${contenido}")`);*/
     let listaContenidos = [];
@@ -692,17 +683,17 @@ function obtenerDatosFormulario() {
         nombre: afectividad.trim()
     }));
 
-   
+
     const ritmoPensamiento = {
-        id: 0, // Asegúrate de asignar un valor adecuado para el id
+        id: 0,
         nombre: sintomasPositivosTipoRitmoPensamiento,
     };
     const atencion = {
-        id: 0, // Asegúrate de asignar un valor adecuado para el id
+        id: 0,
         nombre: sintomasNegativosAtencion,
     };
     const actividad = {
-        id: 0, // Asegúrate de asignar un valor adecuado para el id
+        id: 0,
         nombre: sintomasNegativosActividad,
     };
 
@@ -721,7 +712,7 @@ function obtenerDatosFormulario() {
         antecedentes_familiares: antecedentesFamiliares,
 
         sintomas_positivos_duracion: sintomasPositivosDuracion,
-        sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones, 
+        sintomas_positivos_alucinaciones: sintomasPositivosAlucinaciones,
         sintomas_positivos_tipo_alucinaciones: listaAlucinaciones,
         sintomas_positivos_tipo_alucinaciones_String: sintomasPositivosTipoAlucinaciones,
         sintomas_positivos_tipo_lenguaje: listaLenguajes,
@@ -763,32 +754,32 @@ function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
 
     const datosFormulario = obtenerDatosFormulario();
-    let datosReglas={
+    let datosReglas = {
         nombre: datosFormulario.nombre,
-        edad:datosFormulario.edad,
-        sexo:datosFormulario.sexo,
+        edad: datosFormulario.edad,
+        sexo: datosFormulario.sexo,
         antecedentes_familiares: datosFormulario.antecedentes_familiares,
-        trastorno_autista:datosFormulario.trastorno_autista,
-        trastorno_comunicacion:datosFormulario.trastorno_Comunicacion,
-        trastorno_esquizoafectivo:datosFormulario.trastorno_esquizoafectivo,
-        trastorno_bipolar:datosFormulario.trastorno_bipolar,
-        trastorno_depresivo:datosFormulario.trastorno_depresivo,
-        sustancias:datosFormulario.sustancias,
-        estudio_causa_natural:datosFormulario.estudio_causa_natural,
-        sintomas_positivos_duracion:datosFormulario.sintomas_positivos_duracion,
-        sintomas_positivos_tipo_alucinaciones:datosFormulario.sintomas_positivos_tipo_alucinaciones_String,
-        sintomas_positivos_alucinaciones:datosFormulario.sintomas_positivos_alucinaciones,
-        sintomas_positivos_tipo_lenguaje:datosFormulario.sintomas_positivos_tipo_lenguaje_String,
-        sintomas_positivos_tipo_pensamiento:datosFormulario.sintomas_positivos_tipo_pensamiento_String,
-        sintomas_positivos_tipo_ritmo_pensamiento:datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento_string,
-        sintomas_positivos_tipo_contenido_pensamiento:datosFormulario.sintomas_positivos_tipo_contenido_pensamiento_String,
-        sintomas_negativos_duracion:datosFormulario.sintomas_negativos_duracion,
-        sintomas_negativos_aspecto:datosFormulario.sintomas_negativos_tipo_aspecto_String,
-        sintomas_negativos_atencion:datosFormulario.sintomas_negativos_atencion_string,
-        sintomas_negativos_actividad:datosFormulario.sintomas_negativos_actividad_string,
-        sintomas_negativos_afectividad:datosFormulario.sintomas_negativos_tipo_afectividad_String,
-        sintomas_negativos_bajo_funcionamiento:datosFormulario.sintomas_negativos_bajo_funcionamiento,
-        sintomas_negativos_bajo_funcionamiento_comentario:datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
+        trastorno_autista: datosFormulario.trastorno_autista,
+        trastorno_comunicacion: datosFormulario.trastorno_Comunicacion,
+        trastorno_esquizoafectivo: datosFormulario.trastorno_esquizoafectivo,
+        trastorno_bipolar: datosFormulario.trastorno_bipolar,
+        trastorno_depresivo: datosFormulario.trastorno_depresivo,
+        sustancias: datosFormulario.sustancias,
+        estudio_causa_natural: datosFormulario.estudio_causa_natural,
+        sintomas_positivos_duracion: datosFormulario.sintomas_positivos_duracion,
+        sintomas_positivos_tipo_alucinaciones: datosFormulario.sintomas_positivos_tipo_alucinaciones_String,
+        sintomas_positivos_alucinaciones: datosFormulario.sintomas_positivos_alucinaciones,
+        sintomas_positivos_tipo_lenguaje: datosFormulario.sintomas_positivos_tipo_lenguaje_String,
+        sintomas_positivos_tipo_pensamiento: datosFormulario.sintomas_positivos_tipo_pensamiento_String,
+        sintomas_positivos_tipo_ritmo_pensamiento: datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento_string,
+        sintomas_positivos_tipo_contenido_pensamiento: datosFormulario.sintomas_positivos_tipo_contenido_pensamiento_String,
+        sintomas_negativos_duracion: datosFormulario.sintomas_negativos_duracion,
+        sintomas_negativos_aspecto: datosFormulario.sintomas_negativos_tipo_aspecto_String,
+        sintomas_negativos_atencion: datosFormulario.sintomas_negativos_atencion_string,
+        sintomas_negativos_actividad: datosFormulario.sintomas_negativos_actividad_string,
+        sintomas_negativos_afectividad: datosFormulario.sintomas_negativos_tipo_afectividad_String,
+        sintomas_negativos_bajo_funcionamiento: datosFormulario.sintomas_negativos_bajo_funcionamiento,
+        sintomas_negativos_bajo_funcionamiento_comentario: datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
     };
     const jsonString = JSON.stringify(datosReglas);
     console.log("Datos del formulario en formato JSON: ", jsonString);
@@ -914,7 +905,6 @@ function mostrarLoaderBoton(boton) {
 // region guardarRegistro
 async function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
-    // console.log("estado: " + estado);
 
     const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
     datosFormulario.estado = estado;
@@ -966,19 +956,18 @@ async function guardarRegistro(estado) {
     console.log('###### Metodo de Cargar Paciente #####');
     console.log('jsonString: ' + jsonString);
     const medicoData = JSON.parse(localStorage.getItem('medico'));
-    let datosCombinados=null;
+    let datosCombinados = null;
 
     if (medicoData) {
-        // Combina los datos del formulario y el ID del médico
         datosCombinados = {
             /*paciente: { 
                 ...datosFormulario,
             },*/
-            paciente: { 
+            paciente: {
                 nombre: datosFormulario.nombre,
-                edad:datosFormulario.edad,
-                sexo:datosFormulario.sexo,
-                historia_clinica:{
+                edad: datosFormulario.edad,
+                sexo: datosFormulario.sexo,
+                historia_clinica: {
                     antecedentes_familiares: datosFormulario.antecedentes_familiares || '',
                     trastorno_autista: datosFormulario.trastorno_autista || '',
                     trastorno_comunicacion: datosFormulario.trastorno_Comunicacion || '',
@@ -992,33 +981,33 @@ async function guardarRegistro(estado) {
                         imagen: datosFormulario.imagen || '',
                     },
                 },
-                sintomas_positivos:{
-                    sintomas_positivos_duracion:datosFormulario.sintomas_positivos_duracion,
-                    sintomas_positivos_alucinaciones:datosFormulario.sintomas_positivos_tipo_alucinaciones,
-                    sintomas_positivos_tipo_lenguaje:datosFormulario.sintomas_positivos_tipo_lenguaje,
-                    sintomas_positivos_tipo_pensamiento:datosFormulario.sintomas_positivos_tipo_pensamiento,
-                    sintomas_positivos_tipo_ritmo_pensamiento:datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento,
-                    sintomas_positivos_tipo_contenido_pensamiento:datosFormulario.sintomas_positivos_tipo_contenido_pensamiento,
+                sintomas_positivos: {
+                    sintomas_positivos_duracion: datosFormulario.sintomas_positivos_duracion,
+                    sintomas_positivos_alucinaciones: datosFormulario.sintomas_positivos_tipo_alucinaciones,
+                    sintomas_positivos_tipo_lenguaje: datosFormulario.sintomas_positivos_tipo_lenguaje,
+                    sintomas_positivos_tipo_pensamiento: datosFormulario.sintomas_positivos_tipo_pensamiento,
+                    sintomas_positivos_tipo_ritmo_pensamiento: datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento,
+                    sintomas_positivos_tipo_contenido_pensamiento: datosFormulario.sintomas_positivos_tipo_contenido_pensamiento,
                 },
-                sintomas_negativos:{
-                    sintomas_negativos_duracion:datosFormulario.sintomas_negativos_duracion,
-                    sintomas_negativos_aspecto:datosFormulario.sintomas_negativos_aspecto,
-                    sintomas_negativos_atencion:datosFormulario.sintomas_negativos_atencion,
-                    sintomas_negativos_actividad:datosFormulario.sintomas_negativos_actividad,
-                    sintomas_negativos_afectividad:datosFormulario.sintomas_negativos_afectividad,
-                    sintomas_negativos_bajo_funcionamiento:datosFormulario.sintomas_negativos_bajo_funcionamiento,
-                    sintomas_negativos_bajo_funcionamiento_comentario:datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
+                sintomas_negativos: {
+                    sintomas_negativos_duracion: datosFormulario.sintomas_negativos_duracion,
+                    sintomas_negativos_aspecto: datosFormulario.sintomas_negativos_aspecto,
+                    sintomas_negativos_atencion: datosFormulario.sintomas_negativos_atencion,
+                    sintomas_negativos_actividad: datosFormulario.sintomas_negativos_actividad,
+                    sintomas_negativos_afectividad: datosFormulario.sintomas_negativos_afectividad,
+                    sintomas_negativos_bajo_funcionamiento: datosFormulario.sintomas_negativos_bajo_funcionamiento,
+                    sintomas_negativos_bajo_funcionamiento_comentario: datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
                 },
             },
-            diagnostico:{
-                diagnostico:datosFormulario.diagnostico,
-                estado:datosFormulario.estado,
-                comentario_medico:datosFormulario.comentario_medico,
-                justificacion_rechazo:datosFormulario.justificacion_rechazo,
-                justificacion:datosFormulario.justificacion,
-                recomendacion:datosFormulario.recomendacion,
-                reglas:datosFormulario.reglas,
-                puntaje:datosFormulario.puntaje,
+            diagnostico: {
+                diagnostico: datosFormulario.diagnostico,
+                estado: datosFormulario.estado,
+                comentario_medico: datosFormulario.comentario_medico,
+                justificacion_rechazo: datosFormulario.justificacion_rechazo,
+                justificacion: datosFormulario.justificacion,
+                recomendacion: datosFormulario.recomendacion,
+                reglas: datosFormulario.reglas,
+                puntaje: datosFormulario.puntaje,
             },
             medico: {
                 ...medicoData,
@@ -1026,7 +1015,7 @@ async function guardarRegistro(estado) {
         };
     }
     console.log(JSON.stringify(datosCombinados),);
-    
+
     try {
         const response = await $.ajax({
             type: "POST",
@@ -1048,22 +1037,6 @@ async function guardarRegistro(estado) {
         mostrarSnackbar(response.mensaje, false);
         return false;
     }
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/ingresarPaciente", // La URL del Controller
-    //     contentType: "application/json",
-    //     data: jsonString,
-    //     success: function (response) {
-    //         console.log('Paciente ingresado con éxito:', response);
-    //         // console.log('Paciente ingresado con éxito');
-    //         mostrarSnackbar("Paciente ingresado con éxito", true);
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.error('Error al registrar al paciente:', error);
-    //         mostrarSnackbar("Ocurrió un error al registrar al paciente", false);
-    //     }
-    // });
 }
 // endregion guardarRegistro
 

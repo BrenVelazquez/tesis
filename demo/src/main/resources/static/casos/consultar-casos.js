@@ -9,9 +9,9 @@ $(document).ready(function () {
     if (nombreMedico) {
         document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
     }
-    const medicoData = JSON.parse(localStorage.getItem('medico')); // Recuperar y convertir de JSON
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico+" "+medicoData.apellido_medico}`;
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
     }
 });
 
@@ -102,9 +102,7 @@ function volver() {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btnCerrarSesion').addEventListener('click', function () {
-        localStorage.removeItem('medico'); // Eliminar información del médico
-        window.location.href = '/'; // Redirigir a la página de login
+        localStorage.removeItem('medico');
+        window.location.href = '/';
     });
 });
-
-// window.onload = obtenerPacientes;

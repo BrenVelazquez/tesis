@@ -14,8 +14,6 @@ import java.util.Map;
 
 import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.model.Consulta;
-//import com.sistexperto.model.Estudio;
-//import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.ImagenesEntity;
 import com.sistexperto.model.Actividad;
 import com.sistexperto.model.Alucinacion;
@@ -33,8 +31,6 @@ import com.sistexperto.model.Afectividad;
 import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.SintomaPositivo;
 import com.sistexperto.model.SintomaNegativo;
-//import com.sistexperto.model.SintomaAlucinacion;
-//import com.sistexperto.model.SintomaPositivo;
 
 public class database {
 
@@ -49,29 +45,33 @@ public class database {
     private static int idSintomaNegativo = -1;
     private static int idDiagnostico = -1;
 
-    public static Boolean ingresarNuevoPaciente(/* Paciente paciente, int idMedico*/ Consulta consulta) {
+    public static Boolean ingresarNuevoPaciente(/* Paciente paciente, int idMedico */ Consulta consulta) {
         if (!insertPaciente(consulta.getPaciente()))
             return false;
         if (!insertEstudios(consulta.getPaciente().getHistoriaClinica().getEstudio()))
-            
+
             return false;
         if (!insertHistoriaClinica(consulta.getPaciente().getHistoriaClinica()))
             return false;
         if (!insertSintomasPositivos(consulta.getPaciente().getSintomasPositivos()))
             return false;
-       if (!insertSintomaAlucinaciones(consulta.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones()))
+        if (!insertSintomaAlucinaciones(
+                consulta.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones()))
             return false;
         if (!insertSintomaLenguajes(consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoLenguaje()))
             return false;
-        if (!insertSintomaPensamientos(consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoPensamiento()))
+        if (!insertSintomaPensamientos(
+                consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoPensamiento()))
             return false;
-        if (!insertSintomaContenidoPensamientos(consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoContenidoPensamiento()))
+        if (!insertSintomaContenidoPensamientos(
+                consulta.getPaciente().getSintomasPositivos().getSintomasPositivosTipoContenidoPensamiento()))
             return false;
         if (!insertSintomasNegativos(consulta.getPaciente().getSintomasNegativos()))
             return false;
         if (!insertSintomaAspectos(consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAspecto()))
             return false;
-        if (!insertSintomaAfectividades(consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAfectividad()))
+        if (!insertSintomaAfectividades(
+                consulta.getPaciente().getSintomasNegativos().getSintomasNegativosAfectividad()))
             return false;
         if (!insertDiagnostico(consulta.getDiagnostico()))
             return false;
@@ -113,9 +113,7 @@ public class database {
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, mail);
                 preparedStatement.setString(2, password);
-                // preparedStatement.executeUpdate();
                 ResultSet resultSet = preparedStatement.executeQuery();
-                // ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if (resultSet.next()) {
                     Medico medico = new Medico();
                     medico.setId(resultSet.getInt("ID_MEDICO"));
@@ -158,7 +156,8 @@ public class database {
                 paciente.setNombre(resultSet.getString("NOMBRE"));
                 paciente.setDiagnostico(resultSet.getString("DIAGNOSTICO"));
                 paciente.setEstado(resultSet.getString("ESTADO"));
-                paciente.setNombreMedico(resultSet.getString("NOMBRE_MEDICO") + " " + resultSet.getString("APELLIDO_MEDICO"));
+                paciente.setNombreMedico(
+                        resultSet.getString("NOMBRE_MEDICO") + " " + resultSet.getString("APELLIDO_MEDICO"));
                 paciente.setFecha(resultSet.getDate("FECHA").toString());
                 listaPacientes.add(paciente);
             }
@@ -175,7 +174,7 @@ public class database {
                 "h.TRASTORNO_AUTISTA, h.TRASTORNO_COMUNICACION, h.TRASTORNO_ESQUIZOAFECTIVO, " +
                 "h.TRASTORNO_DEPRESIVO, h.BIPOLAR_CARAC_PSICOTICAS, h.ANTECEDENTES_FAMILIARES, h.SUSTANCIAS, " +
                 "e.CAUSA_ORGANICA AS ESTUDIO_CAUSA_NATURAL, " +
-                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " + 
+                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " +
                 "e.IMAGEN_PATH AS IMAGEN, " +
                 "sp.DURACION_POSITIVOS AS SINTOMAS_POSITIVOS_DURACION, " +
                 "spr.NOMBRE AS RITMO_PENSAMIENTO, " +
@@ -210,16 +209,16 @@ public class database {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Paciente paciente = new Paciente();
-                HistoriaClinica historia= new HistoriaClinica();
-                Estudio estudio=new Estudio();
-                SintomaPositivo positivos=new SintomaPositivo();
-                SintomaNegativo negativos=new SintomaNegativo();
-                RitmoPensamiento ritmo=new RitmoPensamiento();
-                Atencion atencion=new Atencion();
-                Actividad actividad=new Actividad();
-                Diagnostico diagnostico=new Diagnostico();
-                Consulta consulta=new Consulta();
-                Medico medico=new Medico();
+                HistoriaClinica historia = new HistoriaClinica();
+                Estudio estudio = new Estudio();
+                SintomaPositivo positivos = new SintomaPositivo();
+                SintomaNegativo negativos = new SintomaNegativo();
+                RitmoPensamiento ritmo = new RitmoPensamiento();
+                Atencion atencion = new Atencion();
+                Actividad actividad = new Actividad();
+                Diagnostico diagnostico = new Diagnostico();
+                Consulta consulta = new Consulta();
+                Medico medico = new Medico();
                 paciente.setIdPaciente(idPaciente);
                 paciente.setNombre(resultSet.getString("NOMBRE"));
                 paciente.setEdad(resultSet.getInt("EDAD"));
@@ -232,8 +231,7 @@ public class database {
                 historia.setAntecedentesFamiliares(resultSet.getString("ANTECEDENTES_FAMILIARES"));
                 historia.setSustancias(resultSet.getString("SUSTANCIAS"));
                 estudio.setEstudioCausaNatural(resultSet.getString("ESTUDIO_CAUSA_NATURAL"));
-                System.out.println("CAUSA NATURAL: "+resultSet.getString("ESTUDIO_CAUSA_NATURAL")
-                );
+                System.out.println("CAUSA NATURAL: " + resultSet.getString("ESTUDIO_CAUSA_NATURAL"));
                 estudio.setEstudioComentario(resultSet.getString("ESTUDIO_COMENTARIO"));
                 estudio.setImagen(resultSet.getString("IMAGEN"));
                 historia.setEstudio(estudio);
@@ -241,16 +239,16 @@ public class database {
                 positivos.setSintomasPositivosDuracion(resultSet.getString("SINTOMAS_POSITIVOS_DURACION"));
                 ritmo.setNombre(resultSet.getString("RITMO_PENSAMIENTO"));
                 ritmo.setId(resultSet.getInt("ID_RITMO_PENSAMIENTO"));
-                //positivos.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
+                // positivos.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
                 positivos.setSintomasPositivosTipoRitmoPensamiento(ritmo);
                 negativos.setSintomasNegativosDuracion(resultSet.getString("SINTOMAS_NEGATIVOS_DURACION"));
                 atencion.setNombre(resultSet.getString("ATENCION"));
                 atencion.setId(resultSet.getInt("ID_ATENCION"));
-                //negativos.setSintomasNegativosAtencion(resultSet.getString("ATENCION"));
+                // negativos.setSintomasNegativosAtencion(resultSet.getString("ATENCION"));
                 negativos.setSintomasNegativosAtencion(atencion);
                 actividad.setNombre(resultSet.getString("ACTIVIDAD"));
                 actividad.setId(resultSet.getInt("ID_ACTIVIDAD"));
-                //paciente.setSintomasNegativosActividad(resultSet.getString("ACTIVIDAD"));
+                // paciente.setSintomasNegativosActividad(resultSet.getString("ACTIVIDAD"));
                 negativos.setSintomasNegativosActividad(actividad);
                 negativos.setSintomasNegativosBajoFuncionamiento(
                         resultSet.getString("SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO"));
@@ -281,15 +279,15 @@ public class database {
     }
     // endregion obtenerPacientePorId
 
-// region obtenerTodasLasConsultasConDetalles
-public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
-    List<Consulta> listaConsultas = new ArrayList<>();
+    // region obtenerTodasLasConsultasConDetalles
+    public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
+        List<Consulta> listaConsultas = new ArrayList<>();
 
-    String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, p.EDAD, p.SEXO, " +
+        String sql = "SELECT p.ID_PACIENTE, p.NOMBRE, p.EDAD, p.SEXO, " +
                 "h.TRASTORNO_AUTISTA, h.TRASTORNO_COMUNICACION, h.TRASTORNO_ESQUIZOAFECTIVO, " +
                 "h.TRASTORNO_DEPRESIVO, h.BIPOLAR_CARAC_PSICOTICAS, h.ANTECEDENTES_FAMILIARES, h.SUSTANCIAS, " +
                 "e.CAUSA_ORGANICA AS ESTUDIO_CAUSA_NATURAL, " +
-                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " + 
+                "e.COMENTARIO AS ESTUDIO_COMENTARIO, " +
                 "e.IMAGEN_PATH AS IMAGEN, " +
                 "sp.DURACION_POSITIVOS AS SINTOMAS_POSITIVOS_DURACION, " +
                 "spr.NOMBRE AS RITMO_PENSAMIENTO, " +
@@ -317,21 +315,21 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 "LEFT JOIN DIAGNOSTICOS d ON c.ID_DIAGNOSTICO = d.ID_DIAGNOSTICO " +
                 "LEFT JOIN MEDICOS m ON c.ID_MEDICO = m.ID_MEDICO ";
 
-    try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery()) {
-        while (resultSet.next()) {
-            Paciente paciente = new Paciente();
-                HistoriaClinica historia= new HistoriaClinica();
-                Estudio estudio=new Estudio();
-                SintomaPositivo positivos=new SintomaPositivo();
-                SintomaNegativo negativos=new SintomaNegativo();
-                RitmoPensamiento ritmo=new RitmoPensamiento();
-                Atencion atencion=new Atencion();
-                Actividad actividad=new Actividad();
-                Diagnostico diagnostico=new Diagnostico();
-                Consulta consulta=new Consulta();
-                Medico medico=new Medico();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Paciente paciente = new Paciente();
+                HistoriaClinica historia = new HistoriaClinica();
+                Estudio estudio = new Estudio();
+                SintomaPositivo positivos = new SintomaPositivo();
+                SintomaNegativo negativos = new SintomaNegativo();
+                RitmoPensamiento ritmo = new RitmoPensamiento();
+                Atencion atencion = new Atencion();
+                Actividad actividad = new Actividad();
+                Diagnostico diagnostico = new Diagnostico();
+                Consulta consulta = new Consulta();
+                Medico medico = new Medico();
                 paciente.setIdPaciente(idPaciente);
                 paciente.setNombre(resultSet.getString("NOMBRE"));
                 paciente.setEdad(resultSet.getInt("EDAD"));
@@ -351,16 +349,16 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 positivos.setSintomasPositivosDuracion(resultSet.getString("SINTOMAS_POSITIVOS_DURACION"));
                 ritmo.setNombre(resultSet.getString("RITMO_PENSAMIENTO"));
                 ritmo.setId(resultSet.getInt("ID_RITMO_PENSAMIENTO"));
-                //positivos.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
+                // positivos.setSintomasPositivosTipoRitmoPensamiento(resultSet.getString("RITMO_PENSAMIENTO"));
                 positivos.setSintomasPositivosTipoRitmoPensamiento(ritmo);
                 negativos.setSintomasNegativosDuracion(resultSet.getString("SINTOMAS_NEGATIVOS_DURACION"));
                 atencion.setNombre(resultSet.getString("ATENCION"));
                 atencion.setId(resultSet.getInt("ID_ATENCION"));
-                //negativos.setSintomasNegativosAtencion(resultSet.getString("ATENCION"));
+                // negativos.setSintomasNegativosAtencion(resultSet.getString("ATENCION"));
                 negativos.setSintomasNegativosAtencion(atencion);
                 actividad.setNombre(resultSet.getString("ACTIVIDAD"));
                 actividad.setId(resultSet.getInt("ID_ACTIVIDAD"));
-                //paciente.setSintomasNegativosActividad(resultSet.getString("ACTIVIDAD"));
+                // paciente.setSintomasNegativosActividad(resultSet.getString("ACTIVIDAD"));
                 negativos.setSintomasNegativosActividad(actividad);
                 negativos.setSintomasNegativosBajoFuncionamiento(
                         resultSet.getString("SINTOMAS_NEGATIVOS_BAJO_FUNCIONAMIENTO"));
@@ -383,37 +381,36 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 consulta.setMedico(medico);
                 consulta.setPaciente(paciente);
                 listaConsultas.add(consulta);
-        }
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return listaConsultas;
-}
-// endregion obtenerTodasLasConsultasConDetalles
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaConsultas;
+    }
+    // endregion obtenerTodasLasConsultasConDetalles
 
     // region insert ESTUDIOS
-    public static Boolean insertEstudios(/*Paciente paciente*/ Estudio estudio) {
+    public static Boolean insertEstudios(/* Paciente paciente */ Estudio estudio) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
 
-            System.out.println("ESTUDIO CAUSA NATURAL SI:"+estudio.getEstudioCausaNatural());
-            //tieneEstudios = "sI".equals(estudio.getEstudioCausaNatural());
-            if (estudio!=null) {
-                tieneEstudios=true;
-                // TODO: AGREGAR IMAGEN
-                System.out.println("TIENE ESTUDIOS"+tieneEstudios);
-                // sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO, IMAGEN_PATH)" +
+            System.out.println("ESTUDIO CAUSA NATURAL SI:" + estudio.getEstudioCausaNatural());
+            // tieneEstudios = "sI".equals(estudio.getEstudioCausaNatural());
+            if (estudio != null) {
+                tieneEstudios = true;
+                System.out.println("TIENE ESTUDIOS" + tieneEstudios);
                 String sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO, IMAGEN_PATH) VALUES (?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    /*preparedStatement.setString(1, paciente.getEstudioCausaNatural());
-                    preparedStatement.setNString(2, paciente.getEstudioComentario());
-                    preparedStatement.setString(3,paciente.getImagen());
-                    preparedStatement.executeUpdate();*/
-                    System.out.println("INSERT ESTUDIO:"+estudio.getEstudioCausaNatural());
+                    /*
+                     * preparedStatement.setString(1, paciente.getEstudioCausaNatural());
+                     * preparedStatement.setNString(2, paciente.getEstudioComentario());
+                     * preparedStatement.setString(3,paciente.getImagen());
+                     * preparedStatement.executeUpdate();
+                     */
+                    System.out.println("INSERT ESTUDIO:" + estudio.getEstudioCausaNatural());
                     preparedStatement.setString(1, estudio.getEstudioCausaNatural());
                     preparedStatement.setNString(2, estudio.getEstudioComentario());
-                    preparedStatement.setString(3,estudio.getImagen());
+                    preparedStatement.setString(3, estudio.getImagen());
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -445,7 +442,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             }
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                System.out.println("PRUEBA2"+historia.getTrastornoComunicacion());
+                System.out.println("PRUEBA2" + historia.getTrastornoComunicacion());
                 preparedStatement.setInt(1, convertirABit(historia.getTrastornoAutista()));
                 preparedStatement.setInt(2, convertirABit(historia.getTrastornoComunicacion()));
                 preparedStatement.setInt(3, convertirABit(historia.getTrastornoEsquizoafectivo()));
@@ -475,7 +472,8 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
     public static Boolean insertSintomasPositivos(SintomaPositivo positivos) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             RitmoPensamiento ritmoPensamiento = positivos.getSintomasPositivosTipoRitmoPensamiento();
-            int idRitmoPensamiento = obtenerIdPorNombre("RITMOS_PENSAMIENTOS", convertirGuiones(ritmoPensamiento.getNombre()),
+            int idRitmoPensamiento = obtenerIdPorNombre("RITMOS_PENSAMIENTOS",
+                    convertirGuiones(ritmoPensamiento.getNombre()),
                     "ID_RITMO_PENSAMIENTO");
 
             sql = "INSERT INTO SINTOMAS_POSITIVOS (ID_PACIENTE, ID_RITMO_PENSAMIENTO, DURACION_POSITIVOS) VALUES (?, ?, ?)";
@@ -500,41 +498,44 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
     // region insert SINTOMA_ALUCINACIONES
     public static Boolean insertSintomaAlucinaciones(Alucinacion[] alucinaciones) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            //Alucinacion[] alucinaciones= a;
-            /*Boolean tieneAlucinaciones = "Si".equals(alucinaciones);
-            Boolean noTieneAlucinaciones = "No".equals(alucinaciones);*/
+            // Alucinacion[] alucinaciones= a;
+            /*
+             * Boolean tieneAlucinaciones = "Si".equals(alucinaciones);
+             * Boolean noTieneAlucinaciones = "No".equals(alucinaciones);
+             */
             sql = "INSERT INTO SINTOMA_ALUCINACIONES (ID_ALUCINACION, ID_SINTOMA_POSITIVO) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //if (tieneAlucinaciones) {
-                //String tiposAlucinaciones = paciente.getSintomasPositivosTipoAlucinaciones();
-                //String[] tiposAlucinacionesArray = tiposAlucinaciones.split(",");
+                // if (tieneAlucinaciones) {
+                // String tiposAlucinaciones = paciente.getSintomasPositivosTipoAlucinaciones();
+                // String[] tiposAlucinacionesArray = tiposAlucinaciones.split(",");
                 for (Alucinacion tipoAlucinacion : alucinaciones) {
                     int idAlucinacion = obtenerIdPorNombre("ALUCINACIONES",
-                        convertirGuiones(tipoAlucinacion.getNombre().trim()),
-                        "ID_ALUCINACION");
-                    System.out.println("ALUCINACION nombre"+tipoAlucinacion.getNombre().trim());
-                    System.out.println("ALUCINACION ID"+idAlucinacion);
+                            convertirGuiones(tipoAlucinacion.getNombre().trim()),
+                            "ID_ALUCINACION");
+                    System.out.println("ALUCINACION nombre " + tipoAlucinacion.getNombre().trim());
+                    System.out.println("ALUCINACION ID " + idAlucinacion);
                     preparedStatement.setInt(1, idAlucinacion);
                     preparedStatement.setInt(2, idSintomaPositivo);
                     preparedStatement.executeUpdate();
-                    
-                } /*else {
-                    int idAlucinacion = -1;
-                    if (noTieneAlucinaciones) {
-                        idAlucinacion = obtenerIdPorNombre("ALUCINACIONES", "NO_PRESENTA",
-                                "ID_ALUCINACION");
-                    } else {
-                        // NO_SE_DESCARTA
-                        idAlucinacion = obtenerIdPorNombre("ALUCINACIONES",
-                                convertirGuiones(alucinaciones),
-                                "ID_ALUCINACION");
-                    }
-                    preparedStatement.setInt(1, idAlucinacion);
-                    preparedStatement.setInt(2, idSintomaPositivo);
-                    preparedStatement.executeUpdate();
-                }*/
 
-                
+                } /*
+                   * else {
+                   * int idAlucinacion = -1;
+                   * if (noTieneAlucinaciones) {
+                   * idAlucinacion = obtenerIdPorNombre("ALUCINACIONES", "NO_PRESENTA",
+                   * "ID_ALUCINACION");
+                   * } else {
+                   * // NO_SE_DESCARTA
+                   * idAlucinacion = obtenerIdPorNombre("ALUCINACIONES",
+                   * convertirGuiones(alucinaciones),
+                   * "ID_ALUCINACION");
+                   * }
+                   * preparedStatement.setInt(1, idAlucinacion);
+                   * preparedStatement.setInt(2, idSintomaPositivo);
+                   * preparedStatement.executeUpdate();
+                   * }
+                   */
+
                 return true;
 
             } catch (SQLException e) {
@@ -553,11 +554,14 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             sql = "INSERT INTO SINTOMA_LENGUAJES (ID_LENGUAJE, ID_SINTOMA_POSITIVO) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //Lengauje tiposLenguajes = paciente.getSintomasPositivosTipoLenguaje();
-                //Lenguaje[] lenguajes = l;
+                // Lengauje tiposLenguajes = paciente.getSintomasPositivosTipoLenguaje();
+                // Lenguaje[] lenguajes = l;
                 for (Lenguaje lenguaje : lenguajes) {
                     int idLenguaje = obtenerIdPorNombre("LENGUAJES", convertirGuiones(lenguaje.getNombre().trim()),
                             "ID_LENGUAJE");
+
+                    System.out.println("ID_LENGUAJE " + idLenguaje);
+                    System.out.println("lenguaje.getNombre() " + lenguaje.getNombre());
                     preparedStatement.setInt(1, idLenguaje);
                     preparedStatement.setInt(2, idSintomaPositivo);
                     preparedStatement.executeUpdate();
@@ -579,8 +583,8 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             sql = "INSERT INTO SINTOMA_PENSAMIENTOS (ID_PENSAMIENTO, ID_SINTOMA_POSITIVO) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //String tiposPensamientos = paciente.getSintomasPositivosTipoPensamiento();
-                //Pensamiento[] pensamientos = p;
+                // String tiposPensamientos = paciente.getSintomasPositivosTipoPensamiento();
+                // Pensamiento[] pensamientos = p;
                 for (Pensamiento tipoPensamiento : pensamientos) {
                     int idPensamiento = obtenerIdPorNombre("PENSAMIENTOS",
                             convertirGuiones(tipoPensamiento.getNombre().trim()),
@@ -606,8 +610,9 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             sql = "INSERT INTO SINTOMA_CONTENIDO_PENSAMIENTOS (ID_CONTENIDO_PENSAMIENTO, ID_SINTOMA_POSITIVO) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //String tiposContenidosPensamientos = paciente.getSintomasPositivosTipoContenidoPensamiento();
-                //ContenidoPensamiento[] contenidos = cp;
+                // String tiposContenidosPensamientos =
+                // paciente.getSintomasPositivosTipoContenidoPensamiento();
+                // ContenidoPensamiento[] contenidos = cp;
                 for (ContenidoPensamiento tipoContenidoPensamiento : contenidos) {
                     int idContenidoPensamiento = obtenerIdPorNombre("CONTENIDO_PENSAMIENTOS",
                             convertirGuiones(tipoContenidoPensamiento.getNombre().trim()),
@@ -634,11 +639,12 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
             Atencion atencion = negativos.getSintomasNegativosAtencion();
             int idAtencion = obtenerIdPorNombre("ATENCIONES", convertirGuiones(atencion.getNombre()), "ID_ATENCION");
             Actividad actividad = negativos.getSintomasNegativosActividad();
-            int idActividad = obtenerIdPorNombre("ACTIVIDADES", convertirGuiones(actividad.getNombre()), "ID_ACTIVIDAD");
+            int idActividad = obtenerIdPorNombre("ACTIVIDADES", convertirGuiones(actividad.getNombre()),
+                    "ID_ACTIVIDAD");
             sql = "INSERT INTO SINTOMAS_NEGATIVOS (ID_PACIENTE, ID_ATENCION, ID_ACTIVIDAD, BAJO_FUNCIONAMIENTO, " +
                     "COMENTARIO_FUNCIONAMIENTO, DURACION_NEGATIVOS) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                System.out.println("ATENCION: "+idAtencion);
+                System.out.println("ATENCION: " + idAtencion);
                 preparedStatement.setInt(1, idPaciente);
                 preparedStatement.setInt(2, idAtencion);
                 preparedStatement.setInt(3, idActividad);
@@ -664,10 +670,11 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             sql = "INSERT INTO SINTOMA_ASPECTOS (ID_ASPECTO, ID_SINTOMA_NEGATIVO) VALUES(?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //String tiposAspectos = paciente.getSintomasNegativosAspecto();
-                //String[] tiposAspectosArray = tiposAspectos.split(",");
+                // String tiposAspectos = paciente.getSintomasNegativosAspecto();
+                // String[] tiposAspectosArray = tiposAspectos.split(",");
                 for (Aspecto tipoAspecto : aspectos) {
-                    int idAspecto = obtenerIdPorNombre("ASPECTOS", convertirGuiones(tipoAspecto.getNombre().trim()), "ID_ASPECTO");
+                    int idAspecto = obtenerIdPorNombre("ASPECTOS", convertirGuiones(tipoAspecto.getNombre().trim()),
+                            "ID_ASPECTO");
                     preparedStatement.setInt(1, idAspecto);
                     preparedStatement.setInt(2, idSintomaNegativo);
                     preparedStatement.executeUpdate();
@@ -689,10 +696,11 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             sql = "INSERT INTO SINTOMA_AFECTIVIDADES (ID_AFECTIVIDAD,             ID_SINTOMA_NEGATIVO) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                //String tiposAfectividades = paciente.getSintomasNegativosAfectividad();
-                //String[] tiposAfectividadesArray = tiposAfectividades.split(",");
+                // String tiposAfectividades = paciente.getSintomasNegativosAfectividad();
+                // String[] tiposAfectividadesArray = tiposAfectividades.split(",");
                 for (Afectividad tipoAfectividad : afectividades) {
-                    int idAfectividad = obtenerIdPorNombre("AFECTIVIDADES", convertirGuiones(tipoAfectividad.getNombre().trim()),
+                    int idAfectividad = obtenerIdPorNombre("AFECTIVIDADES",
+                            convertirGuiones(tipoAfectividad.getNombre().trim()),
                             "ID_AFECTIVIDAD");
                     preparedStatement.setInt(1, idAfectividad);
                     preparedStatement.setInt(2, idSintomaNegativo);
@@ -744,7 +752,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             int idMedico = obtenerIdPorMail("MEDICOS", consulta.getMedico().getEmail(),
                     "ID_MEDICO");
-            System.out.println("MEDICO"+idMedico);
+            System.out.println("MEDICO" + idMedico);
             String sql = "INSERT INTO CONSULTAS (ID_MEDICO, ID_PACIENTE, FECHA, ID_DIAGNOSTICO) VALUES (?, ?, ?, ?)";
             Date todayDate = new Date(Calendar.getInstance().getTimeInMillis());
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -764,7 +772,6 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
         }
     }
 
- 
     // region select ALUCINACIONES
     public static Alucinacion[] obtenerAlucinacionesPorSintoma(int idPaciente) {
         String sql = "SELECT a.NOMBRE AS TIPOS_ALUCINACIONES ," +
@@ -774,22 +781,22 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 "LEFT JOIN SINTOMA_ALUCINACIONES sa ON sp.ID_SINTOMA_POSITIVO = sa.ID_SINTOMA_POSITIVO " +
                 "LEFT JOIN ALUCINACIONES a ON sa.ID_ALUCINACION = a.ID_ALUCINACION " +
                 "WHERE p.ID_PACIENTE = ?";
-        System.out.println("LLEGO ACÁ 1"+idPaciente);
+        System.out.println("LLEGO ACÁ 1" + idPaciente);
         List<Alucinacion> alucinaciones = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            
+
             preparedStatement.setInt(1, idPaciente);
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
                 System.out.println("LLEGO ACÁ 2");
                 String nombre = resultSet.getString("TIPOS_ALUCINACIONES");
                 int idAlucinacion = resultSet.getInt("ID_ALUCINACION");
                 Alucinacion alucinacion = new Alucinacion(idAlucinacion, nombre);
-                alucinaciones.add(alucinacion); 
+                alucinaciones.add(alucinacion);
             }
-            System.out.println("ALUCINACIONES ARRAY:"+alucinaciones);
+            System.out.println("ALUCINACIONES ARRAY:" + alucinaciones);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -807,7 +814,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 "LEFT JOIN SINTOMA_LENGUAJES sl ON sp.ID_SINTOMA_POSITIVO = sl.ID_SINTOMA_POSITIVO " +
                 "LEFT JOIN LENGUAJES l ON sl.ID_LENGUAJE = l.ID_LENGUAJE " +
                 "WHERE p.ID_PACIENTE = ?";
-        System.out.println("LENGUAJES:"+idPaciente);
+        System.out.println("LENGUAJES:" + idPaciente);
         List<Lenguaje> lenguajes = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -820,7 +827,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 String nombre = resultSet.getString("TIPOS_LENGUAJES");
                 int idLenguaje = resultSet.getInt("ID_LENGUAJE");
                 Lenguaje lenguaje = new Lenguaje(idLenguaje, nombre);
-                lenguajes.add(lenguaje); 
+                lenguajes.add(lenguaje);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -847,7 +854,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 String nombre = resultSet.getString("TIPOS_PENSAMIENTOS");
                 int idPensamiento = resultSet.getInt("ID_PENSAMIENTO");
                 Pensamiento pensamiento = new Pensamiento(idPensamiento, nombre);
-                pensamientos.add(pensamiento); 
+                pensamientos.add(pensamiento);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -874,11 +881,12 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 String nombre = resultSet.getString("TIPOS_CONTENIDOS_PENSAMIENTOS");
                 int idContenidoPensamiento = resultSet.getInt("ID_CONTENIDO_PENSAMIENTO");
                 ContenidoPensamiento contenidoPensamiento = new ContenidoPensamiento(idContenidoPensamiento, nombre);
-                contenidosPensamientos.add(contenidoPensamiento);             }
+                contenidosPensamientos.add(contenidoPensamiento);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return(contenidosPensamientos.toArray(new ContenidoPensamiento[0]));
+        return (contenidosPensamientos.toArray(new ContenidoPensamiento[0]));
     }
     // endregion select CONTENIDO_PENSAMIENTOS
 
@@ -900,12 +908,12 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 String nombre = resultSet.getString("TIPOS_ASPECTOS");
                 int idAspecto = resultSet.getInt("ID_ASPECTO");
                 Aspecto aspecto = new Aspecto(idAspecto, nombre);
-                aspectos.add(aspecto);             
+                aspectos.add(aspecto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return(aspectos.toArray(new Aspecto[0]));
+        return (aspectos.toArray(new Aspecto[0]));
     }
     // endregion select ASPECTOS
 
@@ -927,12 +935,12 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
                 String nombre = resultSet.getString("TIPOS_AFECTIVIDADES");
                 int idAfectividad = resultSet.getInt("ID_AFECTIVIDAD");
                 Afectividad afectividad = new Afectividad(idAfectividad, nombre);
-                afectividades.add(afectividad);      
+                afectividades.add(afectividad);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return(afectividades.toArray(new Afectividad[0]));
+        return (afectividades.toArray(new Afectividad[0]));
     }
     // endregion select AFECTIVIDADES
 
@@ -1020,7 +1028,7 @@ public static List<Consulta> obtenerTodasLasConsultasConDetalles() {
     }
 
     private static int convertirABit(String valor) {
-        System.out.println("PRUEBA 3"+valor);
+        System.out.println("PRUEBA 3" + valor);
         return valor.equalsIgnoreCase("Si") ? 1 : 0;
     }
 

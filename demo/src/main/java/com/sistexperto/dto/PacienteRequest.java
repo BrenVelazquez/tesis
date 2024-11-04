@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 public class PacienteRequest {
-    // Estos son todos los datos que vamos a recolectar y enviar a las reglas (todas los valores de la tabla CAV)
-    
+
     @JsonProperty("edad")
     private int edad;
 
@@ -53,7 +52,6 @@ public class PacienteRequest {
     @JsonProperty("sintomas_positivos_tipo_contenido_pensamiento")
     private String sintomas_positivos_tipo_contenido_pensamiento;
 
-
     @JsonProperty("sintomas_negativos_duracion")
     private String sintomas_negativos_duracion;
 
@@ -83,4 +81,4 @@ public class PacienteRequest {
 
     @JsonProperty("estudio_causa_natural")
     private String estudio_causa_natural;
-} 
+}

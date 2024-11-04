@@ -8,7 +8,6 @@ public class PacienteDTO {
     private String fecha;
     private String nombreMedico;
 
-    // Getters y Setters    
     public int getIdPaciente() {
         return idPaciente;
     }
@@ -16,7 +15,7 @@ public class PacienteDTO {
     public void setIdPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -52,6 +51,7 @@ public class PacienteDTO {
     public String getNombreMedico() {
         return nombreMedico;
     }
+
     public void setNombreMedico(String nombreMedico) {
         this.nombreMedico = nombreMedico;
     }

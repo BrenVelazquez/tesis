@@ -41,7 +41,7 @@ function mostrarError(campo, mensaje) {
     campo.style.borderColor = "red";
     const errorDiv = document.createElement("div");
     errorDiv.className = "error-message";
-    errorDiv.style.color = "red"; 
+    errorDiv.style.color = "red";
     errorDiv.style.marginBotton = "5px";
     errorDiv.textContent = mensaje;
     campo.parentNode.appendChild(errorDiv);
@@ -70,8 +70,6 @@ async function iniciar_sesion() {
     const datosLogin = obtenerDatosLogin();
     if (validar_campos(datosLogin)) {
         const jsonString = JSON.stringify(datosLogin);
-        // console.log("Datos del formulario en formato JSON: ", jsonString);
-        // console.log('jsonString: ' + jsonString);
         try {
             const response = await $.ajax({
                 type: "POST",

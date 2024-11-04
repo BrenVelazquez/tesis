@@ -4,7 +4,6 @@ import com.sistexperto.model.Paciente;
 
 global com.sistexperto.dto.PacienteResponse pacienteResponse;
 
-// creo que esto no se usa
 global Boolean esquizofrenia;
 global Boolean noPosibleEsquizofrenia;
 global Boolean posibleTemporal;
@@ -326,7 +325,7 @@ when
     && estudio_causa_natural=="estudio-causa-natural-si")
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 0)
-    pacienteResponse.actualizarRecomendacion("Se recomienda derivar o relaizar consulta a neurología",1)   
+    pacienteResponse.actualizarRecomendacion("Se recomienda derivar o realizar consulta a neurología",1)   
     // pacienteResponse.actualizarReglasEjecutadas("Alucinaciones - Olfativas con estudiosidad"); 
 end
 
