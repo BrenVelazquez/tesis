@@ -196,7 +196,7 @@ input {
     margin-bottom: 0;
 }
 
-#estudio-comentario {
+#estudio-comentario, .comentario-adicional {
     flex: 1 1 15%;
     min-width: 250px;
 }
