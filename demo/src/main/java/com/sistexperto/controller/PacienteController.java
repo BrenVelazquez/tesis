@@ -7,18 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.sistexperto.model.Consulta;
-import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.Medico;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
-import com.sistexperto.model.Paciente;
-import com.sistexperto.model.SintomaPositivo;
 import com.sistexperto.service.PacienteService;
-import com.sistexperto.model.Estudio;
-import com.sistexperto.model.Diagnostico;
-import com.sistexperto.model.SintomaNegativo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -248,19 +241,22 @@ public class PacienteController {
 
     // region descargarExcel
     @GetMapping("/descargarExcel")
-    public ResponseEntity<byte[]> descargarExcel() {
+    public ResponseEntity<?> descargarExcel() {
         try {
             byte[] excelOrCsvData = pacienteService.descargarExcel();
 
-            if (excelOrCsvData != null) {
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-                headers.setContentDispositionFormData("attachment", "dataset.xlsx");
-
-                return new ResponseEntity<>(excelOrCsvData, headers, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (excelOrCsvData == null || excelOrCsvData.length == 0) {
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "No hay datos disponibles para exportar.");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "dataset.xlsx");
+
+            return new ResponseEntity<>(excelOrCsvData, headers, HttpStatus.OK);
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

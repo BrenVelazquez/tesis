@@ -30,8 +30,10 @@ btnDownload.addEventListener('click', function () {
     showModal('Iniciando la descarga del archivo Excel con todos los casos...');
     fetch("/descargarExcel")
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Error al descargar el archivo");
+            if (response.status === 404) {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Error al descargar el archivo."); 
+                });
             }
             return response.blob();
         })
@@ -52,7 +54,7 @@ btnDownload.addEventListener('click', function () {
         })
         .catch(error => {
             console.error(error);
-            modalMessage.textContent = 'Ocurrió un error al descargar el excel, por favor intente nuevamente más tarde.';
+            modalMessage.textContent = error.message || 'Ocurrió un error al descargar el excel, por favor intente nuevamente más tarde.';
             btnClose.disabled = false;
             loader.style.display = 'none';
             errorIcon.style.display = 'block';

@@ -106,10 +106,8 @@ public class database {
     // region LOGIN
     public static Medico login(String mail, String password) {
 
-        System.out.println("database");
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             String sql = "SELECT * FROM MEDICOS WHERE EMAIL= ? AND CONTRASEÑA = ?";
-            System.out.println(mail);
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, mail);
                 preparedStatement.setString(2, password);
@@ -122,7 +120,6 @@ public class database {
                     medico.setDni(resultSet.getInt("DNI"));
                     medico.setNombreMedico(resultSet.getString("NOMBRE"));
                     medico.setApellidoMedico(resultSet.getString("APELLIDO"));
-                    System.out.println("devuelve medico");
                     return medico;
                 } else {
                     return null;
@@ -398,16 +395,8 @@ public class database {
             // tieneEstudios = "sI".equals(estudio.getEstudioCausaNatural());
             if (estudio != null) {
                 tieneEstudios = true;
-                System.out.println("TIENE ESTUDIOS" + tieneEstudios);
                 String sql = "INSERT INTO ESTUDIOS (CAUSA_ORGANICA, COMENTARIO, IMAGEN_PATH) VALUES (?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    /*
-                     * preparedStatement.setString(1, paciente.getEstudioCausaNatural());
-                     * preparedStatement.setNString(2, paciente.getEstudioComentario());
-                     * preparedStatement.setString(3,paciente.getImagen());
-                     * preparedStatement.executeUpdate();
-                     */
-                    System.out.println("INSERT ESTUDIO:" + estudio.getEstudioCausaNatural());
                     preparedStatement.setString(1, estudio.getEstudioCausaNatural());
                     preparedStatement.setNString(2, estudio.getEstudioComentario());
                     preparedStatement.setString(3, estudio.getImagen());
@@ -442,7 +431,6 @@ public class database {
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             }
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                System.out.println("PRUEBA2" + historia.getTrastornoComunicacion());
                 preparedStatement.setInt(1, convertirABit(historia.getTrastornoAutista()));
                 preparedStatement.setInt(2, convertirABit(historia.getTrastornoComunicacion()));
                 preparedStatement.setInt(3, convertirABit(historia.getTrastornoEsquizoafectivo()));
@@ -781,7 +769,6 @@ public class database {
                 "LEFT JOIN SINTOMA_ALUCINACIONES sa ON sp.ID_SINTOMA_POSITIVO = sa.ID_SINTOMA_POSITIVO " +
                 "LEFT JOIN ALUCINACIONES a ON sa.ID_ALUCINACION = a.ID_ALUCINACION " +
                 "WHERE p.ID_PACIENTE = ?";
-        System.out.println("LLEGO ACÁ 1" + idPaciente);
         List<Alucinacion> alucinaciones = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -790,7 +777,6 @@ public class database {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("LLEGO ACÁ 2");
                 String nombre = resultSet.getString("TIPOS_ALUCINACIONES");
                 int idAlucinacion = resultSet.getInt("ID_ALUCINACION");
                 Alucinacion alucinacion = new Alucinacion(idAlucinacion, nombre);
@@ -819,11 +805,8 @@ public class database {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, idPaciente);
-            System.out.println("LLEGA ACÁ 3:");
-
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                System.out.println("LLEGA ACÁ 4");
                 String nombre = resultSet.getString("TIPOS_LENGUAJES");
                 int idLenguaje = resultSet.getInt("ID_LENGUAJE");
                 Lenguaje lenguaje = new Lenguaje(idLenguaje, nombre);
@@ -1028,7 +1011,6 @@ public class database {
     }
 
     private static int convertirABit(String valor) {
-        System.out.println("PRUEBA 3" + valor);
         return valor.equalsIgnoreCase("Si") ? 1 : 0;
     }
 

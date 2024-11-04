@@ -2,11 +2,9 @@ package com.sistexperto.service;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import com.sistexperto.model.Medico;
 import java.util.StringJoiner;
@@ -48,7 +46,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
-import java.awt.Color;
 
 @Service
 public class PacienteService {
@@ -295,6 +292,7 @@ public class PacienteService {
                 consulta.setFechaConsulta(fechaFormateada);
             }
         }
+        System.out.println("consultas: " + consultas);
 
         return consultas;
     }
@@ -327,6 +325,10 @@ public class PacienteService {
             // 1. Obtener los datos de la base de datos
             List<Consulta> consultas = obtenerTodasLasConsultasConDetalles();
 
+            if (consultas == null || consultas.isEmpty()) {
+                System.out.println("No hay datos para generar el archivo Excel.");
+                return null;
+            }
             // 2. Procesar los datos y generar un archivo Excel o CSV
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             System.out.println(consultas);
