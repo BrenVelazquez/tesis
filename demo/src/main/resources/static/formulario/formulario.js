@@ -26,6 +26,8 @@ $(document).ready(function () {
     const medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
         document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
+    }else{
+        window.location.href = '/Login/login.html'; // Redirigir a la página de login
     }
 });
 
@@ -72,6 +74,12 @@ function mostrarPopup() {
 }
 
 function mostrarJustificacion() {
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
+    }else{
+        window.location.href = '/Login/login.html'; // Redirigir a la página de login
+    }
     $("#justificacion-explicacion").fadeIn(1000);
 }
 
@@ -752,120 +760,125 @@ function obtenerDatosFormulario() {
 // region determinar_diagnostico
 function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
+    if (medicoData) {
+        const datosFormulario = obtenerDatosFormulario();
+        let datosReglas = {
+            nombre: datosFormulario.nombre,
+            edad: datosFormulario.edad,
+            sexo: datosFormulario.sexo,
+            antecedentes_familiares: datosFormulario.antecedentes_familiares,
+            trastorno_autista: datosFormulario.trastorno_autista,
+            trastorno_comunicacion: datosFormulario.trastorno_Comunicacion,
+            trastorno_esquizoafectivo: datosFormulario.trastorno_esquizoafectivo,
+            trastorno_bipolar: datosFormulario.trastorno_bipolar,
+            trastorno_depresivo: datosFormulario.trastorno_depresivo,
+            sustancias: datosFormulario.sustancias,
+            estudio_causa_natural: datosFormulario.estudio_causa_natural,
+            sintomas_positivos_duracion: datosFormulario.sintomas_positivos_duracion,
+            sintomas_positivos_tipo_alucinaciones: datosFormulario.sintomas_positivos_tipo_alucinaciones_String,
+            sintomas_positivos_alucinaciones: datosFormulario.sintomas_positivos_alucinaciones,
+            sintomas_positivos_tipo_lenguaje: datosFormulario.sintomas_positivos_tipo_lenguaje_String,
+            sintomas_positivos_tipo_pensamiento: datosFormulario.sintomas_positivos_tipo_pensamiento_String,
+            sintomas_positivos_tipo_ritmo_pensamiento: datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento_string,
+            sintomas_positivos_tipo_contenido_pensamiento: datosFormulario.sintomas_positivos_tipo_contenido_pensamiento_String,
+            sintomas_negativos_duracion: datosFormulario.sintomas_negativos_duracion,
+            sintomas_negativos_aspecto: datosFormulario.sintomas_negativos_tipo_aspecto_String,
+            sintomas_negativos_atencion: datosFormulario.sintomas_negativos_atencion_string,
+            sintomas_negativos_actividad: datosFormulario.sintomas_negativos_actividad_string,
+            sintomas_negativos_afectividad: datosFormulario.sintomas_negativos_tipo_afectividad_String,
+            sintomas_negativos_bajo_funcionamiento: datosFormulario.sintomas_negativos_bajo_funcionamiento,
+            sintomas_negativos_bajo_funcionamiento_comentario: datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
+        };
+        const jsonString = JSON.stringify(datosReglas);
+        console.log("Datos del formulario en formato JSON: ", jsonString);
+        if (validar_campos(datosFormulario)) {
+            $("#justificacion-title").click(function () {
+                $("#justificacion").toggle();
 
-    const datosFormulario = obtenerDatosFormulario();
-    let datosReglas = {
-        nombre: datosFormulario.nombre,
-        edad: datosFormulario.edad,
-        sexo: datosFormulario.sexo,
-        antecedentes_familiares: datosFormulario.antecedentes_familiares,
-        trastorno_autista: datosFormulario.trastorno_autista,
-        trastorno_comunicacion: datosFormulario.trastorno_Comunicacion,
-        trastorno_esquizoafectivo: datosFormulario.trastorno_esquizoafectivo,
-        trastorno_bipolar: datosFormulario.trastorno_bipolar,
-        trastorno_depresivo: datosFormulario.trastorno_depresivo,
-        sustancias: datosFormulario.sustancias,
-        estudio_causa_natural: datosFormulario.estudio_causa_natural,
-        sintomas_positivos_duracion: datosFormulario.sintomas_positivos_duracion,
-        sintomas_positivos_tipo_alucinaciones: datosFormulario.sintomas_positivos_tipo_alucinaciones_String,
-        sintomas_positivos_alucinaciones: datosFormulario.sintomas_positivos_alucinaciones,
-        sintomas_positivos_tipo_lenguaje: datosFormulario.sintomas_positivos_tipo_lenguaje_String,
-        sintomas_positivos_tipo_pensamiento: datosFormulario.sintomas_positivos_tipo_pensamiento_String,
-        sintomas_positivos_tipo_ritmo_pensamiento: datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento_string,
-        sintomas_positivos_tipo_contenido_pensamiento: datosFormulario.sintomas_positivos_tipo_contenido_pensamiento_String,
-        sintomas_negativos_duracion: datosFormulario.sintomas_negativos_duracion,
-        sintomas_negativos_aspecto: datosFormulario.sintomas_negativos_tipo_aspecto_String,
-        sintomas_negativos_atencion: datosFormulario.sintomas_negativos_atencion_string,
-        sintomas_negativos_actividad: datosFormulario.sintomas_negativos_actividad_string,
-        sintomas_negativos_afectividad: datosFormulario.sintomas_negativos_tipo_afectividad_String,
-        sintomas_negativos_bajo_funcionamiento: datosFormulario.sintomas_negativos_bajo_funcionamiento,
-        sintomas_negativos_bajo_funcionamiento_comentario: datosFormulario.sintomas_negativos_bajo_funcionamiento_comentario,
-    };
-    const jsonString = JSON.stringify(datosReglas);
-    console.log("Datos del formulario en formato JSON: ", jsonString);
-    if (validar_campos(datosFormulario)) {
-        $("#justificacion-title").click(function () {
-            $("#justificacion").toggle();
+                $(this).toggleClass('collapsed');
 
-            $(this).toggleClass('collapsed');
-
-            if ($(this).hasClass('collapsed')) {
-                $("#justificacion-icon").css("transform", "rotate(-90deg)");
-            } else {
-                $("#justificacion-icon").css("transform", "rotate(0deg)");
-            }
-        });
-
-        $("#recomendacion-title").click(function () {
-            $("#recomendacion").toggle();
-            $(this).toggleClass('collapsed');
-
-            if ($(this).hasClass('collapsed')) {
-                $("#recomendacion-icon").css("transform", "rotate(-90deg)");
-            } else {
-                $("#recomendacion-icon").css("transform", "rotate(0deg)");
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "/diagnosticar",
-            contentType: "application/json",
-            data: jsonString,
-            success: function (response) {
-                console.log("Respuesta: ", JSON.stringify(response));
-                document.getElementById("nombre-paciente").textContent = datosFormulario.nombre;
-
-                let diagnostico = response.diagnostico;
-                $(".diagnostico-seccion").css("display", "none");
-                switch (diagnostico) {
-                    case "Esquizofrenia":
-                        $("#esquizofrenia").css("display", "block");
-                        break;
-                    case "Evaluar esquizofrenia temporal":
-                        $("#evaluar-temporal").css("display", "block");
-                        break;
-                    case "Esquizofrenia no posible":
-                        $("#no-posible-esquizofrenia").css("display", "block");
-                        break;
-                    default:
-                        console.log("Opción de diagnostico desconocida");
+                if ($(this).hasClass('collapsed')) {
+                    $("#justificacion-icon").css("transform", "rotate(-90deg)");
+                } else {
+                    $("#justificacion-icon").css("transform", "rotate(0deg)");
                 }
+            });
 
-                let recomendacion = response.recomendacion;
-                if (recomendacion != null) {
-                    $("#recomendacion-title").css("display", "block");
-                    $("#recomendacion").css("display", "block");
-                    $("#recomendacion").text(recomendacion ? recomendacion : "-");
+            $("#recomendacion-title").click(function () {
+                $("#recomendacion").toggle();
+                $(this).toggleClass('collapsed');
+
+                if ($(this).hasClass('collapsed')) {
+                    $("#recomendacion-icon").css("transform", "rotate(-90deg)");
+                } else {
+                    $("#recomendacion-icon").css("transform", "rotate(0deg)");
                 }
+            });
 
-                let justificacion = response.justificacion;
-                if (justificacion != null) {
-                    $("#justificacion").css("display", "block");
-                    let justificacionArray = justificacion.split('\n');
-                    let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
-                    $("#justificacion").html(`<ul>${listItems}</ul>`);
+            $.ajax({
+                type: "POST",
+                url: "/diagnosticar",
+                contentType: "application/json",
+                data: jsonString,
+                success: function (response) {
+                    console.log("Respuesta: ", JSON.stringify(response));
+                    document.getElementById("nombre-paciente").textContent = datosFormulario.nombre;
+
+                    let diagnostico = response.diagnostico;
+                    $(".diagnostico-seccion").css("display", "none");
+                    switch (diagnostico) {
+                        case "Esquizofrenia":
+                            $("#esquizofrenia").css("display", "block");
+                            break;
+                        case "Evaluar esquizofrenia temporal":
+                            $("#evaluar-temporal").css("display", "block");
+                            break;
+                        case "Esquizofrenia no posible":
+                            $("#no-posible-esquizofrenia").css("display", "block");
+                            break;
+                        default:
+                            console.log("Opción de diagnostico desconocida");
+                    }
+
+                    let recomendacion = response.recomendacion;
+                    if (recomendacion != null) {
+                        $("#recomendacion-title").css("display", "block");
+                        $("#recomendacion").css("display", "block");
+                        $("#recomendacion").text(recomendacion ? recomendacion : "-");
+                    }
+
+                    let justificacion = response.justificacion;
+                    if (justificacion != null) {
+                        $("#justificacion").css("display", "block");
+                        let justificacionArray = justificacion.split('\n');
+                        let listItems = justificacionArray.map(line => `<li>${line}</li>`).join('');
+                        $("#justificacion").html(`<ul>${listItems}</ul>`);
+                    }
+                    else {
+                        $("#justificacion").text("No disponible");
+                    }
+                    // Actualizar los campos del formulario con la respuesta del diagnóstico
+                    datosFormulario.diagnostico = response.diagnostico;
+                    datosFormulario.puntaje = response.puntaje;
+                    datosFormulario.recomendacion = response.recomendacion || "No disponible";
+                    datosFormulario.justificacion = response.justificacion || "No disponible";
+                    datosFormulario.reglas = response.reglas_ejecutadas || "No disponible";
+
+                    console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
+                    // actualizar datosFormulario
+                    window.datosFormulario = datosFormulario;
+                    mostrarPopup();
+                },
+                error: function (error) {
+                    console.error("Error en la solicitud de diagnósitco: " + JSON.stringify(error));
                 }
-                else {
-                    $("#justificacion").text("No disponible");
-                }
-                // Actualizar los campos del formulario con la respuesta del diagnóstico
-                datosFormulario.diagnostico = response.diagnostico;
-                datosFormulario.puntaje = response.puntaje;
-                datosFormulario.recomendacion = response.recomendacion || "No disponible";
-                datosFormulario.justificacion = response.justificacion || "No disponible";
-                datosFormulario.reglas = response.reglas_ejecutadas || "No disponible";
+            });
+        }
+        
 
-                console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
-                // actualizar datosFormulario
-                window.datosFormulario = datosFormulario;
-                mostrarPopup();
-            },
-            error: function (error) {
-                console.error("Error en la solicitud de diagnósitco: " + JSON.stringify(error));
-            }
-        });
-
+    }else{
+        window.location.href = '/Login/login.html'; // Redirigir a la página de login
     }
     console.log("FIN FUNCION DIAGNOSTICO()");
 
@@ -905,9 +918,12 @@ function mostrarLoaderBoton(boton) {
 // region guardarRegistro
 async function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
-
+    
+    
     const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
     datosFormulario.estado = estado;
+    let medicoData = JSON.parse(localStorage.getItem('medico'));
+    
 
     const comentarioMedico = document.getElementById("comentarios-medicos").value;
     const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
@@ -916,49 +932,56 @@ async function guardarRegistro(estado) {
 
     const jsonString = JSON.stringify(datosFormulario);
     console.log("Datos del formulario en formato JSON: ", jsonString);
-
+    
     bloquearBotones();
     const botonClickeado = estado === 'Confirmado'
         ? document.getElementById('confirmar-diagnostico')
         : document.getElementById('confirmar-rechazar-diagnostico');
 
+    medicoData = JSON.parse(localStorage.getItem('medico'));
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
+    }else{
+        window.location.href = '/Login/login.html'; // Redirigir a la página de login
+    }
     mostrarLoaderBoton(botonClickeado);
 
-    // Obtener el archivo seleccionado
-    // let fileInput = document.getElementById('imagen');
-    // let file = fileInput.files[0];
+        // Obtener el archivo seleccionado
+        // let fileInput = document.getElementById('imagen');
+        // let file = fileInput.files[0];
 
-    // // Crear un objeto FormData
-    // let formData = new FormData();
-    // formData.append('file', file);
+        // // Crear un objeto FormData
+        // let formData = new FormData();
+        // formData.append('file', file);
 
-    //Metodo de Subir Imagen
-    // console.error('file:', file);
-    // console.error('formData:', formData);
-    // if(file){
-    //     console.log("Se carga el archivo.");
-    //     $.ajax({
-    //         url: '/subirImagen', // La URL del Controller
-    //         type: 'POST',
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         success: function (data) {
-    //             console.log('Imagen subida y guardada con éxito:', data);
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.error('Error al subir la imagen:', error);
-    //         }
-    //     });
-    // }
+        //Metodo de Subir Imagen
+        // console.error('file:', file);
+        // console.error('formData:', formData);
+        // if(file){
+        //     console.log("Se carga el archivo.");
+        //     $.ajax({
+        //         url: '/subirImagen', // La URL del Controller
+        //         type: 'POST',
+        //         data: formData,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function (data) {
+        //             console.log('Imagen subida y guardada con éxito:', data);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error('Error al subir la imagen:', error);
+        //         }
+        //     });
+        // }
 
     //Metodo de Cargar Paciente
     console.log('###### Metodo de Cargar Paciente #####');
-    console.log('jsonString: ' + jsonString);
-    const medicoData = JSON.parse(localStorage.getItem('medico'));
-    let datosCombinados = null;
-
+    medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
+        console.log('jsonString: ' + jsonString);
+        const medicoData = JSON.parse(localStorage.getItem('medico'));
+        let datosCombinados = null;
+
         datosCombinados = {
             /*paciente: { 
                 ...datosFormulario,
@@ -1013,30 +1036,34 @@ async function guardarRegistro(estado) {
                 ...medicoData,
             }
         };
-    }
-    console.log(JSON.stringify(datosCombinados),);
+        console.log(JSON.stringify(datosCombinados));
 
-    try {
-        const response = await $.ajax({
-            type: "POST",
-            url: "/ingresarPaciente",
-            contentType: "application/json",
-            data: JSON.stringify(datosCombinados),
-        });
-        if (response.exito) {
-            console.log('Paciente ingresado con éxito:', response);
-            mostrarSnackbar(response.mensaje, true);
-            return true;
-        } else {
+        try {
+            const response = await $.ajax({
+                type: "POST",
+                url: "/ingresarPaciente",
+                contentType: "application/json",
+                data: JSON.stringify(datosCombinados),
+            });
+            if (response.exito) {
+                console.log('Paciente ingresado con éxito:', response);
+                mostrarSnackbar(response.mensaje, true);
+                return true;
+            } else {
+                console.error('Error al registrar al paciente:', response);
+                mostrarSnackbar(response.mensaje, false);
+                return false;
+            }
+        } catch (error) {
             console.error('Error al registrar al paciente:', response);
             mostrarSnackbar(response.mensaje, false);
             return false;
         }
-    } catch (error) {
-        console.error('Error al registrar al paciente:', response);
-        mostrarSnackbar(response.mensaje, false);
-        return false;
+    }else{
+        window.location.href = '/Login/login.html'; // Redirigir a la página de login
     }
+
+    
 }
 // endregion guardarRegistro
 
