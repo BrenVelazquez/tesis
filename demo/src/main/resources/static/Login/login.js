@@ -79,8 +79,6 @@ async function iniciar_sesion() {
             });
             if (response.mensaje === "Usuario y contraseña correcto.") {
                 const medico = response.medico;
-
-                console.log(response);
                 localStorage.setItem("medico", JSON.stringify(medico));
                 window.location.href = "/home";
                 return true;

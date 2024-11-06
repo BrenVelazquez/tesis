@@ -1,37 +1,43 @@
 let datosFormulario = {};
-let nombreMedico;
 let imagenPath;
+let medicoData;
+
 $(document).ready(function () {
-    initializeButtons();
+    if (validarMedico()) {
+        initializeButtons();
 
-    $("#complementarios-container").load("complementarios.html", function () {
-        initializeComplementaryButtons();
-        insertarImagen();
-    });
-
-    $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
-        initializePositiveButtons();
-    });
-
-    $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
-        initializeNegativeButtons();
-    });
-
-    $("#diagnostico-popup").load("diagnostico.html", function () {
-        $('#close-popup').on('click', function () {
-            cerrarPopup();
+        $("#complementarios-container").load("complementarios.html", function () {
+            initializeComplementaryButtons();
+            insertarImagen();
         });
-    });
 
-    const medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
+        $("#sintomas-positivos-container").load("sintomasPositivos.html", function () {
+            initializePositiveButtons();
+        });
+
+        $("#sintomas-negativos-container").load("sintomasNegativos.html", function () {
+            initializeNegativeButtons();
+        });
+
+        $("#diagnostico-popup").load("diagnostico.html", function () {
+            $('#close-popup').on('click', function () {
+                cerrarPopup();
+            });
+        });
     }
 });
 
 document.addEventListener('DOMContentLoaded', function () { });
+
+function validarMedico() {
+    medicoData = JSON.parse(localStorage.getItem('medico'));
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
+        return true;
+    } else {
+        window.location.href = '/Login/login.html';
+    }
+}
 
 // region imagen
 function insertarImagen() {
@@ -74,13 +80,9 @@ function mostrarPopup() {
 }
 
 function mostrarJustificacion() {
-    const medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
+    if (validarMedico()) {
+        $("#justificacion-explicacion").fadeIn(1000);
     }
-    $("#justificacion-explicacion").fadeIn(1000);
 }
 
 function cerrarPopup() {
@@ -488,7 +490,6 @@ function validar_campos(datosFormulario) {
     return esValido;
 }
 
-
 function mostrarError(campo, mensaje) {
     campo.style.borderColor = "red";
     const errorDiv = document.createElement("div");
@@ -648,8 +649,7 @@ function obtenerDatosFormulario() {
             });
         }
     }
-    console.log("ALUCINACIONES", JSON.stringify(listaAlucinaciones, null, 2));
-    console.log(sintomasPositivosAlucinaciones);
+
     /*
     const listaLenguaje = sintomasPositivosTipoLenguaje.split(',');
     const lLenguajes= listaLenguaje.map(lenguaje => `new Lenguaje("${lenguaje}")`);
@@ -691,7 +691,6 @@ function obtenerDatosFormulario() {
         nombre: afectividad.trim()
     }));
 
-
     const ritmoPensamiento = {
         id: 0,
         nombre: sintomasPositivosTipoRitmoPensamiento,
@@ -705,9 +704,7 @@ function obtenerDatosFormulario() {
         nombre: sintomasNegativosActividad,
     };
 
-
     //LISTAS
-
     datosFormulario = {
         edad: edad,
         sexo: sexo,
@@ -760,8 +757,7 @@ function obtenerDatosFormulario() {
 // region determinar_diagnostico
 function determinar_diagnostico() {
     console.log("INICIO FUNCION DIAGNOSTICO()");
-    const medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
+    if (validarMedico()) {
         const datosFormulario = obtenerDatosFormulario();
         let datosReglas = {
             nombre: datosFormulario.nombre,
@@ -858,15 +854,12 @@ function determinar_diagnostico() {
                     else {
                         $("#justificacion").text("No disponible");
                     }
-                    // Actualizar los campos del formulario con la respuesta del diagnóstico
                     datosFormulario.diagnostico = response.diagnostico;
                     datosFormulario.puntaje = response.puntaje;
                     datosFormulario.recomendacion = response.recomendacion || "No disponible";
                     datosFormulario.justificacion = response.justificacion || "No disponible";
                     datosFormulario.reglas = response.reglas_ejecutadas || "No disponible";
-
                     console.log('DATOS DEL FORMULARIO ACTUALIZADOS', datosFormulario);
-                    // actualizar datosFormulario
                     window.datosFormulario = datosFormulario;
                     mostrarPopup();
                 },
@@ -875,13 +868,8 @@ function determinar_diagnostico() {
                 }
             });
         }
-        
-
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
     }
     console.log("FIN FUNCION DIAGNOSTICO()");
-
 }
 // endregion determinar_diagnostico
 
@@ -918,33 +906,23 @@ function mostrarLoaderBoton(boton) {
 // region guardarRegistro
 async function guardarRegistro(estado) {
     console.log("### guardarRegistro ###");
-    
-    
-    const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
-    datosFormulario.estado = estado;
-    let medicoData = JSON.parse(localStorage.getItem('medico'));
-    
+    if (validarMedico()) {
+        const datosFormulario = window.datosFormulario || obtenerDatosFormulario();
+        datosFormulario.estado = estado;
+        const comentarioMedico = document.getElementById("comentarios-medicos").value;
+        const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
+        datosFormulario.comentario_medico = comentarioMedico || "";
+        datosFormulario.justificacion_rechazo = justificacionRechazo || "";
 
-    const comentarioMedico = document.getElementById("comentarios-medicos").value;
-    const justificacionRechazo = document.getElementById("justificacion-rechazo").value;
-    datosFormulario.comentario_medico = comentarioMedico || "";
-    datosFormulario.justificacion_rechazo = justificacionRechazo || "";
+        const jsonString = JSON.stringify(datosFormulario);
+        console.log("Datos del formulario en formato JSON: ", jsonString);
 
-    const jsonString = JSON.stringify(datosFormulario);
-    console.log("Datos del formulario en formato JSON: ", jsonString);
-    
-    bloquearBotones();
-    const botonClickeado = estado === 'Confirmado'
-        ? document.getElementById('confirmar-diagnostico')
-        : document.getElementById('confirmar-rechazar-diagnostico');
+        bloquearBotones();
+        const botonClickeado = estado === 'Confirmado'
+            ? document.getElementById('confirmar-diagnostico')
+            : document.getElementById('confirmar-rechazar-diagnostico');
 
-    medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
-    }
-    mostrarLoaderBoton(botonClickeado);
+        mostrarLoaderBoton(botonClickeado);
 
         // Obtener el archivo seleccionado
         // let fileInput = document.getElementById('imagen');
@@ -974,12 +952,9 @@ async function guardarRegistro(estado) {
         //     });
         // }
 
-    //Metodo de Cargar Paciente
-    console.log('###### Metodo de Cargar Paciente #####');
-    medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
+        //Metodo de Cargar Paciente
+        console.log('###### Metodo de Cargar Paciente #####');
         console.log('jsonString: ' + jsonString);
-        const medicoData = JSON.parse(localStorage.getItem('medico'));
         let datosCombinados = null;
 
         datosCombinados = {
@@ -1059,11 +1034,7 @@ async function guardarRegistro(estado) {
             mostrarSnackbar(response.mensaje, false);
             return false;
         }
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
     }
-
-    
 }
 // endregion guardarRegistro
 

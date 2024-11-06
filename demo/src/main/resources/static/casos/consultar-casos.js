@@ -1,22 +1,24 @@
+let pacientes = [];
+
 document.addEventListener('DOMContentLoaded', function () {
-    obtenerPacientes();
+    if (validarMedico()) {
+        obtenerPacientes();
+    }
 });
 
 $(document).ready(function () {
-    nombreMedico = localStorage.getItem("nombreMedico");
+    validarMedico();
+});
 
-    if (nombreMedico) {
-        document.getElementById('username').textContent = `Dr/Dra: ${nombreMedico}`;
-    }
+function validarMedico() {
     const medicoData = JSON.parse(localStorage.getItem('medico'));
     if (medicoData) {
         document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
+        return true;
+    } else {
+        window.location.href = '/Login/login.html';
     }
-});
-
-let pacientes = [];
+}
 
 async function obtenerPacientes() {
     const tabla = document.getElementById('tabla-pacientes');
@@ -73,12 +75,13 @@ function limpiarTabla() {
 }
 
 function verDetalle(id) {
-    window.location.href = `/detalle/detalle.html?idPaciente=${id}`;
+    if (validarMedico()) {
+        window.location.href = `/detalle/detalle.html?idPaciente=${id}`;
+    }
 }
 
 function buscarPacientes() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    console.log('searchTerm: ' + searchTerm);
 
     const pacientesFiltrados = pacientes.filter(paciente =>
         paciente.nombre.toLowerCase().includes(searchTerm) ||
@@ -86,7 +89,6 @@ function buscarPacientes() {
         paciente.estado.toLowerCase().includes(searchTerm) ||
         paciente.fecha.toLowerCase().includes(searchTerm)
     );
-    console.log('pacientesFiltrados: ' + JSON.stringify(pacientesFiltrados));
     mostrarPacientesEnTabla(pacientesFiltrados);
 }
 
@@ -96,7 +98,9 @@ function refrescarTabla() {
 }
 
 function volver() {
-    window.location.href = "/home";
+    if (validarMedico()) {
+        window.location.href = "/home";
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

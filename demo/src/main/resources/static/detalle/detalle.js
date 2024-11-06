@@ -9,13 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 function obtenerIdPacienteDeUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('idPaciente');
 }
 
 $(document).ready(function () {
+    const medicoData = JSON.parse(localStorage.getItem('medico'));
+    if (medicoData) {
+        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
+    } else {
+        window.location.href = '/Login/login.html';
+    }
 
     $("#detalle-complementarios-container").load("detalleComplementarios.html", function () { });
 
@@ -24,13 +29,6 @@ $(document).ready(function () {
     $("#detalle-sintomas-negativos-container").load("detalleSintomasNegativos.html", function () { });
 
     $("#detalle-diagnostico-container").load("detalleDiagnostico.html", function () { });
-
-    const medicoData = JSON.parse(localStorage.getItem('medico'));
-    if (medicoData) {
-        document.getElementById('username').textContent = `Dr/Dra: ${medicoData.nombre_medico + " " + medicoData.apellido_medico}`;
-    }else{
-        window.location.href = '/Login/login.html'; // Redirigir a la página de login
-    }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
