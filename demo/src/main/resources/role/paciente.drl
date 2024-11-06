@@ -344,7 +344,6 @@ then
 end
 
 rule "PUNTAJE: Delirios - No" 
-//esta se puede borrar
 when
     $pacienteRequest: PacienteRequest(sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-sistematizada")==false 
     && sintomas_positivos_tipo_contenido_pensamiento.contains("ideacion-delirante-no-sistematizada")==false)
@@ -423,7 +422,6 @@ then
 end
 
 rule "PUNTAJE: Edad - Edad de mayor riesgo sin sexo"
-//agregar a regla de mujer
 when
     $pacienteRequest: PacienteRequest((edad >= 12 && edad <= 30) && (sexo=="-1" || sexo=="No-especifica"))
 then
