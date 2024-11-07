@@ -190,6 +190,9 @@ public class PacienteService {
         historia.setTrastornoBipolar(c.getPaciente().getHistoriaClinica().getTrastornoBipolar());
         historia.setAntecedentesFamiliares(c.getPaciente().getHistoriaClinica().getAntecedentesFamiliares());
         historia.setSustancias(c.getPaciente().getHistoriaClinica().getSustancias());
+        estudio.setEstudioComentario(c.getPaciente().getHistoriaClinica().getEstudio().getEstudioComentario());
+        estudio.setEstudioCausaNatural(c.getPaciente().getHistoriaClinica().getEstudio().getEstudioCausaNatural());
+        estudio.setImagen(c.getPaciente().getHistoriaClinica().getEstudio().getImagen());
         historia.setEstudio(estudio);
         positivos.setSintomasPositivosAlucinaciones(
                 c.getPaciente().getSintomasPositivos().getSintomasPositivosAlucinaciones());
@@ -344,7 +347,7 @@ public class PacienteService {
                         "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
                         "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
                         "SE DESCARTA CAUSA ORGÁNICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/*, "IMAGEN" */,
-                        "NOMBRE DEL MEDICO" };
+                        "NOMBRE DEL MÉDICO" };
 
                 for (int i = 0; i < columnHeaders.length; i++) {
                     Cell cell = headerRow.createCell(i);

@@ -83,26 +83,6 @@ public class PacienteController {
     // region ingresarPaciente
     @PostMapping("/ingresarPaciente")
     public ResponseEntity<Map<String, Object>> ingresarPaciente(@RequestBody Consulta request) {
-        /*
-         * Paciente paciente = request.getPaciente();
-         * //AGREGO CLASES
-         * logger.info("ANTECEDENTES FAMILIARES:",paciente.getHistoriaClinica().
-         * getAntecedentesFamiliares());
-         * Medico medico=request.getMedico();
-         * Diagnostico diagnostico=request.getDiagnostico();
-         * Consulta consulta=new Consulta();
-         * consulta.setDiagnostico(diagnostico);
-         * consulta.setFechaConsulta(null);
-         * consulta.setMedico(medico);
-         * consulta.setPaciente(paciente);
-         * //FIN AGREGO CLASES
-         * int idMedico = request.getMedico().getId();
-         * logger.info("Recibiendo solicitud con Paciente PARA GUARDAR: {}",
-         * consulta.getPaciente().getNombre());
-         * logger.info("IMAGEN PATH",
-         * consulta.getPaciente().getHistoriaClinica().getEstudio().getImagen());
-         */
-
         Boolean exito = pacienteService.ingresarNuevoPaciente(request);
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("exito", exito);
