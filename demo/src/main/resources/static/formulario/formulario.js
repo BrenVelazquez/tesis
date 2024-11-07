@@ -1,6 +1,8 @@
 let datosFormulario = {};
 let imagenPath;
 let medicoData;
+let firstInvalidField = null;
+const errorText = "Por favor, seleccione una opción.";
 
 $(document).ready(function () {
     if (validarMedico()) {
@@ -274,218 +276,195 @@ document.addEventListener('DOMContentLoaded', function () {
 function validar_campos(datosFormulario) {
     resetearErrores();
     let esValido = true;
-    const errorText = "Por favor, seleccione una opción.";
+    let field = null;
+    firstInvalidField = null;
 
     if (datosFormulario.nombre == "") {
-        mostrarError(document.getElementById("nombre"), "Por favor, ingrese el nombre del paciente.");
+        field = document.getElementById("nombre");
+        mostrarError(field, "Por favor, ingrese el nombre del paciente.");
         esValido = false;
+        firstInvalidField = field;
     }
 
     if (datosFormulario.edad == "") {
-        mostrarError(document.getElementById("edad"), "Por favor, ingrese la edad del paciente.");
+        field = document.getElementById("edad");
+        mostrarError(field, "Por favor, ingrese la edad del paciente.");
         esValido = false;
+        esValido = setInvalid(field);
     }
-    else if (datosFormulario.edad > 120 || datosFormulario.edad < 1) {
-        mostrarError(document.getElementById("edad"), "Por favor, ingrese una edad valida.");
-        esValido = false;
+    else if (!validarEdad(datosFormulario.edad)) {
+        field = document.getElementById("edad");
+        mostrarError(field, "Por favor, ingrese una edad valida.");
+        esValido = setInvalid(field);
     }
 
     if (datosFormulario.sexo == "-1") {
-        mostrarError(document.getElementById("sexo"), "Por favor, ingrese el sexo del paciente.");
-        esValido = false;
+        field = document.getElementById("sexo");
+        mostrarError(field, "Por favor, ingrese el sexo del paciente.");
+        esValido = setInvalid(field);
     }
 
     if (!datosFormulario.trastorno_autista) {
-        document.getElementById("error-trastorno-autista").textContent = errorText;
-        document.getElementById("error-trastorno-autista").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-trastorno-autista");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-trastorno-autista").style.display = "none";
     }
 
     if (!datosFormulario.trastorno_comunicacion) {
-        document.getElementById("error-trastorno-comunicacion").textContent = errorText;
-        document.getElementById("error-trastorno-comunicacion").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-trastorno-comunicacion");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-trastorno-comunicacion").style.display = "none";
     }
 
     if (!datosFormulario.trastorno_esquizoafectivo) {
-        document.getElementById("error-trastorno-esquizoafectivo").textContent = errorText;
-        document.getElementById("error-trastorno-esquizoafectivo").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-trastorno-esquizoafectivo");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-trastorno-esquizoafectivo").style.display = "none";
     }
 
     if (!datosFormulario.trastorno_depresivo) {
-        document.getElementById("error-trastorno-depresivo").textContent = errorText;
-        document.getElementById("error-trastorno-depresivo").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-trastorno-depresivo");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-trastorno-depresivo").style.display = "none";
     }
 
     if (!datosFormulario.trastorno_bipolar) {
-        document.getElementById("error-trastorno-bipolar").textContent = errorText;
-        document.getElementById("error-trastorno-bipolar").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-trastorno-bipolar");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-trastorno-bipolar").style.display = "none";
     }
 
     if (!datosFormulario.antecedentes_familiares) {
-        document.getElementById("error-antecedentes-familiares").textContent = errorText;
-        document.getElementById("error-antecedentes-familiares").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-antecedentes-familiares");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-antecedentes-familiares").style.display = "none";
     }
 
     // SINTOMAS POSITIVOS
     if (datosFormulario.sintomas_positivos_duracion == "Seleccioná una opción") {
-        mostrarError(document.getElementById("sintomas-positivos-duracion"), errorText);
-        esValido = false;
+        field = document.getElementById("sintomas-positivos-duracion");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     }
 
     if (!datosFormulario.sintomas_positivos_alucinaciones) {
-        document.getElementById("error-sintomas-positivos-alucinaciones").textContent = errorText;
-        document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-sintomas-positivos-alucinaciones");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-sintomas-positivos-alucinaciones").style.display = "none";
-        var cboxes = document.getElementsByName('alucinaciones[]');
-        var len = cboxes.length;
-        const alucinaciones = [];
-        for (var i = 0; i < len; i++) {
-            if (cboxes[i].checked) alucinaciones.push(cboxes[i].value);
-        }
-        const sintomasPositivosTipoAlucinaciones = alucinaciones.toString();
+        if (!validarCheckboxes('alucinaciones', 'alucinaciones')
 
-
-        if (datosFormulario.sintomas_positivos_alucinaciones == "Si" && sintomasPositivosTipoAlucinaciones == '') {
-            mostrarError(document.getElementById("alucinaciones"), errorText);
-            esValido = false;
+            && datosFormulario.sintomas_positivos_alucinaciones == "Si") {
+            field = document.getElementById("alucinaciones");
+            esValido = setInvalid(field);
         }
     }
 
-    var cboxes = document.getElementsByName('lenguaje[]');
-    var len = cboxes.length;
-    const lenguaje = [];
-    for (var i = 0; i < len; i++) {
-        if (cboxes[i].checked) lenguaje.push(cboxes[i].value);
-    }
-    const sintomasPositivosTipoLenguaje = lenguaje.toString();
-
-
-    if (sintomasPositivosTipoLenguaje == '') {
-
-        mostrarError(document.getElementById("lenguaje"), errorText);
-        esValido = false;
+    if (!validarCheckboxes('lenguaje', 'lenguaje')) {
+        field = document.getElementById("lenguaje");
+        esValido = setInvalid(field);
     }
 
-    cboxes = document.getElementsByName('pensamiento[]');
-    len = cboxes.length;
-    const pensamiento = [];
-    for (var i = 0; i < len; i++) {
-        if (cboxes[i].checked) pensamiento.push(cboxes[i].value);
-    }
-    const sintomas_positivos_tipo_pensamiento = pensamiento.toString();
-
-    if (sintomas_positivos_tipo_pensamiento == '') {
-        mostrarError(document.getElementById("pensamiento"), errorText);
-        esValido = false;
+    if (!validarCheckboxes('pensamiento', 'pensamiento')) {
+        field = document.getElementById("pensamiento");
+        esValido = setInvalid(field);
     }
 
     if (datosFormulario.sintomas_positivos_tipo_ritmo_pensamiento.nombre === "-1") {
-        mostrarError(document.getElementById("ritmo-pensamiento"), errorText);
-        esValido = false;
+        field = document.getElementById("ritmo-pensamiento");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     }
 
-    cboxes = document.getElementsByName('contenido-pensamiento[]');
-    len = cboxes.length;
-    const contenido = [];
-    for (var i = 0; i < len; i++) {
-        if (cboxes[i].checked) contenido.push(cboxes[i].value);
-    }
-    const sintomas_positivos_tipo_contenido_pensamiento = contenido.toString();
-
-
-    if (sintomas_positivos_tipo_contenido_pensamiento == '') {
-        mostrarError(document.getElementById("contenido-pensamiento"), errorText);
-        esValido = false;
+    if (!validarCheckboxes('contenido-pensamiento', 'contenido-pensamiento')) {
+        field = document.getElementById("contenido-pensamiento");
+        esValido = setInvalid(field);
     }
 
     // SINTOMAS NEGATIVOS
     if (datosFormulario.sintomas_negativos_duracion == "Seleccioná una opción") {
-        mostrarError(document.getElementById("sintomas-negativos-duracion"), errorText);
-        esValido = false;
+        field = document.getElementById("sintomas-negativos-duracion");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     }
 
-    cboxes = document.getElementsByName('aspecto[]');
-    len = cboxes.length;
-    const aspecto = [];
-    for (var i = 0; i < len; i++) {
-        if (cboxes[i].checked) aspecto.push(cboxes[i].value);
-    }
-    const sintomas_negativos_aspecto = aspecto.toString();
-
-    if (sintomas_negativos_aspecto == '') {
-        mostrarError(document.getElementById("aspecto"), errorText);
-        esValido = false;
+    if (!validarCheckboxes('aspecto', 'aspecto')) {
+        field = document.getElementById("aspecto");
+        esValido = setInvalid(field);
     }
 
     if (datosFormulario.sintomas_negativos_atencion.nombre == "-1") {
-        mostrarError(document.getElementById("atencion"), errorText);
-        esValido = false;
+        field = document.getElementById("atencion");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     }
 
     if (datosFormulario.sintomas_negativos_actividad.nombre == "-1") {
-        mostrarError(document.getElementById("actividad"), errorText);
-        esValido = false;
+        field = document.getElementById("actividad");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     }
 
-    cboxes = document.getElementsByName('afectividad[]');
-    len = cboxes.length;
-    const afectividad = [];
-    for (var i = 0; i < len; i++) {
-        if (cboxes[i].checked) afectividad.push(cboxes[i].value);
-    }
-    const sintomas_negativos_afectividad = afectividad.toString();
-
-    if (sintomas_negativos_afectividad == '') {
-        mostrarError(document.getElementById("afectividad"), errorText);
-        esValido = false;
+    if (!validarCheckboxes('afectividad', 'afectividad')) {
+        field = document.getElementById("afectividad");
+        esValido = setInvalid(field);
     }
 
     if (!datosFormulario.sintomas_negativos_bajo_funcionamiento) {
-        document.getElementById("error-bajo-funcionamiento").textContent = errorText;
-        document.getElementById("error-bajo-funcionamiento").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-bajo-funcionamiento");
+        mostrarError(field, errorText);
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-bajo-funcionamiento").style.display = "none";
     }
 
     // COMPLEMENTARIOS
     if (!datosFormulario.sustancias) {
-        document.getElementById("error-sustancias").textContent = errorText;
-        document.getElementById("error-sustancias").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-sustancias");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-sustancias").style.display = "none";
     }
 
     if (!datosFormulario.estudios) {
-        document.getElementById("error-estudios").textContent = errorText;
-        document.getElementById("error-estudios").style.display = "block";
-        esValido = false;
+        field = document.getElementById("error-estudios");
+        field.textContent = errorText;
+        field.style.display = "block";
+        esValido = setInvalid(field);
     } else {
         document.getElementById("error-estudios").style.display = "none";
         if (datosFormulario.estudios == "Si" && datosFormulario.estudio_causa_natural === "-1") {
-            mostrarError(document.getElementById("estudio-causa-natural-opcion"), errorText);
-            esValido = false;
+            field = document.getElementById("estudio-causa-natural-opcion");
+            mostrarError(field, errorText);
+            esValido = setInvalid(field);
         }
+    }
+
+    if (firstInvalidField) {
+        firstInvalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+        firstInvalidField.focus();
     }
     return esValido;
 }
@@ -497,15 +476,44 @@ function mostrarError(campo, mensaje) {
     errorDiv.style.color = "red";
     errorDiv.textContent = mensaje;
     campo.parentNode.appendChild(errorDiv);
+    errorDiv.classList.add("mensaje-error");
+    console.log("campo: " + JSON.stringify(campo));
+}
+
+function setInvalid(field) {
+    if (!firstInvalidField) {
+        firstInvalidField = field;
+        console.log("field: " + JSON.stringify(firstInvalidField));
+    }
+    return false;
 }
 
 function resetearErrores() {
     const errores = document.querySelectorAll(".error-message");
     errores.forEach(error => {
         const campo = error.parentNode.querySelector("input, select, .checkboxes");
-        campo.style.borderColor = "";
+        if (campo != null) {
+            campo.style.borderColor = "";
+        }
         error.parentNode.removeChild(error);
     });
+}
+
+function validarEdad(edad) {
+    return edad > 0 && edad <= 120;
+}
+
+function validarCheckboxes(grupoNombre, errorId) {
+    console.log("grupoNombre: " + grupoNombre);
+    console.log("errorId: " + errorId);
+    const checkboxes = document.getElementsByName(`${grupoNombre}[]`);
+    const seleccionados = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+    if (!seleccionados) {
+        mostrarError(document.getElementById(errorId), errorText);
+        return false;
+    }
+    return true;
 }
 // endregion validar campos
 
@@ -791,7 +799,6 @@ function determinar_diagnostico() {
         if (validar_campos(datosFormulario)) {
             $("#justificacion-title").click(function () {
                 $("#justificacion").toggle();
-
                 $(this).toggleClass('collapsed');
 
                 if ($(this).hasClass('collapsed')) {
