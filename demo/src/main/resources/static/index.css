@@ -184,28 +184,29 @@ header {
   text-align: center;
   margin-top: auto;
   width: 100%;
-  padding: 20px 10px; 
+  padding: 5px 0;
   position: relative;
   bottom: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: Verdana, sans-serif;
   background-color: #009587;
   color: #fff;
+  line-height: 1.2; 
 }
 
 
 @media (max-width: 768px) {
   .footer {
-    font-size: 1rem;
-    padding: 15px 5px; 
+    font-size: 0.9rem; 
+    padding: 4px 0;  
   }
 }
 
 
 @media (max-width: 480px) {
   .footer {
-    font-size: 0.9rem; 
-    padding: 10px 5px; 
+    font-size: 0.8rem;  
+    padding: 3px 0; 
   }
 }
 
