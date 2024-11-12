@@ -77,7 +77,6 @@ public class PacienteService {
     }
 
     // region Subir imagen
-
     public void validateFile(MultipartFile file) throws Exception {
         if (!isFileExtensionValid(file)) {
             throw new Exception("La extensión del archivo no es válida.");
@@ -245,9 +244,6 @@ public class PacienteService {
     }
     // endregion guardar paciente
 
-    // region guardar diagnostico
-    // endregion guardar diagnostico
-
     // region obtenerTodosLosPacientes
     public List<PacienteDTO> obtenerTodosLosPacientes() {
         List<PacienteDTO> pacientesDTO = database.obtenerPacientes();
@@ -258,6 +254,7 @@ public class PacienteService {
         }
         return pacientesDTO;
     }
+    // endregion obtenerTodosLosPacientes
 
     // region obtenerTodasLasConsultasConDetalles
     public List<Consulta> obtenerTodasLasConsultasConDetalles() {
@@ -290,13 +287,6 @@ public class PacienteService {
         return consulta;
     }
     // endregion obtenerPacientePorId
-
-    // region login
-    public Medico login(String mail, String password) {
-        Medico medico = database.login(mail, password);
-        return medico;
-    }
-    // endregion login
 
     // region descargarExcel
     public byte[] descargarExcel() {
@@ -346,7 +336,7 @@ public class PacienteService {
                         "ASPECTO", "ATENCIÓN", "ACTIVIDAD", "AFECTIVIDAD",
                         "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
                         "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
-                        "SE DESCARTA CAUSA ORGÁNICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/*, "IMAGEN" */,
+                        "SE DESCARTA CAUSA ORGÁNICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/* , "IMAGEN" */,
                         "NOMBRE DEL MÉDICO" };
 
                 for (int i = 0; i < columnHeaders.length; i++) {
@@ -604,5 +594,4 @@ public class PacienteService {
         return "1".equals(estado) ? "Sí" : "No";
     }
     // endregion formateo
-
 }

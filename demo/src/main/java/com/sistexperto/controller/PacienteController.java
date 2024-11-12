@@ -8,13 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.sistexperto.model.Consulta;
-import com.sistexperto.model.Medico;
 import com.sistexperto.dto.PacienteRequest;
 import com.sistexperto.dto.PacienteResponse;
 import com.sistexperto.service.PacienteService;
-
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -197,24 +193,6 @@ public class PacienteController {
         }
     }
     // endregion obtenerDetallesPaciente
-
-    // region login
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody Map<String, String> loginRequest) {
-        String mail = loginRequest.get("mail");
-        String contraseña = loginRequest.get("contraseña");
-        Medico medico = pacienteService.login(mail, contraseña);
-        Map<String, Object> respuesta = new HashMap<>();
-
-        if (medico != null) {
-            respuesta.put("medico", medico);
-            respuesta.put("mensaje", "Usuario y contraseña correcto.");
-        } else {
-            respuesta.put("mensaje", "Médico no encontrado.");
-        }
-        return ResponseEntity.ok(respuesta);
-    }
-    // endregion login
 
     // region descargarExcel
     @GetMapping("/descargarExcel")
