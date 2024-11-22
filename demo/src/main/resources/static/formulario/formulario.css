@@ -386,6 +386,15 @@ body {
     background-color: #f8f8f8;
 }
 
+select.form-control {
+    font-size: 16px;
+}
+
+.comment-placeholder {
+    font-size: 16px;
+    color: #9a9a9a;
+}
+
 @media (max-width: 768px) {
     h2 {
         font-size: 1.5rem;
@@ -397,6 +406,14 @@ body {
 
     h6 {
         font-size: 14px;
+    }
+
+    select.form-control {
+        font-size: 14px;
+    }
+
+    .comment-placeholder {
+        font-size: 13px;
     }
 
     .button-container .btn {
@@ -475,5 +492,9 @@ body {
         color: red;
         display: none;
         margin-top: 10px;
+    }
+
+    .comment-placeholder {
+        font-size: 15px;
     }
 }

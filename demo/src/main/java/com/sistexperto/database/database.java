@@ -8,10 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.sistexperto.controller.PacienteDTO;
 import com.sistexperto.model.Consulta;
 import com.sistexperto.model.ImagenesEntity;
@@ -31,7 +28,6 @@ import com.sistexperto.model.Afectividad;
 import com.sistexperto.model.HistoriaClinica;
 import com.sistexperto.model.SintomaPositivo;
 import com.sistexperto.model.SintomaNegativo;
-
 public class database {
 
     private static final String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=tesis;";
@@ -49,7 +45,6 @@ public class database {
         if (!insertPaciente(consulta.getPaciente()))
             return false;
         if (!insertEstudios(consulta.getPaciente().getHistoriaClinica().getEstudio()))
-
             return false;
         if (!insertHistoriaClinica(consulta.getPaciente().getHistoriaClinica()))
             return false;

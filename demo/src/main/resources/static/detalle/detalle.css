@@ -65,22 +65,17 @@ input {
 }
 
 .recomendacion-container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;  
-    margin-bottom: 10px;
+    flex-grow: 1;
 }
 
 .justificacion-container {
     width: 100%;
     margin-top: 10px;
-    display: flex;
-    flex-direction: column;
 }
 
 .justificacion-rechazo-container,
 .comentarios {
-    width: 49%;
+    width: 100%;
     margin-top: 10px;
 }
 
@@ -99,11 +94,12 @@ input {
     justify-content: center;
     flex-direction: column;
     border: 2px dashed #ccc;
+    padding: 20px;
     border-radius: 10px;
-    max-width: 300px;  
-    min-height: 150px;  
+    width: 100%;
+    max-width: 300px;
+    min-height: 150px;
     margin: 20px auto;
-    overflow: hidden;
 }
 
 .image-upload {
@@ -112,10 +108,10 @@ input {
 
 .image-preview {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: none;
-    display: block;  
+    max-width: 100%;
 }
 
 .insert-photo-message {
@@ -200,22 +196,16 @@ input {
     margin-bottom: 0;
 }
 
-#estudio-comentario, .comentario-adicional {
+#estudio-comentario,
+.comentario-adicional {
     flex: 1 1 15%;
     min-width: 250px;
 }
 
-#estudio-comentario-id .col-12 {
-    width: 100%;
+#estudio-causa-natural-id h6 {
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
-
-#estudio-comentario-text {
-    width: 100%;
-    resize: vertical;  
-    font-size: 0.85rem; 
-}
-
-
 
 input.form-control {
     background-color: #e9ecef;
@@ -223,114 +213,44 @@ input.form-control {
     border: 1px solid #ced4da;
 }
 
-.adjust-br {
-    display: none;
-}
-
-
-@media (max-width: 1180px) {
-    .adjust-br {
-        display: block; 
-    }
-}
-
-
-
-@media (max-width: 767px) {
-
+@media (min-width: 768px) and (max-width: 1024px) {
     .gray-box {
         display: flex;
-        flex-direction: column;  
-        gap: 10px; 
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
-    .diagnostico-container,
-    .recomendacion-container {
-        width: 100%;  
+    .form-group-btn {
+        min-width: 25%;
         box-sizing: border-box;
     }
 
-  
-    h6 {
-        font-size: 0.7rem; 
-    }
-
-    
-    #recomendacion-container h6,
-    #justificacion-container h6 {
-        font-size: 0.9rem;  
-    }
-
-    .diagnostico-container h3,
-    .recomendacion-container h6 {
-        font-size: 0.9rem; 
-    }
-
-    .textarea {
-        width: 100%;
-        font-size: 0.75rem;
-        padding: 5px;
-        height: 80px;
-        resize: none;
-    }
-
-    
-    .button-container .btn {
-        width: 100%;
-        margin-bottom: 8px;
-        font-size: 0.75rem; 
-        padding: 6px 12px; 
+    .btn-bool {
+        margin-bottom: 5px;
     }
 }
 
-
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 768px) {
 
     h6 {
-        font-size: 0.7rem; 
+        font-size: 0.9rem;
     }
 
-    .diagnostico-container h3, 
-    .recomendacion-container h6 {
-        font-size: 0.9rem; 
-    }
-
-   
-    .gray-box {
-        display: flex;
-        flex-wrap: wrap;  
-        gap: 15px;
-        justify-content: space-between;
-    }
-
-    .diagnostico-container,
-    .recomendacion-container {
-        flex: 1 1 calc(50% - 15px);  
-        box-sizing: border-box;  
-    }
-
+    #recomendacion-container,
     #justificacion-rechazo-container,
     #comentarios,
     #justificacion-container {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
     }
 
     .textarea {
         width: 100%;
-        font-size: 0.75rem;
-        padding: 5px;
-        height: 80px;
-        resize: none;
     }
 
     .button-container .btn {
         width: 100%;
-        margin-bottom: 8px;
-        font-size: 0.75rem; 
-        padding: 6px 12px; 
+        margin-bottom: 10px;
+        font-size: 0.7rem;
     }
 
     .btn-bool,
@@ -345,111 +265,29 @@ input.form-control {
         margin-bottom: 10px;
     }
 
-    .diagnostico-container {
+    .gray-box {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .diagnostico-container {
         width: 100%;
         align-items: center;
     }
-
-    .image-container {
-        width: 100%;
-        max-width: 100%;
-        min-height: 120px; 
-    }
-
-    #complementarios .col-md-4 {
-        width: 100%; 
-        margin-bottom: 10px; 
-    }
-
-    #complementarios h6 {
-        font-size: 0.85rem; 
-        margin-bottom: 5px; 
-    }
-
-    #complementarios .btn-choice {
-        font-size: 0.75rem;
-        padding: 6px 12px; 
-    }
-
-    #complementarios .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center; 
-    }
-
-    #complementarios .btn-group {
-        margin-bottom: 5px; 
-    }
-
-    .image-container {
-        max-width: 250px; 
-        min-height: 150px; 
-        margin: 20px auto; 
-    }
-
-    .image-preview {
-        max-height: 200px; 
-        object-fit: cover; 
-    }
-
-    .insert-photo-message {
-        font-size: 12px;
-    }
 }
 
-
-@media (min-width: 1024px) {
-
-    .gray-box {
-        display: flex;
-        flex-direction: row;
-        gap: 15px; 
-    }
-
-
-    
-    
-    .justificacion-container,
-    .comentarios {
-        width: 100%;
-    }
-
-    .textarea {
-        width: 100%;
-        font-size: 0.75rem; 
-        padding: 5px;
-        height: 80px;
-    }
-
+@media (min-width: 768px) {
     .button-container {
         display: flex;
         justify-content: space-between;
     }
 
     .button-container .btn {
-        width: 48%; 
-    }
-
-    .image-container {
-        width: 100%; 
-        max-width: 200px; 
-        min-height: 100px; 
-        margin: 10px auto; 
-    }
-
-    .image-preview {
-        display: block; 
-        object-fit: cover; 
-    }
-
-    .insert-photo-message {
-        font-size: 12px; 
+        width: 48%;
     }
 }
-
-
 
 .logout-button {
     pointer-events: auto !important;

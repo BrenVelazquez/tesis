@@ -626,17 +626,6 @@ function obtenerDatosFormulario() {
 
     const estudioComentario = document.getElementById("estudio-comentario-text").value;
     const imagen = imagenPath;
-    //FALTA IMAGEN
-
-    //ARRAYS
-    /*const listaAlucinaciones=[];
-    if(sintomasPositivosTipoAlucinaciones!=''){
-        listaAlucinaciones = sintomasPositivosTipoAlucinaciones.split(',');
-    }else{
-        listaAlucinaciones.push(sintomasPositivosAlucinaciones);
-    }
-
-    const lAlucinaciones = listaAlucinaciones.map(alucinacion => `new Alucionacion("${alucinacion}")`);*/
 
     let listaAlucinaciones = [];
     if (sintomasPositivosAlucinaciones == "Si") {
@@ -657,42 +646,30 @@ function obtenerDatosFormulario() {
             });
         }
     }
-
-    /*
-    const listaLenguaje = sintomasPositivosTipoLenguaje.split(',');
-    const lLenguajes= listaLenguaje.map(lenguaje => `new Lenguaje("${lenguaje}")`);
-*/
     let listaLenguajes = [];
     listaLenguajes = sintomasPositivosTipoLenguaje.split(',').map((lenguaje, index) => ({
         id: 0,
         nombre: lenguaje.trim()
     }));
-    /*const listaPensamiento = sintomasPositivosTipoPensamiento.split(',');
-    const lPensamientos= listaPensamiento.map(pensamiento => `new Pensamiento("${pensamiento}")`);*/
+
     let listaPensamientos = [];
     listaPensamientos = sintomasPositivosTipoPensamiento.split(',').map((pensamiento, index) => ({
         id: 0,
         nombre: pensamiento.trim()
     }));
 
-    /*const listaContenido = sintomasPositivosTipoContenidoPensamiento.split(',');
-    const lContenidos= listaContenido.map(contenido => `new Contenido("${contenido}")`);*/
     let listaContenidos = [];
     listaContenidos = sintomasPositivosTipoContenidoPensamiento.split(',').map((contenido, index) => ({
         id: 0,
         nombre: contenido.trim()
     }));
 
-    /*const listaAspecto = sintomasNegativosAspecto.split(',');
-    const lAspectos= listaAspecto.map(aspecto => `new Aspecto("${aspecto}")`);*/
     let listaAspectos = [];
     listaAspectos = sintomasNegativosAspecto.split(',').map((aspecto, index) => ({
         id: 0,
         nombre: aspecto.trim()
     }));
 
-    /*const listaAfectividad = sintomasNegativosAfectividad.split(',');
-    const lAfectividades= listaAfectividad.map(afectividad => `new Afectividad("${afectividad}")`);*/
     let listaAfectividades = [];
     listaAfectividades = sintomasNegativosAfectividad.split(',').map((afectividad, index) => ({
         id: 0,
@@ -712,7 +689,6 @@ function obtenerDatosFormulario() {
         nombre: sintomasNegativosActividad,
     };
 
-    //LISTAS
     datosFormulario = {
         edad: edad,
         sexo: sexo,
@@ -754,8 +730,6 @@ function obtenerDatosFormulario() {
         estudio_causa_natural: estudioCausaNatural,
         estudio_comentario: estudioComentario,
         imagen: imagen,
-
-        // FALTA IMAGEN
     };
 
     return datosFormulario
@@ -773,7 +747,7 @@ function determinar_diagnostico() {
             sexo: datosFormulario.sexo,
             antecedentes_familiares: datosFormulario.antecedentes_familiares,
             trastorno_autista: datosFormulario.trastorno_autista,
-            trastorno_comunicacion: datosFormulario.trastorno_Comunicacion,
+            trastorno_comunicacion: datosFormulario.trastorno_comunicacion,
             trastorno_esquizoafectivo: datosFormulario.trastorno_esquizoafectivo,
             trastorno_bipolar: datosFormulario.trastorno_bipolar,
             trastorno_depresivo: datosFormulario.trastorno_depresivo,
@@ -975,7 +949,7 @@ async function guardarRegistro(estado) {
                 historia_clinica: {
                     antecedentes_familiares: datosFormulario.antecedentes_familiares || '',
                     trastorno_autista: datosFormulario.trastorno_autista || '',
-                    trastorno_comunicacion: datosFormulario.trastorno_Comunicacion || '',
+                    trastorno_comunicacion: datosFormulario.trastorno_comunicacion || '',
                     trastorno_esquizoafectivo: datosFormulario.trastorno_esquizoafectivo || '',
                     trastorno_bipolar: datosFormulario.trastorno_bipolar || '',
                     trastorno_depresivo: datosFormulario.trastorno_depresivo || '',

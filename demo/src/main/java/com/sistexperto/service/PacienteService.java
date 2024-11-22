@@ -51,7 +51,6 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 public class PacienteService {
 
     private final KieContainer kieContainer;
-    private static final Logger logger = LoggerFactory.getLogger(PacienteService.class);
 
     public PacienteService(KieContainer kieContainer) {
         this.kieContainer = kieContainer;
@@ -594,4 +593,5 @@ public class PacienteService {
         return "1".equals(estado) ? "Sí" : "No";
     }
     // endregion formateo
+
 }
