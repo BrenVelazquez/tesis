@@ -112,7 +112,7 @@ when
     $pacienteRequest: PacienteRequest(sintomas_negativos_bajo_funcionamiento == "Si" )
 then
     pacienteResponse.setPuntaje(pacienteResponse.getPuntaje() + 5)   
-    pacienteResponse.actualizarJustificacion("Durante una parte significativa de tiempo desde el inicio del trastorno, el nivel de funcionamiento en uno o más ámbitos principales está muy por debajo del nivel alcanzado antes del inicio",1)   
+    pacienteResponse.actualizarJustificacion("Desde el inicio del trastorno el nivel de funcionamiento en uno o más ámbitos principales está por debajo del nivel esperado de funcionamiento interpersonal, académico o laboral",1)   
     pacienteResponse.actualizarReglasEjecutadas("R8"); 
 end    
 
