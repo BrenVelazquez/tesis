@@ -335,7 +335,7 @@ public class PacienteService {
                         "ASPECTO", "ATENCIÓN", "ACTIVIDAD", "AFECTIVIDAD",
                         "BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES",
                         "COMENTARIO SOBRE EL BAJO FUNCIONAMIENTO EN LOS ÁMBITOS PRINCIPALES", "POSEE ESTUDIOS",
-                        "SE DESCARTA CAUSA ORGÁNICA EN LOS ESTUDIOS", "COMENTARIOS DE LOS ESTUDIOS"/* , "IMAGEN" */,
+                        "SE ATRIBUYEN LOS SINTOMAS A UNA CAUSA ORGÁNICA", "COMENTARIOS DE LOS ESTUDIOS"/* , "IMAGEN" */,
                         "NOMBRE DEL MÉDICO" };
 
                 for (int i = 0; i < columnHeaders.length; i++) {
@@ -389,7 +389,7 @@ public class PacienteService {
                     for (int i = 0; i < alucinaciones.length; i++) {
                         al.append(alucinaciones[i].getNombre());
                         if (i < alucinaciones.length - 1) {
-                            al.append(", "); // Agregar coma entre elementos
+                            al.append(", ");
                         }
                     }
                     row.createCell(19).setCellValue(al.toString());
@@ -399,7 +399,7 @@ public class PacienteService {
                     for (int i = 0; i < lengaujes.length; i++) {
                         len.append(lengaujes[i].getNombre());
                         if (i < lengaujes.length - 1) {
-                            len.append(", "); // Agregar coma entre elementos
+                            len.append(", ");
                         }
                     }
                     row.createCell(20).setCellValue(len.toString());
@@ -409,7 +409,7 @@ public class PacienteService {
                     for (int i = 0; i < pensamientos.length; i++) {
                         tp.append(pensamientos[i].getNombre());
                         if (i < pensamientos.length - 1) {
-                            tp.append(", "); // Agregar coma entre elementos
+                            tp.append(", ");
                         }
                     }
                     row.createCell(21).setCellValue(tp.toString());
@@ -419,7 +419,7 @@ public class PacienteService {
                     for (int i = 0; i < contenidos.length; i++) {
                         cp.append(contenidos[i].getNombre());
                         if (i < contenidos.length - 1) {
-                            cp.append(", "); // Agregar coma entre elementos
+                            cp.append(", ");
                         }
                     }
                     row.createCell(22).setCellValue(cp.toString());
@@ -432,7 +432,7 @@ public class PacienteService {
                     for (int i = 0; i < aspectos.length; i++) {
                         as.append(aspectos[i].getNombre());
                         if (i < aspectos.length - 1) {
-                            as.append(", "); // Agregar coma entre elementos
+                            as.append(", ");
                         }
                     }
                     row.createCell(25).setCellValue(as.toString());
@@ -447,7 +447,7 @@ public class PacienteService {
                     for (int i = 0; i < afectividades.length; i++) {
                         af.append(afectividades[i].getNombre());
                         if (i < afectividades.length - 1) {
-                            af.append(", "); // Agregar coma entre elementos
+                            af.append(", ");
                         }
                     }
                     row.createCell(28).setCellValue(af.toString());
@@ -462,7 +462,7 @@ public class PacienteService {
 
                     String estudioCausaOrganica = consulta.getPaciente().getHistoriaClinica().getEstudio()
                             .getEstudioCausaNatural();
-                    row.createCell(31).setCellValue(estudioCausaOrganica != null ? "No" : "Sí");
+                    row.createCell(31).setCellValue(estudioCausaOrganica != null ? "Sí" : "No");
                     estudioCausaOrganica = "estudio-causa-natural-no".equals(estudioCausaOrganica) ? "No"
                             : "estudio-causa-natural-si".equals(estudioCausaOrganica) ? "Si" : "Inconcluso";
                     row.createCell(32).setCellValue(estudioCausaOrganica);
