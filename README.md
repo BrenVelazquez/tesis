@@ -1,2 +1,2 @@
 # tesis
-sistema experto para diagnostico de esquizofrenia
+Expert system for diagnosing schizophrenia
